@@ -21,6 +21,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "Outlets.db";
     private static final int DATABASE_VERSION = 1;
     private Dao<Outlet, Integer> outletDao;
+    private Dao<User, Integer> userDao;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -59,5 +60,12 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             outletDao = getDao(Outlet.class);
         }
         return outletDao;
+    }
+
+    public Dao<User, Integer> getUserDao() throws SQLException {
+        if (userDao == null) {
+            userDao = getDao(User.class);
+        }
+        return userDao;
     }
 }

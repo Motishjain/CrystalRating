@@ -21,8 +21,8 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="20dp">
 
-        <EditText
-            android:id="@+id/inputUserNameText"
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteInputUserNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Please enter your name"
