@@ -32,6 +32,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         try {
             // Create tables. This onCreate() method will be invoked only once of the application life time i.e. the first time when the application starts.
             TableUtils.createTable(connectionSource, Outlet.class);
+            TableUtils.createTable(connectionSource, User.class);
 
         } catch (SQLException e) {
             Log.e(DBHelper.class.getName(), "Unable to create datbases", e);
@@ -45,6 +46,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             //automatically. Developer needs to handle the upgrade logic here, i.e. create a new table or a new column to an existing table, take the backups of the
             // existing database etc.
             TableUtils.dropTable(connectionSource, Outlet.class, true);
+            TableUtils.dropTable(connectionSource, User.class, true);
             onCreate(sqliteDatabase, connectionSource);
         } catch (SQLException e) {
             Log.e(DBHelper.class.getName(), "Unable to upgrade database from version " + oldVer + " to new "

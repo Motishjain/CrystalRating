@@ -38,6 +38,8 @@ public class Outlet implements Serializable {
     @DatabaseField
     private String phoneNumber;
 
+    @DatabaseField
+    private String activeFlag;
 
     public Integer getId() {
         return id;
@@ -101,5 +103,13 @@ public class Outlet implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getActiveFlag() {
+        return activeFlag;
+    }
+
+    public void setActiveFlag(String activeFlag) {
+        this.activeFlag = activeFlag;
     }
 }
