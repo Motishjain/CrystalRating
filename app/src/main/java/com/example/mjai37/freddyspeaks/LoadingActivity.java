@@ -36,6 +36,7 @@ public class LoadingActivity extends AppCompatActivity {
                 startActivity(homePage);
             }
             else {
+
                 Intent registerOutlet = new Intent(LoadingActivity.this,RegisterOutletActivity.class);
                 startActivity(registerOutlet);
             }

@@ -21,6 +21,9 @@ public class Outlet implements Serializable {
     private String outletName;
 
     @DatabaseField
+    private String outletCode;
+
+    @DatabaseField
     private String aliasName;
 
     @DatabaseField
@@ -40,6 +43,9 @@ public class Outlet implements Serializable {
 
     @DatabaseField
     private String activeFlag;
+
+    @DatabaseField(dataType = DataType.BOOLEAN)
+    private boolean areGoodiesAvailable;
 
     public Integer getId() {
         return id;
@@ -111,5 +117,21 @@ public class Outlet implements Serializable {
 
     public void setActiveFlag(String activeFlag) {
         this.activeFlag = activeFlag;
+    }
+
+    public boolean isAreGoodiesAvailable() {
+        return areGoodiesAvailable;
+    }
+
+    public void setAreGoodiesAvailable(boolean areGoodiesAvailable) {
+        this.areGoodiesAvailable = areGoodiesAvailable;
+    }
+
+    public String getOutletCode() {
+        return outletCode;
+    }
+
+    public void setOutletCode(String outletCode) {
+        this.outletCode = outletCode;
     }
 }

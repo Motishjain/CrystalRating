@@ -22,6 +22,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private Dao<Outlet, Integer> outletDao;
     private Dao<User, Integer> userDao;
+    private Dao<Goodie, Integer> goodieDao;
+    private Dao<GoodieHistory, Integer> goodieHistoryDao;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -33,6 +35,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             // Create tables. This onCreate() method will be invoked only once of the application life time i.e. the first time when the application starts.
             TableUtils.createTable(connectionSource, Outlet.class);
             TableUtils.createTable(connectionSource, User.class);
+            TableUtils.createTable(connectionSource, Goodie.class);
+            TableUtils.createTable(connectionSource, GoodieHistory.class);
 
         } catch (SQLException e) {
             Log.e(DBHelper.class.getName(), "Unable to create datbases", e);
@@ -69,5 +73,19 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             userDao = getDao(User.class);
         }
         return userDao;
+    }
+
+    public Dao<Goodie, Integer> getGoodieDao() throws SQLException {
+        if (goodieDao == null) {
+            goodieDao = getDao(Goodie.class);
+        }
+        return goodieDao;
+    }
+
+    public Dao<GoodieHistory, Integer> getGoodieHistoryDao() throws SQLException {
+        if (goodieHistoryDao == null) {
+            goodieHistoryDao = getDao(GoodieHistory.class);
+        }
+        return goodieHistoryDao;
     }
 }
