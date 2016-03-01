@@ -3,13 +3,11 @@ package com.example.mjai37.freddyspeaks;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -40,6 +39,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
     EditText outletName, alias, addrLine1, addrLine2, pinCode, email, phoneNumber;
     Button nextButton;
     Dao<Outlet, Integer> outletDao;
+    Dao<Goodie, Integer> goodieDao;
     ProgressDialog prgDialog;
     TextView errorMsg;
 
@@ -91,53 +91,61 @@ public class RegisterOutletActivity extends AppCompatActivity {
 
                 RestClient.post("http://192.168.2.2:9999/useraccount/login/dologin", params, new AsyncHttpResponseHandler() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
-                        // Hide Progress Dialog
-                        prgDialog.hide();
-                        try {
-                            String str = new String(responseBytes, "UTF-8");
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
+                            // Hide Progress Dialog
+                            prgDialog.hide();
+                            try {
+                                String str = new String(responseBytes, "UTF-8");
 
-                            JSONObject response = new JSONObject(str);
-                            // When the JSON response has status boolean value assigned with true
-                            if (response.getBoolean("status")) {
-                                GsonBuilder builder = new GsonBuilder();
-                                Gson gson = builder.create();
-                                List<Goodie> goodies = gson.fromJson(response.toString(), List.class);
+                                JSONObject response = new JSONObject(str);
+                                // When the JSON response has status boolean value assigned with true
+                                if (response.getBoolean("status")) {
+                                    GsonBuilder builder = new GsonBuilder();
+                                    Gson gson = builder.create();
+                                    List<Goodie> goodies = gson.fromJson(response.toString(), List.class);
+                                    try {
+                                        for (Goodie goodie : goodies) {
+                                            goodieDao.create(goodie);
+                                        }
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    errorMsg.setText(response.getString("status_message"));
+                                }
+                            } catch (JSONException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
                             }
-                            // Else display error message
+                        }
+
+                        // When the response returned by REST has Http response code other than '200'
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers,
+                                              byte[] errorResponse, Throwable e) {
+                            // Hide Progress Dialog
+                            prgDialog.hide();
+                            // When Http response code is '404'
+                            if (statusCode == 404) {
+                                Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+                            }
+                            // When Http response code is '500'
+                            else if (statusCode == 500) {
+                                Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+                            }
+                            // When Http response code other than 404, 500
                             else {
-                                errorMsg.setText(response.getString("status_message"));
+                                Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
                             }
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
                         }
                     }
-
-                    // When the response returned by REST has Http response code other than '200'
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        // Hide Progress Dialog
-                        prgDialog.hide();
-                        // When Http response code is '404'
-                        if (statusCode == 404) {
-                            Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
-                        }
-                        // When Http response code is '500'
-                        else if (statusCode == 500) {
-                            Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
-                        }
-                        // When Http response code other than 404, 500
-                        else {
-                            Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                );
                 Intent homePage = new Intent(RegisterOutletActivity.this, HomePageActivity.class);
+
                 startActivity(homePage);
             }
 

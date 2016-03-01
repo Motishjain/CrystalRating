@@ -6,4 +6,5 @@
     <string name="title_activity_rate_outlet">FreddySpeaks</string>
     <string name="title_activity_loading">FreddySpeaks</string>
     <string name="title_activity_goodie_display">GoodieDisplayActivity</string>
+    <string name="title_activity_goodie_configuration">GoodieConfigurationActivity</string>
 </resources>

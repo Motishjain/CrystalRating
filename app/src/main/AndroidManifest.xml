@@ -37,6 +37,10 @@
         <activity
             android:name=".GoodieDisplayActivity"
             android:label="@string/title_activity_goodie_display"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GoodieConfigurationActivity"
+            android:label="@string/title_activity_goodie_configuration"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
