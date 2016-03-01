@@ -28,7 +28,7 @@ fieldName=pinCode
 fieldName=email
 # --field-end--
 # --field-start--
-fieldName=phoneNumber
+fieldName=cellNumber
 # --field-end--
 # --field-start--
 fieldName=activeFlag
@@ -48,7 +48,7 @@ generatedId=true
 fieldName=name
 # --field-end--
 # --field-start--
-fieldName=phoneNumber
+fieldName=cellNumber
 # --field-end--
 # --table-fields-end--
 # --table-end--

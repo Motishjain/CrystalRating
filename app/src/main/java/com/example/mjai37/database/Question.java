@@ -11,8 +11,8 @@ import java.util.Date;
  * Created by mjai37 on 1/21/2016.
  */
 
-@DatabaseTable(tableName = "GOODIE")
-public class Goodie implements Serializable {
+@DatabaseTable(tableName = "QUESTION")
+public class Question implements Serializable {
 
     @DatabaseField(generatedId = true)
     private Integer id;
@@ -21,10 +21,8 @@ public class Goodie implements Serializable {
     private String name;
 
     @DatabaseField
-    private String cost;
+    private String ratingValues;
 
-    @DatabaseField(dataType = DataType.STRING_BYTES)
-    private String image;
 
     public Integer getId() {
         return id;
@@ -42,20 +40,11 @@ public class Goodie implements Serializable {
         this.name = name;
     }
 
-    public String getCost() {
-        return cost;
+    public String getRatingValues() {
+        return ratingValues;
     }
 
-    public void setCost(String cost) {
-        this.cost = cost;
+    public void setRatingValues(String ratingValues) {
+        this.ratingValues = ratingValues;
     }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
 }

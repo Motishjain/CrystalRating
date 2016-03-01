@@ -23,6 +23,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Outlet, Integer> outletDao;
     private Dao<User, Integer> userDao;
     private Dao<Goodie, Integer> goodieDao;
+    private Dao<Question, Integer> questionDao;
     private Dao<GoodieHistory, Integer> goodieHistoryDao;
 
     public DBHelper(Context context) {
@@ -80,6 +81,13 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             goodieDao = getDao(Goodie.class);
         }
         return goodieDao;
+    }
+
+    public Dao<Question, Integer> getQuestionDao() throws SQLException {
+        if (questionDao == null) {
+            questionDao = getDao(Question.class);
+        }
+        return questionDao;
     }
 
     public Dao<GoodieHistory, Integer> getGoodieHistoryDao() throws SQLException {

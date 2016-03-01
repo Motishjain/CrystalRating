@@ -5,7 +5,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by mjai37 on 1/21/2016.
@@ -19,6 +18,9 @@ public class Outlet implements Serializable {
 
     @DatabaseField
     private String outletName;
+
+    @DatabaseField
+    private String outletType;
 
     @DatabaseField
     private String outletCode;
@@ -39,7 +41,10 @@ public class Outlet implements Serializable {
     private String email;
 
     @DatabaseField
-    private String phoneNumber;
+    private String cellNumber;
+
+    @DatabaseField
+    private String workPhoneNumber;
 
     @DatabaseField
     private String activeFlag;
@@ -103,12 +108,12 @@ public class Outlet implements Serializable {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getCellNumber() {
+        return cellNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setCellNumber(String cellNumber) {
+        this.cellNumber = cellNumber;
     }
 
     public String getActiveFlag() {
@@ -133,5 +138,21 @@ public class Outlet implements Serializable {
 
     public void setOutletCode(String outletCode) {
         this.outletCode = outletCode;
+    }
+
+    public String getWorkPhoneNumber() {
+        return workPhoneNumber;
+    }
+
+    public void setWorkPhoneNumber(String workPhoneNumber) {
+        this.workPhoneNumber = workPhoneNumber;
+    }
+
+    public String getOutletType() {
+        return outletType;
+    }
+
+    public void setOutletType(String outletType) {
+        this.outletType = outletType;
     }
 }

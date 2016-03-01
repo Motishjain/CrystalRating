@@ -13,15 +13,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mjai37.constants.AppConstants;
 import com.example.mjai37.database.DBHelper;
 import com.example.mjai37.database.Goodie;
 import com.example.mjai37.database.Outlet;
+import com.example.mjai37.database.Question;
 import com.example.mjai37.webservice.RestClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -40,6 +41,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
     Button nextButton;
     Dao<Outlet, Integer> outletDao;
     Dao<Goodie, Integer> goodieDao;
+    Dao<Question, Integer> questionDao;
     ProgressDialog prgDialog;
     TextView errorMsg;
 
@@ -61,6 +63,8 @@ public class RegisterOutletActivity extends AppCompatActivity {
 
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getOutletDao();
+            goodieDao = OpenHelperManager.getHelper(this, DBHelper.class).getGoodieDao();
+            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getQuestionDao();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,7 +78,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                 newOutlet.setAddrLine2(addrLine2.getText().toString());
                 newOutlet.setPinCode(pinCode.getText().toString());
                 newOutlet.setEmail(email.getText().toString());
-                newOutlet.setPhoneNumber(phoneNumber.getText().toString());
+                newOutlet.setCellNumber(phoneNumber.getText().toString());
                 try {
                     outletDao.create(newOutlet);
                 } catch (Exception e) {
@@ -82,67 +86,118 @@ public class RegisterOutletActivity extends AppCompatActivity {
                     //TODO logging
                 }
                 //TODO web service call to fetch
-                AsyncHttpClient client = new AsyncHttpClient();
                 RequestParams params = new RequestParams();
-                params.put("outletId", "Test api support");
-                params.put("outletCode", "Test api support");
-                params.put("addressLine1", "Test api support");
-                params.put("addressLine1", "Test api support");
 
-                RestClient.post("http://192.168.2.2:9999/useraccount/login/dologin", params, new AsyncHttpResponseHandler() {
+                params.put("outletType",newOutlet.getOutletType());
+                RestClient.post(AppConstants.FETCH_QUESTIONS, params, new AsyncHttpResponseHandler() {
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
-                            // Hide Progress Dialog
-                            prgDialog.hide();
-                            try {
-                                String str = new String(responseBytes, "UTF-8");
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
+                                // Hide Progress Dialog
+                                prgDialog.hide();
+                                try {
+                                    String str = new String(responseBytes, "UTF-8");
 
-                                JSONObject response = new JSONObject(str);
-                                // When the JSON response has status boolean value assigned with true
-                                if (response.getBoolean("status")) {
-                                    GsonBuilder builder = new GsonBuilder();
-                                    Gson gson = builder.create();
-                                    List<Goodie> goodies = gson.fromJson(response.toString(), List.class);
-                                    try {
-                                        for (Goodie goodie : goodies) {
-                                            goodieDao.create(goodie);
+                                    JSONObject response = new JSONObject(str);
+                                    // When the JSON response has status boolean value assigned with true
+                                    if (response.getBoolean("success")) {
+                                        GsonBuilder builder = new GsonBuilder();
+                                        Gson gson = builder.create();
+                                        List<Question> questions = gson.fromJson(response.toString(), List.class);
+                                        try {
+                                            for (Question question : questions) {
+                                                questionDao.create(question);
+                                            }
+                                        } catch (SQLException e) {
+                                            e.printStackTrace();
                                         }
-                                    } catch (SQLException e) {
-                                        e.printStackTrace();
+                                    } else {
+                                        errorMsg.setText(response.getString("msg"));
                                     }
-                                } else {
-                                    errorMsg.setText(response.getString("status_message"));
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
+                            }
 
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
+                            // When the response returned by REST has Http response code other than '200'
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers,
+                                                  byte[] errorResponse, Throwable e) {
+                                // Hide Progress Dialog
+                                prgDialog.hide();
+                                // When Http response code is '404'
+                                if (statusCode == 404) {
+                                    Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+                                }
+                                // When Http response code is '500'
+                                else if (statusCode == 500) {
+                                    Toast.makeText(getApplicationContext(), "Not able to register now! Please try again later.", Toast.LENGTH_LONG).show();
+                                }
+                                // When Http response code other than 404, 500
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
+                );
+                RestClient.post(AppConstants.FETCH_GOODIES, params, new AsyncHttpResponseHandler() {
 
-                        // When the response returned by REST has Http response code other than '200'
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers,
-                                              byte[] errorResponse, Throwable e) {
-                            // Hide Progress Dialog
-                            prgDialog.hide();
-                            // When Http response code is '404'
-                            if (statusCode == 404) {
-                                Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
+                                // Hide Progress Dialog
+                                prgDialog.hide();
+                                try {
+                                    String str = new String(responseBytes, "UTF-8");
+
+                                    JSONObject response = new JSONObject(str);
+                                    // When the JSON response has status boolean value assigned with true
+                                    if (response.getBoolean("success")) {
+                                        GsonBuilder builder = new GsonBuilder();
+                                        Gson gson = builder.create();
+                                        List<Goodie> goodies = gson.fromJson(response.getString("goodies"), List.class);
+                                        try {
+                                            for (Goodie goodie : goodies) {
+                                                goodieDao.create(goodie);
+                                            }
+                                        } catch (SQLException e) {
+                                            e.printStackTrace();
+                                        }
+                                    } else {
+                                        errorMsg.setText(response.getString("msg"));
+                                    }
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                            // When Http response code is '500'
-                            else if (statusCode == 500) {
-                                Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
-                            }
-                            // When Http response code other than 404, 500
-                            else {
-                                Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+
+                            // When the response returned by REST has Http response code other than '200'
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers,
+                                                  byte[] errorResponse, Throwable e) {
+                                // Hide Progress Dialog
+                                prgDialog.hide();
+                                // When Http response code is '404'
+                                if (statusCode == 404) {
+                                    Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+                                }
+                                // When Http response code is '500'
+                                else if (statusCode == 500) {
+                                    Toast.makeText(getApplicationContext(), "Not able to register now! Please try again later.", Toast.LENGTH_LONG).show();
+                                }
+                                // When Http response code other than 404, 500
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
-                    }
                 );
                 Intent homePage = new Intent(RegisterOutletActivity.this, HomePageActivity.class);
 
