@@ -1,5 +1,6 @@
 package com.example.mjai37.freddyspeaks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -119,6 +120,8 @@ public class UserInfoActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                Intent ratingScreen = new Intent(UserInfoActivity.this, GetRatingActivity.class);
+                startActivity(ratingScreen);
             }
         });
     }

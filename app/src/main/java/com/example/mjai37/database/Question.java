@@ -12,6 +12,15 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "QUESTION")
 public class Question implements Serializable {
 
+    public Question(String name,String ratingValues){
+        this.name = name;
+        this.ratingValues = ratingValues;
+    }
+
+    public Question() {
+
+    }
+
     @DatabaseField(generatedId = true)
     private Integer id;
 

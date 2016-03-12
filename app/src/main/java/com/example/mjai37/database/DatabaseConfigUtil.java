@@ -11,10 +11,10 @@ import java.sql.SQLException;
  */
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
     private static final Class<?>[] classes = new Class[] {
-            Outlet.class,User.class,Reward.class
+            Outlet.class,User.class,Reward.class,Question.class,GoodieHistory.class
     };
 
     public static void main(String[] args) throws SQLException, IOException {
-        writeConfigFile(new File("C:\\Users\\mjai37\\ormlite_config.txt"), classes);
+        writeConfigFile(new File("C:\\Users\\Admin\\ormlite_config.txt"), classes);
     }
 }

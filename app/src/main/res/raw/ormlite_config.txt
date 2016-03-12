@@ -1,5 +1,5 @@
 #
-# generated on 2016/02/27 05:02:22
+# generated on 2016/03/12 05:35:07
 #
 # --table-start--
 dataClass=com.example.mjai37.database.Outlet
@@ -11,6 +11,12 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=outletName
+# --field-end--
+# --field-start--
+fieldName=outletType
+# --field-end--
+# --field-start--
+fieldName=outletCode
 # --field-end--
 # --field-start--
 fieldName=aliasName
@@ -31,7 +37,14 @@ fieldName=email
 fieldName=cellNumber
 # --field-end--
 # --field-start--
+fieldName=workPhoneNumber
+# --field-end--
+# --field-start--
 fieldName=activeFlag
+# --field-end--
+# --field-start--
+fieldName=areGoodiesAvailable
+dataPersister=BOOLEAN
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -48,7 +61,74 @@ generatedId=true
 fieldName=name
 # --field-end--
 # --field-start--
-fieldName=cellNumber
+fieldName=phoneNumber
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.example.mjai37.database.Reward
+tableName=REWARD
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=level
+# --field-end--
+# --field-start--
+fieldName=rewardType
+# --field-end--
+# --field-start--
+fieldName=cost
+# --field-end--
+# --field-start--
+fieldName=image
+dataPersister=STRING_BYTES
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.example.mjai37.database.Question
+tableName=QUESTION
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=ratingValues
+# --field-end--
+# --field-start--
+fieldName=selected
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.example.mjai37.database.GoodieHistory
+tableName=GOODIE_HISTORY
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=goodieType
+# --field-end--
+# --field-start--
+fieldName=userPhoneNumber
+# --field-end--
+# --field-start--
+fieldName=createdTs
 # --field-end--
 # --table-fields-end--
 # --table-end--

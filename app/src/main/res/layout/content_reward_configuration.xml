@@ -8,15 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:id="@+id/ratingCardHolder"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.mjai37.freddyspeaks.GetRatingActivity"
-    tools:showIn="@layout/activity_get_rating">
-
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="layout.RatingCardFragment"
-        android:id="@+id/ratingCard"/>
+    tools:context="com.example.mjai37.freddyspeaks.RewardConfigurationActivity"
+    tools:showIn="@layout/activity_reward_configuration">
 
 </RelativeLayout>

@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -40,10 +41,11 @@ public class RegisterOutletActivity extends AppCompatActivity {
     EditText outletName, alias, addrLine1, addrLine2, pinCode, email, phoneNumber;
     Button nextButton;
     Dao<Outlet, Integer> outletDao;
-    Dao<Reward, Integer> goodieDao;
+    Dao<Reward, Integer> rewardDao;
     Dao<Question, Integer> questionDao;
     ProgressDialog prgDialog;
     TextView errorMsg;
+    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +63,12 @@ public class RegisterOutletActivity extends AppCompatActivity {
         phoneNumber = (EditText) findViewById(R.id.inputPhoneNumberText);
         nextButton = (Button) findViewById(R.id.next_button);
 
+        GsonBuilder builder = new GsonBuilder();
+        gson = builder.create();
+
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getOutletDao();
-            goodieDao = OpenHelperManager.getHelper(this, DBHelper.class).getRewardDao();
+            rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getRewardDao();
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getQuestionDao();
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,22 +93,21 @@ public class RegisterOutletActivity extends AppCompatActivity {
                 //TODO web service call to fetch
                 RequestParams params = new RequestParams();
 
-                params.put("outletType",newOutlet.getOutletType());
+                params.put("outletType", newOutlet.getOutletType());
                 RestClient.post(AppConstants.FETCH_QUESTIONS, params, new AsyncHttpResponseHandler() {
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
                                 // Hide Progress Dialog
-                                prgDialog.hide();
                                 try {
                                     String str = new String(responseBytes, "UTF-8");
 
                                     JSONObject response = new JSONObject(str);
                                     // When the JSON response has status boolean value assigned with true
                                     if (response.getBoolean("success")) {
-                                        GsonBuilder builder = new GsonBuilder();
-                                        Gson gson = builder.create();
+
                                         List<Question> questions = gson.fromJson(response.toString(), List.class);
+                                        questions.add(new Question("How is the design variety","Very Poor,Poor,Average,Good,Excellent"));
                                         try {
                                             for (Question question : questions) {
                                                 question.setSelected("Y");
@@ -128,9 +132,6 @@ public class RegisterOutletActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(int statusCode, Header[] headers,
                                                   byte[] errorResponse, Throwable e) {
-                                // Hide Progress Dialog
-                                prgDialog.hide();
-                                // When Http response code is '404'
                                 if (statusCode == 404) {
                                     Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
                                 }
@@ -142,27 +143,36 @@ public class RegisterOutletActivity extends AppCompatActivity {
                                 else {
                                     Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
                                 }
+
+                                List<Question> questions = new ArrayList<Question>();
+                                questions.add(new Question("How is the design variety","Very Poor,Poor,Average,Good,Excellent"));
+                                try {
+                                    for (Question question : questions) {
+                                        question.setSelected("Y");
+                                        questionDao.create(question);
+                                    }
+                                } catch (SQLException sqle) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                 );
-                RestClient.post(AppConstants.FETCH_GOODIES, params, new AsyncHttpResponseHandler() {
+                RestClient.post(AppConstants.FETCH_REWARDS, params, new AsyncHttpResponseHandler() {
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
                                 // Hide Progress Dialog
-                                prgDialog.hide();
+
                                 try {
                                     String str = new String(responseBytes, "UTF-8");
 
                                     JSONObject response = new JSONObject(str);
                                     // When the JSON response has status boolean value assigned with true
                                     if (response.getBoolean("success")) {
-                                        GsonBuilder builder = new GsonBuilder();
-                                        Gson gson = builder.create();
-                                        List<Reward> goodies = gson.fromJson(response.getString("goodies"), List.class);
+                                        List<Reward> rewards = gson.fromJson(response.getString("rewards"), List.class);
                                         try {
-                                            for (Reward reward : goodies) {
-                                                goodieDao.create(reward);
+                                            for (Reward reward : rewards) {
+                                                rewardDao.create(reward);
                                             }
                                         } catch (SQLException e) {
                                             e.printStackTrace();
@@ -184,7 +194,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                             public void onFailure(int statusCode, Header[] headers,
                                                   byte[] errorResponse, Throwable e) {
                                 // Hide Progress Dialog
-                                prgDialog.hide();
+
                                 // When Http response code is '404'
                                 if (statusCode == 404) {
                                     Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();

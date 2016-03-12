@@ -22,7 +22,6 @@ public class GetRatingActivity extends AppCompatActivity {
 
 
     Dao<Question, Integer> questionDao;
-    Dao<Feedback, Integer> feedbackDao;
 
     QueryBuilder<Question, Integer> queryBuilder;
     UpdateBuilder<Feedback, Integer> updateBuilder;
@@ -38,7 +37,6 @@ public class GetRatingActivity extends AppCompatActivity {
 
         try {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getQuestionDao();
-            feedbackDao = OpenHelperManager.getHelper(this, DBHelper.class).getFeedbackDao();
             queryBuilder = questionDao.queryBuilder();
             queryBuilder.where().eq("selected","Y");
             questionList = queryBuilder.query();

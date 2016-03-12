@@ -45,6 +45,10 @@
         <activity
             android:name=".GetRatingActivity"
             android:label="@string/title_activity_get_rating"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RewardConfigurationActivity"
+            android:label="@string/title_activity_reward_configuration"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

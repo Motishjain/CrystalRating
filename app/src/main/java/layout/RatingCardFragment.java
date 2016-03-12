@@ -66,18 +66,20 @@ public class RatingCardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        questionText = (TextView) container.findViewById(R.id.questionText);
-        ratingBar = (RatingBar) container.findViewById(R.id.ratingBar);
+        View ratingCard = inflater.inflate(R.layout.fragment_rating_card, container, false);
+        questionText = (TextView) ratingCard.findViewById(R.id.questionText);
+        questionText.setText(questionName);
+        ratingBar = (RatingBar) ratingCard.findViewById(R.id.ratingBar);
         ratingBar.setClickable(true);
-        ratingBar.setStepSize(1);
-        selectedOptionValue = (TextView) container.findViewById(R.id.selectedOptionValue);
+        ratingBar.setStepSize(1);getView();
+        selectedOptionValue = (TextView) ratingCard.findViewById(R.id.selectedOptionValue);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                selectedOptionValue.setText(optionValues[Math.round(rating)]);
+                selectedOptionValue.setText(optionValues[Math.round(rating)-1]);
             }
         });
-        return inflater.inflate(R.layout.fragment_rating_card, container, false);
+        return ratingCard;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
