@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.mjai37.freddyspeaks.R;
+import com.example.mjai37.value_objects.Feedback;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -23,12 +24,17 @@ public class HomePageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         addRating = (Button) findViewById(R.id.add_rating);
+        Bundle extras = getIntent().getExtras();
+        final String outletCode = extras.getString("outletCode");
 
         addRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent userInfo = new Intent(HomePageActivity.this, UserInfoActivity.class);
-                startActivity(userInfo);
+                Intent billDetails = new Intent(HomePageActivity.this, BillDetailsActivity.class);
+                Feedback feedback = new Feedback();
+                feedback.setOutletCode(outletCode);
+                billDetails.putExtra("feedback",feedback);
+                startActivity(billDetails);
             }
         });
     }

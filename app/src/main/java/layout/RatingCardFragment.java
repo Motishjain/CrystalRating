@@ -30,6 +30,7 @@ public class RatingCardFragment extends Fragment {
     RatingBar ratingBar;
     String questionName;
     String[] optionValues;
+    int selectedRating;
 
     private OnFragmentInteractionListener mListener;
 
@@ -76,7 +77,8 @@ public class RatingCardFragment extends Fragment {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                selectedOptionValue.setText(optionValues[Math.round(rating)-1]);
+                selectedRating = Math.round(rating)-1;
+                selectedOptionValue.setText(optionValues[selectedRating]);
             }
         });
         return ratingCard;
@@ -119,5 +121,9 @@ public class RatingCardFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public TextView getSelectedOptionValue() {
+        return selectedOptionValue;
     }
 }

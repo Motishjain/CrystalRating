@@ -21,8 +21,8 @@ public class Question implements Serializable {
 
     }
 
-    @DatabaseField(generatedId = true)
-    private Integer id;
+    @DatabaseField
+    private String questionId;
 
     @DatabaseField
     private String name;
@@ -33,12 +33,13 @@ public class Question implements Serializable {
     @DatabaseField
     private String selected;
 
-    public Integer getId() {
-        return id;
+
+    public String getQuestionId() {
+        return questionId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
     }
 
     public String getName() {

@@ -33,6 +33,7 @@ public class LoadingActivity extends AppCompatActivity {
             outletList = queryBuilder.query();
             if(outletList.size()>0){
                 Intent homePage = new Intent(LoadingActivity.this,HomePageActivity.class);
+                homePage.putExtra("outletCode",outletList.get(0).getOutletCode());
                 startActivity(homePage);
             }
             else {

@@ -1,4 +1,4 @@
-package com.example.mjai37.database;
+package com.example.mjai37.value_objects;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -10,31 +10,19 @@ import java.util.Map;
  * Created by mjai37 on 1/21/2016.
  */
 
-@DatabaseTable(tableName = "Feedback")
 public class Feedback implements Serializable {
 
-    @DatabaseField(generatedId = true)
-    private Integer id;
-
-    @DatabaseField
     private String outletCode;
 
-    @DatabaseField
+    private String billNumber;
+
+    private String billAmount;
+
     private Map<String,String> ratingsMap;
 
-    @DatabaseField
     private String rewardId;
 
-    @DatabaseField
     private String rewardCategory;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getOutletCode() {
         return outletCode;
@@ -66,5 +54,21 @@ public class Feedback implements Serializable {
 
     public void setRewardCategory(String rewardCategory) {
         this.rewardCategory = rewardCategory;
+    }
+
+    public String getBillNumber() {
+        return billNumber;
+    }
+
+    public void setBillNumber(String billNumber) {
+        this.billNumber = billNumber;
+    }
+
+    public String getBillAmount() {
+        return billAmount;
+    }
+
+    public void setBillAmount(String billAmount) {
+        this.billAmount = billAmount;
     }
 }

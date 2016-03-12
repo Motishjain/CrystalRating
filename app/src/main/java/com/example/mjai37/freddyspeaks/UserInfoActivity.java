@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.example.mjai37.adapter.UserPhoneNumberInputAdapter;
 import com.example.mjai37.database.DBHelper;
 import com.example.mjai37.database.User;
+import com.example.mjai37.value_objects.Feedback;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -32,12 +33,16 @@ public class UserInfoActivity extends AppCompatActivity {
     QueryBuilder<User, Integer> queryBuilder;
     UpdateBuilder<User, Integer> updateBuilder;
     List<User> userList = new ArrayList<>();
+    Feedback feedback;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+
+        Bundle extras = getIntent().getExtras();
+        feedback = (Feedback)extras.get("feedback");
 
         try {
             userDao = OpenHelperManager.getHelper(this, DBHelper.class).getUserDao();
@@ -116,12 +121,12 @@ public class UserInfoActivity extends AppCompatActivity {
                             newUser.setPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
                             userDao.create(newUser);
                         }
+                        Intent ratingScreen = new Intent(UserInfoActivity.this, GetRatingActivity.class);
+                        startActivity(ratingScreen);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                Intent ratingScreen = new Intent(UserInfoActivity.this, GetRatingActivity.class);
-                startActivity(ratingScreen);
             }
         });
     }
