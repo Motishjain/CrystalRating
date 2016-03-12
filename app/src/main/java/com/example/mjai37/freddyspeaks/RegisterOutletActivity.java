@@ -94,13 +94,57 @@ public class RegisterOutletActivity extends AppCompatActivity {
                 RequestParams params = new RequestParams();
 
                 params.put("outletType", newOutlet.getOutletType());
-/*              params.put("outletName", newOutlet.getOutletName());
+                params.put("outletName", newOutlet.getOutletName());
                 params.put("aliasName", newOutlet.getAliasName());
                 params.put("addrLine1", newOutlet.getAddrLine1());
                 params.put("addrLine2", newOutlet.getAddrLine2());
                 params.put("pinCode", newOutlet.getPinCode());
                 params.put("email", newOutlet.getEmail());
-                params.put("cellNumber", newOutlet.getCellNumber());*/
+                params.put("cellNumber", newOutlet.getCellNumber());
+
+                RestClient.post(AppConstants.REGISTER_OUTLET, params, new AsyncHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
+                                // Hide Progress Dialog
+                                try {
+                                    String str = new String(responseBytes, "UTF-8");
+
+                                    JSONObject response = new JSONObject(str);
+                                    // When the JSON response has status boolean value assigned with true
+                                    if (response.getBoolean("success")) {
+
+                                    }
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            // When the response returned by REST has Http response code other than '200'
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers,
+                                                  byte[] errorResponse, Throwable e) {
+                                if (statusCode == 404) {
+                                    Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+                                }
+                                // When Http response code is '500'
+                                else if (statusCode == 500) {
+                                    Toast.makeText(getApplicationContext(), "Not able to register now! Please try again later.", Toast.LENGTH_LONG).show();
+                                }
+                                // When Http response code other than 404, 500
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                );
+
+                params = new RequestParams();
+
+                params.put("outletType", newOutlet.getOutletType());
 
                 RestClient.get(AppConstants.FETCH_QUESTIONS, params, new AsyncHttpResponseHandler() {
                             @Override
