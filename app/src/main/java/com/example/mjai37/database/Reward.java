@@ -29,7 +29,7 @@ public class Reward implements Serializable {
     @DatabaseField
     private String cost;
 
-    @DatabaseField(dataType = DataType.STRING_BYTES)
+    @DatabaseField
     private String image;
 
     public Integer getId() {
@@ -56,6 +56,22 @@ public class Reward implements Serializable {
         this.cost = cost;
     }
 
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getRewardType() {
+        return rewardType;
+    }
+
+    public void setRewardType(String rewardType) {
+        this.rewardType = rewardType;
+    }
+
     public String getImage() {
         return image;
     }
@@ -63,5 +79,4 @@ public class Reward implements Serializable {
     public void setImage(String image) {
         this.image = image;
     }
-
 }

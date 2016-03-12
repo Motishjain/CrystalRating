@@ -25,8 +25,8 @@ public class SelectedReward implements Serializable {
     @DatabaseField
     private String cost;
 
-    @DatabaseField(dataType = DataType.STRING_BYTES)
-    private String image;
+    @DatabaseField(dataType = DataType.BYTE_ARRAY)
+    private byte[] image;
 
     public Integer getId() {
         return id;
@@ -60,11 +60,11 @@ public class SelectedReward implements Serializable {
         this.cost = cost;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }

@@ -37,21 +37,9 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Bundle extras = getIntent().getExtras();
-        newOutlet = (Outlet)extras.get("newOutlet");
-
     }
 
-    public void saveOutletConfig(View v) {
-        RequestParams params = new RequestParams();
-        params.put("outletName", newOutlet.getOutletName());
-        params.put("aliasName", newOutlet.getAliasName());
-        params.put("addrLine1", newOutlet.getAddrLine1());
-        params.put("addrLine2", newOutlet.getAddrLine2());
-        params.put("pinCode", newOutlet.getPinCode());
-        params.put("email", newOutlet.getEmail());
-        params.put("cellNumber", newOutlet.getCellNumber());
-
+    public void saveRewardConfig(View v) {
 
     }
 }
