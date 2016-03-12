@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.mjai37.constants.AppConstants;
 import com.example.mjai37.database.DBHelper;
-import com.example.mjai37.database.Goodie;
+import com.example.mjai37.database.Reward;
 import com.example.mjai37.database.Outlet;
 import com.example.mjai37.database.Question;
 import com.example.mjai37.webservice.RestClient;
@@ -40,7 +40,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
     EditText outletName, alias, addrLine1, addrLine2, pinCode, email, phoneNumber;
     Button nextButton;
     Dao<Outlet, Integer> outletDao;
-    Dao<Goodie, Integer> goodieDao;
+    Dao<Reward, Integer> goodieDao;
     Dao<Question, Integer> questionDao;
     ProgressDialog prgDialog;
     TextView errorMsg;
@@ -63,7 +63,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
 
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getOutletDao();
-            goodieDao = OpenHelperManager.getHelper(this, DBHelper.class).getGoodieDao();
+            goodieDao = OpenHelperManager.getHelper(this, DBHelper.class).getRewardDao();
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getQuestionDao();
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,6 +106,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                                         List<Question> questions = gson.fromJson(response.toString(), List.class);
                                         try {
                                             for (Question question : questions) {
+                                                question.setSelected("Y");
                                                 questionDao.create(question);
                                             }
                                         } catch (SQLException e) {
@@ -158,10 +159,10 @@ public class RegisterOutletActivity extends AppCompatActivity {
                                     if (response.getBoolean("success")) {
                                         GsonBuilder builder = new GsonBuilder();
                                         Gson gson = builder.create();
-                                        List<Goodie> goodies = gson.fromJson(response.getString("goodies"), List.class);
+                                        List<Reward> goodies = gson.fromJson(response.getString("goodies"), List.class);
                                         try {
-                                            for (Goodie goodie : goodies) {
-                                                goodieDao.create(goodie);
+                                            for (Reward reward : goodies) {
+                                                goodieDao.create(reward);
                                             }
                                         } catch (SQLException e) {
                                             e.printStackTrace();
@@ -200,7 +201,6 @@ public class RegisterOutletActivity extends AppCompatActivity {
                         }
                 );
                 Intent homePage = new Intent(RegisterOutletActivity.this, HomePageActivity.class);
-
                 startActivity(homePage);
             }
 

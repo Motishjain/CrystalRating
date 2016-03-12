@@ -1,11 +1,9 @@
 package com.example.mjai37.database;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by mjai37 on 1/21/2016.
@@ -23,6 +21,8 @@ public class Question implements Serializable {
     @DatabaseField
     private String ratingValues;
 
+    @DatabaseField
+    private String selected;
 
     public Integer getId() {
         return id;
@@ -46,5 +46,13 @@ public class Question implements Serializable {
 
     public void setRatingValues(String ratingValues) {
         this.ratingValues = ratingValues;
+    }
+
+    public String getSelected() {
+        return selected;
+    }
+
+    public void setSelected(String selected) {
+        this.selected = selected;
     }
 }

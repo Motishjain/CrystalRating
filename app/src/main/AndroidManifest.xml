@@ -41,6 +41,10 @@
         <activity
             android:name=".GoodieConfigurationActivity"
             android:label="@string/title_activity_goodie_configuration"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GetRatingActivity"
+            android:label="@string/title_activity_get_rating"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

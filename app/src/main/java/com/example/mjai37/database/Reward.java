@@ -11,14 +11,20 @@ import java.util.Date;
  * Created by mjai37 on 1/21/2016.
  */
 
-@DatabaseTable(tableName = "GOODIE")
-public class Goodie implements Serializable {
+@DatabaseTable(tableName = "REWARD")
+public class Reward implements Serializable {
 
     @DatabaseField(generatedId = true)
     private Integer id;
 
     @DatabaseField
     private String name;
+
+    @DatabaseField
+    private String level;
+
+    @DatabaseField
+    private String rewardType;
 
     @DatabaseField
     private String cost;

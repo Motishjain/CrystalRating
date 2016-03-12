@@ -22,9 +22,10 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private Dao<Outlet, Integer> outletDao;
     private Dao<User, Integer> userDao;
-    private Dao<Goodie, Integer> goodieDao;
+    private Dao<Reward, Integer> rewardDao;
     private Dao<Question, Integer> questionDao;
     private Dao<GoodieHistory, Integer> goodieHistoryDao;
+    private Dao<Feedback, Integer> feedbackDao;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -36,7 +37,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             // Create tables. This onCreate() method will be invoked only once of the application life time i.e. the first time when the application starts.
             TableUtils.createTable(connectionSource, Outlet.class);
             TableUtils.createTable(connectionSource, User.class);
-            TableUtils.createTable(connectionSource, Goodie.class);
+            TableUtils.createTable(connectionSource, Question.class);
+            TableUtils.createTable(connectionSource, Reward.class);
+            TableUtils.createTable(connectionSource, Feedback.class);
             TableUtils.createTable(connectionSource, GoodieHistory.class);
 
         } catch (SQLException e) {
@@ -76,11 +79,11 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         return userDao;
     }
 
-    public Dao<Goodie, Integer> getGoodieDao() throws SQLException {
-        if (goodieDao == null) {
-            goodieDao = getDao(Goodie.class);
+    public Dao<Reward, Integer> getRewardDao() throws SQLException {
+        if (rewardDao == null) {
+            rewardDao = getDao(Reward.class);
         }
-        return goodieDao;
+        return rewardDao;
     }
 
     public Dao<Question, Integer> getQuestionDao() throws SQLException {
@@ -96,4 +99,13 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         }
         return goodieHistoryDao;
     }
+
+    public Dao<Feedback, Integer> getFeedbackDao() throws SQLException {
+        if (feedbackDao == null) {
+            feedbackDao = getDao(Feedback.class);
+        }
+        return feedbackDao;
+    }
+
+
 }

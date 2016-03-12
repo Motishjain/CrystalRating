@@ -12,4 +12,8 @@ public class AppConstants {
     public static final String FETCH_QUESTIONS = "fetchQuestions";
 
     public static final String FETCH_GOODIES = "fetchGoodies";
+
+    public static final String QUESTION_NAME = "questionName";
+
+    public static final String OPTION_VALUES = "optionValues";
 }

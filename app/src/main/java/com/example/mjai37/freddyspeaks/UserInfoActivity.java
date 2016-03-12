@@ -4,15 +4,13 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.mjai37.adapter.UserNameInputAdapter;
+import com.example.mjai37.adapter.UserPhoneNumberInputAdapter;
 import com.example.mjai37.database.DBHelper;
 import com.example.mjai37.database.User;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -25,10 +23,10 @@ import java.util.List;
 
 public class UserInfoActivity extends AppCompatActivity {
 
-    EditText userPhoneNumber;
+    EditText userName;
     TextInputLayout userNameLayout, userPhoneLayout;
     Button continueButton, resetButton;
-    AutoCompleteTextView autoCompleteInputUserNameText;
+    AutoCompleteTextView autoCompleteInputUserPhoneNumberText;
     Dao<User, Integer> userDao;
     QueryBuilder<User, Integer> queryBuilder;
     UpdateBuilder<User, Integer> updateBuilder;
@@ -49,27 +47,27 @@ public class UserInfoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        autoCompleteInputUserNameText =(AutoCompleteTextView)findViewById(R.id.autoCompleteInputUserNameText);
+        autoCompleteInputUserPhoneNumberText =(AutoCompleteTextView)findViewById(R.id.autoCompleteInputUserPhoneNumberText);
 
-        final UserNameInputAdapter adapter = new UserNameInputAdapter(this,
+        final UserPhoneNumberInputAdapter adapter = new UserPhoneNumberInputAdapter(this,
                 R.layout.userinfo_autosuggest, userList);
 
-        autoCompleteInputUserNameText.setAdapter(adapter);
+        autoCompleteInputUserPhoneNumberText.setAdapter(adapter);
 
-        autoCompleteInputUserNameText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        autoCompleteInputUserPhoneNumberText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 User selectedUser = adapter.getItem(position);
-                userPhoneNumber.setText(selectedUser.getPhoneNumber());
+                userName.setText(selectedUser.getName());
             }
         });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        userPhoneNumber = (EditText) findViewById(R.id.inputUserPhoneNumberText);
+        userName = (EditText) findViewById(R.id.inputUserNameText);
 
         userNameLayout = (TextInputLayout) findViewById(R.id.inputUserNameLayout);
         userPhoneLayout = (TextInputLayout) findViewById(R.id.inputUserPhoneNumberLayout);
@@ -80,8 +78,8 @@ public class UserInfoActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autoCompleteInputUserNameText.setText("");
-                userPhoneNumber.setText("");
+                autoCompleteInputUserPhoneNumberText.setText("");
+                userName.setText("");
                 userNameLayout.setError(null);
                 userPhoneLayout.setError(null);
             }
@@ -91,32 +89,31 @@ public class UserInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean allFieldsEntered = true;
-                if (autoCompleteInputUserNameText.getText().toString().equals("")) {
+                if (autoCompleteInputUserPhoneNumberText.getText().toString().equals("")) {
                     userNameLayout.setError("Please enter name");
                     allFieldsEntered = false;
                 }
-                if (userPhoneNumber.getText().toString().equals("")) {
+                if (userName.getText().toString().equals("")) {
                     userPhoneLayout.setError("Please enter phone number");
-                    userPhoneNumber.findFocus();
+                    userName.findFocus();
                     allFieldsEntered = false;
                 }
                 if(allFieldsEntered) {
                     try {
                         queryBuilder.reset();
-                        queryBuilder.where().eq("phoneNumber",userPhoneNumber.getText().toString().trim());
+                        queryBuilder.where().eq("phoneNumber",autoCompleteInputUserPhoneNumberText.getText().toString().trim());
                         userList = queryBuilder.query();
                         if(userList!=null && userList.size()>0) {
                             updateBuilder.reset();
-                            updateBuilder.where().eq("phoneNumber",userPhoneNumber.getText().toString().trim());
-                            updateBuilder.updateColumnValue("name",autoCompleteInputUserNameText.getText().toString().trim());
+                            updateBuilder.where().eq("phoneNumber",autoCompleteInputUserPhoneNumberText.getText().toString().trim());
+                            updateBuilder.updateColumnValue("name",userName.getText().toString().trim());
                             updateBuilder.update();
                         }
                         else {
                             User newUser = new User();
-                            newUser.setName(autoCompleteInputUserNameText.getText().toString().trim());
-                            newUser.setPhoneNumber(userPhoneNumber.getText().toString());
+                            newUser.setName(userName.getText().toString().trim());
+                            newUser.setPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
                             userDao.create(newUser);
-                            //TODO Web service call to save new user in this particular outlet
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -124,7 +121,5 @@ public class UserInfoActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-
 }

@@ -7,4 +7,8 @@
     <string name="title_activity_loading">FreddySpeaks</string>
     <string name="title_activity_goodie_display">GoodieDisplayActivity</string>
     <string name="title_activity_goodie_configuration">GoodieConfigurationActivity</string>
+    <string name="title_activity_get_rating">GetRatingActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

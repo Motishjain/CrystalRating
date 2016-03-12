@@ -17,16 +17,16 @@ import java.util.List;
 /**
  * Created by mjai37 on 2/27/2016.
  */
-public class UserNameInputAdapter extends ArrayAdapter<User> {
+public class UserPhoneNumberInputAdapter extends ArrayAdapter<User> {
 
     private List<User> userList;
     private List<User> suggestions;
     private int viewResourceId;
     
-    public UserNameInputAdapter(Context context, int viewResourceId, List<User> userList){
+    public UserPhoneNumberInputAdapter(Context context, int viewResourceId, List<User> userList){
         super(context, viewResourceId, userList);
         this.userList = userList;
-        this.suggestions = new ArrayList<User>();
+        this.suggestions = new ArrayList<>();
         this.viewResourceId = viewResourceId;
     }
 
@@ -38,9 +38,9 @@ public class UserNameInputAdapter extends ArrayAdapter<User> {
         }
         User user = userList.get(position);
         if (user != null) {
-            TextView userNamePhoneLabel = (TextView) v.findViewById(R.id.userNamePhoneLabel);
-            if (userNamePhoneLabel != null) {
-                userNamePhoneLabel.setText(user.getName()+"  "+user.getPhoneNumber());
+            TextView userPhoneNameLabel = (TextView) v.findViewById(R.id.userPhoneNameLabel);
+            if (userPhoneNameLabel != null) {
+                userPhoneNameLabel.setText(user.getPhoneNumber()+"  "+user.getName());
             }
         }
         return v;
@@ -55,15 +55,14 @@ public class UserNameInputAdapter extends ArrayAdapter<User> {
     Filter nameFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
-            String str = ((User)(resultValue)).getName();
-            return str;
+            return ((User)(resultValue)).getPhoneNumber();
         }
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             if (constraint != null) {
                 suggestions.clear();
                 for (User user : userList) {
-                    if(user.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())){
+                    if(user.getPhoneNumber().toLowerCase().startsWith(constraint.toString().toLowerCase())){
                         suggestions.add(user);
                     }
                 }
