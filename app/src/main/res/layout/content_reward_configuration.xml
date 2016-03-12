@@ -12,4 +12,51 @@
     tools:context="com.example.mjai37.freddyspeaks.RewardConfigurationActivity"
     tools:showIn="@layout/activity_reward_configuration">
 
+    <GridLayout
+        android:id="@+id/bronzeRewardsGridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="98dp"></GridLayout>
+
+    <GridLayout
+        android:id="@+id/silverRewardsGridLayout"
+        android:layout_below="@id/bronzeRewardsGridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="98dp"></GridLayout>
+
+
+    <GridLayout
+        android:id="@+id/goldRewardsGridLayout"
+        android:layout_below="@id/silverRewardsGridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="98dp"></GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/goldRewardsGridLayout"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/rewardsConfigureContinueButton"
+            style="@style/formButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:elevation="3dp"
+            android:text="Continue"
+            android:textAllCaps="false"
+            android:textColor="#fff" />
+    </LinearLayout>
+
 </RelativeLayout>

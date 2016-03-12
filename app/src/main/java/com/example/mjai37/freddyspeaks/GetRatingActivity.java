@@ -79,7 +79,9 @@ public class GetRatingActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
         else {
-
+            feedback.setRewardCategory("1");
+            feedback.setRewardId("1");
+            
         }
     }
 }

@@ -94,8 +94,15 @@ public class RegisterOutletActivity extends AppCompatActivity {
                 RequestParams params = new RequestParams();
 
                 params.put("outletType", newOutlet.getOutletType());
-                RestClient.post(AppConstants.FETCH_QUESTIONS, params, new AsyncHttpResponseHandler() {
+/*              params.put("outletName", newOutlet.getOutletName());
+                params.put("aliasName", newOutlet.getAliasName());
+                params.put("addrLine1", newOutlet.getAddrLine1());
+                params.put("addrLine2", newOutlet.getAddrLine2());
+                params.put("pinCode", newOutlet.getPinCode());
+                params.put("email", newOutlet.getEmail());
+                params.put("cellNumber", newOutlet.getCellNumber());*/
 
+                RestClient.get(AppConstants.FETCH_QUESTIONS, params, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
                                 // Hide Progress Dialog
@@ -106,8 +113,8 @@ public class RegisterOutletActivity extends AppCompatActivity {
                                     // When the JSON response has status boolean value assigned with true
                                     if (response.getBoolean("success")) {
 
-                                        List<Question> questions = gson.fromJson(response.toString(), List.class);
-                                        questions.add(new Question("How is the design variety","Very Poor,Poor,Average,Good,Excellent"));
+                                        List<Question> questions = gson.fromJson(response.getJSONObject("data").toString(), List.class);
+                                        questions.add(new Question("How is the design variety", "Very Poor,Poor,Average,Good,Excellent"));
                                         try {
                                             for (Question question : questions) {
                                                 question.setSelected("Y");
@@ -145,7 +152,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                                 }
 
                                 List<Question> questions = new ArrayList<Question>();
-                                questions.add(new Question("How is the design variety","Very Poor,Poor,Average,Good,Excellent"));
+                                questions.add(new Question("How is the design variety", "Very Poor,Poor,Average,Good,Excellent"));
                                 try {
                                     for (Question question : questions) {
                                         question.setSelected("Y");
@@ -157,7 +164,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                             }
                         }
                 );
-                RestClient.post(AppConstants.FETCH_REWARDS, params, new AsyncHttpResponseHandler() {
+                RestClient.get(AppConstants.FETCH_REWARDS, params, new AsyncHttpResponseHandler() {
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
