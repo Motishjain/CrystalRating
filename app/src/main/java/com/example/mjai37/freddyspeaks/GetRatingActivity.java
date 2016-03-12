@@ -15,6 +15,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 
+import java.util.HashMap;
 import java.util.List;
 
 import layout.RatingCardFragment;
@@ -42,6 +43,10 @@ public class GetRatingActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         feedback = (Feedback)extras.get("feedback");
+
+        if(feedback.getRatingsMap()==null){
+            feedback.setRatingsMap(new HashMap<String, String>());
+        }
 
         try {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getQuestionDao();

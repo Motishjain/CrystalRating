@@ -122,6 +122,8 @@ public class UserInfoActivity extends AppCompatActivity {
                             userDao.create(newUser);
                         }
                         Intent ratingScreen = new Intent(UserInfoActivity.this, GetRatingActivity.class);
+                        feedback.setUserPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
+                        ratingScreen.putExtra("feedback",feedback);
                         startActivity(ratingScreen);
                     } catch (Exception e) {
                         e.printStackTrace();

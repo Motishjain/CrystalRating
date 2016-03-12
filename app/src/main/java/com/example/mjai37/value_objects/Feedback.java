@@ -18,6 +18,8 @@ public class Feedback implements Serializable {
 
     private String billAmount;
 
+    private String userPhoneNumber;
+
     private Map<String,String> ratingsMap;
 
     private String rewardId;
@@ -70,5 +72,13 @@ public class Feedback implements Serializable {
 
     public void setBillAmount(String billAmount) {
         this.billAmount = billAmount;
+    }
+
+    public String getUserPhoneNumber() {
+        return userPhoneNumber;
+    }
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
     }
 }
