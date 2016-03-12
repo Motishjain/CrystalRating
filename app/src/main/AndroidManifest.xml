@@ -49,6 +49,10 @@
         <activity
             android:name=".RewardConfigurationActivity"
             android:label="@string/title_activity_reward_configuration"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BillDetailsActivity"
+            android:label="@string/title_activity_bill_details"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

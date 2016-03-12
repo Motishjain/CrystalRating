@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.example.mjai37.database.DBHelper;
 import com.example.mjai37.database.Feedback;
@@ -52,6 +53,10 @@ public class GetRatingActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.ratingCardHolder, fragment);
         fragmentTransaction.commit();
 
+    }
+
+    public void submitRating(View v) {
+        
     }
 
 }
