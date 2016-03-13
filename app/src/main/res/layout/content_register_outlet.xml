@@ -14,7 +14,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.mjai37.freddyspeaks.RegisterOutletActivity"
+        tools:context="com.example.admin.freddyspeaks.RegisterOutletActivity"
         tools:showIn="@layout/activity_register_outlet">
 
         <TextView

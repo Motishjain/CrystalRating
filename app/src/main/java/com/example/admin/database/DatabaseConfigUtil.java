@@ -1,4 +1,4 @@
-package com.example.mjai37.database;
+package com.example.admin.database;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 
