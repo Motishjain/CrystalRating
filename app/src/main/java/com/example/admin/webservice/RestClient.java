@@ -1,6 +1,6 @@
-package com.example.mjai37.webservice;
+package com.example.admin.webservice;
 
-import com.example.mjai37.constants.AppConstants;
+import com.example.admin.constants.AppConstants;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
