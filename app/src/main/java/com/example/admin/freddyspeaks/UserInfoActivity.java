@@ -1,4 +1,4 @@
-package com.example.mjai37.freddyspeaks;
+package com.example.admin.freddyspeaks;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.mjai37.adapter.UserPhoneNumberInputAdapter;
-import com.example.mjai37.database.DBHelper;
-import com.example.mjai37.database.User;
-import com.example.mjai37.value_objects.Feedback;
+import com.example.admin.adapter.UserPhoneNumberInputAdapter;
+import com.example.admin.database.DBHelper;
+import com.example.admin.database.User;
+import com.example.admin.value_objects.Feedback;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
