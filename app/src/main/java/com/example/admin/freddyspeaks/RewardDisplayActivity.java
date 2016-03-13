@@ -33,14 +33,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class RewardDisplayActivity extends AppCompatActivity {
 
-
-    Dao<RewardHistory, Integer> rewardHistoryDao;
-    Dao<SelectedReward, Integer> selectedRewardDao;
-    QueryBuilder<RewardHistory, Integer> queryBuilder;
-    UpdateBuilder<RewardHistory, Integer> updateBuilder;
-    List<RewardHistory> rewardHistoryList = new ArrayList<>();
     Feedback feedback;
-    Gson gson;
+    SelectedReward allocatedReward;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,72 +42,10 @@ public class RewardDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reward_display);
 
         Bundle extras = getIntent().getExtras();
-        feedback = (Feedback)extras.get("feedback");
+        allocatedReward = (SelectedReward)extras.get("allocatedReward");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        try {
-            rewardHistoryDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("RewardHistory");
-            selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
-            queryBuilder = rewardHistoryDao.queryBuilder();
-            updateBuilder = rewardHistoryDao.updateBuilder();
-            queryBuilder.where().eq("userPhoneNumber",feedback.getUserPhoneNumber());
-            rewardHistoryList = queryBuilder.query();
-            RewardAllocationUtility.allocateReward(feedback.getUserPhoneNumber(),Integer.parseInt(feedback.getBillAmount()),rewardHistoryDao,selectedRewardDao);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        GsonBuilder builder = new GsonBuilder();
-        gson = builder.create();
-    }
-
-    public void submitFeedback(View v) {
-        feedback.setRewardId("1");
-        feedback.setRewardCategory("1");
-        RequestParams params = new RequestParams();
-
-        params.put("feedback", gson.toJson(feedback));
-
-        RestClient.post(AppConstants.SUBMIT_FEEDBACK, params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
-                        // Hide Progress Dialog
-                        try {
-                            String str = new String(responseBytes, "UTF-8");
-
-                            JSONObject response = new JSONObject(str);
-                            // When the JSON response has status boolean value assigned with true
-                            if (response.getBoolean("success")) {
-                                //TODO do something
-                            }
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    // When the response returned by REST has Http response code other than '200'
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers,
-                                          byte[] errorResponse, Throwable e) {
-                        if (statusCode == 404) {
-                            Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
-                        }
-                        // When Http response code is '500'
-                        else if (statusCode == 500) {
-                            Toast.makeText(getApplicationContext(), "Not able to register now! Please try again later.", Toast.LENGTH_LONG).show();
-                        }
-                        // When Http response code other than 404, 500
-                        else {
-                            Toast.makeText(getApplicationContext(), "Device might not be connected to Internet", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }
-        );
     }
 
 }

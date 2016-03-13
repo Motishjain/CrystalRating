@@ -18,11 +18,11 @@ import java.util.Random;
 
 public class RewardAllocationUtility {
 
-    public static SelectedReward allocateReward(int billAmount,Dao<RewardHistory, Integer> rewardHistoryDao,Dao<SelectedReward, Integer> selectedRewardDao) {
+    public static SelectedReward allocateReward(String userPhoneNumber, int billAmount,Dao<SelectedReward, Integer> selectedRewardDao) {
         String rewardId = null;
         int bronzeRatio=0,silverRatio=0,goldRatio=0;
-        int levelALlocated = 0;
-        UpdateBuilder<RewardHistory,Integer> rewardHistoryUpdateBuilder = rewardHistoryDao.updateBuilder();
+        int categoryAllocated = 0;
+
 
         if(billAmount<1000){
             bronzeRatio = 15;
@@ -55,19 +55,19 @@ public class RewardAllocationUtility {
 
         if(randomNumber<bronzeRatio){
             //Bronze allocated
-            levelALlocated = 1;
+            categoryAllocated = 1;
         }
         else if(randomNumber<(bronzeRatio+silverRatio)){
             //Silver allocated
-            levelALlocated = 2;
+            categoryAllocated = 2;
         }
         else if(randomNumber<(bronzeRatio+silverRatio+goldRatio)){
             //Gold allocated
-            levelALlocated = 3;
+            categoryAllocated = 3;
         }
-        if(levelALlocated>0)
+        if(categoryAllocated>0)
         {
-            return getReward(selectedRewardDao,levelALlocated);
+            return getReward(selectedRewardDao,categoryAllocated);
         }
         else {
             return null;
@@ -75,24 +75,22 @@ public class RewardAllocationUtility {
     }
 
     public static void main(String args[]) {
-
         Random randomGenerator = new SecureRandom();
         System.out.print(randomGenerator.nextInt(100));
-
     }
 
-    private static SelectedReward getReward(Dao<SelectedReward, Integer> selectedRewardDao, int levelAllocated) {
+    private static SelectedReward getReward(Dao<SelectedReward, Integer> selectedRewardDao, int categoryAllocated) {
         QueryBuilder<SelectedReward,Integer> selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
         try {
-            selectedRewardQueryBuilder.where().eq("level",levelAllocated);
+            selectedRewardQueryBuilder.where().eq("rewardCategory",categoryAllocated);
             List<SelectedReward> possibleRewards = selectedRewardQueryBuilder.query();
             if(possibleRewards.size()>0){
                 Random randomGenerator = new SecureRandom();
                 int randomRewardIndex = randomGenerator.nextInt(possibleRewards.size());
                 return possibleRewards.get(randomRewardIndex);
             }
-            else if (levelAllocated>1){
-                return getReward(selectedRewardDao,levelAllocated-1);
+            else if (categoryAllocated>1){
+                return getReward(selectedRewardDao,categoryAllocated-1);
             }
         }
         catch(SQLException e) {
