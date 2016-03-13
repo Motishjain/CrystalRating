@@ -93,7 +93,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                 //TODO web service call to fetch
                 RequestParams params = new RequestParams();
 
-                params.put("outletType", newOutlet.getOutletType());
+                params.put("outletType", "RET");
                 params.put("outletName", newOutlet.getOutletName());
                 params.put("aliasName", newOutlet.getAliasName());
                 params.put("addrLine1", newOutlet.getAddrLine1());
@@ -101,6 +101,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                 params.put("pinCode", newOutlet.getPinCode());
                 params.put("email", newOutlet.getEmail());
                 params.put("cellNumber", newOutlet.getCellNumber());
+                params.put("workPhoneNumber", newOutlet.getWorkPhoneNumber());
 
                 RestClient.post(AppConstants.REGISTER_OUTLET, params, new AsyncHttpResponseHandler() {
                             @Override
@@ -146,7 +147,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
 
                 params.put("outletType", newOutlet.getOutletType());
 
-                RestClient.get(AppConstants.FETCH_QUESTIONS, params, new AsyncHttpResponseHandler() {
+                RestClient.post(AppConstants.FETCH_QUESTIONS, params, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {
                                 // Hide Progress Dialog
@@ -208,7 +209,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                             }
                         }
                 );
-                RestClient.get(AppConstants.FETCH_REWARDS, params, new AsyncHttpResponseHandler() {
+                RestClient.post(AppConstants.FETCH_REWARDS, params, new AsyncHttpResponseHandler() {
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBytes) {

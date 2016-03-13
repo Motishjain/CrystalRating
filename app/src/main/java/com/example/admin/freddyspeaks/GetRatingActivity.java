@@ -106,8 +106,10 @@ public class GetRatingActivity extends AppCompatActivity {
         }
         else {
             SelectedReward allocatedReward = RewardAllocationUtility.allocateReward(feedback.getUserPhoneNumber(), Integer.parseInt(feedback.getBillAmount()), selectedRewardDao);
-            feedback.setRewardCategory(allocatedReward.getRewardCategory());
-            feedback.setRewardId(allocatedReward.getRewardId());
+            if(allocatedReward!=null) {
+                feedback.setRewardCategory(allocatedReward.getRewardCategory());
+                feedback.setRewardId(allocatedReward.getRewardId());
+            }
 
             RequestParams params = new RequestParams();
             params.put("feedback", gson.toJson(feedback));

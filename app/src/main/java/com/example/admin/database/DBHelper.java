@@ -107,8 +107,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public <T> Dao<T, Integer> getCustomDao(String className) throws SQLException {
         if (daoMap.get(className) == null) {
             for(Class c:DB_CLASSES) {
-                if(c.getName().equals(className)) {
+                if(c.getSimpleName().equals(className)) {
                     daoMap.put(className,getDao(c));
+                    break;
                 }
             }
         }

@@ -1,8 +1,8 @@
 #
-# generated on 2016/03/13 02:04:38
+# generated on 2016/03/14 12:00:10
 #
 # --table-start--
-dataClass=com.example.mjai37.database.Outlet
+dataClass=com.example.admin.database.Outlet
 tableName=OUTLET
 # --table-fields-start--
 # --field-start--
@@ -50,7 +50,7 @@ dataPersister=BOOLEAN
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.mjai37.database.User
+dataClass=com.example.admin.database.User
 tableName=USER
 # --table-fields-start--
 # --field-start--
@@ -67,7 +67,26 @@ fieldName=phoneNumber
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.mjai37.database.Reward
+dataClass=com.example.admin.database.Question
+tableName=QUESTION
+# --table-fields-start--
+# --field-start--
+fieldName=questionId
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=ratingValues
+# --field-end--
+# --field-start--
+fieldName=selected
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.example.admin.database.Reward
 tableName=REWARD
 # --table-fields-start--
 # --field-start--
@@ -88,32 +107,36 @@ fieldName=cost
 # --field-end--
 # --field-start--
 fieldName=image
-dataPersister=STRING_BYTES
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.mjai37.database.Question
-tableName=QUESTION
+dataClass=com.example.admin.database.SelectedReward
+tableName=SELECTED_REWARD
 # --table-fields-start--
 # --field-start--
-fieldName=questionId
+fieldName=id
+generatedId=true
 # --field-end--
 # --field-start--
-fieldName=name
+fieldName=rewardId
 # --field-end--
 # --field-start--
-fieldName=ratingValues
+fieldName=rewardCategory
 # --field-end--
 # --field-start--
-fieldName=selected
+fieldName=cost
+# --field-end--
+# --field-start--
+fieldName=image
+dataPersister=BYTE_ARRAY
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.mjai37.database.RewardHistory
+dataClass=com.example.admin.database.RewardHistory
 tableName=GOODIE_HISTORY
 # --table-fields-start--
 # --field-start--
