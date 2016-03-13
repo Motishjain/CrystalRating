@@ -78,8 +78,8 @@ public class UserInfoActivity extends AppCompatActivity {
         userNameLayout = (TextInputLayout) findViewById(R.id.inputUserNameLayout);
         userPhoneLayout = (TextInputLayout) findViewById(R.id.inputUserPhoneNumberLayout);
 
-        continueButton = (Button) findViewById(R.id.user_info_continue_button);
-        resetButton = (Button) findViewById(R.id.reset_user_button);
+        continueButton = (Button) findViewById(R.id.userInfoContinueButton);
+        resetButton = (Button) findViewById(R.id.userInfoResetButton);
 
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override

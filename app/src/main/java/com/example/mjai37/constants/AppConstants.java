@@ -16,4 +16,6 @@ public class AppConstants {
     public static final String QUESTION_NAME = "questionName";
 
     public static final String OPTION_VALUES = "optionValues";
+
+    public static final String SUBMIT_FEEDBACK = "submitFeedback";
 }
