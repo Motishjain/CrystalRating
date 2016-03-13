@@ -45,7 +45,7 @@ public class UserInfoActivity extends AppCompatActivity {
         feedback = (Feedback)extras.get("feedback");
 
         try {
-            userDao = OpenHelperManager.getHelper(this, DBHelper.class).getUserDao();
+            userDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("User");
             queryBuilder = userDao.queryBuilder();
             updateBuilder = userDao.updateBuilder();
             userList = queryBuilder.query();
