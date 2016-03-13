@@ -1,4 +1,4 @@
-package com.example.mjai37.freddyspeaks;
+package com.example.admin.freddyspeaks;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,11 +6,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.mjai37.constants.AppConstants;
-import com.example.mjai37.database.DBHelper;
-import com.example.mjai37.database.RewardHistory;
-import com.example.mjai37.value_objects.Feedback;
-import com.example.mjai37.webservice.RestClient;
+import com.example.admin.constants.AppConstants;
+import com.example.admin.database.DBHelper;
+import com.example.admin.database.RewardHistory;
+import com.example.admin.value_objects.Feedback;
+import com.example.admin.webservice.RestClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;

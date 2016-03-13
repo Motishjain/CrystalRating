@@ -1,11 +1,9 @@
-package com.example.mjai37.database;
+package com.example.admin.database;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by mjai37 on 1/21/2016.

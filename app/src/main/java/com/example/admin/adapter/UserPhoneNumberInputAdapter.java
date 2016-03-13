@@ -1,4 +1,4 @@
-package com.example.mjai37.adapter;
+package com.example.admin.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 
-import com.example.mjai37.database.User;
-import com.example.mjai37.freddyspeaks.R;
+import com.example.admin.database.User;
+import com.example.admin.freddyspeaks.R;
 
 import java.util.ArrayList;
 import java.util.List;
