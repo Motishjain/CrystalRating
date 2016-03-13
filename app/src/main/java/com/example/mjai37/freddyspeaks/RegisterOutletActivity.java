@@ -61,7 +61,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
         pinCode = (EditText) findViewById(R.id.inputPinCodeText);
         email = (EditText) findViewById(R.id.inputEmailText);
         phoneNumber = (EditText) findViewById(R.id.inputPhoneNumberText);
-        nextButton = (Button) findViewById(R.id.next_button);
+        nextButton = (Button) findViewById(R.id.registerOutletNextButton);
 
         GsonBuilder builder = new GsonBuilder();
         gson = builder.create();
