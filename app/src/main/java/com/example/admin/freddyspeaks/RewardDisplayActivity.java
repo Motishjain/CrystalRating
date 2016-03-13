@@ -9,6 +9,8 @@ import android.widget.Toast;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.RewardHistory;
+import com.example.admin.database.SelectedReward;
+import com.example.admin.util.RewardAllocationUtility;
 import com.example.admin.value_objects.Feedback;
 import com.example.admin.webservice.RestClient;
 import com.google.gson.Gson;
@@ -33,6 +35,7 @@ public class RewardDisplayActivity extends AppCompatActivity {
 
 
     Dao<RewardHistory, Integer> rewardHistoryDao;
+    Dao<SelectedReward, Integer> selectedRewardDao;
     QueryBuilder<RewardHistory, Integer> queryBuilder;
     UpdateBuilder<RewardHistory, Integer> updateBuilder;
     List<RewardHistory> rewardHistoryList = new ArrayList<>();
@@ -50,10 +53,13 @@ public class RewardDisplayActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         try {
-            rewardHistoryDao = OpenHelperManager.getHelper(this, DBHelper.class).getRewardHistoryDao();
+            rewardHistoryDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("RewardHistory");
+            selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
             queryBuilder = rewardHistoryDao.queryBuilder();
             updateBuilder = rewardHistoryDao.updateBuilder();
+            queryBuilder.where().eq("userPhoneNumber",feedback.getUserPhoneNumber());
             rewardHistoryList = queryBuilder.query();
+            RewardAllocationUtility.allocateReward(feedback.getUserPhoneNumber(),Integer.parseInt(feedback.getBillAmount()),rewardHistoryDao,selectedRewardDao);
         } catch (Exception e) {
             e.printStackTrace();
         }

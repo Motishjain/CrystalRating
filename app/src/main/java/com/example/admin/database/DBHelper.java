@@ -11,6 +11,9 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mjai37 on 1/21/2016.
@@ -26,6 +29,10 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Question, Integer> questionDao;
     private Dao<RewardHistory, Integer> rewardHistoryDao;
 
+    public static final Class[] DB_CLASSES = new Class[]{Outlet.class,User.class,Question.class,Reward.class,SelectedReward.class,RewardHistory.class};
+
+    private Map<String,Dao> daoMap = new HashMap<>();
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
     }
@@ -34,11 +41,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource) {
         try {
             // Create tables. This onCreate() method will be invoked only once of the application life time i.e. the first time when the application starts.
-            TableUtils.createTable(connectionSource, Outlet.class);
-            TableUtils.createTable(connectionSource, User.class);
-            TableUtils.createTable(connectionSource, Question.class);
-            TableUtils.createTable(connectionSource, Reward.class);
-            TableUtils.createTable(connectionSource, RewardHistory.class);
+            for(Class c:DB_CLASSES) {
+                TableUtils.createTable(connectionSource, c);
+            }
 
         } catch (SQLException e) {
             Log.e(DBHelper.class.getName(), "Unable to create datbases", e);
@@ -51,8 +56,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             // In case of change in database of next version of application, please increase the value of DATABASE_VERSION variable, then this method will be invoked
             //automatically. Developer needs to handle the upgrade logic here, i.e. create a new table or a new column to an existing table, take the backups of the
             // existing database etc.
-            TableUtils.dropTable(connectionSource, Outlet.class, true);
-            TableUtils.dropTable(connectionSource, User.class, true);
+            for(Class c:DB_CLASSES) {
+                TableUtils.dropTable(connectionSource, c, true);
+            }
             onCreate(sqliteDatabase, connectionSource);
         } catch (SQLException e) {
             Log.e(DBHelper.class.getName(), "Unable to upgrade database from version " + oldVer + " to new "
@@ -63,7 +69,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     // Create the getDao methods of all database tables to access those from android code.
     // Insert, delete, read, update everything will be happened through DAOs
 
-    public Dao<Outlet, Integer> getOutletDao() throws SQLException {
+    /*public Dao<Outlet, Integer> getOutletDao() throws SQLException {
         if (outletDao == null) {
             outletDao = getDao(Outlet.class);
         }
@@ -96,6 +102,17 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             rewardHistoryDao = getDao(RewardHistory.class);
         }
         return rewardHistoryDao;
+    }*/
+
+    public <T> Dao<T, Integer> getCustomDao(String className) throws SQLException {
+        if (daoMap.get(className) == null) {
+            for(Class c:DB_CLASSES) {
+                if(c.getName().equals(className)) {
+                    daoMap.put(className,getDao(c));
+                }
+            }
+        }
+        return daoMap.get(className);
     }
 
 }
