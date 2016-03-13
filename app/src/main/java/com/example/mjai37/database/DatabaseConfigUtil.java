@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
     private static final Class<?>[] classes = new Class[] {
-            Outlet.class,User.class,Reward.class,Question.class,GoodieHistory.class
+            Outlet.class,User.class,Reward.class,Question.class,RewardHistory.class
     };
 
     public static void main(String[] args) throws SQLException, IOException {

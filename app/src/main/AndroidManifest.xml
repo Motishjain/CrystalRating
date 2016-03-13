@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GoodieDisplayActivity"
+            android:name=".RewardDisplayActivity"
             android:label="@string/title_activity_goodie_display"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

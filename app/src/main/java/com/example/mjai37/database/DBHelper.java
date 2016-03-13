@@ -24,7 +24,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private Dao<User, Integer> userDao;
     private Dao<Reward, Integer> rewardDao;
     private Dao<Question, Integer> questionDao;
-    private Dao<GoodieHistory, Integer> goodieHistoryDao;
+    private Dao<RewardHistory, Integer> rewardHistoryDao;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -38,7 +38,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, User.class);
             TableUtils.createTable(connectionSource, Question.class);
             TableUtils.createTable(connectionSource, Reward.class);
-            TableUtils.createTable(connectionSource, GoodieHistory.class);
+            TableUtils.createTable(connectionSource, RewardHistory.class);
 
         } catch (SQLException e) {
             Log.e(DBHelper.class.getName(), "Unable to create datbases", e);
@@ -91,11 +91,11 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         return questionDao;
     }
 
-    public Dao<GoodieHistory, Integer> getGoodieHistoryDao() throws SQLException {
-        if (goodieHistoryDao == null) {
-            goodieHistoryDao = getDao(GoodieHistory.class);
+    public Dao<RewardHistory, Integer> getRewardHistoryDao() throws SQLException {
+        if (rewardHistoryDao == null) {
+            rewardHistoryDao = getDao(RewardHistory.class);
         }
-        return goodieHistoryDao;
+        return rewardHistoryDao;
     }
 
 }

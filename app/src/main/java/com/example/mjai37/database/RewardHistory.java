@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 
 @DatabaseTable(tableName = "GOODIE_HISTORY")
-public class GoodieHistory implements Serializable {
+public class RewardHistory implements Serializable {
 
     @DatabaseField(generatedId = true)
     private Integer id;

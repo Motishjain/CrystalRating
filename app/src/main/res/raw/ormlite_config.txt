@@ -113,7 +113,7 @@ fieldName=selected
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.mjai37.database.GoodieHistory
+dataClass=com.example.mjai37.database.RewardHistory
 tableName=GOODIE_HISTORY
 # --table-fields-start--
 # --field-start--

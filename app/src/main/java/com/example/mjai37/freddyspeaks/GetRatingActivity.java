@@ -2,6 +2,7 @@ package com.example.mjai37.freddyspeaks;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -86,7 +87,9 @@ public class GetRatingActivity extends AppCompatActivity {
         else {
             feedback.setRewardCategory("1");
             feedback.setRewardId("1");
-            
+            Intent rewardDisplay = new Intent(GetRatingActivity.this, RewardDisplayActivity.class);
+            rewardDisplay.putExtra("feedback", feedback);
+            startActivity(rewardDisplay);
         }
     }
 }
