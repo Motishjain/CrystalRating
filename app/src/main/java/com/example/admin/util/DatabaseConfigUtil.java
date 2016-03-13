@@ -1,5 +1,10 @@
-package com.example.admin.database;
+package com.example.admin.util;
 
+import com.example.admin.database.Outlet;
+import com.example.admin.database.Question;
+import com.example.admin.database.Reward;
+import com.example.admin.database.RewardHistory;
+import com.example.admin.database.User;
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 
 import java.io.File;

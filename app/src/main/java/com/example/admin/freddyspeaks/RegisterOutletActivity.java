@@ -1,4 +1,4 @@
-package com.example.mjai37.freddyspeaks;
+package com.example.admin.freddyspeaks;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,12 +13,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mjai37.constants.AppConstants;
-import com.example.mjai37.database.DBHelper;
-import com.example.mjai37.database.Reward;
-import com.example.mjai37.database.Outlet;
-import com.example.mjai37.database.Question;
-import com.example.mjai37.webservice.RestClient;
+import com.example.admin.constants.AppConstants;
+import com.example.admin.database.DBHelper;
+import com.example.admin.database.Reward;
+import com.example.admin.database.Outlet;
+import com.example.admin.database.Question;
+import com.example.admin.webservice.RestClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -67,9 +67,9 @@ public class RegisterOutletActivity extends AppCompatActivity {
         gson = builder.create();
 
         try {
-            outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getOutletDao();
-            rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getRewardDao();
-            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getQuestionDao();
+            outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
+            rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Reward");
+            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
         } catch (Exception e) {
             e.printStackTrace();
         }
