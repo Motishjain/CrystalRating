@@ -1,4 +1,4 @@
-package com.example.mjai37.constants;
+package com.example.admin.constants;
 
 /**
  * Created by mjai37 on 2/29/2016.

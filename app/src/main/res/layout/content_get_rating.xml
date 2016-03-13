@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:id="@+id/ratingCardHolder"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.mjai37.freddyspeaks.GetRatingActivity"
+    tools:context="com.example.admin.freddyspeaks.GetRatingActivity"
     tools:showIn="@layout/activity_get_rating">
 
     <fragment

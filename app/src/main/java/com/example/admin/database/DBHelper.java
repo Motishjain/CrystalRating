@@ -1,10 +1,10 @@
-package com.example.mjai37.database;
+package com.example.admin.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.mjai37.freddyspeaks.R;
+import com.example.admin.freddyspeaks.R;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
