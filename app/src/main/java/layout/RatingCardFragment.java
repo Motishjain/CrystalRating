@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.mjai37.constants.AppConstants;
-import com.example.mjai37.freddyspeaks.R;
+import com.example.admin.constants.AppConstants;
+import com.example.admin.freddyspeaks.R;
 
 /**
  * A simple {@link Fragment} subclass.
