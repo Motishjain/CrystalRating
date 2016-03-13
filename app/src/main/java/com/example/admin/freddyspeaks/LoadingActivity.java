@@ -1,12 +1,12 @@
-package com.example.mjai37.freddyspeaks;
+package com.example.admin.freddyspeaks;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.example.mjai37.database.DBHelper;
-import com.example.mjai37.database.Outlet;
+import com.example.admin.database.DBHelper;
+import com.example.admin.database.Outlet;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -28,7 +28,7 @@ public class LoadingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         try {
-            outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getOutletDao();
+            outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
             queryBuilder = outletDao.queryBuilder();
             outletList = queryBuilder.query();
             if(outletList.size()>0){

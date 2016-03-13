@@ -1,4 +1,4 @@
-package com.example.mjai37.util;
+package com.example.admin.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -38,7 +38,6 @@ public class ImageUtility {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return bmImg;
     }
 

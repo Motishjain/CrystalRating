@@ -1,7 +1,4 @@
-package com.example.mjai37.value_objects;
-
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+package com.example.admin.value_objects;
 
 import java.io.Serializable;
 import java.util.Map;

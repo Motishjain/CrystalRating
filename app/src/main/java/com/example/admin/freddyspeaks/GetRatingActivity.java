@@ -1,4 +1,4 @@
-package com.example.mjai37.freddyspeaks;
+package com.example.admin.freddyspeaks;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -8,9 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.example.mjai37.database.DBHelper;
-import com.example.mjai37.value_objects.Feedback;
-import com.example.mjai37.database.Question;
+import com.example.admin.database.DBHelper;
+import com.example.admin.value_objects.Feedback;
+import com.example.admin.database.Question;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -50,7 +50,7 @@ public class GetRatingActivity extends AppCompatActivity {
         }
 
         try {
-            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getQuestionDao();
+            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
             queryBuilder = questionDao.queryBuilder();
             queryBuilder.where().eq("selected","Y");
             questionList = queryBuilder.query();
