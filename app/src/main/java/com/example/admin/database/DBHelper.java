@@ -83,9 +83,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         return userDao;
     }
 
-    public Dao<Reward, Integer> getRewardDao() throws SQLException {
+    public Dao<RewardResponse, Integer> getRewardDao() throws SQLException {
         if (rewardDao == null) {
-            rewardDao = getDao(Reward.class);
+            rewardDao = getDao(RewardResponse.class);
         }
         return rewardDao;
     }

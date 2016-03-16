@@ -14,7 +14,7 @@ import com.example.admin.database.DBHelper;
 import com.example.admin.database.RewardHistory;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.util.RewardAllocationUtility;
-import com.example.admin.value_objects.Feedback;
+import com.example.admin.webservice.response_objects.Feedback;
 import com.example.admin.database.Question;
 import com.example.admin.webservice.RestClient;
 import com.google.gson.Gson;
@@ -167,6 +167,4 @@ public class GetRatingActivity extends AppCompatActivity {
 
         }
     }
-
-
 }
