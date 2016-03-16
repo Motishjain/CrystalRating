@@ -1,12 +1,14 @@
 package com.example.admin.util;
 
-import com.example.admin.database.RewardHistory;
+import com.example.admin.database.Reward;
 import com.example.admin.database.SelectedReward;
+import com.example.admin.webservice.response_objects.QuestionResponse;
+import com.example.admin.webservice.response_objects.ResponseWrapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.UpdateBuilder;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.List;
@@ -76,7 +78,30 @@ public class RewardAllocationUtility {
 
     public static void main(String args[]) {
         Random randomGenerator = new SecureRandom();
-        System.out.print(randomGenerator.nextInt(100));
+        //System.out.print(randomGenerator.nextInt(100));
+        Reward r = new Reward();
+        r.setCost("1");
+        r.setName("kitkat");
+        r.setImage("http");
+        r.setLevel("1");
+        Reward[] rArray = new Reward[]{r,r};
+        ResponseWrapper wrapper = new ResponseWrapper();
+        wrapper.setMsg("done");
+        wrapper.setSuccess(true);
+        wrapper.setData(rArray);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson =  builder.create();
+        System.out.println(gson.toJson(wrapper));
+
+        QuestionResponse qr = new QuestionResponse();
+        qr.setQuestionId("123");
+        qr.setOptionValues(new String[]{"Very Poor", "Poor", "Average", "Good", "Excellent"});
+        qr.setQuestionName("How was your experience?");
+
+        wrapper.setMsg("done");
+        wrapper.setSuccess(true);
+        wrapper.setData(new QuestionResponse[]{qr,qr});
+        System.out.println(gson.toJson(wrapper));
     }
 
     private static SelectedReward getReward(Dao<SelectedReward, Integer> selectedRewardDao, int categoryAllocated) {

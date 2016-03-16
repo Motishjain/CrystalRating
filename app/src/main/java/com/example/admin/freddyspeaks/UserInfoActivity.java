@@ -14,7 +14,7 @@ import android.widget.EditText;
 import com.example.admin.adapter.UserPhoneNumberInputAdapter;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.User;
-import com.example.admin.value_objects.Feedback;
+import com.example.admin.webservice.response_objects.Feedback;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
