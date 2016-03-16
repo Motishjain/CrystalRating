@@ -32,8 +32,7 @@ public class LoadingActivity extends AppCompatActivity {
             queryBuilder = outletDao.queryBuilder();
             outletList = queryBuilder.query();
             if(outletList.size()>0){
-                //TODO Correct class
-                Intent homePage = new Intent(LoadingActivity.this,RegisterOutletActivity.class);
+                Intent homePage = new Intent(LoadingActivity.this,HomePageActivity.class);
                 homePage.putExtra("outletCode",outletList.get(0).getOutletCode());
                 startActivity(homePage);
             }
