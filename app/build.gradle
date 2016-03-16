@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -30,4 +31,7 @@ dependencies {
     compile 'cz.msebera.android:httpclient:4.3.6'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
 }
