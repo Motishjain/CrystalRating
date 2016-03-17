@@ -123,8 +123,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                                 Question dbQuestion = new Question();
                                 dbQuestion.setQuestionId(questionResponse.getQuestionId());
                                 dbQuestion.setName(questionResponse.getQuestionName());
-                                //TODO remove hardcoding
-                                dbQuestion.setRatingValues(questionResponse.getOptionValues()[0]);
+                                dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
                                 dbQuestion.setSelected("Y");
                                 questionDao.create(dbQuestion);
                             }
