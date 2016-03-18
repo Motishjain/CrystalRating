@@ -13,6 +13,7 @@ import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.RewardHistory;
 import com.example.admin.database.SelectedReward;
+import com.example.admin.database.User;
 import com.example.admin.util.RewardAllocationUtility;
 import com.example.admin.webservice.response_objects.Feedback;
 import com.example.admin.database.Question;
@@ -41,6 +42,7 @@ public class GetRatingActivity extends AppCompatActivity {
 
     Dao<Question, Integer> questionDao;
     Dao<SelectedReward, Integer> selectedRewardDao;
+    Dao<User, Integer> userDao;
     int currentQuestionIndex ;
     RatingCardFragment currentRatingFragment;
 
@@ -72,6 +74,7 @@ public class GetRatingActivity extends AppCompatActivity {
         try {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
             selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
+            userDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("User");
             queryBuilder = questionDao.queryBuilder();
             queryBuilder.where().eq("selected","Y");
             questionList = queryBuilder.query();
@@ -105,7 +108,7 @@ public class GetRatingActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
         else {
-            SelectedReward allocatedReward = RewardAllocationUtility.allocateReward(feedback.getUserPhoneNumber(), Integer.parseInt(feedback.getBillAmount()), selectedRewardDao);
+            SelectedReward allocatedReward = RewardAllocationUtility.allocateReward(feedback.getUserPhoneNumber(), Integer.parseInt(feedback.getBillAmount()), selectedRewardDao,userDao);
             if(allocatedReward!=null) {
                 feedback.setRewardCategory(allocatedReward.getRewardCategory());
                 feedback.setRewardId(allocatedReward.getRewardId());

@@ -2,6 +2,7 @@ package com.example.admin.util;
 
 import com.example.admin.database.Reward;
 import com.example.admin.database.SelectedReward;
+import com.example.admin.database.User;
 import com.example.admin.webservice.response_objects.QuestionResponse;
 import com.example.admin.webservice.response_objects.ResponseWrapper;
 import com.google.gson.Gson;
@@ -20,33 +21,43 @@ import java.util.Random;
 
 public class RewardAllocationUtility {
 
-    public static SelectedReward allocateReward(String userPhoneNumber, int billAmount,Dao<SelectedReward, Integer> selectedRewardDao) {
-        String rewardId = null;
+    public static SelectedReward allocateReward(String userPhoneNumber, int billAmount,Dao<SelectedReward, Integer> selectedRewardDao, Dao<User, Integer> userDao) {
+
         int bronzeRatio=0,silverRatio=0,goldRatio=0;
-        int categoryAllocated = 0;
+        int categoryAllocated = 0, carryForwardAmount = 0, targetAmount;
+        try {
+            QueryBuilder<User, Integer> userQueryBuilder = userDao.queryBuilder();
+            userQueryBuilder.where().eq("phoneNumber", userPhoneNumber);
+            User currentUser = userQueryBuilder.queryForFirst();
+            carryForwardAmount = currentUser.getCarryForwardAmount();
+        }
+        catch(SQLException e) {
+            //TODO handle error
+        }
 
+        targetAmount = billAmount + carryForwardAmount;
 
-        if(billAmount<1000){
+        if(targetAmount<1000){
             bronzeRatio = 15;
         }
-        else if(billAmount>=1000 && billAmount<3000){
+        else if(targetAmount>=1000 && targetAmount<3000){
             //Chances are in order Bronze (40% or more), Silver (5% or less), Gold (0%)
             bronzeRatio = 40;
-            bronzeRatio += ((billAmount-1000)/1000)*10;
+            bronzeRatio += ((targetAmount-1000)/1000)*10;
             silverRatio = (100-bronzeRatio) * (8/100);
             goldRatio = 0;
         }
-        else if(billAmount>=3000 && billAmount<6000){
+        else if(targetAmount>=3000 && targetAmount<6000){
             //Chances are in order Silver (40% or more), Bronze (7% or less), Gold (6% or less)
             silverRatio = 40;
-            silverRatio += ((silverRatio-1000)/1000)*10;
+            silverRatio += ((targetAmount-3000)/1000)*10;
             bronzeRatio = (100-(silverRatio)) * (15/100);
             goldRatio = (100-(silverRatio+bronzeRatio))*(1/10);
         }
         else {
             //Chances are in order Gold (40% or more), Silver (20% or less), Bronze (12% or less)
             goldRatio = 40;
-            goldRatio += ((goldRatio-1000)/1000)*10;
+            goldRatio += ((targetAmount-6000)/1000)*10;
             silverRatio = (100-(goldRatio)) * (30/100);
             bronzeRatio = (100-(silverRatio+goldRatio))*(2/10);
         }
@@ -67,7 +78,8 @@ public class RewardAllocationUtility {
             //Gold allocated
             categoryAllocated = 3;
         }
-        if(categoryAllocated>0)
+        System.out.println(categoryAllocated);
+        if(categoryAllocated>0 && selectedRewardDao!=null)
         {
             return getReward(selectedRewardDao,categoryAllocated);
         }
@@ -77,31 +89,8 @@ public class RewardAllocationUtility {
     }
 
     public static void main(String args[]) {
-        Random randomGenerator = new SecureRandom();
-        //System.out.print(randomGenerator.nextInt(100));
-        Reward r = new Reward();
-        r.setCost("1");
-        r.setName("kitkat");
-        r.setImage("http");
-        r.setLevel("1");
-        Reward[] rArray = new Reward[]{r,r};
-        ResponseWrapper wrapper = new ResponseWrapper();
-        wrapper.setMsg("done");
-        wrapper.setSuccess(true);
-        wrapper.setData(rArray);
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson =  builder.create();
-        System.out.println(gson.toJson(wrapper));
+        allocateReward("123",2500,null,null);
 
-        QuestionResponse qr = new QuestionResponse();
-        qr.setQuestionId("123");
-        qr.setOptionValues(new String[]{"Very Poor", "Poor", "Average", "Good", "Excellent"});
-        qr.setQuestionName("How was your experience?");
-
-        wrapper.setMsg("done");
-        wrapper.setSuccess(true);
-        wrapper.setData(new QuestionResponse[]{qr,qr});
-        System.out.println(gson.toJson(wrapper));
     }
 
     private static SelectedReward getReward(Dao<SelectedReward, Integer> selectedRewardDao, int categoryAllocated) {

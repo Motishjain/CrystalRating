@@ -69,41 +69,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     // Create the getDao methods of all database tables to access those from android code.
     // Insert, delete, read, update everything will be happened through DAOs
 
-    /*public Dao<Outlet, Integer> getOutletDao() throws SQLException {
-        if (outletDao == null) {
-            outletDao = getDao(Outlet.class);
-        }
-        return outletDao;
-    }
-
-    public Dao<User, Integer> getUserDao() throws SQLException {
-        if (userDao == null) {
-            userDao = getDao(User.class);
-        }
-        return userDao;
-    }
-
-    public Dao<RewardResponse, Integer> getRewardDao() throws SQLException {
-        if (rewardDao == null) {
-            rewardDao = getDao(RewardResponse.class);
-        }
-        return rewardDao;
-    }
-
-    public Dao<Question, Integer> getQuestionDao() throws SQLException {
-        if (questionDao == null) {
-            questionDao = getDao(Question.class);
-        }
-        return questionDao;
-    }
-
-    public Dao<RewardHistory, Integer> getRewardHistoryDao() throws SQLException {
-        if (rewardHistoryDao == null) {
-            rewardHistoryDao = getDao(RewardHistory.class);
-        }
-        return rewardHistoryDao;
-    }*/
-
     public <T> Dao<T, Integer> getCustomDao(String className) throws SQLException {
         if (daoMap.get(className) == null) {
             for(Class c:DB_CLASSES) {
