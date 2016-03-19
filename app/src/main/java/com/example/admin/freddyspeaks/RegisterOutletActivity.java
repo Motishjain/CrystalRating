@@ -25,7 +25,6 @@ import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -100,19 +99,6 @@ public class RegisterOutletActivity extends AppCompatActivity {
                     //TODO logging
                 }
                 //TODO web service call to fetch
-                /*RequestParams params = new RequestParams();
-
-                params.put("outletType", "RET");
-                params.put("outletName", newOutlet.getOutletName());
-                params.put("aliasName", newOutlet.getAliasName());
-                params.put("addrLine1", newOutlet.getAddrLine1());
-                params.put("addrLine2", newOutlet.getAddrLine2());
-                params.put("pinCode", newOutlet.getPinCode());
-                params.put("email", newOutlet.getEmail());
-                params.put("cellNumber", newOutlet.getCellNumber());
-                params.put("workPhoneNumber", newOutlet.getWorkPhoneNumber());
-
-                */
                 Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
                 fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
                     @Override
