@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Company Email Id"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/colorPrimary" />
+                    style="@style/inputText" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
