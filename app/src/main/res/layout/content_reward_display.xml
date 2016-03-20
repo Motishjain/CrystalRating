@@ -20,8 +20,7 @@
         android:layout_margin="20dp"
         android:layout_weight="1"
         android:elevation="3dp"
-        android:text="Continue"
-        android:onClick="submitFeedback"
+        android:text="Exit"
         android:textAllCaps="false"
         android:textColor="#fff" />
 </RelativeLayout>

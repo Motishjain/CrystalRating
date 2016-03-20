@@ -4,25 +4,23 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.admin.freddyspeaks.R;
 
 /**
  * Created by Admin on 3/19/2016.
  */
-public class CustomFontEditText extends EditText {
-
-    private AttributeSet attrs;
+public class CustomFontTextView extends TextView {
 
     private String fontFamilyFile;
+    private AttributeSet attrs;
 
-    public CustomFontEditText(Context context) {
+    public CustomFontTextView(Context context) {
         super(context);
-        init();
     }
 
-    public CustomFontEditText(Context context, AttributeSet attrs) {
+    public CustomFontTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.attrs = attrs;
         TypedArray a = context.obtainStyledAttributes(this.attrs, R.styleable.custom_font);
@@ -33,10 +31,9 @@ public class CustomFontEditText extends EditText {
         }
     }
 
-    public CustomFontEditText(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public CustomFontTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         this.attrs = attrs;
-        init();
     }
 
     private void init() {

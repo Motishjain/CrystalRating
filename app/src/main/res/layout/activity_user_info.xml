@@ -7,19 +7,23 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.admin.freddyspeaks.UserInfoActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/header_bg"
+        app:popupTheme="@style/AppTheme.PopupOverlay" >
+        <com.example.admin.view.CustomFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_header"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            app:fontFamilyFile="LCALLIG"
+            android:layout_marginTop="5dp"
+            />
+    </android.support.v7.widget.Toolbar>
 
     <include layout="@layout/content_user_info" />
 

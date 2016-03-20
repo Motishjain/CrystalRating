@@ -11,12 +11,7 @@
     android:id="@+id/ratingCardHolder"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.admin.freddyspeaks.GetRatingActivity"
-    tools:showIn="@layout/activity_get_rating">
-
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="layout.RatingCardFragment"
-        android:id="@+id/ratingCard"/>
+    tools:showIn="@layout/activity_get_rating"
+    android:background="@drawable/register_container">
 
 </RelativeLayout>

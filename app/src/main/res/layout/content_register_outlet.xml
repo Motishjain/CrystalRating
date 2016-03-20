@@ -12,24 +12,25 @@
     tools:context="com.example.admin.freddyspeaks.RegisterOutletActivity"
     tools:showIn="@layout/activity_register_outlet">
 
-    <TextView
+    <com.example.admin.view.CustomFontTextView
         android:id="@+id/registerCompanyHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="30dp"
-        android:text="Register Outlet"
-        android:textSize="35sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/register_outlet"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimaryDark"
+        app:fontFamilyFile="comicsansms"
         android:textStyle="bold" />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollViewRegisterBox"
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
-        android:layout_width="fill_parent"
-        android:layout_marginTop="2dp"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="15dp"
         android:layout_below="@id/registerCompanyHeader"
         android:background="@drawable/register_container"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -37,7 +38,7 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingTop="@dimen/register_box_top_margin"
             android:id="@+id/registerContainerBox"
             >
 
@@ -47,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputOutletNameText"
@@ -55,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Outlet Name"
                     android:inputType="text"
-
+                    android:textSize="15dp"
                     android:textColor="@color/colorPrimary"
                     />
             </android.support.design.widget.TextInputLayout>
@@ -67,6 +68,7 @@
                 android:layout_below="@id/inputOutletNameLayout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:textColorHint="@color/textHint"
                 android:layout_marginTop="20dp">
 
                 <com.example.admin.view.CustomFontEditText
@@ -74,7 +76,7 @@
                     android:id="@+id/inputAliasNameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColorHint="#237414"
+                    android:textSize="15dp"
                     android:hint="Alias Name (Display name)"
                     android:inputType="text"
                     />
@@ -174,10 +176,10 @@
 
         </RelativeLayout>
     </ScrollView>
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/ScrollViewRegisterBox"
         android:weightSum="2">
 
@@ -186,7 +188,6 @@
             style="@style/formButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:layout_weight="1"
             android:elevation="3dp"
             android:text="Reset"
@@ -198,7 +199,6 @@
             style="@style/formButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:layout_weight="1"
             android:elevation="3dp"
             android:text="Next"
