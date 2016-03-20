@@ -1,15 +1,12 @@
 package layout;
 
+import android.app.Fragment;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
 
 import com.example.admin.adapter.SelectRewardsBoxAdapter;
 import com.example.admin.database.Reward;
@@ -67,7 +64,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         // Inflate the layout for this fragment
         View selectRewardsScroller =  inflater.inflate(R.layout.fragment_select_rewards_box, container, false);
         rewardSelectionGridView = (GridView) selectRewardsScroller.findViewById(R.id.rewardSelectionGridView);
-        SelectRewardsBoxAdapter selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(getContext(), R.layout.select_reward_item, rewardList,this);
+        SelectRewardsBoxAdapter selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(selectRewardsScroller.getContext(), R.layout.select_reward_item, rewardList,this);
         rewardSelectionGridView.setAdapter(selectRewardsBoxAdapter);
         return  selectRewardsScroller;
     }
