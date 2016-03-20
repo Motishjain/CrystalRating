@@ -11,19 +11,17 @@ import android.widget.Toast;
 
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
-import com.example.admin.database.RewardHistory;
+import com.example.admin.database.Question;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
 import com.example.admin.util.RewardAllocationUtility;
-import com.example.admin.webservice.response_objects.Feedback;
-import com.example.admin.database.Question;
 import com.example.admin.webservice.RestClient;
+import com.example.admin.webservice.response_objects.Feedback;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.UpdateBuilder;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -47,7 +45,6 @@ public class GetRatingActivity extends AppCompatActivity {
     RatingCardFragment currentRatingFragment;
 
     QueryBuilder<Question, Integer> queryBuilder;
-    UpdateBuilder<RewardHistory, Integer> rewardHistoryUpdateBuilder;
     List<Question> questionList;
     int totalQuestions;
     FragmentManager fragmentManager;

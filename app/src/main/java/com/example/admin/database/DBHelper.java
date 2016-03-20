@@ -23,11 +23,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "Outlets.db";
     private static final int DATABASE_VERSION = 1;
-    private Dao<Outlet, Integer> outletDao;
-    private Dao<User, Integer> userDao;
-    private Dao<Reward, Integer> rewardDao;
-    private Dao<Question, Integer> questionDao;
-    private Dao<RewardHistory, Integer> rewardHistoryDao;
 
     public static final Class[] DB_CLASSES = new Class[]{Outlet.class,User.class,Question.class,Reward.class,SelectedReward.class,RewardHistory.class};
 

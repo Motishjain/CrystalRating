@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
 
 import com.example.admin.adapter.SelectRewardsBoxAdapter;
 import com.example.admin.database.Reward;
@@ -23,18 +26,18 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsBoxAdapter.RewardSelectionListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private List<Reward> rewardList;
 
+    private int level;
+
     private OnFragmentInteractionListener mListener;
 
+    private GridView rewardSelectionGridView;
+
     public SelectRewardsBoxFragment() {
-        // Required empty public constructor
+
     }
 
     /**
@@ -45,8 +48,9 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
      * @return A new instance of fragment SelectRewardsBoxFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SelectRewardsBoxFragment newInstance(List<Reward> rewardList) {
+    public static SelectRewardsBoxFragment newInstance(int level,List<Reward> rewardList) {
         SelectRewardsBoxFragment fragment = new SelectRewardsBoxFragment();
+        fragment.level = level;
         fragment.rewardList = rewardList;
         return fragment;
     }
@@ -61,14 +65,11 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select_rewards_box, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        View selectRewardsScroller =  inflater.inflate(R.layout.fragment_select_rewards_box, container, false);
+        rewardSelectionGridView = (GridView) selectRewardsScroller.findViewById(R.id.rewardSelectionGridView);
+        SelectRewardsBoxAdapter selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(getContext(), R.layout.select_reward_item, rewardList,this);
+        rewardSelectionGridView.setAdapter(selectRewardsBoxAdapter);
+        return  selectRewardsScroller;
     }
 
     @Override
@@ -89,8 +90,8 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
     }
 
     @Override
-    public void rewardSelected(int index) {
-
+    public void rewardClicked(int index,boolean checked) {
+        mListener.rewardClicked(index,checked);
     }
 
     /**
@@ -105,6 +106,6 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void rewardClicked(int index,boolean checked);
     }
 }

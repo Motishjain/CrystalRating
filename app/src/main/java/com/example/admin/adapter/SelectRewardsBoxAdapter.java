@@ -28,7 +28,7 @@ public class SelectRewardsBoxAdapter extends ArrayAdapter<Reward> {
     RewardSelectionListener rewardSelectionListener;
 
     public interface RewardSelectionListener {
-        public void rewardSelected(int index);
+        void rewardClicked(int index,boolean checked);
     }
 
     public SelectRewardsBoxAdapter(Context context, int layoutResourceId, List<Reward> rewardList, RewardSelectionListener rewardSelectionListener) {
@@ -64,7 +64,7 @@ public class SelectRewardsBoxAdapter extends ArrayAdapter<Reward> {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox)v).isChecked();
-                rewardSelectionListener.rewardSelected(position);
+                rewardSelectionListener.rewardClicked(position, checked);
             }
         });
 

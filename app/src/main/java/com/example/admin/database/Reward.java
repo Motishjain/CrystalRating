@@ -19,7 +19,7 @@ public class Reward implements Serializable {
     private String name;
 
     @DatabaseField
-    private String level;
+    private int level;
 
     @DatabaseField
     private String rewardType;
@@ -54,11 +54,11 @@ public class Reward implements Serializable {
         this.cost = cost;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 

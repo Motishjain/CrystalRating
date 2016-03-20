@@ -7,7 +7,7 @@ public class RewardResponse {
     private String name;
     private String image;
     private String cost;
-    private String level;
+    private int level;
 
     public String getName() {
         return name;
@@ -33,11 +33,11 @@ public class RewardResponse {
         this.cost = cost;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 }
