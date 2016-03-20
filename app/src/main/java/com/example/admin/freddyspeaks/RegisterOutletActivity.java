@@ -3,6 +3,7 @@ package com.example.admin.freddyspeaks;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,8 +43,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
     Dao<Outlet, Integer> outletDao;
     Dao<Reward, Integer> rewardDao;
     Dao<Question, Integer> questionDao;
-    ProgressDialog prgDialog;
-    TextView errorMsg;
+    TextToSpeech textToSpeechConverter;
     Gson gson;
     RestEndpointInterface restEndpointInterface;
 
@@ -156,6 +157,16 @@ public class RegisterOutletActivity extends AppCompatActivity {
             }
 
         });
+
+        textToSpeechConverter=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    textToSpeechConverter.setLanguage(Locale.UK);
+                }
+            }
+        });
+        textToSpeechConverter.speak(AppConstants.REGISTER_WELCOME_MSG, TextToSpeech.QUEUE_FLUSH, null);
     }
 
     @Override

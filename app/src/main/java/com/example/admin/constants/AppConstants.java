@@ -20,4 +20,6 @@ public class AppConstants {
     public static final String SUBMIT_FEEDBACK = "submit_feedback.php";
 
     public static final String OUTLET_TYPE = "RET";
+
+    public static final String REGISTER_WELCOME_MSG = "Freddy welcomes you! Please enter your outlet details.";
 }
