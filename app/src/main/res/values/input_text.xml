@@ -3,11 +3,10 @@
     <style name="inputText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColorHint">@color/colorPrimary</item>
         <item name="android:typeface">monospace</item>
         <item name="fontFamilyFile">comicsansms</item>
-        <item name="inputTextColorHint">@color/textHint</item>
-        <item name="inputTextColorHighlight">@color/textHighlight</item>
-        <item name="textSize">15dp</item>
+        <item name="android:textColorHint">@color/textHint</item>
+        <item name="android:textColorHighlight">@color/textHighlight</item>
+        <item name="android:textSize">15dp</item>
     </style>
 </resources>
