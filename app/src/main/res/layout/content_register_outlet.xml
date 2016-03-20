@@ -29,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_below="@id/registerCompanyHeader"
-        android:layout_above="@id/"
         android:background="@drawable/register_container"
         android:layout_height="wrap_content">
 
@@ -69,7 +68,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:textColorHint="@color/textHint"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="15dp">
 
                 <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputAliasNameText"
@@ -88,7 +87,7 @@
                 android:layout_below="@id/inputAliasNameLayout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="15dp">
 
                 <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputaddressLine1Text"
@@ -106,7 +105,7 @@
                 android:layout_below="@id/inputaddressLine1Layout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="15dp">
 
                 <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputaddressLine2Text"
@@ -124,7 +123,7 @@
                 android:layout_below="@id/inputaddressLine2Layout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="15dp">
 
                 <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputPinCodeText"
@@ -143,7 +142,7 @@
                 android:layout_below="@id/inputPinCodeLayout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="15dp">
 
                 <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputEmailText"
@@ -161,7 +160,7 @@
                 android:layout_below="@id/inputEmailLayout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="15dp">
 
                 <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputPhoneNumberText"
