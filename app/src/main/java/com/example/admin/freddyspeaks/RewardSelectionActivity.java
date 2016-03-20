@@ -14,6 +14,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,14 +30,15 @@ public class RewardSelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reward_selection);
+        setContentView(R.layout.content_reward_selection);
 
         try {
             rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Reward");
             queryBuilder = rewardDao.queryBuilder();
-            queryBuilder.where().eq("selected", "Y");
             queryBuilder.orderBy("level",true);
             rewardsList = queryBuilder.query();
+            levelRewardsMap = new HashMap<>();
+
             for(Reward reward:rewardsList) {
                 if(levelRewardsMap.get(reward.getLevel())==null){
                     List<Reward> rewardList = new ArrayList<>();

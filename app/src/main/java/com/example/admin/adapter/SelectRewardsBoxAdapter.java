@@ -57,7 +57,7 @@ public class SelectRewardsBoxAdapter extends ArrayAdapter<Reward> {
         }
 
         Reward reward = rewardList.get(position);
-        holder.selectRewardImage.setImageURI(Uri.parse(reward.getImage()));
+        //holder.selectRewardImage.setImageURI(Uri.parse(reward.getImage()));
         holder.selectRewardName.setText(reward.getName());
         holder.selectRewardCost.setText(reward.getCost());
         holder.selectRewardCheckbox.setOnClickListener(new View.OnClickListener() {

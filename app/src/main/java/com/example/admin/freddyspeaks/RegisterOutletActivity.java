@@ -136,7 +136,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                             for (RewardResponse rewardResponse : rewardsList) {
                                 Reward dbReward = new Reward();
                                 dbReward.setName(rewardResponse.getName());
-                                dbReward.setImage(rewardResponse.getImage());
+                                dbReward.setImage(AppConstants.BASE_URL + rewardResponse.getImage());
                                 dbReward.setCost(rewardResponse.getCost());
                                 dbReward.setLevel(rewardResponse.getLevel());
                                 rewardDao.create(dbReward);
@@ -144,6 +144,8 @@ public class RegisterOutletActivity extends AppCompatActivity {
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
+                        Intent rewardSelection = new Intent(RegisterOutletActivity.this, RewardSelectionActivity.class);
+                        startActivity(rewardSelection);
                     }
 
                     @Override
@@ -151,9 +153,6 @@ public class RegisterOutletActivity extends AppCompatActivity {
 
                     }
                 });
-
-                Intent rewardSelection = new Intent(RegisterOutletActivity.this, RewardSelectionActivity.class);
-                startActivity(rewardSelection);
             }
 
         });
