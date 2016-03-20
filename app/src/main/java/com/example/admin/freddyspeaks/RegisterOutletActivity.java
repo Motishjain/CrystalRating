@@ -2,6 +2,7 @@ package com.example.admin.freddyspeaks;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -158,15 +159,21 @@ public class RegisterOutletActivity extends AppCompatActivity {
 
         });
 
-        textToSpeechConverter=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+/*        textToSpeechConverter=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
-                    textToSpeechConverter.setLanguage(Locale.UK);
+                    new Thread(new Runnable() {
+                        public void run() {
+                            textToSpeechConverter.setPitch(1.1f); // saw from internet
+                            textToSpeechConverter.setSpeechRate(0.4f); // f denotes float, it actually type casts 0.5 to float
+                            textToSpeechConverter.setLanguage(Locale.UK);
+                            textToSpeechConverter.speak(AppConstants.REGISTER_WELCOME_MSG, TextToSpeech.QUEUE_FLUSH, null);
+                        }
+                    }).start();
                 }
             }
-        });
-        textToSpeechConverter.speak(AppConstants.REGISTER_WELCOME_MSG, TextToSpeech.QUEUE_FLUSH, null);
+        });*/
     }
 
     @Override

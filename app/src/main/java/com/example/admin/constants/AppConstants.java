@@ -21,5 +21,5 @@ public class AppConstants {
 
     public static final String OUTLET_TYPE = "RET";
 
-    public static final String REGISTER_WELCOME_MSG = "Freddy welcomes you! Please enter your outlet details.";
+    public static final String REGISTER_WELCOME_MSG = "Please enter your outlet details.";
 }
