@@ -29,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_below="@id/registerCompanyHeader"
+        android:layout_above="@id/"
         android:background="@drawable/register_container"
         android:layout_height="wrap_content">
 
@@ -56,8 +57,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Outlet Name"
                     android:inputType="text"
-                    android:textSize="15dp"
-                    android:textColor="@color/colorPrimary"
+                    style="@style/inputText"
                     />
             </android.support.design.widget.TextInputLayout>
 
@@ -72,13 +72,12 @@
                 android:layout_marginTop="20dp">
 
                 <com.example.admin.view.CustomFontEditText
-                    style="@style/inputText"
                     android:id="@+id/inputAliasNameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
                     android:hint="Alias Name (Display name)"
                     android:inputType="text"
+                    style="@style/inputText"
                     />
             </android.support.design.widget.TextInputLayout>
 
@@ -91,13 +90,13 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp">
 
-                <EditText
+                <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputaddressLine1Text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Address Line 1"
                     android:inputType="textPostalAddress"
-                    android:textColor="@color/colorPrimary" />
+                    style="@style/inputText" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -109,13 +108,13 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp">
 
-                <EditText
+                <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputaddressLine2Text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Address Line 2"
                     android:inputType="textPostalAddress"
-                    android:textColor="@color/colorPrimary" />
+                    style="@style/inputText" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -127,14 +126,14 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp">
 
-                <EditText
+                <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputPinCodeText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Pin Code"
                     android:inputType="number"
                     android:maxLength="10"
-                    android:textColor="@color/colorPrimary" />
+                    style="@style/inputText" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -146,7 +145,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp">
 
-                <EditText
+                <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputEmailText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,14 +163,14 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp">
 
-                <EditText
+                <com.example.admin.view.CustomFontEditText
                     android:id="@+id/inputPhoneNumberText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Phone Number"
                     android:inputType="number"
                     android:maxLength="10"
-                    android:textColor="@color/colorPrimary" />
+                    style="@style/inputText" />
             </android.support.design.widget.TextInputLayout>
 
         </RelativeLayout>

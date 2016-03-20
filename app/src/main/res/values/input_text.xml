@@ -8,5 +8,6 @@
         <item name="fontFamilyFile">comicsansms</item>
         <item name="inputTextColorHint">@color/textHint</item>
         <item name="inputTextColorHighlight">@color/textHighlight</item>
+        <item name="textSize">15dp</item>
     </style>
 </resources>
