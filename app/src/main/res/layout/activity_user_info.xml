@@ -13,16 +13,7 @@
         android:background="@color/header_bg"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
         <com.example.admin.view.CustomFontTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_header"
-            android:textColor="#fff"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp"
-            app:fontFamilyFile="LCALLIG"
-            android:layout_marginTop="5dp"
-            />
+            style="@style/appHeader" />
     </android.support.v7.widget.Toolbar>
 
     <include layout="@layout/content_user_info" />

@@ -17,6 +17,8 @@ public class AppConstants {
 
     public static final String OPTION_VALUES = "optionValues";
 
+    public static final String REWARDS_LIST = "questionName";
+
     public static final String SUBMIT_FEEDBACK = "submit_feedback.php";
 
     public static final String OUTLET_TYPE = "RET";
