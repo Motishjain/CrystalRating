@@ -152,9 +152,8 @@ public class RegisterOutletActivity extends AppCompatActivity {
                     }
                 });
 
-                Intent homePage = new Intent(RegisterOutletActivity.this, HomePageActivity.class);
-                homePage.putExtra("outletType",newOutlet.getOutletType());
-                startActivity(homePage);
+                Intent rewardSelection = new Intent(RegisterOutletActivity.this, RewardSelectionActivity.class);
+                startActivity(rewardSelection);
             }
 
         });
