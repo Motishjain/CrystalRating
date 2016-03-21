@@ -188,7 +188,7 @@
         android:layout_weight="15.0"
         android:weightSum="6">
 
-        <Button
+        <com.example.admin.view.CustomFontButton
             android:id="@+id/reset_button"
             style="@style/formButton"
             android:layout_marginLeft="40dp"
@@ -197,7 +197,7 @@
             android:layout_gravity="center"
             />
 
-        <Button
+        <com.example.admin.view.CustomFontButton
             android:id="@+id/registerOutletNextButton"
             style="@style/formButton"
             android:layout_marginLeft="30dp"

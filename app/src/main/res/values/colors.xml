@@ -9,4 +9,5 @@
     <color name="textHint">#237414</color>
     <color name="textHighlight">#B00000</color>
     <color name="formButtonBg">#83E783</color>
+    <color name="black">#000000</color>
 </resources>
