@@ -5,7 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="register_border">#FF0000</color>
     <color name="register_box_bg">#FFFFCC</color>
-    <color name="header_bg">#669CFC</color>
+    <color name="headerBg">#669CFC</color>
     <color name="textHint">#237414</color>
     <color name="textHighlight">#B00000</color>
+    <color name="formButtonBg">#83E783</color>
 </resources>
