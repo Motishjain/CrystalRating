@@ -18,19 +18,21 @@
         android:id="@+id/registerCompanyHeader"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="20dp"
         android:text="@string/register_outlet"
         android:textSize="20sp"
         android:layout_weight="10.0"
         android:textColor="@color/colorPrimaryDark"
-        app:fontFamilyFile="comicsansms"
+        app:fontFamilyFile="@string/applicationFont"
         android:textStyle="bold" />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollViewRegisterBox"
         android:layout_width="wrap_content"
         android:layout_weight="75.0"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_below="@id/registerCompanyHeader"
         android:background="@drawable/register_container"
         android:layout_height="0dp">
@@ -184,12 +186,12 @@
         android:layout_marginTop="5dp"
         android:layout_below="@id/ScrollViewRegisterBox"
         android:layout_weight="15.0"
-        android:weightSum="4">
+        android:weightSum="6">
 
         <Button
             android:id="@+id/reset_button"
             style="@style/formButton"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_weight="1"
             android:text="Reset"
             android:layout_gravity="center"

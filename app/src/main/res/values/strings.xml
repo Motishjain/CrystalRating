@@ -19,4 +19,6 @@
     <string name="title_activity_reward_selection">RewardSelectionActivity</string>
     <string name="title_activity_thanks">ThanksActivity</string>
     <string name="register_outlet">Register your Outlet !</string>
+    <string name="applicationFont">comicsansms</string>
+    <string name="headerFont">LCALLIG</string>
 </resources>
