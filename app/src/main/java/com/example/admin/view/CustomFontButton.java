@@ -13,6 +13,7 @@ import com.example.admin.freddyspeaks.R;
  */
 public class CustomFontButton extends Button {
 
+
     private String fontFamilyFile;
 
     public CustomFontButton(Context context) {
@@ -40,8 +41,8 @@ public class CustomFontButton extends Button {
     }
 
     private void init() {
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), getFontFamilyFile());
-        this.setTypeface(font);
+/*      Typeface font = Typeface.createFromAsset(getContext().getAssets(), getFontFamilyFile());
+        this.setTypeface(font);*/
     }
 
     public String getFontFamilyFile() {
