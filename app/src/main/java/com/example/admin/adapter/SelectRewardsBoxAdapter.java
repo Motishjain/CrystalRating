@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.admin.database.Reward;
 import com.example.admin.freddyspeaks.R;
+import com.example.admin.util.ImageUtility;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class SelectRewardsBoxAdapter extends ArrayAdapter<Reward> {
         }
 
         Reward reward = rewardList.get(position);
-        //holder.selectRewardImage.setImageURI(Uri.parse(reward.getImage()));
+        holder.selectRewardImage.setImageBitmap(ImageUtility.getImageBitmap(reward.getImage()));
         holder.selectRewardName.setText(reward.getName());
         holder.selectRewardCost.setText(reward.getCost());
         holder.selectRewardCheckbox.setOnClickListener(new View.OnClickListener() {

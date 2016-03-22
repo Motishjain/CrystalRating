@@ -5,7 +5,9 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.GridView;
 
+import com.example.admin.adapter.SelectRewardsBoxAdapter;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
 import com.example.admin.database.Reward;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import layout.SelectRewardsBoxFragment;
 
@@ -30,14 +33,14 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_reward_selection);
+        setContentView(R.layout.activity_reward_selection);
 
         try {
             rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Reward");
             queryBuilder = rewardDao.queryBuilder();
             queryBuilder.orderBy("level",true);
             rewardsList = queryBuilder.query();
-            levelRewardsMap = new HashMap<>();
+            levelRewardsMap = new TreeMap<>();
 
             for(Reward reward:rewardsList) {
                 if(levelRewardsMap.get(reward.getLevel())==null){
@@ -49,6 +52,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                     levelRewardsMap.get(reward.getLevel()).add(reward);
                 }
             }
+
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 

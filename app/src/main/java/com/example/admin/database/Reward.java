@@ -1,5 +1,6 @@
 package com.example.admin.database;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -27,8 +28,8 @@ public class Reward implements Serializable {
     @DatabaseField
     private String cost;
 
-    @DatabaseField
-    private String image;
+    @DatabaseField(dataType = DataType.BYTE_ARRAY)
+    private byte[] image;
 
     public Integer getId() {
         return id;
@@ -70,11 +71,11 @@ public class Reward implements Serializable {
         this.rewardType = rewardType;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }
