@@ -20,7 +20,7 @@ import java.util.Map;
 
 import layout.SelectRewardsBoxFragment;
 
-public class RewardSelectionActivity extends AppCompatActivity {
+public class RewardSelectionActivity extends AppCompatActivity implements SelectRewardsBoxFragment.OnFragmentInteractionListener{
 
     Dao<Reward, Integer> rewardDao;
     QueryBuilder<Reward, Integer> queryBuilder;
@@ -63,4 +63,8 @@ public class RewardSelectionActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void rewardClicked(int index, boolean checked) {
+
+    }
 }

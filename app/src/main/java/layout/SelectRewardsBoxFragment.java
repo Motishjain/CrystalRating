@@ -1,7 +1,7 @@
 package layout;
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,12 +70,12 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) activity;
         } else {
-            throw new RuntimeException(context.toString()
+            throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
