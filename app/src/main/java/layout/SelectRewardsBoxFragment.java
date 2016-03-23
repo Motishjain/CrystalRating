@@ -3,6 +3,8 @@ package layout;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +36,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
 
     private OnFragmentInteractionListener mListener;
 
-    private ListView fragmentRewardsList;
+    private RecyclerView fragmentRewardsList;
 
     public SelectRewardsBoxFragment() {
 
@@ -65,11 +67,17 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View selectRewardsScroller =  inflater.inflate(R.layout.fragment_select_rewards_box, container, false);
-        fragmentRewardsList = (ListView) selectRewardsScroller.findViewById(R.id.fragmentRewardsList);
-        SelectRewardsBoxAdapter selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(selectRewardsScroller.getContext(), R.layout.select_reward_item, rewardList,this);
+
+
+        View selectRewardBoxFragment =  inflater.inflate(R.layout.fragment_select_rewards_box, container, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(selectRewardBoxFragment.getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        fragmentRewardsList = (RecyclerView) selectRewardBoxFragment.findViewById(R.id.fragmentRewardsList);
+        fragmentRewardsList.setLayoutManager(layoutManager);
+        SelectRewardsBoxAdapter selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(R.layout.select_reward_item, rewardList,this);
         fragmentRewardsList.setAdapter(selectRewardsBoxAdapter);
-        return  selectRewardsScroller;
+        return selectRewardBoxFragment;
     }
 
     @Override

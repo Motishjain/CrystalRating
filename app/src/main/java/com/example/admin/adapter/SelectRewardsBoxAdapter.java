@@ -2,6 +2,7 @@ package com.example.admin.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,43 +28,30 @@ import retrofit2.Response;
 /**
  * Created by Admin on 3/20/2016.
  */
-public class SelectRewardsBoxAdapter extends ArrayAdapter<Reward> {
-    private Context context;
+public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsBoxAdapter.SelectRewardHolder> {
+
     private int layoutResourceId;
     private List<Reward> rewardList;
     RewardSelectionListener rewardSelectionListener;
 
-    public interface RewardSelectionListener {
-        void rewardClicked(int index,boolean checked);
-    }
-
-    public SelectRewardsBoxAdapter(Context context, int layoutResourceId, List<Reward> rewardList, RewardSelectionListener rewardSelectionListener) {
-        super(context, layoutResourceId, rewardList);
+    public SelectRewardsBoxAdapter(int layoutResourceId, List<Reward> rewardList, RewardSelectionListener rewardSelectionListener) {
         this.layoutResourceId = layoutResourceId;
-        this.context = context;
         this.rewardList = rewardList;
         this.rewardSelectionListener = rewardSelectionListener;
     }
 
+
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+    public SelectRewardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, null);
 
-        if (convertView == null) {
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            convertView = inflater.inflate(layoutResourceId, parent, false);
-            holder = new ViewHolder();
-            holder.selectRewardImage = (ImageView) convertView.findViewById(R.id.selectRewardImage);
-            holder.selectRewardName = (TextView) convertView.findViewById(R.id.selectRewardName);
-            holder.selectRewardCost = (TextView) convertView.findViewById(R.id.selectRewardCost);
-            holder.selectRewardCheckbox = (CheckBox) convertView.findViewById(R.id.selectRewardCheckbox);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+        return new SelectRewardHolder(view);
 
+    }
+
+    @Override
+    public void onBindViewHolder(SelectRewardHolder holder, final int position) {
         final Reward reward = rewardList.get(position);
-        final ViewHolder finalHolder = holder;
 
         if(reward.getImage()!=null && reward.getImage().length>0){
             FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(holder.selectRewardImage);
@@ -83,14 +71,31 @@ public class SelectRewardsBoxAdapter extends ArrayAdapter<Reward> {
                 rewardSelectionListener.rewardClicked(position, checked);
             }
         });
-
-        return convertView;
     }
 
-    static class ViewHolder {
+    @Override
+    public int getItemCount() {
+        return rewardList.size();
+    }
+
+    public interface RewardSelectionListener {
+        void rewardClicked(int index,boolean checked);
+    }
+
+
+    static class SelectRewardHolder extends RecyclerView.ViewHolder{
+
         ImageView selectRewardImage;
         TextView selectRewardCost;
         TextView selectRewardName;
         CheckBox selectRewardCheckbox;
+
+        public SelectRewardHolder(View view){
+            super(view);
+            selectRewardImage = (ImageView) view.findViewById(R.id.selectRewardImage);
+            selectRewardName = (TextView) view.findViewById(R.id.selectRewardName);
+            selectRewardCost = (TextView) view.findViewById(R.id.selectRewardCost);
+            selectRewardCheckbox = (CheckBox) view.findViewById(R.id.selectRewardCheckbox);
+        }
     }
 }
