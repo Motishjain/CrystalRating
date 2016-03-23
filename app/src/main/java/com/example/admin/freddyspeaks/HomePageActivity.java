@@ -21,15 +21,12 @@ public class HomePageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         addRating = (Button) findViewById(R.id.add_rating);
-        Bundle extras = getIntent().getExtras();
-        final String outletCode = extras.getString("outletCode");
 
         addRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent billDetails = new Intent(HomePageActivity.this, BillDetailsActivity.class);
                 Feedback feedback = new Feedback();
-                feedback.setOutletCode(outletCode);
                 billDetails.putExtra("feedback",feedback);
                 startActivity(billDetails);
             }

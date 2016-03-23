@@ -2,26 +2,32 @@ package com.example.admin.freddyspeaks;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.widget.GridView;
 
-import com.example.admin.adapter.SelectRewardsBoxAdapter;
+import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
-import com.example.admin.database.Question;
 import com.example.admin.database.Reward;
+import com.example.admin.webservice.RestEndpointInterface;
+import com.example.admin.webservice.RetrofitSingleton;
+import com.example.admin.webservice.response_objects.RewardResponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import layout.SelectRewardsBoxFragment;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RewardSelectionActivity extends AppCompatActivity implements SelectRewardsBoxFragment.OnFragmentInteractionListener{
 
@@ -29,6 +35,8 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     QueryBuilder<Reward, Integer> queryBuilder;
     List<Reward> rewardsList;
     Map<Integer,List<Reward>> levelRewardsMap;
+    private ProgressDialog progress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,10 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             queryBuilder.orderBy("level",true);
             rewardsList = queryBuilder.query();
             levelRewardsMap = new TreeMap<>();
+
+            if(rewardsList.size()==0) {
+                fetchRewards();
+            }
 
             for(Reward reward:rewardsList) {
                 if(levelRewardsMap.get(reward.getLevel())==null){
@@ -70,5 +82,44 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     @Override
     public void rewardClicked(int index, boolean checked) {
 
+    }
+
+    public void fetchRewards() {
+        showProgressDialog();
+        RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+        Call<List<RewardResponse>> fetchRewardsCall = restEndpointInterface.fetchRewards(AppConstants.OUTLET_TYPE);
+        fetchRewardsCall.enqueue(new Callback<List<RewardResponse>>() {
+            @Override
+            public void onResponse(Call<List<RewardResponse>> call, Response<List<RewardResponse>> response) {
+                List<RewardResponse> rewardsList = response.body();
+                try {
+                    for (RewardResponse rewardResponse : rewardsList) {
+                        final Reward dbReward = new Reward();
+                        dbReward.setName(rewardResponse.getName());
+                        dbReward.setImageUrl(rewardResponse.getImage());
+                        dbReward.setCost(rewardResponse.getCost());
+                        dbReward.setLevel(rewardResponse.getLevel());
+                        rewardDao.create(dbReward);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                progress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<RewardResponse>> call, Throwable t) {
+                //TODO handle failure
+            }
+        });
+    }
+
+    void showProgressDialog(){
+        progress=new ProgressDialog(this);
+        progress.setMessage("Downloading Music");
+        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progress.setIndeterminate(true);
+        progress.setProgress(0);
+        progress.show();
     }
 }

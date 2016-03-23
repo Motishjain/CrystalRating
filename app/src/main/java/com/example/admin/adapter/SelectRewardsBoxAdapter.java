@@ -13,11 +13,20 @@ import android.widget.TextView;
 
 import com.example.admin.database.Reward;
 import com.example.admin.freddyspeaks.R;
+import com.example.admin.tasks.ImageConversionTask;
 import com.example.admin.util.ImageUtility;
+import com.example.admin.webservice.RestEndpointInterface;
+import com.example.admin.webservice.RetrofitSingleton;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Admin on 3/20/2016.
@@ -57,8 +66,36 @@ public class SelectRewardsBoxAdapter extends ArrayAdapter<Reward> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Reward reward = rewardList.get(position);
-        holder.selectRewardImage.setImageBitmap(ImageUtility.getImageBitmap(reward.getImage()));
+        final Reward reward = rewardList.get(position);
+        final ViewHolder finalHolder = holder;
+
+        if(reward.getImage()!=null && reward.getImage().length>0){
+            ImageConversionTask imageConversionTask = new ImageConversionTask(holder.selectRewardImage);
+            imageConversionTask.execute(reward.getImage());
+        }
+        else {
+            RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+            Call<ResponseBody> fetchImageCall = restEndpointInterface.fetchImage(reward.getImageUrl());
+            fetchImageCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        reward.setImage(response.body().bytes());
+                        ImageConversionTask imageConversionTask = new ImageConversionTask(finalHolder.selectRewardImage);
+                        imageConversionTask.execute(reward.getImage());
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }
+
         holder.selectRewardName.setText(reward.getName());
         holder.selectRewardCost.setText(reward.getCost());
         holder.selectRewardCheckbox.setOnClickListener(new View.OnClickListener() {

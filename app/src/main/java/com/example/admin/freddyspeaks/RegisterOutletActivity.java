@@ -1,8 +1,5 @@
 package com.example.admin.freddyspeaks;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
@@ -20,6 +16,7 @@ import com.example.admin.database.Outlet;
 import com.example.admin.database.Question;
 import com.example.admin.database.Reward;
 import com.example.admin.webservice.RestEndpointInterface;
+import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.response_objects.QuestionResponse;
 import com.example.admin.webservice.response_objects.RewardResponse;
 import com.google.gson.Gson;
@@ -29,24 +26,20 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterOutletActivity extends AppCompatActivity {
 
     EditText outletName, alias, addrLine1, addrLine2, pinCode, email, phoneNumber;
     Button nextButton;
     Dao<Outlet, Integer> outletDao;
-    Dao<Reward, Integer> rewardDao;
     Dao<Question, Integer> questionDao;
     TextToSpeech textToSpeechConverter;
     Gson gson;
-    RestEndpointInterface restEndpointInterface;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,16 +62,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
 
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
-            rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Reward");
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(AppConstants.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            restEndpointInterface = retrofit.create(RestEndpointInterface.class);
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +84,8 @@ public class RegisterOutletActivity extends AppCompatActivity {
                     e.printStackTrace();
                     //TODO logging
                 }
-                //TODO web service call to fetch
+                //TODO web service call to fetch - move to save of reward configuration
+                RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
                 Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
                 fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
                     @Override
@@ -126,33 +111,6 @@ public class RegisterOutletActivity extends AppCompatActivity {
                     }
                 });
 
-
-                Call<List<RewardResponse>> fetchRewardsCall = restEndpointInterface.fetchRewards(AppConstants.OUTLET_TYPE);
-                fetchRewardsCall.enqueue(new Callback<List<RewardResponse>>() {
-                    @Override
-                    public void onResponse(Call<List<RewardResponse>> call, Response<List<RewardResponse>> response) {
-                        List<RewardResponse> rewardsList = response.body();
-                        try {
-                            for (RewardResponse rewardResponse : rewardsList) {
-                                Reward dbReward = new Reward();
-                                dbReward.setName(rewardResponse.getName());
-                                dbReward.setImage(AppConstants.BASE_URL + rewardResponse.getImage());
-                                dbReward.setCost(rewardResponse.getCost());
-                                dbReward.setLevel(rewardResponse.getLevel());
-                                rewardDao.create(dbReward);
-                            }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        Intent rewardSelection = new Intent(RegisterOutletActivity.this, RewardSelectionActivity.class);
-                        startActivity(rewardSelection);
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<RewardResponse>> call, Throwable t) {
-
-                    }
-                });
             }
 
         });

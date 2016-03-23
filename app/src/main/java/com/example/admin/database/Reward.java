@@ -28,6 +28,9 @@ public class Reward implements Serializable {
     @DatabaseField
     private String cost;
 
+    @DatabaseField
+    private String imageUrl;
+
     @DatabaseField(dataType = DataType.BYTE_ARRAY)
     private byte[] image;
 
@@ -77,5 +80,13 @@ public class Reward implements Serializable {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
