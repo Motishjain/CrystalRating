@@ -50,29 +50,14 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             rewardsList = queryBuilder.query();
             levelRewardsMap = new TreeMap<>();
 
+            //For first time
             if(rewardsList.size()==0) {
                 fetchRewards();
             }
-
-            for(Reward reward:rewardsList) {
-                if(levelRewardsMap.get(reward.getLevel())==null){
-                    List<Reward> rewardList = new ArrayList<>();
-                    rewardList.add(reward);
-                    levelRewardsMap.put(reward.getLevel(),rewardList);
-                }
-                else {
-                    levelRewardsMap.get(reward.getLevel()).add(reward);
-                }
+            else {
+                createLevelWiseFragments();
             }
 
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            for(Integer level:levelRewardsMap.keySet()) {
-                SelectRewardsBoxFragment selectRewardsBoxFragment = SelectRewardsBoxFragment.newInstance(level,levelRewardsMap.get(level));
-                fragmentTransaction.add(R.id.rewardLevelBoxList, selectRewardsBoxFragment, "Level " + level + " rewards");
-            }
-            fragmentTransaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,9 +76,9 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         fetchRewardsCall.enqueue(new Callback<List<RewardResponse>>() {
             @Override
             public void onResponse(Call<List<RewardResponse>> call, Response<List<RewardResponse>> response) {
-                List<RewardResponse> rewardsList = response.body();
+                List<RewardResponse> rewardResponseList = response.body();
                 try {
-                    for (RewardResponse rewardResponse : rewardsList) {
+                    for (RewardResponse rewardResponse : rewardResponseList) {
                         final Reward dbReward = new Reward();
                         dbReward.setName(rewardResponse.getName());
                         dbReward.setImageUrl(rewardResponse.getImage());
@@ -101,10 +86,11 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                         dbReward.setLevel(rewardResponse.getLevel());
                         rewardDao.create(dbReward);
                     }
+                    rewardsList = queryBuilder.query();
+                    createLevelWiseFragments();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                progress.dismiss();
             }
 
             @Override
@@ -116,10 +102,32 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
     void showProgressDialog(){
         progress=new ProgressDialog(this);
-        progress.setMessage("Downloading Music");
+        progress.setMessage("Fetching Rewards");
         progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progress.setIndeterminate(true);
         progress.setProgress(0);
         progress.show();
+    }
+
+    void createLevelWiseFragments() {
+        for(Reward reward:rewardsList) {
+            if(levelRewardsMap.get(reward.getLevel())==null){
+                List<Reward> rewardList = new ArrayList<>();
+                rewardList.add(reward);
+                levelRewardsMap.put(reward.getLevel(),rewardList);
+            }
+            else {
+                levelRewardsMap.get(reward.getLevel()).add(reward);
+            }
+        }
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        for(Integer level:levelRewardsMap.keySet()) {
+            SelectRewardsBoxFragment selectRewardsBoxFragment = SelectRewardsBoxFragment.newInstance(level,levelRewardsMap.get(level));
+            fragmentTransaction.add(R.id.rewardLevelBoxList, selectRewardsBoxFragment, "Level " + level + " rewards");
+        }
+        fragmentTransaction.commit();
+        progress.dismiss();
     }
 }

@@ -2,7 +2,6 @@ package com.example.admin.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,11 @@ import android.widget.TextView;
 
 import com.example.admin.database.Reward;
 import com.example.admin.freddyspeaks.R;
-import com.example.admin.tasks.ImageConversionTask;
-import com.example.admin.util.ImageUtility;
+import com.example.admin.tasks.FetchRewardImageTask;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -70,30 +66,12 @@ public class SelectRewardsBoxAdapter extends ArrayAdapter<Reward> {
         final ViewHolder finalHolder = holder;
 
         if(reward.getImage()!=null && reward.getImage().length>0){
-            ImageConversionTask imageConversionTask = new ImageConversionTask(holder.selectRewardImage);
-            imageConversionTask.execute(reward.getImage());
+            FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(holder.selectRewardImage);
+            fetchRewardImageTask.execute(reward.getImage());
         }
         else {
-            RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-            Call<ResponseBody> fetchImageCall = restEndpointInterface.fetchImage(reward.getImageUrl());
-            fetchImageCall.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        reward.setImage(response.body().bytes());
-                        ImageConversionTask imageConversionTask = new ImageConversionTask(finalHolder.selectRewardImage);
-                        imageConversionTask.execute(reward.getImage());
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
+            FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(holder.selectRewardImage,reward);
+            fetchRewardImageTask.execute(reward.getImage());
         }
 
         holder.selectRewardName.setText(reward.getName());
