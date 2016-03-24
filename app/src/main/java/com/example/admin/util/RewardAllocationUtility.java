@@ -2,11 +2,16 @@ package com.example.admin.util;
 
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
+import com.example.admin.webservice.request_objects.RewardSubmitRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -84,8 +89,23 @@ public class RewardAllocationUtility {
     }
 
     public static void main(String args[]) {
-        allocateReward("123",2500,null,null);
+        HashMap<String,List<String>> map = new HashMap<>();
+        List<String> bronzeList = new ArrayList<>();
+        bronzeList.add("1");
+        bronzeList.add("2");
+        map.put("BZ", bronzeList);
+        List<String> silverList = new ArrayList<>();
+        silverList.add("1");
+        silverList.add("2");
+        map.put("SL", silverList);
 
+        RewardSubmitRequest request = new RewardSubmitRequest();
+        request.setOutletCode("AAB6G7H");
+        request.setRewardsMap(map);
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson  = builder.create();
+        System.out.println(gson.toJson(request));
     }
 
     private static SelectedReward getReward(Dao<SelectedReward, Integer> selectedRewardDao, int categoryAllocated) {

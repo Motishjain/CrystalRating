@@ -17,7 +17,9 @@ import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.response_objects.RewardResponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.UpdateBuilder;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,12 +40,11 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     Dao<SelectedReward, Integer> selectedRewardDao;
     QueryBuilder<Reward, Integer> rewardQueryBuilder;
     QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
-    List<Reward> rewardsList;
+    private List<Reward> rewardsList;
     Map<Integer,List<Reward>> levelRewardsMap;
     private ProgressDialog progress;
     private String rewardCategory;
     private int selectedLevel;
-    private int selections;
 
     List<SelectRewardsBoxFragment> fragmentList = new ArrayList<>();
 
@@ -76,7 +77,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
             //To find all the saved rewards and show it pre-selected
             List<SelectedReward> savedRewardList = selectedRewardQueryBuilder.query();
-            selections = savedRewardList.size();
+
 
             for(SelectedReward selectedReward:savedRewardList) {
                 for(Reward reward: rewardsList) {
@@ -143,8 +144,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                     int i = 0;
                     for (RewardResponse rewardResponse : rewardResponseList) {
                         final Reward dbReward = new Reward();
-                        dbReward.setRewardId((i++)+"");
-                        //dbReward.setRewardId((rewardResponse.getRewardId());
+                        dbReward.setRewardId(rewardResponse.getRewardId());
                         dbReward.setName(rewardResponse.getName());
                         dbReward.setImageUrl(rewardResponse.getImage());
                         dbReward.setCost(rewardResponse.getCost());
@@ -199,8 +199,27 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     }
 
     public void saveSelectedRewards(View v) {
-        Intent rewardsSaved = new Intent();
-        rewardsSaved.putExtra("rewardsSelected", true);
-        setResult(200,rewardsSaved);
+
+        try {
+            DeleteBuilder<SelectedReward,Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
+            selectedRewardDeleteBuilder.where().eq("rewardCategory",rewardCategory);
+            selectedRewardDeleteBuilder.delete();
+
+            for(Reward reward:rewardsList) {
+                if(reward.isSelected()) {
+                    SelectedReward selectedReward = new SelectedReward();
+                    selectedReward.setReward(reward);
+                    selectedReward.setRewardCategory(rewardCategory);
+                    selectedRewardDao.create(selectedReward);
+                }
+            }
+            Intent rewardsSaved = new Intent();
+            rewardsSaved.putExtra("rewardsSelected", true);
+            setResult(200, rewardsSaved);
+            this.finish();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
