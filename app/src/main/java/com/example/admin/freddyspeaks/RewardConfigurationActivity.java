@@ -91,17 +91,17 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
-        boolean rewardsSelected = data.getBooleanExtra("rewardsSelected",false);
+        if(data!=null) {
+            boolean rewardsSelected = data.getBooleanExtra("rewardsSelected", false);
 
-        if(rewardsSelected) {
-            if(requestCode==1) {
-                updateBronzeRewardList();
-            }
-            else if(requestCode==2) {
-                updateSilverRewardList();
-            }
-            else if(requestCode==3) {
-                updateGoldRewardList();
+            if (rewardsSelected) {
+                if (requestCode == 1) {
+                    updateBronzeRewardList();
+                } else if (requestCode == 2) {
+                    updateSilverRewardList();
+                } else if (requestCode == 3) {
+                    updateGoldRewardList();
+                }
             }
         }
     }
@@ -151,7 +151,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     public void updateGoldRewardList() {
         try {
             selectedRewardQueryBuilder.reset();
-            selectedRewardQueryBuilder.where().eq("rewardCategory",AppConstants.GOLD_CD);
+            selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.GOLD_CD);
             rewardQueryBuilder.reset();
 
             QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);

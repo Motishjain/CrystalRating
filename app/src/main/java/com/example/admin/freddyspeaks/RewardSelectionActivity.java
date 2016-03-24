@@ -57,6 +57,9 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         rewardCategory = extras.getString("rewardCategory");
 
         try {
+            if(progress == null){
+                showProgressDialog();
+            }
             rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Reward");
             rewardQueryBuilder = rewardDao.queryBuilder();
             rewardQueryBuilder.orderBy("level",true);
@@ -172,9 +175,6 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     }
 
     void createLevelWiseFragments() {
-        if(progress == null){
-            showProgressDialog();
-        }
 
         for(Reward reward:rewardsList) {
             if(levelRewardsMap.get(reward.getLevel())==null){
