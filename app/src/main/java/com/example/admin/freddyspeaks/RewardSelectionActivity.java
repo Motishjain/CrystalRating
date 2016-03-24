@@ -43,6 +43,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     private ProgressDialog progress;
     private String rewardCategory;
     private int selectedLevel;
+    private int selections;
 
     List<SelectRewardsBoxFragment> fragmentList = new ArrayList<>();
 
@@ -61,14 +62,18 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             rewardQueryBuilder.orderBy("level",true);
             rewardsList = rewardQueryBuilder.query();
 
+            if(rewardsList.size()==0) {
+                fetchRewards();
+            }
+
             selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
             selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
             selectedRewardQueryBuilder.where().eq("rewardCategory",rewardCategory);
 
 
-            //To find the id's of all the saved rewards and show it pre-selected
+            //To find all the saved rewards and show it pre-selected
             List<SelectedReward> savedRewardList = selectedRewardQueryBuilder.query();
-
+            selections = savedRewardList.size();
 
             for(SelectedReward selectedReward:savedRewardList) {
                 for(Reward reward: rewardsList) {
@@ -83,12 +88,9 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             levelRewardsMap = new TreeMap<>();
 
             //For first time
-            if(rewardsList.size()==0) {
-                fetchRewards();
-            }
-            else {
-                createLevelWiseFragments();
-            }
+
+            createLevelWiseFragments();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,7 +140,8 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                     int i = 0;
                     for (RewardResponse rewardResponse : rewardResponseList) {
                         final Reward dbReward = new Reward();
-                        dbReward.setRewardId(rewardResponse.getRewardId());
+                        dbReward.setRewardId((i++)+"");
+                        //dbReward.setRewardId((rewardResponse.getRewardId());
                         dbReward.setName(rewardResponse.getName());
                         dbReward.setImageUrl(rewardResponse.getImage());
                         dbReward.setCost(rewardResponse.getCost());
