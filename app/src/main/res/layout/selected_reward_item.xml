@@ -6,7 +6,7 @@
     android:layout_height="90dp">
 
     <ImageView
-        android:id="@+id/selectRewardImage"
+        android:id="@+id/selectedRewardImage"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:scaleType="centerInside"
@@ -15,22 +15,22 @@
         android:background="#0000"/>
 
     <com.example.admin.view.CustomFontTextView
-        android:id="@+id/selectRewardName"
+        android:id="@+id/selectedRewardName"
         style="@style/rewardName"
         android:gravity="top|center"
         />
 
     <com.example.admin.view.CustomFontTextView
-        android:id="@+id/selectRewardCost"
+        android:id="@+id/selectedRewardCost"
         style="@style/rewardCost"
         android:gravity="bottom|right"
         />
 
-
-    <CheckBox
-        android:id="@+id/selectRewardCheckbox"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <ImageButton
+        android:id="@+id/selectedRewardDeleteButton"
+        android:background="@drawable/delete"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="5dp"
         android:gravity="bottom|left"

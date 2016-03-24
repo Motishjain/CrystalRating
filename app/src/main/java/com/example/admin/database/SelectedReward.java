@@ -16,17 +16,11 @@ public class SelectedReward implements Serializable {
     @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField
-    private String rewardId;
+    @DatabaseField (foreign = true)
+    private Reward reward;
 
     @DatabaseField
     private Integer rewardCategory;
-
-    @DatabaseField
-    private String cost;
-
-    @DatabaseField(dataType = DataType.BYTE_ARRAY)
-    private byte[] image;
 
     public Integer getId() {
         return id;
@@ -36,12 +30,12 @@ public class SelectedReward implements Serializable {
         this.id = id;
     }
 
-    public String getRewardId() {
-        return rewardId;
+    public Reward getReward() {
+        return reward;
     }
 
-    public void setRewardId(String rewardId) {
-        this.rewardId = rewardId;
+    public void setReward(Reward reward) {
+        this.reward = reward;
     }
 
     public Integer getRewardCategory() {
@@ -50,21 +44,5 @@ public class SelectedReward implements Serializable {
 
     public void setRewardCategory(Integer rewardCategory) {
         this.rewardCategory = rewardCategory;
-    }
-
-    public String getCost() {
-        return cost;
-    }
-
-    public void setCost(String cost) {
-        this.cost = cost;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
     }
 }

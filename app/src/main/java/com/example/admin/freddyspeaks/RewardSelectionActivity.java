@@ -3,6 +3,7 @@ package com.example.admin.freddyspeaks;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.View;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Reward;
+import com.example.admin.database.SelectedReward;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.response_objects.RewardResponse;
@@ -33,11 +35,14 @@ import retrofit2.Response;
 public class RewardSelectionActivity extends AppCompatActivity implements SelectRewardsBoxFragment.OnFragmentInteractionListener{
 
     Dao<Reward, Integer> rewardDao;
-    QueryBuilder<Reward, Integer> queryBuilder;
+    Dao<SelectedReward, Integer> selectedRewardDao;
+    QueryBuilder<Reward, Integer> rewardQueryBuilder;
+    QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
     List<Reward> rewardsList;
     List<Reward> selectedRewardList;
     Map<Integer,List<Reward>> levelRewardsMap;
     private ProgressDialog progress;
+    private String rewardCategory;
 
 
     @Override
@@ -45,11 +50,18 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_selection);
 
+        Bundle extras = getIntent().getExtras();
+        rewardCategory = extras.getString("rewardCategory");
+
         try {
             rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Reward");
-            queryBuilder = rewardDao.queryBuilder();
-            queryBuilder.orderBy("level",true);
-            rewardsList = queryBuilder.query();
+            selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
+
+            rewardQueryBuilder = rewardDao.queryBuilder();
+            selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
+
+            rewardQueryBuilder.orderBy("level",true);
+            rewardsList = rewardQueryBuilder.query();
             selectedRewardList = new ArrayList<>();
             levelRewardsMap = new TreeMap<>();
 
@@ -94,7 +106,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                         dbReward.setLevel(rewardResponse.getLevel());
                         rewardDao.create(dbReward);
                     }
-                    rewardsList = queryBuilder.query();
+                    rewardsList = rewardQueryBuilder.query();
                     createLevelWiseFragments();
                 } catch (SQLException e) {
                     e.printStackTrace();

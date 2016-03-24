@@ -13,8 +13,8 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "REWARD")
 public class Reward implements Serializable {
 
-    @DatabaseField(generatedId = true)
-    private Integer id;
+    @DatabaseField(id = true)
+    private Integer rewardId;
 
     @DatabaseField
     private String name;
@@ -34,12 +34,12 @@ public class Reward implements Serializable {
     @DatabaseField(dataType = DataType.BYTE_ARRAY)
     private byte[] image;
 
-    public Integer getId() {
-        return id;
+    public Integer getRewardId() {
+        return rewardId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRewardId(Integer rewardId) {
+        this.rewardId = rewardId;
     }
 
     public String getName() {

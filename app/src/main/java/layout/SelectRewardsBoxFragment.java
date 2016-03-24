@@ -70,9 +70,9 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
 
 
         View selectRewardBoxFragment =  inflater.inflate(R.layout.fragment_select_rewards_box, container, false);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(selectRewardBoxFragment.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-
         fragmentRewardsList = (RecyclerView) selectRewardBoxFragment.findViewById(R.id.fragmentRewardsList);
         fragmentRewardsList.setLayoutManager(layoutManager);
         SelectRewardsBoxAdapter selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(R.layout.select_reward_item, rewardList,this);

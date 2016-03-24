@@ -24,4 +24,10 @@ public class AppConstants {
     public static final String OUTLET_TYPE = "RET";
 
     public static final String REGISTER_WELCOME_MSG = "Please enter your outlet details.";
+
+    public static final String BRONZE_CD = "BR";
+
+    public static final String SILVER_CD = "SL";
+
+    public static final String GOLD_CD = "G";
 }
