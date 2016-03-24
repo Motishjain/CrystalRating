@@ -20,7 +20,7 @@ public class SelectedReward implements Serializable {
     private Reward reward;
 
     @DatabaseField
-    private Integer rewardCategory;
+    private String rewardCategory;
 
     public Integer getId() {
         return id;
@@ -38,11 +38,11 @@ public class SelectedReward implements Serializable {
         this.reward = reward;
     }
 
-    public Integer getRewardCategory() {
+    public String getRewardCategory() {
         return rewardCategory;
     }
 
-    public void setRewardCategory(Integer rewardCategory) {
+    public void setRewardCategory(String rewardCategory) {
         this.rewardCategory = rewardCategory;
     }
 }

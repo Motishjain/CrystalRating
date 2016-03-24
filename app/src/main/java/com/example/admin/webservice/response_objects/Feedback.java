@@ -21,7 +21,7 @@ public class Feedback implements Serializable {
 
     private String rewardId;
 
-    private int rewardCategory;
+    private String rewardCategory;
 
     public String getOutletCode() {
         return outletCode;
@@ -47,11 +47,11 @@ public class Feedback implements Serializable {
         this.rewardId = rewardId;
     }
 
-    public int getRewardCategory() {
+    public String getRewardCategory() {
         return rewardCategory;
     }
 
-    public void setRewardCategory(int rewardCategory) {
+    public void setRewardCategory(String rewardCategory) {
         this.rewardCategory = rewardCategory;
     }
 

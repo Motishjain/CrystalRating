@@ -34,10 +34,17 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         bronzeRewardsRecyclerView = (RecyclerView)findViewById(R.id.bronzeRewardsRecyclerView);
         silverRewardsRecyclerView = (RecyclerView) findViewById(R.id.silverRewardsRecyclerView);
         goldRewardsRecyclerView = (RecyclerView) findViewById(R.id.goldRewardsRecyclerView);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         bronzeRewardsRecyclerView.setLayoutManager(layoutManager);
+
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         silverRewardsRecyclerView.setLayoutManager(layoutManager);
+
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         goldRewardsRecyclerView.setLayoutManager(layoutManager);
 
         try {
@@ -142,7 +149,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     public void updateGoldRewardList() {
         try {
             selectedRewardQueryBuilder.reset();
-            selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.GOLD_CD);
+            selectedRewardQueryBuilder.where().eq("rewardCategory",AppConstants.GOLD_CD);
 
             QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
             List<Reward> goldSelectedRewardList = selectedRewardsJoinQueryBuilder.query();

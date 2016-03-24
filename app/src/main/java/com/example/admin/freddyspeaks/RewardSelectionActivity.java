@@ -135,8 +135,11 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             public void onResponse(Call<List<RewardResponse>> call, Response<List<RewardResponse>> response) {
                 List<RewardResponse> rewardResponseList = response.body();
                 try {
+                    int i = 0;
                     for (RewardResponse rewardResponse : rewardResponseList) {
                         final Reward dbReward = new Reward();
+                        //TODO remove hardcoding
+                        dbReward.setRewardId((i++) + "");
                         dbReward.setName(rewardResponse.getName());
                         dbReward.setImageUrl(rewardResponse.getImage());
                         dbReward.setCost(rewardResponse.getCost());
@@ -181,8 +184,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         for(Integer level:levelRewardsMap.keySet()) {
-            SelectRewardsBoxFragment selectRewardsBoxFragment = SelectRewardsBoxFragment.newInstance(level,levelRewardsMap.get(level));
-            selectRewardsBoxFragment.setSelectedLevel(selectedLevel);
+            SelectRewardsBoxFragment selectRewardsBoxFragment = SelectRewardsBoxFragment.newInstance(level,levelRewardsMap.get(level), selectedLevel);
             fragmentTransaction.add(R.id.rewardLevelBoxList, selectRewardsBoxFragment, "Level " + level + " rewards");
             fragmentList.add(selectRewardsBoxFragment);
         }
@@ -191,6 +193,8 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     }
 
     public void saveSelectedRewards(View v) {
-
+        Intent rewardsSaved = new Intent();
+        rewardsSaved.putExtra("rewardsSelected", true);
+        setResult(200,rewardsSaved);
     }
 }

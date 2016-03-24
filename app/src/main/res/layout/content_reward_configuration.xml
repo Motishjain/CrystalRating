@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.admin.freddyspeaks.RewardConfigurationActivity"
     tools:showIn="@layout/activity_reward_configuration">
@@ -24,11 +25,9 @@
         />
 
 
-    <Button
+    <com.example.admin.view.CustomFontButton
         android:id="@+id/addBronzeRewardsButton"
         style="@style/formButton"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
         android:elevation="3dp"
         android:text="Add Bronze Rewards"
         android:onClick="addBronzeRewards"
@@ -38,16 +37,13 @@
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"
         android:id="@+id/bronzeRewardsRecyclerView"
-        android:layout_width="400dp"
+        android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp" />
 
-    <Button
+    <com.example.admin.view.CustomFontButton
         android:id="@+id/addSilverRewardsButton"
         style="@style/formButton"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
         android:elevation="3dp"
         android:text="Add Silver Rewards"
         android:onClick="addSilverRewards"
@@ -55,13 +51,13 @@
         android:textColor="#fff" />
 
     <android.support.v7.widget.RecyclerView
+        android:background="@drawable/level_reward_box"
         android:id="@+id/silverRewardsRecyclerView"
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
-    <Button
+    <com.example.admin.view.CustomFontButton
         android:id="@+id/addGoldRewardsButton"
         style="@style/formButton"
         android:layout_margin="20dp"
@@ -73,8 +69,9 @@
         android:textColor="#fff" />
 
     <android.support.v7.widget.RecyclerView
+        android:background="@drawable/level_reward_box"
         android:id="@+id/goldRewardsRecyclerView"
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
@@ -85,11 +82,10 @@
         android:layout_alignParentBottom="true"
         android:weightSum="2">
 
-        <Button
+        <com.example.admin.view.CustomFontButton
             android:id="@+id/rewardsConfigureContinueButton"
             style="@style/formButton"
             android:layout_margin="20dp"
-            android:layout_weight="1"
             android:elevation="3dp"
             android:text="Continue"
             android:textAllCaps="false"

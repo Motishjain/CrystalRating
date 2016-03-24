@@ -1,5 +1,5 @@
 #
-# generated on 2016/03/24 05:03:47
+# generated on 2016/03/24 10:21:29
 #
 # --table-start--
 dataClass=com.example.admin.database.Outlet
@@ -99,8 +99,8 @@ dataClass=com.example.admin.database.Reward
 tableName=REWARD
 # --table-fields-start--
 # --field-start--
-fieldName=id
-generatedId=true
+fieldName=rewardId
+id=true
 # --field-end--
 # --field-start--
 fieldName=name
@@ -133,7 +133,8 @@ fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=rewardId
+fieldName=reward
+foreign=true
 # --field-end--
 # --field-start--
 fieldName=rewardCategory

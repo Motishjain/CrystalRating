@@ -54,10 +54,11 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
      * @return A new instance of fragment SelectRewardsBoxFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SelectRewardsBoxFragment newInstance(int level,List<Reward> rewardList) {
+    public static SelectRewardsBoxFragment newInstance(int level,List<Reward> rewardList, Integer selectedLevel) {
         SelectRewardsBoxFragment fragment = new SelectRewardsBoxFragment();
         fragment.level = level;
         fragment.rewardList = rewardList;
+        fragment.selectedLevel = selectedLevel;
         return fragment;
     }
 
@@ -81,6 +82,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         fragmentRewardsList.setLayoutManager(layoutManager);
         selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(R.layout.select_reward_item, rewardList,this,selectedLevel);
         fragmentRewardsList.setAdapter(selectRewardsBoxAdapter);
+        setSelectedLevel(selectedLevel);
         return selectRewardBoxFragment;
     }
 
