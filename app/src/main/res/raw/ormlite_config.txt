@@ -1,5 +1,5 @@
 #
-# generated on 2016/03/24 12:39:40
+# generated on 2016/03/24 02:03:27
 #
 # --table-start--
 dataClass=com.example.admin.database.Outlet
@@ -84,6 +84,12 @@ fieldName=ratingValues
 # --field-end--
 # --field-start--
 fieldName=selected
+# --field-end--
+# --field-start--
+fieldName=questionType
+# --field-end--
+# --field-start--
+fieldName=questionInputType
 # --field-end--
 # --table-fields-end--
 # --table-end--

@@ -44,7 +44,6 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
     @Override
     public SelectRewardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, null);
-
         return new SelectRewardHolder(view);
 
     }

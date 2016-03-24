@@ -17,13 +17,10 @@
         <item name="fontFamilyFile">@string/applicationFont</item>
     </style>
     <style name="rewardImage">
-        android:="3dp"
-        android:="3dp"
-        android:="3dp"
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">@color/colorPrimaryDark</item>
+        <item name="android:layout_marginRight">3dp</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
         <item name="fontFamilyFile">@string/applicationFont</item>

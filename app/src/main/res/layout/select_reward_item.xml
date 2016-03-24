@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/select_reward"
     android:layout_width="120dp"
+    android:layout_marginLeft="@dimen/item_offset"
     android:layout_height="120dp">
 
     <ImageView
@@ -10,6 +11,7 @@
         android:layout_height="120dp"
         android:scaleType="centerInside"
         android:gravity="center"
+        style="@style/rewardImage"
         android:background="#0000"/>
 
     <com.example.admin.view.CustomFontTextView
