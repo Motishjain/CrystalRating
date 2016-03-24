@@ -63,8 +63,9 @@ public class RewardConfigurationActivity extends AppCompatActivity {
 
     }
 
-    public void saveRewardConfig(View v) {
-
+    public void rewardConfigNext(View v) {
+        Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
+        startActivity(homePage);
     }
 
     public void addBronzeRewards(View v) {

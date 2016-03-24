@@ -92,4 +92,14 @@
             android:textColor="#fff" />
     </LinearLayout>
 
+    <com.example.admin.view.CustomFontButton
+        android:id="@+id/rewardConfigNextButton"
+        android:onClick="rewardConfigNext"
+        style="@style/formButton"
+        android:layout_marginLeft="40dp"
+        android:layout_weight="1"
+        android:text="Next"
+        android:layout_gravity="center"
+        />
+
 </LinearLayout>
