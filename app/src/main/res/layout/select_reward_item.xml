@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/select_reward"
-    android:layout_width="100dp"
-    android:layout_height="100dp">
+    android:layout_width="120dp"
+    android:layout_height="120dp">
 
     <ImageView
         android:id="@+id/selectRewardImage"
         android:layout_width="100dp"
         android:layout_height="120dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerInside"
         android:gravity="center"
         android:background="#0000"/>
 

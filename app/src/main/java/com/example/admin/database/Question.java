@@ -12,15 +12,6 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "QUESTION")
 public class Question implements Serializable {
 
-    public Question(String name,String ratingValues){
-        this.name = name;
-        this.ratingValues = ratingValues;
-    }
-
-    public Question() {
-
-    }
-
     @DatabaseField
     private String questionId;
 
@@ -33,6 +24,11 @@ public class Question implements Serializable {
     @DatabaseField
     private String selected;
 
+    @DatabaseField
+    private String questionType;
+
+    @DatabaseField
+    private String questionInputType;
 
     public String getQuestionId() {
         return questionId;
@@ -64,5 +60,21 @@ public class Question implements Serializable {
 
     public void setSelected(String selected) {
         this.selected = selected;
+    }
+
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
+    }
+
+    public String getQuestionInputType() {
+        return questionInputType;
+    }
+
+    public void setQuestionInputType(String questionInputType) {
+        this.questionInputType = questionInputType;
     }
 }
