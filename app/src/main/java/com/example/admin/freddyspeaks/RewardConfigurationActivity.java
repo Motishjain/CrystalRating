@@ -14,8 +14,10 @@ import com.example.admin.database.Reward;
 import com.example.admin.database.SelectedReward;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class RewardConfigurationActivity extends AppCompatActivity {
@@ -72,14 +74,14 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         startActivityForResult(selectRewardsPopup, 1);
     }
 
-    private void addSilverRewards(View v) {
+    public void addSilverRewards(View v) {
         Intent selectRewardsPopup = new Intent(RewardConfigurationActivity.this, RewardSelectionActivity.class);
         String rewardCategory = AppConstants.SILVER_CD;
         selectRewardsPopup.putExtra("rewardCategory", rewardCategory);
         startActivityForResult(selectRewardsPopup, 2);
     }
 
-    private void addGoldRewards(View v) {
+    public void addGoldRewards(View v) {
         Intent selectRewardsPopup = new Intent(RewardConfigurationActivity.this, RewardSelectionActivity.class);
         String rewardCategory = AppConstants.GOLD_CD;
         selectRewardsPopup.putExtra("rewardCategory", rewardCategory);
@@ -113,9 +115,22 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             rewardQueryBuilder.reset();
 
             QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
-            List<Reward> bronzeSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
+            final List<Reward> bronzeSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
+
             if(bronzeRewardsRecyclerView.getAdapter()==null) {
-                bronzeRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, bronzeSelectedRewardList);
+                bronzeRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, bronzeSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
+                    @Override
+                    public void deleteButtonClicked(int position) {
+                        try {
+                            DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
+                            selectedRewardDeleteBuilder.where().eq("reward",bronzeSelectedRewardList.get(position));
+                            selectedRewardDeleteBuilder.delete();
+                        }
+                        catch (SQLException e) {
+                            //TODO handle failure
+                        }
+                    }
+                });
                 bronzeRewardsRecyclerView.setAdapter(bronzeRewardsAdapter);
             }
             else {
@@ -134,9 +149,21 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             rewardQueryBuilder.reset();
 
             QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
-            List<Reward> silverSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
+            final List<Reward> silverSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
             if(silverRewardsRecyclerView.getAdapter()==null) {
-                silverRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, silverSelectedRewardList);
+                silverRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, silverSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
+                    @Override
+                    public void deleteButtonClicked(int position) {
+                        try {
+                            DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
+                            selectedRewardDeleteBuilder.where().eq("reward",silverSelectedRewardList.get(position));
+                            selectedRewardDeleteBuilder.delete();
+                        }
+                        catch (SQLException e) {
+                            //TODO handle failure
+                        }
+                    }
+                });
                 silverRewardsRecyclerView.setAdapter(silverRewardsAdapter);
             }
             else {
@@ -155,9 +182,21 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             rewardQueryBuilder.reset();
 
             QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
-            List<Reward> goldSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
+            final List<Reward> goldSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
             if(goldRewardsRecyclerView.getAdapter()==null) {
-                goldRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, goldSelectedRewardList);
+                goldRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, goldSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
+                    @Override
+                    public void deleteButtonClicked(int position) {
+                        try {
+                            DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
+                            selectedRewardDeleteBuilder.where().eq("reward",goldSelectedRewardList.get(position));
+                            selectedRewardDeleteBuilder.delete();
+                        }
+                        catch (SQLException e) {
+                            //TODO handle failure
+                        }
+                    }
+                });
                 goldRewardsRecyclerView.setAdapter(goldRewardsAdapter);
             }
             else {

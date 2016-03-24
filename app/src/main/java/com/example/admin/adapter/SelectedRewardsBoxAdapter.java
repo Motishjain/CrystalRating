@@ -2,6 +2,7 @@ package com.example.admin.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,10 +34,12 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
     private int layoutResourceId;
     private List<Reward> rewardList;
+    private OnAdapterInteractionListener onAdapterInteractionListener;
 
-    public SelectedRewardsBoxAdapter(int layoutResourceId, List<Reward> rewardList) {
+    public SelectedRewardsBoxAdapter(int layoutResourceId, List<Reward> rewardList, OnAdapterInteractionListener onAdapterInteractionListener) {
         this.layoutResourceId = layoutResourceId;
         this.rewardList = rewardList;
+        this.onAdapterInteractionListener = onAdapterInteractionListener;
     }
 
 
@@ -67,6 +70,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
             public void onClick(View v) {
                 rewardList.remove(position);
                 notifyDataSetChanged();
+                onAdapterInteractionListener.deleteButtonClicked(position);
             }
         });
     }
@@ -99,5 +103,10 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
     public void setRewardList(List<Reward> rewardList) {
         this.rewardList = rewardList;
+    }
+
+    public interface OnAdapterInteractionListener {
+        // TODO: Update argument type and name
+        void deleteButtonClicked(int position);
     }
 }
