@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/reward_item_bg"
     android:layout_width="90dp"
+    android:id="@+id/selectRewardFrameLayout"
     android:layout_margin="@dimen/item_offset"
     android:layout_height="90dp">
 

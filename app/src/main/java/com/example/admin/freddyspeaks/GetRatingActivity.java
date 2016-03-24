@@ -108,7 +108,7 @@ public class GetRatingActivity extends AppCompatActivity {
             SelectedReward allocatedReward = RewardAllocationUtility.allocateReward(feedback.getUserPhoneNumber(), Integer.parseInt(feedback.getBillAmount()), selectedRewardDao,userDao);
             if(allocatedReward!=null) {
                 feedback.setRewardCategory(allocatedReward.getRewardCategory());
-                feedback.setRewardId(allocatedReward.getReward().getId().toString());
+                feedback.setRewardId(allocatedReward.getReward().getRewardId());
             }
 
             RequestParams params = new RequestParams();

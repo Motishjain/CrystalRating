@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Reward implements Serializable {
 
     @DatabaseField(id = true)
-    private Integer rewardId;
+    private String rewardId;
 
     @DatabaseField
     private String name;
@@ -34,11 +34,14 @@ public class Reward implements Serializable {
     @DatabaseField(dataType = DataType.BYTE_ARRAY)
     private byte[] image;
 
-    public Integer getRewardId() {
+    //Added for the reward selection popup to pre-select the saved rewards
+    private boolean selected;
+
+    public String getRewardId() {
         return rewardId;
     }
 
-    public void setRewardId(Integer rewardId) {
+    public void setRewardId(String rewardId) {
         this.rewardId = rewardId;
     }
 
@@ -88,5 +91,13 @@ public class Reward implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

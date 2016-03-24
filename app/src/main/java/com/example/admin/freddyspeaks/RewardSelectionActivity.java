@@ -39,10 +39,12 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     QueryBuilder<Reward, Integer> rewardQueryBuilder;
     QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
     List<Reward> rewardsList;
-    List<Reward> selectedRewardList;
     Map<Integer,List<Reward>> levelRewardsMap;
     private ProgressDialog progress;
     private String rewardCategory;
+    private Integer selectedLevel;
+
+    List<SelectRewardsBoxFragment> fragmentList = new ArrayList<>();
 
 
     @Override
@@ -55,14 +57,29 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
         try {
             rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Reward");
-            selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
-
             rewardQueryBuilder = rewardDao.queryBuilder();
-            selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
-
             rewardQueryBuilder.orderBy("level",true);
             rewardsList = rewardQueryBuilder.query();
-            selectedRewardList = new ArrayList<>();
+
+            selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
+            selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
+            selectedRewardQueryBuilder.where().eq("rewardCategory",rewardCategory);
+
+
+            //To find the id's of all the saved rewards and show it pre-selected
+            List<SelectedReward> savedRewardList = selectedRewardQueryBuilder.query();
+
+
+            for(SelectedReward selectedReward:savedRewardList) {
+                for(Reward reward: rewardsList) {
+                    if(selectedReward.getReward().getRewardId().equals(reward.getRewardId())){
+                        reward.setSelected(true);
+                        selectedLevel = reward.getLevel();
+                        break;
+                    }
+                }
+            }
+
             levelRewardsMap = new TreeMap<>();
 
             //For first time
@@ -81,11 +98,31 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
     @Override
     public void rewardClicked(int level,int index, boolean checked) {
-        if(checked) {
-            selectedRewardList.add(levelRewardsMap.get(level).get(index));
+        List<Reward> levelRewards = levelRewardsMap.get(level);
+        levelRewards.get(index).setSelected(checked);
+
+        //Check if this is the first checkbox being ticked, i.e. a level is being selected first time
+        if(checked && selectedLevel == 0) {
+            selectedLevel = level;
+            for(SelectRewardsBoxFragment fragment:fragmentList) {
+                fragment.setSelectedLevel(selectedLevel);
+            }
         }
         else {
-            selectedRewardList.remove(levelRewardsMap.get(level).get(index));
+            boolean isAnySelected = false;
+            for(Reward reward: levelRewards) {
+                if(reward.isSelected()){
+                    isAnySelected = true;
+                    break;
+                }
+            }
+            //If all the checkboxes of current level are unchecked
+            if(!isAnySelected){
+                selectedLevel = 0;
+                for(SelectRewardsBoxFragment fragment:fragmentList) {
+                    fragment.setSelectedLevel(selectedLevel);
+                }
+            }
         }
     }
 
@@ -145,7 +182,9 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
         for(Integer level:levelRewardsMap.keySet()) {
             SelectRewardsBoxFragment selectRewardsBoxFragment = SelectRewardsBoxFragment.newInstance(level,levelRewardsMap.get(level));
+            selectRewardsBoxFragment.setSelectedLevel(selectedLevel);
             fragmentTransaction.add(R.id.rewardLevelBoxList, selectRewardsBoxFragment, "Level " + level + " rewards");
+            fragmentList.add(selectRewardsBoxFragment);
         }
         fragmentTransaction.commit();
         progress.dismiss();

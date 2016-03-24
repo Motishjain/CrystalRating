@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,8 +34,9 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
     private int layoutResourceId;
     private List<Reward> rewardList;
     RewardSelectionListener rewardSelectionListener;
+    private Integer selectedLevel;
 
-    public SelectRewardsBoxAdapter(int layoutResourceId, List<Reward> rewardList, RewardSelectionListener rewardSelectionListener) {
+    public SelectRewardsBoxAdapter(int layoutResourceId, List<Reward> rewardList, RewardSelectionListener rewardSelectionListener ,Integer selectedLevel) {
         this.layoutResourceId = layoutResourceId;
         this.rewardList = rewardList;
         this.rewardSelectionListener = rewardSelectionListener;
@@ -63,10 +65,21 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
 
         holder.selectRewardName.setText(reward.getName());
         holder.selectRewardCost.setText(reward.getCost());
+        holder.selectRewardCheckbox.setSelected(reward.isSelected());
+
+        if(selectedLevel!=0 && selectedLevel!=reward.getLevel()){
+            holder.selectRewardCheckbox.setEnabled(false);
+            holder.selectRewardFrameLayout.setAlpha(0.5f);
+        }
+        else {
+            holder.selectRewardCheckbox.setEnabled(true);
+        }
+
         holder.selectRewardCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean checked = ((CheckBox)v).isChecked();
+                boolean checked = ((CheckBox) v).isChecked();
+                reward.setSelected(checked);
                 rewardSelectionListener.rewardClicked(position, checked);
             }
         });
@@ -88,6 +101,7 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
         TextView selectRewardCost;
         TextView selectRewardName;
         CheckBox selectRewardCheckbox;
+        FrameLayout selectRewardFrameLayout;
 
         public SelectRewardHolder(View view){
             super(view);
@@ -95,6 +109,15 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
             selectRewardName = (TextView) view.findViewById(R.id.selectRewardName);
             selectRewardCost = (TextView) view.findViewById(R.id.selectRewardCost);
             selectRewardCheckbox = (CheckBox) view.findViewById(R.id.selectRewardCheckbox);
+            selectRewardFrameLayout = (FrameLayout) view.findViewById(R.id.selectRewardFrameLayout);
         }
+    }
+
+    public Integer getSelectedLevel() {
+        return selectedLevel;
+    }
+
+    public void setSelectedLevel(Integer selectedLevel) {
+        this.selectedLevel = selectedLevel;
     }
 }

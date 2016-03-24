@@ -34,9 +34,13 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
 
     private int level;
 
+    private Integer selectedLevel;
+
     private OnFragmentInteractionListener mListener;
 
     private RecyclerView fragmentRewardsList;
+
+    private SelectRewardsBoxAdapter selectRewardsBoxAdapter;
 
     public SelectRewardsBoxFragment() {
 
@@ -75,7 +79,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         fragmentRewardsList = (RecyclerView) selectRewardBoxFragment.findViewById(R.id.fragmentRewardsList);
         fragmentRewardsList.setLayoutManager(layoutManager);
-        SelectRewardsBoxAdapter selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(R.layout.select_reward_item, rewardList,this);
+        selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(R.layout.select_reward_item, rewardList,this,selectedLevel);
         fragmentRewardsList.setAdapter(selectRewardsBoxAdapter);
         return selectRewardBoxFragment;
     }
@@ -115,5 +119,15 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void rewardClicked(int level, int index, boolean checked);
+    }
+
+    public Integer getSelectedLevel() {
+        return selectedLevel;
+    }
+
+    public void setSelectedLevel(Integer selectedLevel) {
+        this.selectedLevel = selectedLevel;
+        selectRewardsBoxAdapter.setSelectedLevel(selectedLevel);
+        selectRewardsBoxAdapter.notifyDataSetChanged();
     }
 }
