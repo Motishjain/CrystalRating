@@ -34,9 +34,9 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
     private int layoutResourceId;
     private List<Reward> rewardList;
     RewardSelectionListener rewardSelectionListener;
-    private Integer selectedLevel;
+    private int selectedLevel;
 
-    public SelectRewardsBoxAdapter(int layoutResourceId, List<Reward> rewardList, RewardSelectionListener rewardSelectionListener ,Integer selectedLevel) {
+    public SelectRewardsBoxAdapter(int layoutResourceId, List<Reward> rewardList, RewardSelectionListener rewardSelectionListener ,int selectedLevel) {
         this.layoutResourceId = layoutResourceId;
         this.rewardList = rewardList;
         this.rewardSelectionListener = rewardSelectionListener;
@@ -113,11 +113,11 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
         }
     }
 
-    public Integer getSelectedLevel() {
+    public int getSelectedLevel() {
         return selectedLevel;
     }
 
-    public void setSelectedLevel(Integer selectedLevel) {
+    public void setSelectedLevel(int selectedLevel) {
         this.selectedLevel = selectedLevel;
     }
 }

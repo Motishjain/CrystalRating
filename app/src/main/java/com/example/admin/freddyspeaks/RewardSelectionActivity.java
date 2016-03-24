@@ -42,7 +42,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     Map<Integer,List<Reward>> levelRewardsMap;
     private ProgressDialog progress;
     private String rewardCategory;
-    private Integer selectedLevel;
+    private int selectedLevel;
 
     List<SelectRewardsBoxFragment> fragmentList = new ArrayList<>();
 
@@ -170,6 +170,10 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     }
 
     void createLevelWiseFragments() {
+        if(progress == null){
+            showProgressDialog();
+        }
+
         for(Reward reward:rewardsList) {
             if(levelRewardsMap.get(reward.getLevel())==null){
                 List<Reward> rewardList = new ArrayList<>();

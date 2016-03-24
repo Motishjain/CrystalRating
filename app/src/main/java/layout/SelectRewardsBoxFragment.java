@@ -34,7 +34,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
 
     private int level;
 
-    private Integer selectedLevel;
+    private int selectedLevel;
 
     private OnFragmentInteractionListener mListener;
 
@@ -123,11 +123,11 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         void rewardClicked(int level, int index, boolean checked);
     }
 
-    public Integer getSelectedLevel() {
+    public int getSelectedLevel() {
         return selectedLevel;
     }
 
-    public void setSelectedLevel(Integer selectedLevel) {
+    public void setSelectedLevel(int selectedLevel) {
         this.selectedLevel = selectedLevel;
         selectRewardsBoxAdapter.setSelectedLevel(selectedLevel);
         selectRewardsBoxAdapter.notifyDataSetChanged();
