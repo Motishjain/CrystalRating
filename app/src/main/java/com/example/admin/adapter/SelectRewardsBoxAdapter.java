@@ -73,6 +73,7 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
         }
         else {
             holder.selectRewardCheckbox.setEnabled(true);
+            holder.selectRewardFrameLayout.setAlpha(1.0f);
         }
 
         holder.selectRewardCheckbox.setOnClickListener(new View.OnClickListener() {

@@ -110,6 +110,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         try {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.BRONZE_CD);
+            rewardQueryBuilder.reset();
 
             QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
             List<Reward> bronzeSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
@@ -130,6 +131,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         try {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.SILVER_CD);
+            rewardQueryBuilder.reset();
 
             QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
             List<Reward> silverSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
@@ -150,6 +152,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         try {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory",AppConstants.GOLD_CD);
+            rewardQueryBuilder.reset();
 
             QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
             List<Reward> goldSelectedRewardList = selectedRewardsJoinQueryBuilder.query();

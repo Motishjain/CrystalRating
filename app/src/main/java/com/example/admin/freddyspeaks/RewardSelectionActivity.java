@@ -138,8 +138,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                     int i = 0;
                     for (RewardResponse rewardResponse : rewardResponseList) {
                         final Reward dbReward = new Reward();
-                        //TODO remove hardcoding
-                        dbReward.setRewardId((i++) + "");
+                        dbReward.setRewardId(rewardResponse.getRewardId());
                         dbReward.setName(rewardResponse.getName());
                         dbReward.setImageUrl(rewardResponse.getImage());
                         dbReward.setCost(rewardResponse.getCost());
