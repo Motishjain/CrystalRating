@@ -3,7 +3,7 @@ package com.example.admin.webservice.response_objects;
 /**
  * Created by Admin on 3/15/2016.
  */
-public class ResponseWrapper {
+public class PostServiceResponse {
     private boolean success;
     private Object data;
     private String msg;

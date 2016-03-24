@@ -42,7 +42,12 @@
         <activity
             android:name=".RewardConfigurationActivity"
             android:label="@string/title_activity_reward_configuration"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".BillDetailsActivity"
             android:label="@string/title_activity_bill_details"
@@ -50,11 +55,7 @@
         <activity
             android:name=".RewardSelectionActivity"
             android:label="@string/title_activity_reward_selection"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:theme="@style/Theme.AppCompat.Dialog" >
         </activity>
         <activity
             android:name=".ThanksActivity"

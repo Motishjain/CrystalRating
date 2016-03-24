@@ -99,7 +99,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
 
     @Override
     public void rewardClicked(int index,boolean checked) {
-        mListener.rewardClicked(index,checked);
+        mListener.rewardClicked(level,index,checked);
     }
 
     /**
@@ -114,6 +114,6 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void rewardClicked(int index,boolean checked);
+        void rewardClicked(int level, int index, boolean checked);
     }
 }

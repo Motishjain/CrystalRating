@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
@@ -34,6 +35,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     Dao<Reward, Integer> rewardDao;
     QueryBuilder<Reward, Integer> queryBuilder;
     List<Reward> rewardsList;
+    List<Reward> selectedRewardList;
     Map<Integer,List<Reward>> levelRewardsMap;
     private ProgressDialog progress;
 
@@ -48,6 +50,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             queryBuilder = rewardDao.queryBuilder();
             queryBuilder.orderBy("level",true);
             rewardsList = queryBuilder.query();
+            selectedRewardList = new ArrayList<>();
             levelRewardsMap = new TreeMap<>();
 
             //For first time
@@ -65,8 +68,13 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void rewardClicked(int index, boolean checked) {
-
+    public void rewardClicked(int level,int index, boolean checked) {
+        if(checked) {
+            selectedRewardList.add(levelRewardsMap.get(level).get(index));
+        }
+        else {
+            selectedRewardList.remove(levelRewardsMap.get(level).get(index));
+        }
     }
 
     public void fetchRewards() {
@@ -129,5 +137,9 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         }
         fragmentTransaction.commit();
         progress.dismiss();
+    }
+
+    public void saveSelectedRewards(View v) {
+
     }
 }

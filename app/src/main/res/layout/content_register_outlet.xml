@@ -16,16 +16,10 @@
 
     <com.example.admin.view.CustomFontTextView
         android:id="@+id/registerCompanyHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp"
         android:text="@string/register_outlet"
-        android:textSize="20sp"
         android:layout_weight="10.0"
-        android:textColor="@color/colorPrimaryDark"
-        app:fontFamilyFile="@string/applicationFont"
-        android:textStyle="bold" />
+        style="@style/screenHeader"
+        />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollViewRegisterBox"

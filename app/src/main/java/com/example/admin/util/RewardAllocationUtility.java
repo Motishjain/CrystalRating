@@ -1,12 +1,7 @@
 package com.example.admin.util;
 
-import com.example.admin.database.Reward;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
-import com.example.admin.webservice.response_objects.QuestionResponse;
-import com.example.admin.webservice.response_objects.ResponseWrapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 

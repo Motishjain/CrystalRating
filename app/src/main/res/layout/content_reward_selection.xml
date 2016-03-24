@@ -12,6 +12,9 @@
     tools:context="com.example.admin.freddyspeaks.RewardSelectionActivity"
     tools:showIn="@layout/activity_reward_selection">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -20,4 +23,15 @@
 
     </LinearLayout>
 
+    <com.example.admin.view.CustomFontButton
+        android:id="@+id/saveSelectedRewardsButton"
+        android:layout_below="@id/rewardLevelBoxList"
+        android:onClick="saveSelectedRewards"
+        style="@style/formButton"
+        android:layout_marginLeft="40dp"
+        android:layout_weight="1"
+        android:text="Save"
+        android:layout_gravity="center"
+        />
+    </RelativeLayout>
 </ScrollView>

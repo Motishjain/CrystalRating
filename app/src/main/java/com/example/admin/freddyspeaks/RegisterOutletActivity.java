@@ -17,6 +17,8 @@ import com.example.admin.database.Question;
 import com.example.admin.database.Reward;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
+import com.example.admin.webservice.request_objects.OutletRequest;
+import com.example.admin.webservice.response_objects.PostServiceResponse;
 import com.example.admin.webservice.response_objects.QuestionResponse;
 import com.example.admin.webservice.response_objects.RewardResponse;
 import com.google.gson.Gson;
@@ -70,22 +72,47 @@ public class RegisterOutletActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Outlet newOutlet = new Outlet();
-                newOutlet.setOutletName(outletName.getText().toString());
-                newOutlet.setAliasName(alias.getText().toString());
-                newOutlet.setAddrLine1(addrLine1.getText().toString());
-                newOutlet.setAddrLine2(addrLine2.getText().toString());
-                newOutlet.setPinCode(pinCode.getText().toString());
-                newOutlet.setEmail(email.getText().toString());
-                newOutlet.setCellNumber(phoneNumber.getText().toString());
-                try {
-                    outletDao.create(newOutlet);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //TODO logging
-                }
                 //TODO web service call to fetch - move to save of reward configuration
+                final OutletRequest outletRequest = new OutletRequest();
+                outletRequest.setOutletName(outletName.getText().toString());
+                outletRequest.setAliasName(alias.getText().toString());
+                outletRequest.setAddrLine1(addrLine1.getText().toString());
+                outletRequest.setAddrLine2(addrLine2.getText().toString());
+                outletRequest.setPinCode(pinCode.getText().toString());
+                outletRequest.setEmail(email.getText().toString());
+                outletRequest.setCellNumber(phoneNumber.getText().toString());
+
                 RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+                Call<PostServiceResponse> registerOutletCall = restEndpointInterface.registerOutlet(outletRequest);
+                registerOutletCall.enqueue(new Callback<PostServiceResponse>() {
+                    @Override
+                    public void onResponse(Call<PostServiceResponse> call, Response<PostServiceResponse> response) {
+                        PostServiceResponse postServiceResponse = response.body();
+
+                        if (postServiceResponse.isSuccess()) {
+                            Outlet newOutlet = new Outlet();
+                            newOutlet.setOutletName(outletRequest.getOutletName());
+                            newOutlet.setAliasName(outletRequest.getAliasName());
+                            newOutlet.setAddrLine1(outletRequest.getAddrLine1());
+                            newOutlet.setAddrLine2(outletRequest.getAddrLine2());
+                            newOutlet.setPinCode(outletRequest.getPinCode());
+                            newOutlet.setEmail(outletRequest.getEmail());
+                            newOutlet.setCellNumber(outletRequest.getCellNumber());
+                            try {
+                                outletDao.create(newOutlet);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PostServiceResponse> call, Throwable t) {
+
+                    }
+                });
+
+
                 Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
                 fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
                     @Override

@@ -15,12 +15,22 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_configuration);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
     }
 
     public void saveRewardConfig(View v) {
+
+    }
+
+    public void addBronzeRewards(View v) {
+
+    }
+
+    public void addSilverRewards(View v) {
+
+    }
+
+    public void addGoldRewards(View v) {
 
     }
 }
