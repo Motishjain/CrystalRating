@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/select_reward"
+    android:layout_width="100dp"
+    android:layout_height="100dp">
 
     <ImageView
         android:id="@+id/selectRewardImage"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="fitXY"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:scaleType="fitCenter"
+        android:gravity="center"
         android:background="#0000"/>
 
-    <TextView
+    <com.example.admin.view.CustomFontTextView
         android:id="@+id/selectRewardName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        style="@style/rewardName"
         android:gravity="top|center"
-        android:textSize="12sp" />
+        />
 
-    <TextView
+    <com.example.admin.view.CustomFontTextView
         android:id="@+id/selectRewardCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/rewardCost"
         android:gravity="bottom|right"
-        android:textSize="12sp" />
+        />
+
 
     <CheckBox
         android:id="@+id/selectRewardCheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
         android:gravity="bottom|left"
         />
 
-</LinearLayout>
+</FrameLayout>
