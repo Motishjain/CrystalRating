@@ -132,4 +132,9 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         selectRewardsBoxAdapter.setSelectedLevel(selectedLevel);
         selectRewardsBoxAdapter.notifyDataSetChanged();
     }
+
+    public int getLevel() {
+        return level;
+    }
+
 }

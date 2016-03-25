@@ -4,18 +4,18 @@ package com.example.admin.webservice.response_objects;
  * Created by Admin on 3/15/2016.
  */
 public class RewardResponse {
-    private String rewardId;
+    private String id;
     private String name;
     private String image;
     private String cost;
     private int level;
 
-    public String getRewardId() {
-        return rewardId;
+    public String getId() {
+        return id;
     }
 
-    public void setRewardId(String rewardId) {
-        this.rewardId = rewardId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

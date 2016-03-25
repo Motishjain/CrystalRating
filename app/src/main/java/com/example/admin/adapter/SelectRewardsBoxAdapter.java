@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.admin.database.Reward;
 import com.example.admin.freddyspeaks.R;
 import com.example.admin.tasks.FetchRewardImageTask;
+import com.example.admin.tasks.SaveRewardImageTask;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 
@@ -61,6 +62,8 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
         else {
             FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(holder.selectRewardImage,reward);
             fetchRewardImageTask.execute(reward.getImage());
+            SaveRewardImageTask saveRewardImageTask = new SaveRewardImageTask(holder.selectRewardImage.getContext(),reward);
+            saveRewardImageTask.execute(reward);
         }
 
         holder.selectRewardName.setText(reward.getName());

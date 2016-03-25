@@ -111,7 +111,10 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         if(checked && selectedLevel == 0) {
             selectedLevel = level;
             for(SelectRewardsBoxFragment fragment:fragmentList) {
-                fragment.setSelectedLevel(selectedLevel);
+                if(fragment.getLevel()!=selectedLevel)
+                {
+                    fragment.setSelectedLevel(selectedLevel);
+                }
             }
         }
         else {
@@ -126,14 +129,16 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             if(!isAnySelected){
                 selectedLevel = 0;
                 for(SelectRewardsBoxFragment fragment:fragmentList) {
-                    fragment.setSelectedLevel(selectedLevel);
+                    if(fragment.getLevel()!=selectedLevel)
+                    {
+                        fragment.setSelectedLevel(selectedLevel);
+                    }
                 }
             }
         }
     }
 
     public void fetchRewards() {
-        showProgressDialog();
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<List<RewardResponse>> fetchRewardsCall = restEndpointInterface.fetchRewards(AppConstants.OUTLET_TYPE);
         fetchRewardsCall.enqueue(new Callback<List<RewardResponse>>() {
@@ -144,7 +149,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                     int i = 0;
                     for (RewardResponse rewardResponse : rewardResponseList) {
                         final Reward dbReward = new Reward();
-                        dbReward.setRewardId(rewardResponse.getRewardId());
+                        dbReward.setRewardId(rewardResponse.getId());
                         dbReward.setName(rewardResponse.getName());
                         dbReward.setImageUrl(rewardResponse.getImage());
                         dbReward.setCost(rewardResponse.getCost());

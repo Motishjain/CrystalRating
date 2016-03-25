@@ -54,14 +54,8 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
     public void onBindViewHolder(SelectedRewardHolder holder, final int position) {
         final Reward reward = rewardList.get(position);
 
-        if(reward.getImage()!=null && reward.getImage().length>0){
-            FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(holder.selectedRewardImage);
-            fetchRewardImageTask.execute(reward.getImage());
-        }
-        else {
-            FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(holder.selectedRewardImage,reward);
-            fetchRewardImageTask.execute(reward.getImage());
-        }
+        FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(holder.selectedRewardImage);
+        fetchRewardImageTask.execute(reward.getImage());
 
         holder.selectedRewardName.setText(reward.getName());
         holder.selectedRewardCost.setText(reward.getCost());
