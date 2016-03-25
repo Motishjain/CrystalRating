@@ -13,7 +13,8 @@
         android:background="@color/headerBg"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
         <com.example.admin.view.CustomFontTextView
-            style="@style/appHeader" />
+            style="@style/appHeader"
+            />
     </android.support.v7.widget.Toolbar>
 
     <include layout="@layout/content_get_rating" />

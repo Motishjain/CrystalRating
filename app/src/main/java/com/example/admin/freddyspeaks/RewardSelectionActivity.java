@@ -157,7 +157,6 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                         rewardDao.create(dbReward);
                     }
                     rewardsList = rewardQueryBuilder.query();
-                    createLevelWiseFragments();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

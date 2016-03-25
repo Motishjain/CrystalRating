@@ -65,7 +65,6 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO
     }
 
     @Override

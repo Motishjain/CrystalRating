@@ -113,31 +113,6 @@ public class RegisterOutletActivity extends AppCompatActivity {
                 });
 
 
-                Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
-                fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
-                    @Override
-                    public void onResponse(Call<List<QuestionResponse>> call, Response<List<QuestionResponse>> response) {
-                        List<QuestionResponse> questionsList = response.body();
-                        try {
-                            for (QuestionResponse questionResponse : questionsList) {
-                                Question dbQuestion = new Question();
-                                dbQuestion.setQuestionId(questionResponse.getQuestionId());
-                                dbQuestion.setName(questionResponse.getQuestionName());
-                                dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
-                                dbQuestion.setSelected("Y");
-                                questionDao.create(dbQuestion);
-                            }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<QuestionResponse>> call, Throwable t) {
-
-                    }
-                });
-
             }
 
         });

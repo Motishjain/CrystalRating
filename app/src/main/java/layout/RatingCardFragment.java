@@ -1,9 +1,9 @@
 package layout;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.admin.constants.AppConstants;
+import com.example.admin.database.Question;
 import com.example.admin.freddyspeaks.R;
 
 /**
@@ -26,10 +27,12 @@ public class RatingCardFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    TextView questionText,selectedOptionValue;
+    TextView questionNameTextView,selectedOptionTextView;
     RatingBar ratingBar;
     String questionName;
     String[] optionValues;
+    String questionType;
+    String questionInputType;
     int selectedRating;
 
     private OnFragmentInteractionListener mListener;
@@ -45,11 +48,16 @@ public class RatingCardFragment extends Fragment {
      * @return A new instance of fragment RatingCardFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RatingCardFragment newInstance(String questionName, String[] optionValues) {
+    public static RatingCardFragment newInstance(Question question, OnFragmentInteractionListener mListener) {
         RatingCardFragment fragment = new RatingCardFragment();
         Bundle args = new Bundle();
-        args.putString(AppConstants.QUESTION_NAME, questionName);
-        args.putStringArray(AppConstants.OPTION_VALUES, optionValues);
+        fragment.questionName = question.getName();
+        if(question.getRatingValues()!=null) {
+            fragment.optionValues = question.getRatingValues().split(",");
+        }
+        fragment.questionType = question.getQuestionType();
+        fragment.questionInputType = question.getQuestionInputType();
+        fragment.mListener = mListener;
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,10 +65,6 @@ public class RatingCardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            questionName = getArguments().getString(AppConstants.QUESTION_NAME);
-            optionValues = getArguments().getStringArray(AppConstants.OPTION_VALUES);
-        }
     }
 
     @Override
@@ -68,17 +72,18 @@ public class RatingCardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View ratingCard = inflater.inflate(R.layout.fragment_rating_card, container, false);
-        questionText = (TextView) ratingCard.findViewById(R.id.questionText);
-        questionText.setText(questionName);
+        questionNameTextView = (TextView) ratingCard.findViewById(R.id.questionNameTextView);
+        questionNameTextView.setText(questionName);
         ratingBar = (RatingBar) ratingCard.findViewById(R.id.ratingBar);
         ratingBar.setClickable(true);
         ratingBar.setStepSize(1);getView();
-        selectedOptionValue = (TextView) ratingCard.findViewById(R.id.selectedOptionValue);
+        selectedOptionTextView = (TextView) ratingCard.findViewById(R.id.selectedOptionTextView);
+
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 selectedRating = Math.round(rating)-1;
-                selectedOptionValue.setText(optionValues[selectedRating]);
+                selectedOptionTextView.setText(optionValues[selectedRating]);
             }
         });
         return ratingCard;
@@ -123,7 +128,20 @@ public class RatingCardFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public TextView getSelectedOptionValue() {
-        return selectedOptionValue;
+
+    public TextView getSelectedOptionTextView() {
+        return selectedOptionTextView;
+    }
+
+    public void setSelectedOptionTextView(TextView selectedOptionTextView) {
+        this.selectedOptionTextView = selectedOptionTextView;
+    }
+
+    public TextView getQuestionNameTextView() {
+        return questionNameTextView;
+    }
+
+    public void setQuestionNameTextView(TextView questionNameTextView) {
+        this.questionNameTextView = questionNameTextView;
     }
 }
