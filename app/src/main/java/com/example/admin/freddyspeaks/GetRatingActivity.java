@@ -69,6 +69,28 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
         ratingPreviousButton = (Button) findViewById(R.id.ratingPreviousButton);
         ratingFragmentMap = new HashMap<>();
 
+        ratingBarPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position<currentQuestionIndex) {
+                    getPreviousRating(null);
+                }
+                else {
+                    getNextRating(null);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         GsonBuilder builder = new GsonBuilder();
         gson = builder.create();
 
