@@ -146,7 +146,7 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
         else {
             ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), selectedOption);
 
-            if (currentQuestionIndex < totalQuestions) {
+            if (currentQuestionIndex < (totalQuestions-1)) {
                 currentQuestionIndex++;
                 ratingBarPager.setCurrentItem(currentQuestionIndex);
                 ratingPreviousButton.setVisibility(View.VISIBLE);
