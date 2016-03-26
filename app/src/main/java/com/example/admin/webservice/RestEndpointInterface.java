@@ -1,6 +1,8 @@
 package com.example.admin.webservice;
 
+import com.example.admin.constants.AppConstants;
 import com.example.admin.webservice.request_objects.OutletRequest;
+import com.example.admin.webservice.response_objects.FeedbackRequest;
 import com.example.admin.webservice.response_objects.PostServiceResponse;
 import com.example.admin.webservice.response_objects.QuestionResponse;
 import com.example.admin.webservice.response_objects.RewardResponse;
@@ -20,14 +22,16 @@ import retrofit2.http.Streaming;
  * Created by Admin on 3/16/2016.
  */
 public interface RestEndpointInterface {
-    @GET("fetch_rewards.php")
+    @GET(AppConstants.FETCH_REWARDS)
     Call<List<RewardResponse>> fetchRewards(@Query("outletType") String outletType);
 
-    @GET("fetch_questions.php")
+    @GET(AppConstants.FETCH_QUESTIONS)
     Call<List<QuestionResponse>> fetchQuestions(@Query("outletType") String outletType);
 
-    @POST("register_outlet.php")
+    @POST(AppConstants.REGISTER_OUTLET)
     Call<PostServiceResponse> registerOutlet(OutletRequest outletRequest);
 
+    @POST(AppConstants.SUBMIT_FEEDBACK)
+    Call<PostServiceResponse> submitFeedback(FeedbackRequest feedbackRequest);
 
 }

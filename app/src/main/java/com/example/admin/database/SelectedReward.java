@@ -22,6 +22,8 @@ public class SelectedReward implements Serializable {
     @DatabaseField
     private String rewardCategory;
 
+    private int carryForwardAmount;
+
     public Integer getId() {
         return id;
     }
@@ -44,5 +46,13 @@ public class SelectedReward implements Serializable {
 
     public void setRewardCategory(String rewardCategory) {
         this.rewardCategory = rewardCategory;
+    }
+
+    public int getCarryForwardAmount() {
+        return carryForwardAmount;
+    }
+
+    public void setCarryForwardAmount(int carryForwardAmount) {
+        this.carryForwardAmount = carryForwardAmount;
     }
 }

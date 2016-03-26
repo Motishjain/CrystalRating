@@ -13,21 +13,13 @@ public class AppConstants {
 
     public static final String FETCH_REWARDS = "fetch_rewards.php";
 
-    public static final String QUESTION_NAME = "questionName";
-
-    public static final String OPTION_VALUES = "optionValues";
-
-    public static final String REWARDS_LIST = "questionName";
-
     public static final String SUBMIT_FEEDBACK = "submit_feedback.php";
 
     public static final String OUTLET_TYPE = "RET";
-
-    public static final String REGISTER_WELCOME_MSG = "Please enter your outlet details.";
 
     public static final String BRONZE_CD = "BR";
 
     public static final String SILVER_CD = "SL";
 
-    public static final String GOLD_CD = "G";
+    public static final String GOLD_CD = "GO";
 }
