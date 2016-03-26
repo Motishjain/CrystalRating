@@ -16,23 +16,21 @@ import android.widget.TextView;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
-import com.example.admin.database.SelectedReward;
-import com.example.admin.database.User;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.response_objects.FeedbackRequest;
 import com.example.admin.webservice.response_objects.QuestionResponse;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import layout.RatingCardFragment;
 import retrofit2.Call;
@@ -81,12 +79,13 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
             questionQueryBuilder = questionDao.queryBuilder();
             questionQueryBuilder.where().eq("selected","Y");
             questionList = questionQueryBuilder.query();
+
             //TODO needs to be added after reward configuration
             if(questionList==null || questionList.size()==0){
                 fetchQuestions();
             }
             else {
-                initializeRatingFragments();
+                setupRatingScreens();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,6 +93,7 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
 
         ratingBarPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
+            //Flag to check if swipe is user initiated or programmed (via previous/next buttons)
             boolean userInitiatedScroll;
 
             @Override
@@ -103,6 +103,7 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
 
             @Override
             public void onPageSelected(int position) {
+                //Call the handlers in case of swipe as well
                 if(userInitiatedScroll) {
                     if(position < currentQuestionIndex) {
                         getPreviousRating(null);
@@ -121,10 +122,6 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
                 }
             }
         });
-
-
-
-
 
     }
 
@@ -214,7 +211,7 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                initializeRatingFragments();
+                setupRatingScreens();
             }
 
             @Override
@@ -224,6 +221,43 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
         });
     }
 
+    void setupRatingScreens() {
+        filterQuestions();
+        initializeRatingFragments();
+    }
+
+    void filterQuestions() {
+        List<Question> filteredList = new ArrayList<>();
+        try {
+            questionQueryBuilder.reset();
+            questionQueryBuilder.where().eq("selected", "Y");
+            questionQueryBuilder.where().eq("questionType", AppConstants.PRODUCT_QUESTION_TYPE);
+            questionList = questionQueryBuilder.query();
+            Random randomGenerator = new SecureRandom();
+            int randomQuestionIndex = randomGenerator.nextInt(questionList.size());
+            filteredList.add(questionList.get(randomQuestionIndex));
+
+            questionQueryBuilder.reset();
+            questionQueryBuilder.where().eq("selected", "Y");
+            questionQueryBuilder.where().eq("questionType", AppConstants.SERVICE_QUESTION_TYPE);
+            questionList = questionQueryBuilder.query();
+            randomQuestionIndex = randomGenerator.nextInt(questionList.size());
+            filteredList.add(questionList.get(randomQuestionIndex));
+
+            questionQueryBuilder.reset();
+            questionQueryBuilder.where().eq("selected", "Y");
+            questionQueryBuilder.where().eq("questionType", AppConstants.MISCELLENOUS_QUESTION_TYPE);
+            questionList = questionQueryBuilder.query();
+            randomQuestionIndex = randomGenerator.nextInt(questionList.size());
+            filteredList.add(questionList.get(randomQuestionIndex));
+
+            questionList = filteredList;
+        }
+        catch (SQLException e) {
+
+        }
+    }
+
     void initializeRatingFragments() {
         currentQuestionIndex = 0;
         totalQuestions = questionList.size();
@@ -231,6 +265,5 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
         RatingFragmentsAdapter ratingFragmentsAdapter = new RatingFragmentsAdapter(getSupportFragmentManager(),this);
         ratingBarPager.setAdapter(ratingFragmentsAdapter);
     }
-
 
 }

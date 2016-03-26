@@ -22,4 +22,10 @@ public class AppConstants {
     public static final String SILVER_CD = "SL";
 
     public static final String GOLD_CD = "GO";
+
+    public static final String PRODUCT_QUESTION_TYPE = "PRD";
+
+    public static final String SERVICE_QUESTION_TYPE = "SVC";
+
+    public static final String MISCELLENOUS_QUESTION_TYPE = "MISC";
 }
