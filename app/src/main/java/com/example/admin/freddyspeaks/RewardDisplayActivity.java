@@ -1,9 +1,7 @@
 package com.example.admin.freddyspeaks;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.example.admin.database.Reward;
@@ -12,9 +10,8 @@ import com.example.admin.database.User;
 import com.example.admin.tasks.FetchRewardImageTask;
 import com.example.admin.util.RewardAllocationUtility;
 import com.example.admin.view.CustomFontTextView;
-import com.example.admin.webservice.response_objects.FeedbackRequest;
+import com.example.admin.webservice.request_objects.FeedbackRequest;
 import com.j256.ormlite.dao.Dao;
-import com.loopj.android.http.RequestParams;
 
 public class RewardDisplayActivity extends AppCompatActivity {
 

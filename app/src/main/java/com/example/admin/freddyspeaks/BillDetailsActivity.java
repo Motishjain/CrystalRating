@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.admin.webservice.response_objects.FeedbackRequest;
+import com.example.admin.webservice.request_objects.FeedbackRequest;
 
 public class BillDetailsActivity extends AppCompatActivity {
 

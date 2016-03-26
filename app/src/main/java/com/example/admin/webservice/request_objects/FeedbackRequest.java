@@ -1,4 +1,4 @@
-package com.example.admin.webservice.response_objects;
+package com.example.admin.webservice.request_objects;
 
 import java.io.Serializable;
 import java.util.Map;

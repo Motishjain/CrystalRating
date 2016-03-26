@@ -18,7 +18,7 @@ import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
-import com.example.admin.webservice.response_objects.FeedbackRequest;
+import com.example.admin.webservice.request_objects.FeedbackRequest;
 import com.example.admin.webservice.response_objects.QuestionResponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
