@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.example.admin.constants.AppConstants;
@@ -75,34 +76,13 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             rewardQueryBuilder.orderBy("level",true);
             rewardsList = rewardQueryBuilder.query();
 
+            //For first time
             if(rewardsList.size()==0) {
                 fetchRewards();
             }
-
-            selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
-            selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
-            selectedRewardQueryBuilder.where().eq("rewardCategory",rewardCategory);
-
-
-            //To find all the saved rewards and show it pre-selected
-            List<SelectedReward> savedRewardList = selectedRewardQueryBuilder.query();
-
-
-            for(SelectedReward selectedReward:savedRewardList) {
-                for(Reward reward: rewardsList) {
-                    if(selectedReward.getReward().getRewardId().equals(reward.getRewardId())){
-                        reward.setSelected(true);
-                        selectedLevel = reward.getLevel();
-                        break;
-                    }
-                }
+            else {
+                createLevelWiseFragments();
             }
-
-            levelRewardsMap = new TreeMap<>();
-
-            //For first time
-
-            createLevelWiseFragments();
 
 
         } catch (Exception e) {
@@ -166,6 +146,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                         rewardDao.create(dbReward);
                     }
                     rewardsList = rewardQueryBuilder.query();
+                    createLevelWiseFragments();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -188,6 +169,29 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     }
 
     void createLevelWiseFragments() {
+        try {
+            selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
+            selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
+            selectedRewardQueryBuilder.where().eq("rewardCategory", rewardCategory);
+            List<SelectedReward> savedRewardList = selectedRewardQueryBuilder.query();
+            for(SelectedReward selectedReward:savedRewardList) {
+                for(Reward reward: rewardsList) {
+                    if(selectedReward.getReward().getRewardId().equals(reward.getRewardId())){
+                        reward.setSelected(true);
+                        selectedLevel = reward.getLevel();
+                        break;
+                    }
+                }
+            }
+        }
+        catch(SQLException e) {
+            Log.e("RewardSelectionActivity","Failed to fetch saved rewards");
+        }
+
+        //To find all the saved rewards and show it pre-selected
+
+
+        levelRewardsMap = new TreeMap<>();
 
         for(Reward reward:rewardsList) {
             if(levelRewardsMap.get(reward.getLevel())==null){
