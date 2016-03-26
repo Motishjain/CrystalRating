@@ -1,5 +1,6 @@
 package com.example.admin.util;
 
+import com.example.admin.constants.AppConstants;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
 import com.example.admin.webservice.request_objects.RewardSubmitRequest;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -20,6 +22,13 @@ import java.util.Random;
  */
 
 public class RewardAllocationUtility {
+
+    public static Map<Integer,String> categoryMapping = new HashMap<>();
+    static {
+        categoryMapping.put(1, AppConstants.BRONZE_CD);
+        categoryMapping.put(2, AppConstants.SILVER_CD);
+        categoryMapping.put(3, AppConstants.GOLD_CD);
+    }
 
     public static SelectedReward allocateReward(String userPhoneNumber, int billAmount,Dao<SelectedReward, Integer> selectedRewardDao, Dao<User, Integer> userDao) {
 
@@ -111,7 +120,7 @@ public class RewardAllocationUtility {
     private static SelectedReward getReward(Dao<SelectedReward, Integer> selectedRewardDao, int categoryAllocated) {
         QueryBuilder<SelectedReward,Integer> selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
         try {
-            selectedRewardQueryBuilder.where().eq("rewardCategory",categoryAllocated);
+            selectedRewardQueryBuilder.where().eq("rewardCategory",categoryMapping.get(categoryAllocated));
             List<SelectedReward> possibleRewards = selectedRewardQueryBuilder.query();
             if(possibleRewards.size()>0){
                 Random randomGenerator = new SecureRandom();

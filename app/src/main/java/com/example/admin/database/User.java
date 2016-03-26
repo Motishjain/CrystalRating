@@ -22,7 +22,7 @@ public class User implements Serializable {
     private String phoneNumber;
 
     @DatabaseField
-    private Integer carryForwardAmount;
+    private int carryForwardAmount;
 
     public Integer getId() {
         return id;
@@ -48,11 +48,11 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getCarryForwardAmount() {
+    public int getCarryForwardAmount() {
         return carryForwardAmount;
     }
 
-    public void setCarryForwardAmount(Integer carryForwardAmount) {
+    public void setCarryForwardAmount(int carryForwardAmount) {
         this.carryForwardAmount = carryForwardAmount;
     }
 }
