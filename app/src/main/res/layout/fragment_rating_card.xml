@@ -13,16 +13,10 @@
         android:id="@+id/questionNameTextView"
         style="@style/questionName" />
 
-    <RatingBar
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ratingOptionsRecyclerView"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        android:layout_marginTop="20dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <com.example.admin.view.CustomFontTextView
-        android:id="@+id/selectedOptionTextView"
-        style="@style/selectedOption" />
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>

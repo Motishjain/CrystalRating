@@ -9,8 +9,9 @@ public class QuestionResponse {
     private String questionId;
     private String questionName;
     private String[] optionValues;
+    private String[] emoticonIds;
     private String questionType;
-    private String questionInputType;
+
 
     public String getQuestionId() {
         return questionId;
@@ -44,11 +45,11 @@ public class QuestionResponse {
         this.questionType = questionType;
     }
 
-    public String getQuestionInputType() {
-        return questionInputType;
+    public String[] getEmoticonIds() {
+        return emoticonIds;
     }
 
-    public void setQuestionInputType(String questionInputType) {
-        this.questionInputType = questionInputType;
+    public void setEmoticonIds(String[] emoticonIds) {
+        this.emoticonIds = emoticonIds;
     }
 }

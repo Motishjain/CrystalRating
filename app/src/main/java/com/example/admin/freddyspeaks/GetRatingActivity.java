@@ -203,7 +203,9 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
                         Question dbQuestion = new Question();
                         dbQuestion.setQuestionId(questionResponse.getQuestionId());
                         dbQuestion.setName(questionResponse.getQuestionName());
+                        dbQuestion.setQuestionType(questionResponse.getQuestionType());
                         dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
+                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
                         dbQuestion.setSelected("Y");
                         questionDao.create(dbQuestion);
                         questionList.add(dbQuestion);

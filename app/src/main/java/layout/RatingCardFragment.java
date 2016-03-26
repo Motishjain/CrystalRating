@@ -4,12 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.admin.adapter.RatingOptionsAdapter;
+import com.example.admin.adapter.SelectRewardsBoxAdapter;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.Question;
 import com.example.admin.freddyspeaks.R;
@@ -27,13 +30,10 @@ public class RatingCardFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    TextView questionNameTextView,selectedOptionTextView;
-    RatingBar ratingBar;
-    String questionName;
-    String[] optionValues;
-    String questionType;
-    String questionInputType;
+    TextView questionNameTextView;
+    Question question;
     int selectedRating;
+    RecyclerView ratingOptionsRecyclerView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -51,12 +51,8 @@ public class RatingCardFragment extends Fragment {
     public static RatingCardFragment newInstance(Question question, OnFragmentInteractionListener mListener) {
         RatingCardFragment fragment = new RatingCardFragment();
         Bundle args = new Bundle();
-        fragment.questionName = question.getName();
-        if(question.getRatingValues()!=null) {
-            fragment.optionValues = question.getRatingValues().split(",");
-        }
-        fragment.questionType = question.getQuestionType();
-        fragment.questionInputType = question.getQuestionInputType();
+        fragment.question = question;
+
         fragment.mListener = mListener;
         fragment.setArguments(args);
         return fragment;
@@ -73,19 +69,12 @@ public class RatingCardFragment extends Fragment {
         // Inflate the layout for this fragment
         View ratingCard = inflater.inflate(R.layout.fragment_rating_card, container, false);
         questionNameTextView = (TextView) ratingCard.findViewById(R.id.questionNameTextView);
-        questionNameTextView.setText(questionName);
-        ratingBar = (RatingBar) ratingCard.findViewById(R.id.ratingBar);
-        ratingBar.setClickable(true);
-        ratingBar.setStepSize(1);getView();
-        selectedOptionTextView = (TextView) ratingCard.findViewById(R.id.selectedOptionTextView);
+        questionNameTextView.setText(question.getName());
+        ratingOptionsRecyclerView = (RecyclerView) ratingCard.findViewById(R.id.ratingOptionsRecyclerView);
 
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                selectedRating = Math.round(rating)-1;
-                selectedOptionTextView.setText(optionValues[selectedRating]);
-            }
-        });
+        RatingOptionsAdapter ratingOptionsAdapter = new RatingOptionsAdapter(R.layout.rating_option_item, question);
+        ratingOptionsRecyclerView.setAdapter(ratingOptionsAdapter);
+
         return ratingCard;
     }
 
@@ -126,22 +115,5 @@ public class RatingCardFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-
-    public TextView getSelectedOptionTextView() {
-        return selectedOptionTextView;
-    }
-
-    public void setSelectedOptionTextView(TextView selectedOptionTextView) {
-        this.selectedOptionTextView = selectedOptionTextView;
-    }
-
-    public TextView getQuestionNameTextView() {
-        return questionNameTextView;
-    }
-
-    public void setQuestionNameTextView(TextView questionNameTextView) {
-        this.questionNameTextView = questionNameTextView;
     }
 }

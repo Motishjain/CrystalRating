@@ -22,13 +22,15 @@ public class Question implements Serializable {
     private String ratingValues;
 
     @DatabaseField
+    private String emoticonIds;
+
+    @DatabaseField
     private String selected;
 
     @DatabaseField
     private String questionType;
 
-    @DatabaseField
-    private String questionInputType;
+    private String selectedOption;
 
     public String getQuestionId() {
         return questionId;
@@ -70,11 +72,19 @@ public class Question implements Serializable {
         this.questionType = questionType;
     }
 
-    public String getQuestionInputType() {
-        return questionInputType;
+    public String getEmoticonIds() {
+        return emoticonIds;
     }
 
-    public void setQuestionInputType(String questionInputType) {
-        this.questionInputType = questionInputType;
+    public void setEmoticonIds(String emoticonIds) {
+        this.emoticonIds = emoticonIds;
+    }
+
+    public String getSelectedOption() {
+        return selectedOption;
+    }
+
+    public void setSelectedOption(String selectedOption) {
+        this.selectedOption = selectedOption;
     }
 }
