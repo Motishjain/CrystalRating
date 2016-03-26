@@ -21,9 +21,9 @@ public class FeedbackRequest implements Serializable {
 
     private Map<String,String> ratingsMap;
 
-    private String rewardId;
+    private String rewardId="";
 
-    private String rewardCategory;
+    private String rewardCategory="";
 
     public String getOutletCode() {
         return outletCode;
