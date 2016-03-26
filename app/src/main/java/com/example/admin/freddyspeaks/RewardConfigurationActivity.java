@@ -1,7 +1,9 @@
 package com.example.admin.freddyspeaks;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Reward;
 import com.example.admin.database.SelectedReward;
+import com.example.admin.webservice.request_objects.FeedbackRequest;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -28,6 +31,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     QueryBuilder<Reward, Integer> rewardQueryBuilder;
     QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
     SelectedRewardsBoxAdapter bronzeRewardsAdapter, silverRewardsAdapter, goldRewardsAdapter;
+    String outletCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,9 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         bronzeRewardsRecyclerView = (RecyclerView)findViewById(R.id.bronzeRewardsRecyclerView);
         silverRewardsRecyclerView = (RecyclerView) findViewById(R.id.silverRewardsRecyclerView);
         goldRewardsRecyclerView = (RecyclerView) findViewById(R.id.goldRewardsRecyclerView);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        outletCode = sharedPreferences.getString("outletCode", null) ;
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -64,6 +71,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     }
 
     public void rewardConfigNext(View v) {
+
         Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
         startActivity(homePage);
     }

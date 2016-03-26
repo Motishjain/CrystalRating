@@ -4,7 +4,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -14,6 +16,8 @@ import com.example.admin.database.Reward;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
+import com.example.admin.webservice.request_objects.RewardSubmitRequest;
+import com.example.admin.webservice.response_objects.PostServiceResponse;
 import com.example.admin.webservice.response_objects.RewardResponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -24,6 +28,7 @@ import com.j256.ormlite.stmt.UpdateBuilder;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -44,6 +49,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     Map<Integer,List<Reward>> levelRewardsMap;
     private ProgressDialog progress;
     private String rewardCategory;
+    private String outletCode;
     private int selectedLevel;
 
     List<SelectRewardsBoxFragment> fragmentList = new ArrayList<>();
@@ -53,6 +59,9 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_selection);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        outletCode = sharedPreferences.getString("outletCode", null) ;
 
         Bundle extras = getIntent().getExtras();
         rewardCategory = extras.getString("rewardCategory");
@@ -206,8 +215,11 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
         try {
             DeleteBuilder<SelectedReward,Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-            selectedRewardDeleteBuilder.where().eq("rewardCategory",rewardCategory);
+            selectedRewardDeleteBuilder.where().eq("rewardCategory", rewardCategory);
             selectedRewardDeleteBuilder.delete();
+
+            Map<String,List<String>> rewardsMap = new HashMap<>();
+            rewardsMap.put(rewardCategory,new ArrayList<String>());
 
             for(Reward reward:rewardsList) {
                 if(reward.isSelected()) {
@@ -215,12 +227,33 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                     selectedReward.setReward(reward);
                     selectedReward.setRewardCategory(rewardCategory);
                     selectedRewardDao.create(selectedReward);
+                    rewardsMap.get(rewardCategory).add(reward.getRewardId());
                 }
             }
-            Intent rewardsSaved = new Intent();
-            rewardsSaved.putExtra("rewardsSelected", true);
-            setResult(200, rewardsSaved);
-            this.finish();
+            RewardSubmitRequest rewardSubmitRequest = new RewardSubmitRequest();
+            rewardSubmitRequest.setOutletCode(outletCode);
+            rewardSubmitRequest.setRewardsMap(rewardsMap);
+
+            RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+            Call<PostServiceResponse> saveRewardsCall = restEndpointInterface.saveRewards(rewardSubmitRequest);
+            saveRewardsCall.enqueue(new Callback<PostServiceResponse>() {
+                @Override
+                public void onResponse(Call<PostServiceResponse> call, Response<PostServiceResponse> response) {
+                    PostServiceResponse postServiceResponse = response.body();
+
+                    if (postServiceResponse.isSuccess()) {
+                        Intent rewardsSaved = new Intent();
+                        rewardsSaved.putExtra("rewardsSelected", true);
+                        setResult(200, rewardsSaved);
+                        RewardSelectionActivity.this.finish();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<PostServiceResponse> call, Throwable t) {
+                    //TODO Handle failure
+                }
+            });
         }
         catch (SQLException e) {
             e.printStackTrace();

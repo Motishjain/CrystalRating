@@ -1,6 +1,9 @@
 package com.example.admin.freddyspeaks;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -105,6 +108,14 @@ public class RegisterOutletActivity extends AppCompatActivity {
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
+
+                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("outletCode", newOutlet.getOutletCode());
+                            editor.commit();
+
+                            Intent configureRewards = new Intent(RegisterOutletActivity.this, RewardConfigurationActivity.class);
+                            startActivity(configureRewards);
                         }
                     }
 

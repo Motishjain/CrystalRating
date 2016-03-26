@@ -15,6 +15,8 @@ public class AppConstants {
 
     public static final String SUBMIT_FEEDBACK = "submit_feedback.php";
 
+    public static final String SAVE_REWARDS = "save_rewards.php";
+
     public static final String OUTLET_TYPE = "RET";
 
     public static final String BRONZE_CD = "BR";

@@ -3,6 +3,7 @@ package com.example.admin.webservice;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.webservice.request_objects.OutletRequest;
 import com.example.admin.webservice.request_objects.FeedbackRequest;
+import com.example.admin.webservice.request_objects.RewardSubmitRequest;
 import com.example.admin.webservice.response_objects.PostServiceResponse;
 import com.example.admin.webservice.response_objects.QuestionResponse;
 import com.example.admin.webservice.response_objects.RewardResponse;
@@ -29,6 +30,9 @@ public interface RestEndpointInterface {
 
     @POST(AppConstants.REGISTER_OUTLET)
     Call<PostServiceResponse> registerOutlet(@Body OutletRequest outletRequest);
+
+    @POST(AppConstants.SAVE_REWARDS)
+    Call<PostServiceResponse> saveRewards(@Body RewardSubmitRequest rewardSubmitRequest);
 
     @POST(AppConstants.SUBMIT_FEEDBACK)
     Call<PostServiceResponse> submitFeedback(@Body FeedbackRequest feedbackRequest);
