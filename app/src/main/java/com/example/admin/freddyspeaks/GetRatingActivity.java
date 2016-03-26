@@ -140,13 +140,13 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
 
         RatingCardFragment currentRatingFragment = ratingFragmentMap.get(currentQuestionIndex);
 
-        TextView selectedOptionTextView = currentRatingFragment.getSelectedOptionTextView();
+        String selectedOption = questionList.get(currentQuestionIndex).getSelectedOption();
 
-        if(selectedOptionTextView==null || selectedOptionTextView.toString().trim().equals("")){
+        if(selectedOption == null || selectedOption.trim().equals("")){
             //TODO show alert
         }
         else {
-            ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), currentRatingFragment.getSelectedOptionTextView().getText().toString());
+            ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), selectedOption);
 
             if (currentQuestionIndex < totalQuestions) {
                 currentQuestionIndex++;
@@ -205,7 +205,9 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
                         dbQuestion.setName(questionResponse.getQuestionName());
                         dbQuestion.setQuestionType(questionResponse.getQuestionType());
                         dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
-                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
+                        //dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
+                        //TODO to be removed
+                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
                         dbQuestion.setSelected("Y");
                         questionDao.create(dbQuestion);
                         questionList.add(dbQuestion);

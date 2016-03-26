@@ -41,7 +41,6 @@ public class RegisterOutletActivity extends AppCompatActivity {
     EditText outletName, alias, addrLine1, addrLine2, pinCode, email, phoneNumber;
     Button nextButton;
     Dao<Outlet, Integer> outletDao;
-    Dao<Question, Integer> questionDao;
     TextToSpeech textToSpeechConverter;
     Gson gson;
 
@@ -67,8 +66,6 @@ public class RegisterOutletActivity extends AppCompatActivity {
 
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
-            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
-
         } catch (Exception e) {
             e.printStackTrace();
         }

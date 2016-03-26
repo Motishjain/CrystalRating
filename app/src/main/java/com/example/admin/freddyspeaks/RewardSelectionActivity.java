@@ -62,7 +62,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         setContentView(R.layout.activity_reward_selection);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        outletCode = sharedPreferences.getString("outletCode", null) ;
+        outletCode = sharedPreferences.getString("outletCode", "") ;
 
         Bundle extras = getIntent().getExtras();
         rewardCategory = extras.getString("rewardCategory");

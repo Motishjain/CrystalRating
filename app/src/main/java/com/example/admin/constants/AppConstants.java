@@ -19,7 +19,7 @@ public class AppConstants {
 
     public static final String OUTLET_TYPE = "RET";
 
-    public static final String BRONZE_CD = "BR";
+    public static final String BRONZE_CD = "BZ";
 
     public static final String SILVER_CD = "SL";
 

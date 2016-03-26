@@ -1,5 +1,6 @@
 package com.example.admin.adapter;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
     int selectedOption;
     int emoticonHeight, emoticonWidth;
     float optionTextSize;
-
+    Context context;
 
     public RatingOptionsAdapter(int layoutResourceId, Question question) {
         this.layoutResourceId = layoutResourceId;
@@ -46,12 +47,18 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
         emoticonWidth = ratingOptionHolder.ratingOptionEmoticon.getLayoutParams().width;
         emoticonHeight = ratingOptionHolder.ratingOptionEmoticon.getLayoutParams().height;
         optionTextSize = ratingOptionHolder.selectedOptionTextView.getTextSize();
+        context = ratingOptionHolder.ratingOptionEmoticon.getContext();
         return ratingOptionHolder;
     }
 
     @Override
     public void onBindViewHolder(final RatingOptionHolder holder, final int position) {
-        holder.ratingOptionEmoticon.setImageResource(R.drawable.form_button_shape);
+
+        //TODO emoticon
+        int emoticonIdResource = context.getResources().getIdentifier("emoticon_1"/*+emoticonIds[position]*/,
+                "drawable", context.getPackageName());
+
+        holder.ratingOptionEmoticon.setImageResource(emoticonIdResource);
         holder.selectedOptionTextView.setText(optionValues[position]);
 
         if(selected[position]) {
