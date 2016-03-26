@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_marginTop="25dp"
+    android:id="@+id/ratingOptionsLayout"
+    android:layout_height="30dp">
 
     <RadioButton
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:gravity="bottom"
         android:id="@+id/ratingOptionRadioButton"/>
 
     <ImageView
         android:id="@+id/ratingOptionEmoticon"
-        android:layout_width="5dp"
-        android:layout_height="5dp"
-        android:scaleType="centerInside"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@id/ratingOptionRadioButton"
         android:gravity="center"
         android:background="#0000"/>
 
     <com.example.admin.view.CustomFontTextView
+        android:layout_marginLeft="7dp"
+        android:layout_height="match_parent"
         android:id="@+id/selectedOptionTextView"
+        android:layout_toRightOf="@id/ratingOptionEmoticon"
         style="@style/selectedOption" />
 
-</LinearLayout>
+</RelativeLayout>

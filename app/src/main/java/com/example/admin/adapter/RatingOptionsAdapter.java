@@ -6,16 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.admin.database.Question;
-import com.example.admin.database.Reward;
 import com.example.admin.freddyspeaks.R;
-
-import java.util.List;
 
 /**
  * Created by Admin on 3/26/2016.
@@ -66,14 +64,16 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
             holder.ratingOptionEmoticon.getLayoutParams().height = emoticonHeight + 2;
             holder.selectedOptionTextView.setTextSize(optionTextSize+2);
             holder.selectedOptionTextView.setTypeface(null, Typeface.BOLD);
+            holder.ratingOptionRadioButton.setChecked(true);
         }
         else {
             holder.ratingOptionEmoticon.getLayoutParams().width = emoticonWidth;
             holder.ratingOptionEmoticon.getLayoutParams().height = emoticonHeight;
             holder.selectedOptionTextView.setTextSize(optionTextSize);
             holder.selectedOptionTextView.setTypeface(null, Typeface.NORMAL);
+            holder.ratingOptionRadioButton.setChecked(false);
         }
-        holder.ratingOptionRadioButton.setOnClickListener(new View.OnClickListener() {
+        holder.ratingOptionsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selected[selectedOption] = false;
@@ -87,7 +87,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
 
     @Override
     public int getItemCount() {
-        return 0;
+        return optionValues.length;
     }
 
 
@@ -96,12 +96,14 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
         RadioButton ratingOptionRadioButton;
         ImageView ratingOptionEmoticon;
         TextView selectedOptionTextView;
+        RelativeLayout ratingOptionsLayout;
 
         public RatingOptionHolder(View view){
             super(view);
             ratingOptionRadioButton = (RadioButton) view.findViewById(R.id.ratingOptionRadioButton);
             ratingOptionEmoticon = (ImageView) view.findViewById(R.id.ratingOptionEmoticon);
             selectedOptionTextView = (TextView) view.findViewById(R.id.selectedOptionTextView);
+            ratingOptionsLayout = (RelativeLayout) view.findViewById(R.id.ratingOptionsLayout);
         }
     }
 }

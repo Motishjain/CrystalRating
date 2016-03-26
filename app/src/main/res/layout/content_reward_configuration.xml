@@ -26,37 +26,48 @@
         />
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
+<!--        <com.example.admin.view.CustomFontTextView
+            android:id="@+id/bronzeBoxHeader"
+            android:text="@string/bronze_box_header"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="3"
+            android:layout_alignParentLeft="true"
+            android:shadowColor="@color/colorPrimaryDark"
+            style="@style/rewardBoxHeader"
+            android:layout_gravity="left"
+            />-->
+
         <com.example.admin.view.CustomFontButton
             android:id="@+id/addBronzeRewardsButton"
             style="@style/formButton"
-            android:elevation="3dp"
             android:text="Add"
             android:onClick="addBronzeRewards"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:layout_height="@dimen/addRewardButton"
             android:layout_marginTop="20dp"
+            android:layout_gravity="right|top"
             android:layout_marginRight="5dp"
-            android:layout_gravity="right" />
+            android:layout_width="wrap_content" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"
         android:id="@+id/bronzeRewardsRecyclerView"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginTop="10dp" />
 
     <com.example.admin.view.CustomFontButton
         android:id="@+id/addSilverRewardsButton"
         style="@style/formButton"
-        android:elevation="3dp"
         android:text="Add"
         android:onClick="addSilverRewards"
         android:textAllCaps="false"
@@ -68,7 +79,7 @@
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"
         android:id="@+id/silverRewardsRecyclerView"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginTop="5dp"/>
 
@@ -87,7 +98,7 @@
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"
         android:id="@+id/goldRewardsRecyclerView"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
@@ -99,6 +110,7 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:text="Next"
+        android:onClick="rewardConfigNext"
         android:layout_height="30dp"
         android:textAllCaps="false"
         android:textColor="#fff"

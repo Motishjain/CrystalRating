@@ -71,7 +71,6 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     }
 
     public void rewardConfigNext(View v) {
-
         Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
         startActivity(homePage);
     }

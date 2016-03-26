@@ -1,12 +1,9 @@
 package com.example.admin.adapter;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,16 +13,8 @@ import com.example.admin.database.Reward;
 import com.example.admin.freddyspeaks.R;
 import com.example.admin.tasks.FetchRewardImageTask;
 import com.example.admin.tasks.SaveRewardImageTask;
-import com.example.admin.webservice.RestEndpointInterface;
-import com.example.admin.webservice.RetrofitSingleton;
 
-import java.io.IOException;
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Admin on 3/20/2016.
@@ -41,6 +30,7 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
         this.layoutResourceId = layoutResourceId;
         this.rewardList = rewardList;
         this.rewardSelectionListener = rewardSelectionListener;
+        this.selectedLevel = selectedLevel;
     }
 
 

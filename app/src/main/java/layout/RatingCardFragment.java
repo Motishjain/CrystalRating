@@ -4,16 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.admin.adapter.RatingOptionsAdapter;
-import com.example.admin.adapter.SelectRewardsBoxAdapter;
-import com.example.admin.constants.AppConstants;
 import com.example.admin.database.Question;
 import com.example.admin.freddyspeaks.R;
 
@@ -54,7 +52,6 @@ public class RatingCardFragment extends Fragment {
         fragment.question = question;
 
         fragment.mListener = mListener;
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -70,10 +67,16 @@ public class RatingCardFragment extends Fragment {
         View ratingCard = inflater.inflate(R.layout.fragment_rating_card, container, false);
         questionNameTextView = (TextView) ratingCard.findViewById(R.id.questionNameTextView);
         questionNameTextView.setText(question.getName());
-        ratingOptionsRecyclerView = (RecyclerView) ratingCard.findViewById(R.id.ratingOptionsRecyclerView);
 
-        RatingOptionsAdapter ratingOptionsAdapter = new RatingOptionsAdapter(R.layout.rating_option_item, question);
-        ratingOptionsRecyclerView.setAdapter(ratingOptionsAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        ratingOptionsRecyclerView = (RecyclerView) ratingCard.findViewById(R.id.ratingOptionsRecyclerView);
+        ratingOptionsRecyclerView.setLayoutManager(layoutManager);
+
+        if(ratingOptionsRecyclerView.getAdapter()==null) {
+            RatingOptionsAdapter ratingOptionsAdapter = new RatingOptionsAdapter(R.layout.rating_option_item, question);
+            ratingOptionsRecyclerView.setAdapter(ratingOptionsAdapter);
+        }
 
         return ratingCard;
     }

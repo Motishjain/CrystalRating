@@ -138,8 +138,6 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
 
     public void getNextRating(View v) {
 
-        RatingCardFragment currentRatingFragment = ratingFragmentMap.get(currentQuestionIndex);
-
         String selectedOption = questionList.get(currentQuestionIndex).getSelectedOption();
 
         if(selectedOption == null || selectedOption.trim().equals("")){
