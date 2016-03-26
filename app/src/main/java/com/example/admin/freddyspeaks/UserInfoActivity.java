@@ -14,7 +14,7 @@ import android.widget.EditText;
 import com.example.admin.adapter.UserPhoneNumberInputAdapter;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.User;
-import com.example.admin.webservice.response_objects.Feedback;
+import com.example.admin.webservice.response_objects.FeedbackRequest;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -33,7 +33,7 @@ public class UserInfoActivity extends AppCompatActivity {
     QueryBuilder<User, Integer> queryBuilder;
     UpdateBuilder<User, Integer> updateBuilder;
     List<User> userList = new ArrayList<>();
-    Feedback feedback;
+    FeedbackRequest feedback;
 
 
     @Override
@@ -42,7 +42,7 @@ public class UserInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_info);
 
         Bundle extras = getIntent().getExtras();
-        feedback = (Feedback)extras.get("feedback");
+        feedback = (FeedbackRequest)extras.get("feedback");
 
         try {
             userDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("User");

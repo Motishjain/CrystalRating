@@ -21,7 +21,7 @@ import com.example.admin.database.User;
 import com.example.admin.util.RewardAllocationUtility;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
-import com.example.admin.webservice.response_objects.Feedback;
+import com.example.admin.webservice.response_objects.FeedbackRequest;
 import com.example.admin.webservice.response_objects.QuestionResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,7 +56,7 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
     QueryBuilder<Question, Integer> queryBuilder;
     public List<Question> questionList;
     int totalQuestions;
-    Feedback feedback;
+    FeedbackRequest feedback;
     Gson gson;
 
     @Override
@@ -98,7 +98,7 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
         ratingMap = new HashMap<>();
         if(extras!=null)
         {
-            feedback = (Feedback)extras.get("feedback");
+            feedback = (FeedbackRequest)extras.get("feedback");
         }
 
         if(feedback!=null && feedback.getRatingsMap()==null){

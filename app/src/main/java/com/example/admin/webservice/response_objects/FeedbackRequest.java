@@ -7,7 +7,7 @@ import java.util.Map;
  * Created by mjai37 on 1/21/2016.
  */
 
-public class Feedback implements Serializable {
+public class FeedbackRequest implements Serializable {
 
     private String outletCode;
 
@@ -16,6 +16,8 @@ public class Feedback implements Serializable {
     private String billAmount;
 
     private String userPhoneNumber;
+
+    private String userName;
 
     private Map<String,String> ratingsMap;
 
@@ -77,5 +79,13 @@ public class Feedback implements Serializable {
 
     public void setUserPhoneNumber(String userPhoneNumber) {
         this.userPhoneNumber = userPhoneNumber;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

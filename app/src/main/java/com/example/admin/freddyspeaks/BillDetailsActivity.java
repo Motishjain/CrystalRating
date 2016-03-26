@@ -9,14 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.admin.webservice.response_objects.Feedback;
+import com.example.admin.webservice.response_objects.FeedbackRequest;
 
 public class BillDetailsActivity extends AppCompatActivity {
 
     TextInputLayout inputBillAmountLayout, inputBillNumberLayout;
     TextView billNumber, billAmount;
     Button continueButton, resetButton;
-    Feedback feedback;
+    FeedbackRequest feedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class BillDetailsActivity extends AppCompatActivity {
         resetButton = (Button) findViewById(R.id.billInfoResetButton);
 
         Bundle extras = getIntent().getExtras();
-        final Feedback feedback = (Feedback)extras.get("feedback");
+        final FeedbackRequest feedback = (FeedbackRequest)extras.get("feedback");
 
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override

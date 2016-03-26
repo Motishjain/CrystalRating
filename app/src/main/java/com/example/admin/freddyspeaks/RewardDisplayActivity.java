@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.admin.database.SelectedReward;
-import com.example.admin.webservice.response_objects.Feedback;
+import com.example.admin.webservice.response_objects.FeedbackRequest;
 
 public class RewardDisplayActivity extends AppCompatActivity {
 
-    Feedback feedback;
+    FeedbackRequest feedback;
     SelectedReward allocatedReward;
 
     @Override
