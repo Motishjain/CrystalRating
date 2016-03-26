@@ -1,6 +1,7 @@
 package com.example.admin.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -73,16 +74,18 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
             holder.selectedOptionTextView.setTypeface(null, Typeface.NORMAL);
             holder.ratingOptionRadioButton.setChecked(false);
         }
-        holder.ratingOptionsLayout.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selected[selectedOption] = false;
                 selectedOption = position;
-                question.setSelectedOption((selectedOption+1)+"");
+                question.setSelectedOption((selectedOption + 1) + "");
                 selected[position] = true;
                 notifyDataSetChanged();
             }
-        });
+        };
+        holder.ratingOptionsLayout.setOnClickListener(onClickListener);
+        holder.ratingOptionRadioButton.setOnClickListener(onClickListener);
     }
 
     @Override
