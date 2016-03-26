@@ -7,5 +7,6 @@
     <dimen name="header_left_margin">10dp</dimen>
     <dimen name="register_box_top_margin">5dp</dimen>
     <dimen name="form_button_text_size">20dp</dimen>
+    <dimen name="addRewardButton">25dp</dimen>
     <dimen name="item_offset">5dp</dimen>
 </resources>

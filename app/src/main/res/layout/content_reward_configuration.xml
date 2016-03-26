@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:layout_gravity="left"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.admin.freddyspeaks.RewardConfigurationActivity"
     tools:showIn="@layout/activity_reward_configuration">
@@ -25,81 +26,82 @@
         />
 
 
-    <com.example.admin.view.CustomFontButton
-        android:id="@+id/addBronzeRewardsButton"
-        style="@style/formButton"
-        android:elevation="3dp"
-        android:text="Add Bronze Rewards"
-        android:onClick="addBronzeRewards"
-        android:textAllCaps="false"
-        android:textColor="#fff" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <com.example.admin.view.CustomFontButton
+            android:id="@+id/addBronzeRewardsButton"
+            style="@style/formButton"
+            android:elevation="3dp"
+            android:text="Add"
+            android:onClick="addBronzeRewards"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:layout_height="@dimen/addRewardButton"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="right" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"
         android:id="@+id/bronzeRewardsRecyclerView"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp" />
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp" />
 
     <com.example.admin.view.CustomFontButton
         android:id="@+id/addSilverRewardsButton"
         style="@style/formButton"
         android:elevation="3dp"
-        android:text="Add Silver Rewards"
+        android:text="Add"
         android:onClick="addSilverRewards"
         android:textAllCaps="false"
+        android:layout_height="@dimen/addRewardButton"
+        android:layout_gravity="right"
+        android:layout_marginTop="20dp"
         android:textColor="#fff" />
 
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"
         android:id="@+id/silverRewardsRecyclerView"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"/>
 
     <com.example.admin.view.CustomFontButton
         android:id="@+id/addGoldRewardsButton"
         style="@style/formButton"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
         android:elevation="3dp"
-        android:text="Add Gold Rewards"
+        android:text="Add"
         android:onClick="addGoldRewards"
         android:textAllCaps="false"
+        android:layout_gravity="right"
+        android:layout_height="@dimen/addRewardButton"
+        android:layout_marginTop="20dp"
         android:textColor="#fff" />
 
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"
         android:id="@+id/goldRewardsRecyclerView"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:weightSum="2">
-
-        <com.example.admin.view.CustomFontButton
-            android:id="@+id/rewardsConfigureContinueButton"
-            style="@style/formButton"
-            android:layout_margin="20dp"
-            android:elevation="3dp"
-            android:text="Continue"
-            android:textAllCaps="false"
-            android:textColor="#fff" />
-    </LinearLayout>
+        android:layout_marginTop="10dp"/>
 
     <com.example.admin.view.CustomFontButton
-        android:id="@+id/rewardConfigNextButton"
-        android:onClick="rewardConfigNext"
+        android:id="@+id/rewardsConfigureNextButton"
         style="@style/formButton"
-        android:layout_marginLeft="40dp"
-        android:layout_weight="1"
-        android:text="Next"
+        android:elevation="3dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
+        android:text="Next"
+        android:layout_height="30dp"
+        android:textAllCaps="false"
+        android:textColor="#fff"
         />
 
 </LinearLayout>
