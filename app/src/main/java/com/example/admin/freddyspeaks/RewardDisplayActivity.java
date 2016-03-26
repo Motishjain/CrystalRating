@@ -54,7 +54,7 @@ public class RewardDisplayActivity extends AppCompatActivity {
 
         allocateReward();
 
-        if(allocatedReward.getReward()!=null) {
+        if(allocatedReward!=null) {
             Reward rewardResult = allocatedReward.getReward();
             FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(resultRewardImage);
             fetchRewardImageTask.execute(rewardResult.getImage());
