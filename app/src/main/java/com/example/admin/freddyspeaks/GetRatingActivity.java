@@ -18,7 +18,6 @@ import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
-import com.example.admin.util.RewardAllocationUtility;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.response_objects.FeedbackRequest;
@@ -28,7 +27,6 @@ import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.loopj.android.http.RequestParams;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,19 +43,17 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
 
 
     Dao<Question, Integer> questionDao;
-    Dao<SelectedReward, Integer> selectedRewardDao;
-    Button ratingPreviousButton;
-    Dao<User, Integer> userDao;
-    int currentQuestionIndex ;
-    ViewPager ratingBarPager;
-    Map<String,String> ratingMap;
-    Map<Integer,RatingCardFragment> ratingFragmentMap;
-
-    QueryBuilder<Question, Integer> queryBuilder;
+    QueryBuilder<Question, Integer> questionQueryBuilder;
     public List<Question> questionList;
     int totalQuestions;
+    int currentQuestionIndex;
+    Map<String,String> ratingMap;
+
+    ViewPager ratingBarPager;
+    Map<Integer,RatingCardFragment> ratingFragmentMap;
+    Button ratingPreviousButton;
+
     FeedbackRequest feedback;
-    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,31 +65,6 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
         ratingPreviousButton = (Button) findViewById(R.id.ratingPreviousButton);
         ratingFragmentMap = new HashMap<>();
 
-        ratingBarPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if(position<currentQuestionIndex) {
-                    getPreviousRating(null);
-                }
-                else {
-                    getNextRating(null);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        GsonBuilder builder = new GsonBuilder();
-        gson = builder.create();
-
         Bundle extras = getIntent().getExtras();
         ratingMap = new HashMap<>();
         if(extras!=null)
@@ -101,17 +72,15 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
             feedback = (FeedbackRequest)extras.get("feedback");
         }
 
-        if(feedback!=null && feedback.getRatingsMap()==null){
+        if(feedback!=null && feedback.getRatingsMap()==null) {
             feedback.setRatingsMap(ratingMap);
         }
 
         try {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
-            selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
-            userDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("User");
-            queryBuilder = questionDao.queryBuilder();
-            queryBuilder.where().eq("selected","Y");
-            questionList = queryBuilder.query();
+            questionQueryBuilder = questionDao.queryBuilder();
+            questionQueryBuilder.where().eq("selected","Y");
+            questionList = questionQueryBuilder.query();
             //TODO needs to be added after reward configuration
             if(questionList==null || questionList.size()==0){
                 fetchQuestions();
@@ -119,17 +88,52 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
             else {
                 initializeRatingFragments();
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        ratingBarPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            boolean userInitiatedScroll;
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(userInitiatedScroll) {
+                    if(position < currentQuestionIndex) {
+                        getPreviousRating(null);
+                    }
+                    else if(position > currentQuestionIndex){
+                        getNextRating(null);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                //Check if its user initiated swipe
+                if (state == ViewPager.SCROLL_STATE_DRAGGING) {
+                    userInitiatedScroll = true;
+                }
+            }
+        });
+
+
+
+
+
     }
 
     public void getPreviousRating(View v) {
-        currentQuestionIndex--;
-        ratingBarPager.setCurrentItem(currentQuestionIndex);
+
+        if(currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            ratingBarPager.setCurrentItem(currentQuestionIndex);
+        }
         if(currentQuestionIndex == 0) {
             ratingPreviousButton.setVisibility(View.GONE);
         }
@@ -147,14 +151,15 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
         else {
             ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), currentRatingFragment.getSelectedOptionTextView().getText().toString());
 
-            currentQuestionIndex++;
-
             if (currentQuestionIndex < totalQuestions) {
+                currentQuestionIndex++;
                 ratingBarPager.setCurrentItem(currentQuestionIndex);
                 ratingPreviousButton.setVisibility(View.VISIBLE);
 
             } else {
-                //Next screen
+                Intent getUserInfo = new Intent(GetRatingActivity.this, UserInfoActivity.class);
+                getUserInfo.putExtra("feedback",feedback);
+                startActivity(getUserInfo);
             }
         }
 
@@ -217,28 +222,6 @@ public class GetRatingActivity extends AppCompatActivity  implements RatingCardF
 
             }
         });
-    }
-
-    void allocateReward() {
-        SelectedReward allocatedReward = RewardAllocationUtility.allocateReward(feedback.getUserPhoneNumber(), Integer.parseInt(feedback.getBillAmount()), selectedRewardDao,userDao);
-        if(allocatedReward!=null) {
-            feedback.setRewardCategory(allocatedReward.getRewardCategory());
-            feedback.setRewardId(allocatedReward.getReward().getRewardId());
-        }
-
-        RequestParams params = new RequestParams();
-        params.put("feedback", gson.toJson(feedback));
-
-        //TODO move this in success block
-        if(allocatedReward!=null){
-            Intent rewardDisplay = new Intent(GetRatingActivity.this, RewardDisplayActivity.class);
-            rewardDisplay.putExtra("allocatedReward", allocatedReward);
-            startActivity(rewardDisplay);
-        }
-        else {
-            Intent thanksScreen = new Intent(GetRatingActivity.this, ThanksActivity.class);
-            startActivity(thanksScreen);
-        }
     }
 
     void initializeRatingFragments() {

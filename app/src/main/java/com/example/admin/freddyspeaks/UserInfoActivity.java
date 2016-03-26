@@ -121,10 +121,11 @@ public class UserInfoActivity extends AppCompatActivity {
                             newUser.setPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
                             userDao.create(newUser);
                         }
-                        Intent ratingScreen = new Intent(UserInfoActivity.this, GetRatingActivity.class);
+                        Intent getBillInfo = new Intent(UserInfoActivity.this, BillDetailsActivity.class);
                         feedback.setUserPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
-                        ratingScreen.putExtra("feedback",feedback);
-                        startActivity(ratingScreen);
+                        feedback.setUserName(userName.getText().toString());
+                        getBillInfo.putExtra("feedback",feedback);
+                        startActivity(getBillInfo);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

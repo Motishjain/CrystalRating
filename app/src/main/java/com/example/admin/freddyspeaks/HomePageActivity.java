@@ -25,7 +25,7 @@ public class HomePageActivity extends AppCompatActivity {
         addRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent billDetails = new Intent(HomePageActivity.this, BillDetailsActivity.class);
+                Intent billDetails = new Intent(HomePageActivity.this, GetRatingActivity.class);
                 FeedbackRequest feedback = new FeedbackRequest();
                 billDetails.putExtra("feedback",feedback);
                 startActivity(billDetails);

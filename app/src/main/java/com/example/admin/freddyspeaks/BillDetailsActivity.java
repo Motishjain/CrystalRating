@@ -25,6 +25,9 @@ public class BillDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Bundle extras = getIntent().getExtras();
+        feedback = (FeedbackRequest)extras.get("feedback");
+
         inputBillNumberLayout = (TextInputLayout) findViewById(R.id.inputBillNumberLayout);
         inputBillAmountLayout = (TextInputLayout) findViewById(R.id.inputBillAmountLayout);
 
@@ -33,9 +36,6 @@ public class BillDetailsActivity extends AppCompatActivity {
 
         continueButton = (Button) findViewById(R.id.billInfoContinueButton);
         resetButton = (Button) findViewById(R.id.billInfoResetButton);
-
-        Bundle extras = getIntent().getExtras();
-        final FeedbackRequest feedback = (FeedbackRequest)extras.get("feedback");
 
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,12 +64,11 @@ public class BillDetailsActivity extends AppCompatActivity {
                 if(allFieldsEntered) {
                     feedback.setBillAmount(billAmount.getText().toString());
                     feedback.setBillNumber(billNumber.getText().toString());
-                    Intent ratingScreen = new Intent(BillDetailsActivity.this, UserInfoActivity.class);
-                    ratingScreen.putExtra("feedback",feedback);
-                    startActivity(ratingScreen);
+                    Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
+                    displayReward.putExtra("feedback",feedback);
+                    startActivity(displayReward);
                 }
             }
         });
     }
-
 }
