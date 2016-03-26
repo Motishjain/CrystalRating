@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.admin.webservice.response_objects.FeedbackRequest;
+import com.example.admin.webservice.request_objects.FeedbackRequest;
 
 public class HomePageActivity extends AppCompatActivity {
 

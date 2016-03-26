@@ -77,6 +77,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                 outletRequest.setOutletName(outletName.getText().toString());
                 outletRequest.setAliasName(alias.getText().toString());
                 outletRequest.setAddrLine1(addrLine1.getText().toString());
+                outletRequest.setOutletType(AppConstants.OUTLET_TYPE);
                 outletRequest.setAddrLine2(addrLine2.getText().toString());
                 outletRequest.setPinCode(pinCode.getText().toString());
                 outletRequest.setEmail(email.getText().toString());
@@ -91,6 +92,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
 
                         if (postServiceResponse.isSuccess()) {
                             Outlet newOutlet = new Outlet();
+                            newOutlet.setOutletCode(postServiceResponse.getData().toString());
                             newOutlet.setOutletName(outletRequest.getOutletName());
                             newOutlet.setAliasName(outletRequest.getAliasName());
                             newOutlet.setAddrLine1(outletRequest.getAddrLine1());
