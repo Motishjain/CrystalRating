@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.example.admin.freddyspeaks.R;
 
-public class ThanksActivity extends AppCompatActivity {
+public class ThanksActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

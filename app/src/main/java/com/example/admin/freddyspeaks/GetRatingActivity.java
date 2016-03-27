@@ -39,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GetRatingActivity extends AppCompatActivity  implements RatingCardFragment.OnFragmentInteractionListener{
+public class GetRatingActivity extends BaseActivity implements RatingCardFragment.OnFragmentInteractionListener{
 
 
     Dao<Question, Integer> questionDao;

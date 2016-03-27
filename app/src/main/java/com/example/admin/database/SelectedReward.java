@@ -16,7 +16,7 @@ public class SelectedReward implements Serializable {
     @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField (foreign = true)
+    @DatabaseField (foreign = true,foreignAutoRefresh = true)
     private Reward reward;
 
     @DatabaseField

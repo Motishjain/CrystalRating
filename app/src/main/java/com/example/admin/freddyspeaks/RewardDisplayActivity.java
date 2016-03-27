@@ -1,6 +1,5 @@
 package com.example.admin.freddyspeaks;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -23,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RewardDisplayActivity extends AppCompatActivity {
+public class RewardDisplayActivity extends BaseActivity {
 
     FeedbackRequest feedback;
     Dao<SelectedReward, Integer> selectedRewardDao;

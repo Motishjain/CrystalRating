@@ -23,7 +23,7 @@ import com.j256.ormlite.stmt.UpdateBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserInfoActivity extends AppCompatActivity {
+public class UserInfoActivity extends BaseActivity {
 
     EditText userName;
     TextInputLayout userNameLayout, userPhoneLayout;

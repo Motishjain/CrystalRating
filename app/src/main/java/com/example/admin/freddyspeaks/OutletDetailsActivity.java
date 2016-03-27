@@ -7,41 +7,38 @@ import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Outlet;
-import com.example.admin.database.Question;
-import com.example.admin.database.Reward;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.request_objects.OutletRequest;
 import com.example.admin.webservice.response_objects.PostServiceResponse;
-import com.example.admin.webservice.response_objects.QuestionResponse;
-import com.example.admin.webservice.response_objects.RewardResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterOutletActivity extends AppCompatActivity {
+public class OutletDetailsActivity extends AppCompatActivity {
 
     EditText outletName, alias, addrLine1, addrLine2, pinCode, email, phoneNumber;
     Button nextButton;
+    TextView registerOutletHeader;
     Dao<Outlet, Integer> outletDao;
     TextToSpeech textToSpeechConverter;
+    boolean editMode;
     Gson gson;
 
 
@@ -60,6 +57,21 @@ public class RegisterOutletActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.inputEmailText);
         phoneNumber = (EditText) findViewById(R.id.inputPhoneNumberText);
         nextButton = (Button) findViewById(R.id.registerOutletNextButton);
+        registerOutletHeader = (TextView) findViewById(R.id.registerOutletHeader);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null) {
+            editMode = extras.getBoolean("editMode",false);
+        }
+
+        if(!editMode) {
+            registerOutletHeader.setText("Register your Outlet!");
+            nextButton.setText("Register");
+        }
+        else {
+            registerOutletHeader.setText("Edit Outlet Details");
+            nextButton.setText("Update");
+        }
 
         GsonBuilder builder = new GsonBuilder();
         gson = builder.create();
@@ -111,7 +123,7 @@ public class RegisterOutletActivity extends AppCompatActivity {
                             editor.putString("outletCode", newOutlet.getOutletCode());
                             editor.commit();
 
-                            Intent configureRewards = new Intent(RegisterOutletActivity.this, RewardConfigurationActivity.class);
+                            Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
                             startActivity(configureRewards);
                         }
                     }
@@ -142,12 +154,6 @@ public class RegisterOutletActivity extends AppCompatActivity {
                 }
             }
         });*/
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_register_company, menu);
-        return true;
     }
 
     @Override

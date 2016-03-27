@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.admin.webservice.request_objects.FeedbackRequest;
 
-public class BillDetailsActivity extends AppCompatActivity {
+public class BillDetailsActivity extends BaseActivity {
 
     TextInputLayout inputBillAmountLayout, inputBillNumberLayout;
     TextView billNumber, billAmount;

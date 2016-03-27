@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.example.admin.webservice.request_objects.FeedbackRequest;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends BaseActivity {
 
     Button addRating;
 
