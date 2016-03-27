@@ -1,9 +1,7 @@
 package com.example.admin.freddyspeaks;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,6 +17,7 @@ public class BaseActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("FreddySpeaks");
     }
 
     @Override
@@ -53,16 +52,4 @@ public class BaseActivity  extends AppCompatActivity {
 
     }
 
-    public void setActionBar(String heading) {
-        // TODO Auto-generated method stub
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.headerBg,null)));
-        actionBar.setTitle("FreddySpeaks");
-        actionBar.show();
-
-    }
 }
