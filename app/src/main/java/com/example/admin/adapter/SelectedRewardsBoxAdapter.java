@@ -1,31 +1,19 @@
 package com.example.admin.adapter;
 
-import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.database.Reward;
+import com.example.admin.database.SelectedReward;
 import com.example.admin.freddyspeaks.R;
 import com.example.admin.tasks.FetchRewardImageTask;
-import com.example.admin.webservice.RestEndpointInterface;
-import com.example.admin.webservice.RetrofitSingleton;
 
-import java.io.IOException;
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Admin on 3/20/2016.
@@ -33,12 +21,12 @@ import retrofit2.Response;
 public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewardsBoxAdapter.SelectedRewardHolder> {
 
     private int layoutResourceId;
-    private List<Reward> rewardList;
+    private List<SelectedReward> selectedRewardList;
     private OnAdapterInteractionListener onAdapterInteractionListener;
 
-    public SelectedRewardsBoxAdapter(int layoutResourceId, List<Reward> rewardList, OnAdapterInteractionListener onAdapterInteractionListener) {
+    public SelectedRewardsBoxAdapter(int layoutResourceId, List<SelectedReward> selectedRewardList, OnAdapterInteractionListener onAdapterInteractionListener) {
         this.layoutResourceId = layoutResourceId;
-        this.rewardList = rewardList;
+        this.selectedRewardList = selectedRewardList;
         this.onAdapterInteractionListener = onAdapterInteractionListener;
     }
 
@@ -52,7 +40,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
     @Override
     public void onBindViewHolder(SelectedRewardHolder holder, final int position) {
-        final Reward reward = rewardList.get(position);
+        final Reward reward = selectedRewardList.get(position).getReward();
 
         FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(holder.selectedRewardImage);
         fetchRewardImageTask.execute(reward.getImage());
@@ -62,7 +50,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
         holder.selectedRewardDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rewardList.remove(position);
+                selectedRewardList.remove(position);
                 notifyDataSetChanged();
                 onAdapterInteractionListener.deleteButtonClicked(position);
             }
@@ -71,7 +59,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
     @Override
     public int getItemCount() {
-        return rewardList.size();
+        return selectedRewardList.size();
     }
 
 
@@ -91,12 +79,13 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
         }
     }
 
-    public List<Reward> getRewardList() {
-        return rewardList;
+
+    public List<SelectedReward> getSelectedRewardList() {
+        return selectedRewardList;
     }
 
-    public void setRewardList(List<Reward> rewardList) {
-        this.rewardList = rewardList;
+    public void setSelectedRewardList(List<SelectedReward> selectedRewardList) {
+        this.selectedRewardList = selectedRewardList;
     }
 
     public interface OnAdapterInteractionListener {

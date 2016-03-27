@@ -14,7 +14,6 @@ import android.view.View;
 import com.example.admin.adapter.SelectedRewardsBoxAdapter;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
-import com.example.admin.database.Reward;
 import com.example.admin.database.SelectedReward;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -27,12 +26,11 @@ import java.util.List;
 public class RewardConfigurationActivity extends AppCompatActivity {
 
     RecyclerView bronzeRewardsRecyclerView, silverRewardsRecyclerView, goldRewardsRecyclerView;
-    Dao<Reward, Integer> rewardDao;
     Dao<SelectedReward, Integer> selectedRewardDao;
-    QueryBuilder<Reward, Integer> rewardQueryBuilder;
     QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
     SelectedRewardsBoxAdapter bronzeRewardsAdapter, silverRewardsAdapter, goldRewardsAdapter;
     String outletCode;
+    boolean editMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +42,11 @@ public class RewardConfigurationActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         outletCode = sharedPreferences.getString("outletCode", null) ;
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null) {
+            editMode = extras.getBoolean("editMode",false);
+        }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -58,9 +61,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         goldRewardsRecyclerView.setLayoutManager(layoutManager);
 
         try {
-            rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Reward");
             selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
-            rewardQueryBuilder = rewardDao.queryBuilder();
             selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
 
             updateScreen();
@@ -128,10 +129,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         try {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.BRONZE_CD);
-            rewardQueryBuilder.reset();
 
-            QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
-            final List<Reward> bronzeSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
+            final List<SelectedReward> bronzeSelectedRewardList = selectedRewardQueryBuilder.query();
 
             if(bronzeRewardsRecyclerView.getAdapter()==null) {
                 bronzeRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, bronzeSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
@@ -150,7 +149,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                 bronzeRewardsRecyclerView.setAdapter(bronzeRewardsAdapter);
             }
             else {
-                bronzeRewardsAdapter.setRewardList(bronzeSelectedRewardList);
+                bronzeRewardsAdapter.setSelectedRewardList(bronzeSelectedRewardList);
                 bronzeRewardsAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
@@ -162,10 +161,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         try {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.SILVER_CD);
-            rewardQueryBuilder.reset();
 
-            QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
-            final List<Reward> silverSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
+            final List<SelectedReward> silverSelectedRewardList = selectedRewardQueryBuilder.query();
             if(silverRewardsRecyclerView.getAdapter()==null) {
                 silverRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, silverSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
@@ -183,7 +180,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                 silverRewardsRecyclerView.setAdapter(silverRewardsAdapter);
             }
             else {
-                silverRewardsAdapter.setRewardList(silverSelectedRewardList);
+                silverRewardsAdapter.setSelectedRewardList(silverSelectedRewardList);
                 silverRewardsAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
@@ -195,10 +192,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         try {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.GOLD_CD);
-            rewardQueryBuilder.reset();
 
-            QueryBuilder<Reward, Integer> selectedRewardsJoinQueryBuilder = rewardQueryBuilder.join(selectedRewardQueryBuilder);
-            final List<Reward> goldSelectedRewardList = selectedRewardsJoinQueryBuilder.query();
+            final List<SelectedReward> goldSelectedRewardList = selectedRewardQueryBuilder.query();
             if(goldRewardsRecyclerView.getAdapter()==null) {
                 goldRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, goldSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
@@ -216,7 +211,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                 goldRewardsRecyclerView.setAdapter(goldRewardsAdapter);
             }
             else {
-                goldRewardsAdapter.setRewardList(goldSelectedRewardList);
+                goldRewardsAdapter.setSelectedRewardList(goldSelectedRewardList);
                 goldRewardsAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
