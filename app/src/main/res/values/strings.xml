@@ -8,17 +8,17 @@
     <string name="title_activity_user_info">FreddySpeaks</string>
     <string name="title_activity_rate_outlet">FreddySpeaks</string>
     <string name="title_activity_loading">FreddySpeaks</string>
-    <string name="title_activity_goodie_display">GoodieDisplayActivity</string>
-    <string name="title_activity_goodie_configuration">GoodieConfigurationActivity</string>
-    <string name="title_activity_get_rating">GetRatingActivity</string>
+    <string name="title_activity_goodie_display">FreddySpeaks</string>
+    <string name="title_activity_goodie_configuration">FreddySpeaks</string>
+    <string name="title_activity_get_rating">FreddySpeaks</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_reward_configuration">RewardConfigurationActivity</string>
+    <string name="title_activity_reward_configuration">FreddySpeaks</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
-    <string name="title_activity_bill_details">BillDetailsActivity</string>
-    <string name="title_activity_reward_selection">RewardSelectionActivity</string>
+    <string name="title_activity_bill_details">FreddySpeaks</string>
+    <string name="title_activity_reward_selection">Select rewards</string>
     <string name="title_activity_thanks">ThanksActivity</string>
     <string name="register_outlet">Register your Outlet !</string>
     <string name="get_rating_header">Please rate us!</string>

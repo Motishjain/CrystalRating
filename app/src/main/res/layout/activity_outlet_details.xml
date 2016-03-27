@@ -17,6 +17,6 @@
             />
     </android.support.v7.widget.Toolbar>
 
-    <include layout="@layout/content_register_outlet" />
+    <include layout="@layout/content_outlet_details" />
 
 </android.support.design.widget.CoordinatorLayout>
