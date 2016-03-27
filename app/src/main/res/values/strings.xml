@@ -28,5 +28,6 @@
     <string name="bronze_box_header">Bronze Rewards (The Most Frequent)</string>
     <string name="silver_box_header">Silver Rewards (Special ones!)</string>
     <string name="gold_box_header">Gold Rewards (Dream gifts!)</string>
+    <string name="title_activity_subscription_info">SubscriptionInfoActivity</string>
 
 </resources>

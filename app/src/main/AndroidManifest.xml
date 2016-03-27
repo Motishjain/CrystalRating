@@ -3,6 +3,7 @@
     package="com.example.admin.freddyspeaks">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +33,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,13 +44,11 @@
         <activity
             android:name=".GetRatingActivity"
             android:label="@string/title_activity_get_rating"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".RewardConfigurationActivity"
             android:label="@string/title_activity_reward_configuration"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".BillDetailsActivity"
             android:label="@string/title_activity_bill_details"
@@ -56,11 +56,14 @@
         <activity
             android:name=".RewardSelectionActivity"
             android:label="@string/title_activity_reward_selection"
-            android:theme="@style/Theme.AppCompat.Dialog" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Dialog"></activity>
         <activity
             android:name=".ThanksActivity"
             android:label="@string/title_activity_thanks"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SubscriptionInfoActivity"
+            android:label="@string/title_activity_subscription_info"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
