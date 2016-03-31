@@ -83,6 +83,8 @@ public class RatingSummaryActivity extends BaseActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("Rating summary","Item selected");
                 selectedQuestion = answeredQuestionList.get(position);
+                //TODO remove stub
+                populateDummyFeedback();
                 refreshPieChart();
             }
 
@@ -133,12 +135,8 @@ public class RatingSummaryActivity extends BaseActivity {
             for(Question question:questionList) {
                 //TODO remove stub
                 answeredQuestionList.add(question);
-
                 questionMap.put(question.getQuestionId(),question);
             }
-
-            //TODO remove stub
-            populateDummyFeedback();
 
             //fetchFeedback();
         }
