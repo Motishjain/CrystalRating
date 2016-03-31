@@ -141,7 +141,7 @@ public class RatingSummaryActivity extends BaseActivity {
 
         PieDataSet dataset = new PieDataSet(entries, "Ratings");
         dataset.setColors(ColorTemplate.JOYFUL_COLORS);
-        dataset.setValueTextSize(15);
+        dataset.setValueTextSize(12);
         dataset.setValueTypeface(textFont);
         PieData data = new PieData(labels, dataset);
         data.setValueFormatter(new ValueFormatter() {
