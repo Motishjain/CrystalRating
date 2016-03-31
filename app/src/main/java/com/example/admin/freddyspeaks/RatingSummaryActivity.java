@@ -52,6 +52,7 @@ public class RatingSummaryActivity extends BaseActivity {
     TextView fromDateTextView,toDateTextView;
     Date fromDate, toDate;
     SimpleDateFormat simpleDateFormat;
+    boolean isDateChanged;
     Calendar calendar;
 
     @Override
@@ -191,11 +192,14 @@ public class RatingSummaryActivity extends BaseActivity {
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH,monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        if(!fromDate.equals(calendar.getTime())) {
+                            isDateChanged = true;
+                        }
                         fromDate = calendar.getTime();
                         setDateTextView(fromDateTextView, fromDate);
-
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        fromDatePickerDialog.setTitle("Select From Date");
         fromDatePickerDialog.show();
     }
 
@@ -210,10 +214,15 @@ public class RatingSummaryActivity extends BaseActivity {
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH,monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        if(!toDate.equals(calendar.getTime())) {
+                            isDateChanged = true;
+                            refreshPieChart();
+                        }
                         toDate = calendar.getTime();
                         setDateTextView(toDateTextView, toDate);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        toDatePickerDialog.setTitle("Select To Date");
         toDatePickerDialog.show();
     }
 
