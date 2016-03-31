@@ -3,6 +3,7 @@ package com.example.admin.freddyspeaks;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
@@ -89,15 +90,15 @@ public class RatingSummaryActivity extends BaseActivity {
 
     public void populateDummyFeedback() {
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Bhupender","9876765654",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","1200","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
     }
 
@@ -105,7 +106,7 @@ public class RatingSummaryActivity extends BaseActivity {
         Map<String,Integer> ratingMap = new HashMap<>();
         Random randomGenerator = new SecureRandom();
         int randomNumber = randomGenerator.nextInt(4);
-        ratingMap.put("56d69937f7f48d65ebfb25ad",(randomNumber+1));
+        ratingMap.put("56d69937f7f48d65ebfb25ad", (randomNumber + 1));
         return ratingMap;
     }
 
@@ -154,4 +155,11 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingSummaryChart.setData(data);
     }
 
+    public void changeFromDate(View v) {
+
+    }
+
+    public void changeToDate(View v) {
+
+    }
 }
