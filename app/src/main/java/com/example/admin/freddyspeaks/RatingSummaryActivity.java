@@ -1,16 +1,10 @@
 package com.example.admin.freddyspeaks;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
-import com.example.admin.freddyspeaks.R;
 import com.example.admin.webservice.response_objects.FeedbackResponse;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -55,6 +49,8 @@ public class RatingSummaryActivity extends BaseActivity {
             }
             selectedQuestion = questionMap.get("0");
 
+            //TODO fetch feedback
+            populateDummyFeedback();
 
         }
         catch(SQLException e) {
@@ -64,24 +60,24 @@ public class RatingSummaryActivity extends BaseActivity {
     }
 
     public void populateDummyFeedback() {
-        feedbackResponseList.add(new FeedbackResponse(createMap(),"Motish","7738657059",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(),"Bhupender","9876765654",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(),"Kunal","9976754567",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(),"Kunal","9976754567",null,"1234","1200","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(),"Kunal","9976754567",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(),"Kunal","9976754567",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(),"Kunal","9976754567",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(),"Motish","7738657059",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createMap(),"Motish","7738657059",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Bhupender","9876765654",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","1200","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
     }
 
-    public Map<String,String> createMap(){
-        Map<String,String> ratingMap = new HashMap<>();
+    public Map<String,Integer> createRatingsMap(){
+        Map<String,Integer> ratingMap = new HashMap<>();
         Random randomGenerator = new SecureRandom();
         int randomNumber = randomGenerator.nextInt(4);
-        ratingMap.put("1",(randomNumber+1)+"");
+        ratingMap.put("1",(randomNumber+1));
         return ratingMap;
     }
 

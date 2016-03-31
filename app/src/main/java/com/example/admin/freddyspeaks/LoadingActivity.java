@@ -32,7 +32,7 @@ public class LoadingActivity extends AppCompatActivity {
             queryBuilder = outletDao.queryBuilder();
             outletList = queryBuilder.query();
             if(outletList.size()>0){
-                Intent homePage = new Intent(LoadingActivity.this,RewardConfigurationActivity.class);
+                Intent homePage = new Intent(LoadingActivity.this,HomePageActivity.class);
                 startActivity(homePage);
             }
             else {
