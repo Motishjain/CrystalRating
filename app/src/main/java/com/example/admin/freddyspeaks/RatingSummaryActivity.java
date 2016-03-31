@@ -81,13 +81,14 @@ public class RatingSummaryActivity extends BaseActivity {
         questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("Rating summary","Item selected");
                 selectedQuestion = answeredQuestionList.get(position);
                 refreshPieChart();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Log.i("Rating summary","Nothing selected");
             }
         });
 
@@ -179,14 +180,14 @@ public class RatingSummaryActivity extends BaseActivity {
             answeredQuestionList.add(questionMap.get(questionId));
             questionNames.add(questionMap.get(questionId).getName());
         }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, questionNames);
         questionsSpinner.setAdapter(dataAdapter);
     }
 
     public void refreshPieChart() {
         List<Entry> entries = new ArrayList<>();
-        List<String> labels = new ArrayList<String>();
+        List<String> labels = new ArrayList<>();
         String[] options = selectedQuestion.getRatingValues().split(",");
         ratingWiseFeedbackList = new HashMap<>();
         int feedbackIndex = 0;
@@ -206,9 +207,7 @@ public class RatingSummaryActivity extends BaseActivity {
             feedbackIndex++;
         }
 
-        int optionIndex = 0;
-
-        for(optionIndex=0;optionIndex<options.length;optionIndex++) {
+        for(int optionIndex=0;optionIndex<options.length;optionIndex++) {
             Integer count = ratingWiseFeedbackList.get(optionIndex+1)==null?0:ratingWiseFeedbackList.get(optionIndex+1).size();
             entries.add(new Entry(count,optionIndex));
         }
