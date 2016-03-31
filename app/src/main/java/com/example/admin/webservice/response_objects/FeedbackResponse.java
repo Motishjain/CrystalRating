@@ -1,6 +1,7 @@
 package com.example.admin.webservice.response_objects;
 
 import java.sql.Timestamp;
+import java.util.Map;
 
 /**
  * Created by Admin on 3/31/2016.
@@ -10,9 +11,8 @@ public class FeedbackResponse {
     public FeedbackResponse(){
 
     }
-    public FeedbackResponse(String questionId,String selectedOption,String userName,String userPhoneNumber,Timestamp createdTs,String billNumber,String billAmount, String rewardId){
-        this.questionId = questionId;
-        this.selectedOption = selectedOption;
+    public FeedbackResponse(Map<String,Integer> ratingsMap,String userName,String userPhoneNumber,Timestamp createdTs,String billNumber,String billAmount, String rewardId){
+        this.ratingsMap = ratingsMap;
         this.userName = userName;
         this.userPhoneNumber = userPhoneNumber;
         this.createdTs = createdTs;
@@ -21,8 +21,7 @@ public class FeedbackResponse {
         this.rewardId = rewardId;
     }
 
-    private String questionId;
-    private String selectedOption;
+    private Map<String,Integer> ratingsMap;
     private String userName;
     private String userPhoneNumber;
     private Timestamp createdTs;
@@ -30,20 +29,12 @@ public class FeedbackResponse {
     private String billAmount;
     private String rewardId;
 
-    public String getQuestionId() {
-        return questionId;
+    public Map<String, Integer> getRatingsMap() {
+        return ratingsMap;
     }
 
-    public void setQuestionId(String questionId) {
-        this.questionId = questionId;
-    }
-
-    public String getSelectedOption() {
-        return selectedOption;
-    }
-
-    public void setSelectedOption(String selectedOption) {
-        this.selectedOption = selectedOption;
+    public void setRatingsMap(Map<String, Integer> ratingsMap) {
+        this.ratingsMap = ratingsMap;
     }
 
     public String getUserName() {
