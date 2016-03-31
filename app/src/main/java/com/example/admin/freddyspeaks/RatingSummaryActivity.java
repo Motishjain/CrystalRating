@@ -10,6 +10,11 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -39,6 +44,21 @@ public class RatingSummaryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_summary);
         ratingSummaryChart = (PieChart) findViewById(R.id.ratingSummaryChart);
+        ratingSummaryChart.setDrawHoleEnabled(false);
+        ratingSummaryChart.setUsePercentValues(false);
+        ratingSummaryChart.setCenterTextSize(20);
+
+        ratingSummaryChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+                //TODO open popup to show details
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
         feedbackResponseList = new ArrayList<>();
         try {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
@@ -47,10 +67,11 @@ public class RatingSummaryActivity extends BaseActivity {
             for(Question question:questionList) {
                 questionMap.put(question.getQuestionId(),question);
             }
-            selectedQuestion = questionMap.get("0");
+            selectedQuestion = questionMap.get("56d69937f7f48d65ebfb25ad");
 
             //TODO fetch feedback
             populateDummyFeedback();
+            refreshPieChart();
 
         }
         catch(SQLException e) {
@@ -77,7 +98,7 @@ public class RatingSummaryActivity extends BaseActivity {
         Map<String,Integer> ratingMap = new HashMap<>();
         Random randomGenerator = new SecureRandom();
         int randomNumber = randomGenerator.nextInt(4);
-        ratingMap.put("1",(randomNumber+1));
+        ratingMap.put("56d69937f7f48d65ebfb25ad",(randomNumber+1));
         return ratingMap;
     }
 
@@ -106,14 +127,21 @@ public class RatingSummaryActivity extends BaseActivity {
 
         int optionIndex = 0;
 
-        for(String option:options) {
-            Integer count = ratingWiseFeedbackList.get(option)==null?0:ratingWiseFeedbackList.get(option).size();
+        for(optionIndex=0;optionIndex<options.length;optionIndex++) {
+            Integer count = ratingWiseFeedbackList.get(optionIndex+1)==null?0:ratingWiseFeedbackList.get(optionIndex+1).size();
             entries.add(new Entry(count,optionIndex));
-            optionIndex++;
         }
 
-        PieDataSet dataset = new PieDataSet(entries, "# of Calls");
+        PieDataSet dataset = new PieDataSet(entries, "Ratings");
+        dataset.setColors(ColorTemplate.JOYFUL_COLORS);
         PieData data = new PieData(labels, dataset);
+        data.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                int intValue = (int) value;
+                return intValue + " customers rated";
+            }
+        });
         ratingSummaryChart.setData(data);
     }
 
