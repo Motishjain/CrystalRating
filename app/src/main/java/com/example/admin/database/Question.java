@@ -87,4 +87,12 @@ public class Question implements Serializable {
     public void setSelectedOption(String selectedOption) {
         this.selectedOption = selectedOption;
     }
+
+    @Override
+    public boolean equals (Object question) {
+        if(question instanceof Question && this.questionId.equals(((Question)question).questionId)) {
+            return true;
+        }
+        return false;
+    }
 }

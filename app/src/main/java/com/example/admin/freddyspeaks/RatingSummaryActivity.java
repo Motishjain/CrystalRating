@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.admin.constants.AppConstants;
@@ -57,17 +60,18 @@ public class RatingSummaryActivity extends BaseActivity {
     String outletCode;
 
     PieChart ratingSummaryChart;
+    TextView fromDateTextView,toDateTextView;
+    Spinner questionsSpinner;
+
     Map<String,Question> questionMap = new HashMap<>();
-    Set<String> answeredQuestionList = new HashSet<>();
+    List<Question> answeredQuestionList = new ArrayList<>();
     List<FeedbackResponse> feedbackResponseList;
     Question selectedQuestion;
     Map<Integer,List<Integer>> ratingWiseFeedbackList;
     Typeface textFont;
 
-    TextView fromDateTextView,toDateTextView;
     Date fromDate, toDate;
     SimpleDateFormat simpleDateFormat;
-    boolean isDateChanged;
     Calendar calendar;
 
     @Override
@@ -77,6 +81,20 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingSummaryChart = (PieChart) findViewById(R.id.ratingSummaryChart);
         fromDateTextView = (TextView) findViewById(R.id.fromDate);
         toDateTextView = (TextView) findViewById(R.id.toDate);
+        questionsSpinner = (Spinner) findViewById(R.id.questionsSpinner);
+        questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedQuestion = answeredQuestionList.get(position);
+                refreshPieChart();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         outletCode = sharedPreferences.getString("outletCode", null) ;
 
@@ -117,7 +135,7 @@ public class RatingSummaryActivity extends BaseActivity {
             List<Question> questionList = questionQueryBuilder.query();
             for(Question question:questionList) {
                 //TODO remove stub
-                answeredQuestionList.add(question.getQuestionId());
+                answeredQuestionList.add(question);
 
                 questionMap.put(question.getQuestionId(),question);
             }
@@ -125,8 +143,7 @@ public class RatingSummaryActivity extends BaseActivity {
             //TODO remove stub
             populateDummyFeedback();
 
-            isDateChanged = true;
-            populateAnsweredQuestionsList();
+            //populateAnsweredQuestionsList();
             refreshPieChart();
 
         }
@@ -138,13 +155,23 @@ public class RatingSummaryActivity extends BaseActivity {
 
     public void populateAnsweredQuestionsList() {
         answeredQuestionList.clear();
+        Set<String> questionIdSet = new HashSet<>();
+        List<String> questionNames = new ArrayList<>();
 
         for(FeedbackResponse feedbackResponse:feedbackResponseList) {
-            Set<String> questionIdSet = feedbackResponse.getRatingsMap().keySet();
-            answeredQuestionList.addAll(questionIdSet);
+            questionIdSet.addAll(feedbackResponse.getRatingsMap().keySet());
         }
+
+        for(String questionId: questionIdSet) {
+            answeredQuestionList.add(questionMap.get(questionId));
+            questionNames.add(questionMap.get(questionId).getName());
+        }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, questionNames);
+        questionsSpinner.setAdapter(dataAdapter);
     }
 
+    //TODO remove stub
     public void populateDummyFeedback() {
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
@@ -159,11 +186,12 @@ public class RatingSummaryActivity extends BaseActivity {
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
     }
 
+    //TODO remove stub
     public Map<String,Integer> createRatingsMap(){
         Map<String,Integer> ratingMap = new HashMap<>();
         Random randomGenerator = new SecureRandom();
         int randomNumber = randomGenerator.nextInt(4);
-        ratingMap.put("56d69937f7f48d65ebfb25ad", (randomNumber + 1));
+        ratingMap.put(selectedQuestion.getQuestionId(), (randomNumber + 1));
         return ratingMap;
     }
 
@@ -227,7 +255,6 @@ public class RatingSummaryActivity extends BaseActivity {
                             return;
                         }
                         if(!fromDate.equals(calendar.getTime())) {
-                            isDateChanged = true;
                             fetchFeedback();
                         }
                         fromDate = calendar.getTime();
@@ -254,7 +281,6 @@ public class RatingSummaryActivity extends BaseActivity {
                             return;
                         }
                         if(!toDate.equals(calendar.getTime())) {
-                            isDateChanged = true;
                             fetchFeedback();
                         }
                         toDate = calendar.getTime();
