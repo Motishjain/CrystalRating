@@ -183,13 +183,11 @@ public class RatingSummaryActivity extends BaseActivity {
     public void changeFromDate(View v) {
         calendar = Calendar.getInstance();
         calendar.setTime(fromDate);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+        DatePickerDialog fromDatePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
-
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        calendar.setTime(fromDate);
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH,monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
@@ -198,32 +196,28 @@ public class RatingSummaryActivity extends BaseActivity {
 
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
+        fromDatePickerDialog.show();
     }
 
     public void changeToDate(View v) {
         calendar = Calendar.getInstance();
-        calendar.setTime(fromDate);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+        calendar.setTime(toDate);
+        DatePickerDialog toDatePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
-
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        calendar.setTime(fromDate);
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH,monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                        fromDate = calendar.getTime();
-                        setDateTextView(fromDateTextView, fromDate);
-
+                        toDate = calendar.getTime();
+                        setDateTextView(toDateTextView, toDate);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
+        toDatePickerDialog.show();
     }
 
     public void setDateTextView(TextView textView,Date date) {
         textView.setText(simpleDateFormat.format(date));
     }
-
 }
