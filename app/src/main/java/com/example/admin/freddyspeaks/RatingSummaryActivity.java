@@ -1,16 +1,23 @@
 package com.example.admin.freddyspeaks;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
+import com.example.admin.database.Reward;
+import com.example.admin.webservice.RestEndpointInterface;
+import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.response_objects.FeedbackResponse;
+import com.example.admin.webservice.response_objects.RewardResponse;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -32,18 +39,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RatingSummaryActivity extends BaseActivity {
 
     Dao<Question, Integer> questionDao;
     QueryBuilder<Question, Integer> questionQueryBuilder;
+    String outletCode;
 
     PieChart ratingSummaryChart;
-
     Map<String,Question> questionMap = new HashMap<>();
+    Set<String> answeredQuestionList = new HashSet<>();
     List<FeedbackResponse> feedbackResponseList;
     Question selectedQuestion;
     Map<Integer,List<Integer>> ratingWiseFeedbackList;
@@ -62,6 +77,8 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingSummaryChart = (PieChart) findViewById(R.id.ratingSummaryChart);
         fromDateTextView = (TextView) findViewById(R.id.fromDate);
         toDateTextView = (TextView) findViewById(R.id.toDate);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        outletCode = sharedPreferences.getString("outletCode", null) ;
 
         simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy");
 
@@ -99,12 +116,17 @@ public class RatingSummaryActivity extends BaseActivity {
             questionQueryBuilder = questionDao.queryBuilder();
             List<Question> questionList = questionQueryBuilder.query();
             for(Question question:questionList) {
+                //TODO remove stub
+                answeredQuestionList.add(question.getQuestionId());
+
                 questionMap.put(question.getQuestionId(),question);
             }
-            selectedQuestion = questionMap.get("56d69937f7f48d65ebfb25ad");
 
-            //TODO fetch feedback
+            //TODO remove stub
             populateDummyFeedback();
+
+            isDateChanged = true;
+            populateAnsweredQuestionsList();
             refreshPieChart();
 
         }
@@ -112,6 +134,15 @@ public class RatingSummaryActivity extends BaseActivity {
             Log.e("RatingSummaryActivity","Unable to fetch questions");
         }
 
+    }
+
+    public void populateAnsweredQuestionsList() {
+        answeredQuestionList.clear();
+
+        for(FeedbackResponse feedbackResponse:feedbackResponseList) {
+            Set<String> questionIdSet = feedbackResponse.getRatingsMap().keySet();
+            answeredQuestionList.addAll(questionIdSet);
+        }
     }
 
     public void populateDummyFeedback() {
@@ -141,7 +172,6 @@ public class RatingSummaryActivity extends BaseActivity {
         List<String> labels = new ArrayList<String>();
         String[] options = selectedQuestion.getRatingValues().split(",");
         ratingWiseFeedbackList = new HashMap<>();
-
         int feedbackIndex = 0;
 
         for(String option : options) {
@@ -192,8 +222,13 @@ public class RatingSummaryActivity extends BaseActivity {
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH,monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        if(calendar.getTime().after(toDate)) {
+                            //TODO alert dialogue
+                            return;
+                        }
                         if(!fromDate.equals(calendar.getTime())) {
                             isDateChanged = true;
+                            fetchFeedback();
                         }
                         fromDate = calendar.getTime();
                         setDateTextView(fromDateTextView, fromDate);
@@ -214,9 +249,13 @@ public class RatingSummaryActivity extends BaseActivity {
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH,monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        if(calendar.getTime().before(fromDate)) {
+                            //TODO alert dialogue
+                            return;
+                        }
                         if(!toDate.equals(calendar.getTime())) {
                             isDateChanged = true;
-                            refreshPieChart();
+                            fetchFeedback();
                         }
                         toDate = calendar.getTime();
                         setDateTextView(toDateTextView, toDate);
@@ -228,5 +267,24 @@ public class RatingSummaryActivity extends BaseActivity {
 
     public void setDateTextView(TextView textView,Date date) {
         textView.setText(simpleDateFormat.format(date));
+    }
+
+    public void fetchFeedback () {
+        RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+        Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(fromDateTextView.getText().toString(), toDateTextView.getText().toString(), outletCode);
+        fetchRewardsCall.enqueue(new Callback<List<FeedbackResponse>>() {
+            @Override
+            public void onResponse(Call<List<FeedbackResponse>> call, Response<List<FeedbackResponse>> response) {
+                if(response.isSuccess()) {
+                    feedbackResponseList = response.body();
+                    populateAnsweredQuestionsList();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FeedbackResponse>> call, Throwable t) {
+                //TODO handle failure
+            }
+        });
     }
 }

@@ -4,6 +4,7 @@ import com.example.admin.constants.AppConstants;
 import com.example.admin.webservice.request_objects.OutletRequest;
 import com.example.admin.webservice.request_objects.FeedbackRequest;
 import com.example.admin.webservice.request_objects.RewardSubmitRequest;
+import com.example.admin.webservice.response_objects.FeedbackResponse;
 import com.example.admin.webservice.response_objects.PostServiceResponse;
 import com.example.admin.webservice.response_objects.QuestionResponse;
 import com.example.admin.webservice.response_objects.RewardResponse;
@@ -36,5 +37,8 @@ public interface RestEndpointInterface {
 
     @POST(AppConstants.SUBMIT_FEEDBACK)
     Call<PostServiceResponse> submitFeedback(@Body FeedbackRequest feedbackRequest);
+
+    @GET(AppConstants.FETCH_FEEDBACK)
+    Call<List<FeedbackResponse>> fetchFeedback(@Query("outletCode") String outletCode, @Query("fromDate") String fromDate, @Query("toDate") String toDate);
 
 }
