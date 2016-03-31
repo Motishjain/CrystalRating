@@ -143,9 +143,7 @@ public class RatingSummaryActivity extends BaseActivity {
             //TODO remove stub
             populateDummyFeedback();
 
-            //populateAnsweredQuestionsList();
-            refreshPieChart();
-
+            //fetchFeedback();
         }
         catch(SQLException e) {
             Log.e("RatingSummaryActivity","Unable to fetch questions");
