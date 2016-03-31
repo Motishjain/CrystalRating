@@ -239,7 +239,6 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     }
 
     void fetchQuestions() {
-        final List<Question> questionList = new ArrayList<>();
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
         fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
@@ -258,7 +257,6 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                         dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
                         dbQuestion.setSelected("Y");
                         questionDao.create(dbQuestion);
-                        questionList.add(dbQuestion);
                     }
                 } catch (SQLException e) {
                     Log.e("RewardConfiguration", "Unable to fetch questions");
