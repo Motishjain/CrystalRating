@@ -84,16 +84,9 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         try {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
             questionQueryBuilder = questionDao.queryBuilder();
-            questionQueryBuilder.where().eq("selected","Y");
             questionList = questionQueryBuilder.query();
 
-            //TODO needs to be added after reward configuration
-            if(questionList==null || questionList.size()==0){
-                fetchQuestions();
-            }
-            else {
-                setupRatingScreens();
-            }
+            setupRatingScreens();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -193,41 +186,6 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     @Override
     public void onFragmentInteraction(Uri uri) {
 
-    }
-
-    void fetchQuestions() {
-        questionList = new ArrayList<>();
-        RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
-        fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
-            @Override
-            public void onResponse(Call<List<QuestionResponse>> call, Response<List<QuestionResponse>> response) {
-                List<QuestionResponse> questionResponseList = response.body();
-                try {
-                    for (QuestionResponse questionResponse : questionResponseList) {
-                        Question dbQuestion = new Question();
-                        dbQuestion.setQuestionId(questionResponse.getQuestionId());
-                        dbQuestion.setName(questionResponse.getQuestionName());
-                        dbQuestion.setQuestionType(questionResponse.getQuestionType());
-                        dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
-                        //dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
-                        //TODO to be removed
-                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
-                        dbQuestion.setSelected("Y");
-                        questionDao.create(dbQuestion);
-                        questionList.add(dbQuestion);
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                setupRatingScreens();
-            }
-
-            @Override
-            public void onFailure(Call<List<QuestionResponse>> call, Throwable t) {
-
-            }
-        });
     }
 
     void setupRatingScreens() {

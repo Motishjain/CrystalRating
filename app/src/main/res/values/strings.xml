@@ -3,6 +3,7 @@
     <string name="app_header">FreddySpeaks</string>
     <string name="action_edit_profile">Edit Outlet Details</string>
     <string name="action_manage_rewards">Manage Rewards</string>
+    <string name="action_feedback_summary">Monitor Feedback</string>
     <string name="action_subscription_info">Subscription Info</string>
     <string name="title_activity_home_page">FreddySpeaks</string>
     <string name="title_activity_user_info">FreddySpeaks</string>
@@ -29,5 +30,6 @@
     <string name="silver_box_header">Silver Rewards (Special ones!)</string>
     <string name="gold_box_header">Gold Rewards (Dream gifts!)</string>
     <string name="title_activity_subscription_info">SubscriptionInfoActivity</string>
+    <string name="title_activity_rating_summary">RatingSummaryActivity</string>
 
 </resources>

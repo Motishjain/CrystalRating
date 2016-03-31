@@ -29,7 +29,7 @@ public class ImageUtility {
             return baos.toByteArray();
         }
         catch(IOException e){
-            //TODO handle error
+            Log.e("ImageUtility","Unable to load image byte data");
         }
         return null;
     }

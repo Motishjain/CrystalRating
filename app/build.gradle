@@ -28,6 +28,9 @@ android {
     }
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -43,4 +46,5 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.3'
 }

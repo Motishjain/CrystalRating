@@ -1,5 +1,7 @@
 package com.example.admin.util;
 
+import android.util.Log;
+
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
@@ -41,7 +43,7 @@ public class RewardAllocationUtility {
             carryForwardAmount = currentUser.getCarryForwardAmount();
         }
         catch(SQLException e) {
-            //TODO handle error
+            Log.e("RewardAllocation", "Unable to find user");
         }
 
         targetAmount = billAmount + carryForwardAmount;

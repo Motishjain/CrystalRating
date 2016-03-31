@@ -46,6 +46,12 @@ public class BaseActivity  extends AppCompatActivity {
             case R.id.actionSubscriptionInfo:
                 return true;
 
+            case R.id.actionFeedbackSummary:
+                Intent ratingSummary = new Intent(BaseActivity.this,RatingSummaryActivity.class);
+                startActivity(ratingSummary);
+                return true;
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }

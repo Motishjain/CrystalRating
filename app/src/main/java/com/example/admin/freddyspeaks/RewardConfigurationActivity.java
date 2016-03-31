@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -14,19 +15,29 @@ import android.view.View;
 import com.example.admin.adapter.SelectedRewardsBoxAdapter;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
+import com.example.admin.database.Question;
 import com.example.admin.database.SelectedReward;
+import com.example.admin.webservice.RestEndpointInterface;
+import com.example.admin.webservice.RetrofitSingleton;
+import com.example.admin.webservice.response_objects.QuestionResponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RewardConfigurationActivity extends AppCompatActivity {
 
     RecyclerView bronzeRewardsRecyclerView, silverRewardsRecyclerView, goldRewardsRecyclerView;
     Dao<SelectedReward, Integer> selectedRewardDao;
+    Dao<Question, Integer> questionDao;
     QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
     SelectedRewardsBoxAdapter bronzeRewardsAdapter, silverRewardsAdapter, goldRewardsAdapter;
     String outletCode;
@@ -63,11 +74,10 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         try {
             selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
             selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
-
             updateScreen();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("RewardConfiguration", "Unable to fetch selected rewards");
         }
 
     }
@@ -80,6 +90,9 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     }
 
     public void rewardConfigNext(View v) {
+        if(!editMode) {
+            fetchQuestions();
+        }
         Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
         startActivity(homePage);
     }
@@ -142,7 +155,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {
-                            //TODO handle failure
+                            Log.e("RewardConfiguration","Unable to delete bronze reward");
                         }
                     }
                 });
@@ -173,7 +186,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {
-                            //TODO handle failure
+                            Log.e("RewardConfiguration","Unable to delete silver reward");
                         }
                     }
                 });
@@ -204,7 +217,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {
-                            //TODO handle failure
+                            Log.e("RewardConfiguration","Unable to delete gold reward");
                         }
                     }
                 });
@@ -223,5 +236,39 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         updateBronzeRewardList();
         updateSilverRewardList();
         updateGoldRewardList();
+    }
+
+    void fetchQuestions() {
+        final List<Question> questionList = new ArrayList<>();
+        RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+        Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
+        fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
+            @Override
+            public void onResponse(Call<List<QuestionResponse>> call, Response<List<QuestionResponse>> response) {
+                List<QuestionResponse> questionResponseList = response.body();
+                try {
+                    for (QuestionResponse questionResponse : questionResponseList) {
+                        Question dbQuestion = new Question();
+                        dbQuestion.setQuestionId(questionResponse.getQuestionId());
+                        dbQuestion.setName(questionResponse.getQuestionName());
+                        dbQuestion.setQuestionType(questionResponse.getQuestionType());
+                        dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
+                        //dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
+                        //TODO to be removed
+                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
+                        dbQuestion.setSelected("Y");
+                        questionDao.create(dbQuestion);
+                        questionList.add(dbQuestion);
+                    }
+                } catch (SQLException e) {
+                    Log.e("RewardConfiguration", "Unable to fetch questions");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<QuestionResponse>> call, Throwable t) {
+
+            }
+        });
     }
 }

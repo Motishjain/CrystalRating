@@ -86,7 +86,6 @@ public class OutletDetailsActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO web service call to fetch - move to save of reward configuration
                 final OutletRequest outletRequest = new OutletRequest();
                 outletRequest.setOutletName(outletName.getText().toString());
                 outletRequest.setAliasName(alias.getText().toString());
@@ -134,7 +133,7 @@ public class OutletDetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<PostServiceResponse> call, Throwable t) {
-
+                        //TODO handle failure
                     }
                 });
 
