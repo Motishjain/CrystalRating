@@ -151,6 +151,25 @@ public class RatingSummaryActivity extends BaseActivity {
 
     }
 
+    public void fetchFeedback () {
+        RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+        Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(fromDateTextView.getText().toString(), toDateTextView.getText().toString(), outletCode);
+        fetchRewardsCall.enqueue(new Callback<List<FeedbackResponse>>() {
+            @Override
+            public void onResponse(Call<List<FeedbackResponse>> call, Response<List<FeedbackResponse>> response) {
+                if (response.isSuccess()) {
+                    feedbackResponseList = response.body();
+                    populateAnsweredQuestionsList();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FeedbackResponse>> call, Throwable t) {
+                //TODO handle failure
+            }
+        });
+    }
+
     public void populateAnsweredQuestionsList() {
         answeredQuestionList.clear();
         Set<String> questionIdSet = new HashSet<>();
@@ -167,30 +186,6 @@ public class RatingSummaryActivity extends BaseActivity {
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, questionNames);
         questionsSpinner.setAdapter(dataAdapter);
-    }
-
-    //TODO remove stub
-    public void populateDummyFeedback() {
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","1200","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-    }
-
-    //TODO remove stub
-    public Map<String,Integer> createRatingsMap(){
-        Map<String,Integer> ratingMap = new HashMap<>();
-        Random randomGenerator = new SecureRandom();
-        int randomNumber = randomGenerator.nextInt(4);
-        ratingMap.put(selectedQuestion.getQuestionId(), (randomNumber + 1));
-        return ratingMap;
     }
 
     public void refreshPieChart() {
@@ -293,22 +288,27 @@ public class RatingSummaryActivity extends BaseActivity {
         textView.setText(simpleDateFormat.format(date));
     }
 
-    public void fetchFeedback () {
-        RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(fromDateTextView.getText().toString(), toDateTextView.getText().toString(), outletCode);
-        fetchRewardsCall.enqueue(new Callback<List<FeedbackResponse>>() {
-            @Override
-            public void onResponse(Call<List<FeedbackResponse>> call, Response<List<FeedbackResponse>> response) {
-                if(response.isSuccess()) {
-                    feedbackResponseList = response.body();
-                    populateAnsweredQuestionsList();
-                }
-            }
+    //TODO remove stub
+    public void populateDummyFeedback() {
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","1200","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
+    }
 
-            @Override
-            public void onFailure(Call<List<FeedbackResponse>> call, Throwable t) {
-                //TODO handle failure
-            }
-        });
+    //TODO remove stub
+    public Map<String,Integer> createRatingsMap(){
+        Map<String,Integer> ratingMap = new HashMap<>();
+        Random randomGenerator = new SecureRandom();
+        int randomNumber = randomGenerator.nextInt(4);
+        ratingMap.put(selectedQuestion.getQuestionId(), (randomNumber + 1));
+        return ratingMap;
     }
 }
