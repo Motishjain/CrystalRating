@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="changeFromDate"
-            android:background="@drawable/changeDate"/>
+            android:background="@drawable/change_date"/>
         <TextView
             android:id="@+id/toDate"
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="changeToDate"
-            android:background="@drawable/changeDate"/>
+            android:background="@drawable/change_date"/>
 
     </LinearLayout>
 
