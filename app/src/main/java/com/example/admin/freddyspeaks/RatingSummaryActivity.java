@@ -1,9 +1,12 @@
 package com.example.admin.freddyspeaks;
 
+import android.app.DatePickerDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
@@ -16,7 +19,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.renderer.PieChartRenderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -25,7 +27,10 @@ import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +49,31 @@ public class RatingSummaryActivity extends BaseActivity {
     Map<Integer,List<Integer>> ratingWiseFeedbackList;
     Typeface textFont;
 
+    TextView fromDateTextView,toDateTextView;
+    Date fromDate, toDate;
+    SimpleDateFormat simpleDateFormat;
+    Calendar calendar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_summary);
         ratingSummaryChart = (PieChart) findViewById(R.id.ratingSummaryChart);
+        fromDateTextView = (TextView) findViewById(R.id.fromDate);
+        toDateTextView = (TextView) findViewById(R.id.toDate);
+
+        simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy");
+
+        //Set to date for feedback
+        calendar = Calendar.getInstance();
+        toDate = calendar.getTime();
+        setDateTextView(toDateTextView, toDate);
+
+        //Set from date for feedback
+        calendar.add(Calendar.DAY_OF_MONTH, -2);
+        fromDate = calendar.getTime();
+        setDateTextView(fromDateTextView, fromDate);
+
         ratingSummaryChart.setDrawHoleEnabled(false);
         ratingSummaryChart.setUsePercentValues(false);
         Legend legend = ratingSummaryChart.getLegend();
@@ -99,7 +124,7 @@ public class RatingSummaryActivity extends BaseActivity {
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
     }
 
     public Map<String,Integer> createRatingsMap(){
@@ -156,10 +181,49 @@ public class RatingSummaryActivity extends BaseActivity {
     }
 
     public void changeFromDate(View v) {
+        calendar = Calendar.getInstance();
+        calendar.setTime(fromDate);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
 
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        calendar.setTime(fromDate);
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH,monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        fromDate = calendar.getTime();
+                        setDateTextView(fromDateTextView, fromDate);
+
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
 
     public void changeToDate(View v) {
+        calendar = Calendar.getInstance();
+        calendar.setTime(fromDate);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
 
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        calendar.setTime(fromDate);
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH,monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        fromDate = calendar.getTime();
+                        setDateTextView(fromDateTextView, fromDate);
+
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
+
+    public void setDateTextView(TextView textView,Date date) {
+        textView.setText(simpleDateFormat.format(date));
+    }
+
 }
