@@ -1,5 +1,6 @@
 package com.example.admin.freddyspeaks;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -7,12 +8,14 @@ import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
 import com.example.admin.webservice.response_objects.FeedbackResponse;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.renderer.PieChartRenderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -38,6 +41,7 @@ public class RatingSummaryActivity extends BaseActivity {
     List<FeedbackResponse> feedbackResponseList;
     Question selectedQuestion;
     Map<Integer,List<Integer>> ratingWiseFeedbackList;
+    Typeface textFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,10 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingSummaryChart = (PieChart) findViewById(R.id.ratingSummaryChart);
         ratingSummaryChart.setDrawHoleEnabled(false);
         ratingSummaryChart.setUsePercentValues(false);
-        ratingSummaryChart.setCenterTextSize(20);
+        Legend legend = ratingSummaryChart.getLegend();
+        textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/comicsansms.ttf");
+        legend.setTypeface(textFont);
+        legend.setTextSize(10);
 
         ratingSummaryChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -134,6 +141,8 @@ public class RatingSummaryActivity extends BaseActivity {
 
         PieDataSet dataset = new PieDataSet(entries, "Ratings");
         dataset.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataset.setValueTextSize(15);
+        dataset.setValueTypeface(textFont);
         PieData data = new PieData(labels, dataset);
         data.setValueFormatter(new ValueFormatter() {
             @Override
