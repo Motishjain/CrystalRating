@@ -78,6 +78,10 @@ public class RatingSummaryActivity extends BaseActivity {
         fromDateTextView = (TextView) findViewById(R.id.fromDate);
         toDateTextView = (TextView) findViewById(R.id.toDate);
         questionsSpinner = (Spinner) findViewById(R.id.questionsSpinner);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        outletCode = sharedPreferences.getString("outletCode", null) ;
+
         questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -94,8 +98,6 @@ public class RatingSummaryActivity extends BaseActivity {
             }
         });
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        outletCode = sharedPreferences.getString("outletCode", null) ;
 
         simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy");
 
@@ -133,8 +135,6 @@ public class RatingSummaryActivity extends BaseActivity {
             questionQueryBuilder = questionDao.queryBuilder();
             List<Question> questionList = questionQueryBuilder.query();
             for(Question question:questionList) {
-                //TODO remove stub
-                answeredQuestionList.add(question);
                 questionMap.put(question.getQuestionId(),question);
             }
 
@@ -241,7 +241,7 @@ public class RatingSummaryActivity extends BaseActivity {
                             return;
                         }
                         if(!fromDate.equals(calendar.getTime())) {
-                            fetchFeedback();
+                            //fetchFeedback();
                         }
                         fromDate = calendar.getTime();
                         setDateTextView(fromDateTextView, fromDate);
@@ -267,7 +267,7 @@ public class RatingSummaryActivity extends BaseActivity {
                             return;
                         }
                         if(!toDate.equals(calendar.getTime())) {
-                            fetchFeedback();
+                            //fetchFeedback();
                         }
                         toDate = calendar.getTime();
                         setDateTextView(toDateTextView, toDate);
@@ -294,6 +294,7 @@ public class RatingSummaryActivity extends BaseActivity {
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
+        populateAnsweredQuestionsList();
     }
 
     //TODO remove stub
