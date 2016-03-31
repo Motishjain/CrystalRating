@@ -39,7 +39,6 @@ public class OutletDetailsActivity extends AppCompatActivity {
     TextView registerOutletHeader;
     Dao<Outlet, Integer> outletDao;
     Outlet currentOutlet;
-    TextToSpeech textToSpeechConverter;
     boolean editMode;
     String outletCode;
 

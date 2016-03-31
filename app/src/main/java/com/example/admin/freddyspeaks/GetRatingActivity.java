@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
+import com.example.admin.tasks.FetchRewardImageTask;
+import com.example.admin.tasks.TextToSpeechConversionTask;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.request_objects.FeedbackRequest;
@@ -66,6 +68,9 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         ratingPreviousButton = (Button) findViewById(R.id.ratingPreviousButton);
         ratingFragmentMap = new HashMap<>();
         ratingMap = new HashMap<>();
+
+        TextToSpeechConversionTask textToSpeechConversionTask = new TextToSpeechConversionTask(getApplicationContext());
+        textToSpeechConversionTask.execute(AppConstants.USER_WELCOME_MSG);
 
         feedback = new FeedbackRequest();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
