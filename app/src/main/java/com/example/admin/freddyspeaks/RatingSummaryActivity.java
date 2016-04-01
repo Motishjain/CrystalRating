@@ -92,6 +92,7 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingSummaryChart.setDrawHoleEnabled(false);
         ratingSummaryChart.setUsePercentValues(false);
         ratingSummaryChart.setDrawSliceText(false);
+        ratingSummaryChart.setDescription("");
 
         Legend legend = ratingSummaryChart.getLegend();
         textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/comicsansms.ttf");
@@ -103,8 +104,7 @@ public class RatingSummaryActivity extends BaseActivity {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
                 int optionIndex = e.getXIndex();
-                String selectedOption = options[optionIndex];
-                List<Integer> feedbackIndexList = ratingWiseFeedbackList.get(selectedOption);
+                List<Integer> feedbackIndexList = ratingWiseFeedbackList.get(optionIndex+1);
                 List<FeedbackResponse> feedbackResponseSubList = new ArrayList<>();
                 for(Integer feedbackIndex: feedbackIndexList) {
                     feedbackResponseSubList.add(feedbackResponseList.get(feedbackIndex));
@@ -301,7 +301,7 @@ public class RatingSummaryActivity extends BaseActivity {
     }
 
     void openRatingDetailsDialog(List<FeedbackResponse> feedbackResponseSubList) {
-        final Dialog dialog = new Dialog(getApplicationContext());
+        final Dialog dialog = new Dialog(RatingSummaryActivity.this);
         dialog.setContentView(R.layout.rating_details_popup);
         dialog.setTitle("Ratings Detail");
         RecyclerView ratingDetailsRecyclerView = (RecyclerView) dialog.findViewById(R.id.ratingDetailsRecyclerView);
