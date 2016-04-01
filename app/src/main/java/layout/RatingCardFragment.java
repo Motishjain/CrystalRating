@@ -30,7 +30,6 @@ public class RatingCardFragment extends Fragment {
     // TODO: Rename and change types of parameters
     TextView questionNameTextView;
     Question question;
-    int selectedRating;
     RecyclerView ratingOptionsRecyclerView;
 
     private OnFragmentInteractionListener mListener;

@@ -142,6 +142,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
         if(selectedOption == null || selectedOption.trim().equals("")){
             //TODO show alert
+            ratingBarPager.setCurrentItem(currentQuestionIndex);
         }
         else {
             ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), selectedOption);
