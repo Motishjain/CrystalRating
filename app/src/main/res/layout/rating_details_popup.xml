@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="4">
+        <com.example.admin.view.CustomFontTextView
+            android:id="@+id/userNameHeader"
+            style="@style/ratingDetailHeaderColumn"
+            android:text="@string/rating_user_name_header"
+            android:layout_weight="1"
+            android:gravity="center"
+            />
+        <com.example.admin.view.CustomFontTextView
+            android:id="@+id/userPhoneNumberHeader"
+            style="@style/ratingDetailHeaderColumn"
+            android:text="@string/rating_user_phone_number_header"
+            android:layout_weight="1"
+            android:gravity="center"
+            />
+        <com.example.admin.view.CustomFontTextView
+            android:id="@+id/billNumberHeader"
+            style="@style/ratingDetailHeaderColumn"
+            android:text="@string/rating_bill_number_header"
+            android:layout_weight="1"
+            android:gravity="center"
+            />
+        <com.example.admin.view.CustomFontTextView
+            android:id="@+id/billAmountHeader"
+            style="@style/ratingDetailHeaderColumn"
+            android:text="@string/rating_bill_amount_header"
+            android:layout_weight="1"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ratingDetailsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" />
+
+    <com.example.admin.view.CustomFontButton
+        android:id="@+id/ratingDetailsCloseButton"
+        style="@style/formButton"
+        android:layout_marginLeft="30dp"
+        android:text="Close"
+        android:layout_gravity="center" />
+
+</LinearLayout>

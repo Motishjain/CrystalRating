@@ -1,18 +1,22 @@
 package com.example.admin.freddyspeaks;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.admin.adapter.RatingDetailsAdapter;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
 import com.example.admin.webservice.RestEndpointInterface;
@@ -64,6 +68,7 @@ public class RatingSummaryActivity extends BaseActivity {
     List<Question> answeredQuestionList = new ArrayList<>();
     List<FeedbackResponse> feedbackResponseList;
     Question selectedQuestion;
+    String[] options;
     Map<Integer,List<Integer>> ratingWiseFeedbackList;
     Typeface textFont;
 
@@ -97,7 +102,14 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingSummaryChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                //TODO open popup to show details
+                int optionIndex = e.getXIndex();
+                String selectedOption = options[optionIndex];
+                List<Integer> feedbackIndexList = ratingWiseFeedbackList.get(selectedOption);
+                List<FeedbackResponse> feedbackResponseSubList = new ArrayList<>();
+                for(Integer feedbackIndex: feedbackIndexList) {
+                    feedbackResponseSubList.add(feedbackResponseList.get(feedbackIndex));
+                }
+                openRatingDetailsDialog(feedbackResponseSubList);
             }
 
             @Override
@@ -193,7 +205,7 @@ public class RatingSummaryActivity extends BaseActivity {
     public void refreshPieChart() {
         List<Entry> entries = new ArrayList<>();
         List<String> labels = new ArrayList<>();
-        String[] options = selectedQuestion.getRatingValues().split(",");
+        options = selectedQuestion.getRatingValues().split(",");
         ratingWiseFeedbackList = new HashMap<>();
         int feedbackIndex = 0;
 
@@ -286,6 +298,25 @@ public class RatingSummaryActivity extends BaseActivity {
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         toDatePickerDialog.setTitle("Select To Date");
         toDatePickerDialog.show();
+    }
+
+    void openRatingDetailsDialog(List<FeedbackResponse> feedbackResponseSubList) {
+        final Dialog dialog = new Dialog(getApplicationContext());
+        dialog.setContentView(R.layout.rating_details_popup);
+        dialog.setTitle("Ratings Detail");
+        RecyclerView ratingDetailsRecyclerView = (RecyclerView) dialog.findViewById(R.id.ratingDetailsRecyclerView);
+        Button ratingDetailsCloseButton = (Button) dialog.findViewById(R.id.ratingDetailsCloseButton);
+
+        RatingDetailsAdapter ratingOptionsAdapter = new RatingDetailsAdapter(R.layout.rating_detail_item, feedbackResponseSubList);
+        ratingDetailsRecyclerView.setAdapter(ratingOptionsAdapter);
+
+        ratingDetailsCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     public void setDateTextView(TextView textView,Date date) {

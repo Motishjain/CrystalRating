@@ -32,4 +32,10 @@
     <string name="title_activity_subscription_info">SubscriptionInfoActivity</string>
     <string name="title_activity_rating_summary">RatingSummaryActivity</string>
 
+    <string name="rating_user_name_header">Name</string>
+    <string name="rating_user_phone_number_header">Cell number</string>
+    <string name="rating_bill_number_header">Bill Number</string>
+    <string name="rating_bill_amount_header">Amount</string>
+    <string name="rating_reward_won_header">Reward Won</string>
+
 </resources>

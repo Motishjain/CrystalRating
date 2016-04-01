@@ -8,9 +8,6 @@ import java.util.Map;
  */
 public class FeedbackResponse {
 
-    public FeedbackResponse(){
-
-    }
     public FeedbackResponse(Map<String,Integer> ratingsMap,String userName,String userPhoneNumber,Timestamp createdTs,String billNumber,String billAmount, String rewardId){
         this.ratingsMap = ratingsMap;
         this.userName = userName;
