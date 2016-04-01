@@ -7,24 +7,24 @@
             android:id="@+id/userNameCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left"
             />
         <com.example.admin.view.CustomFontTextView
             android:id="@+id/userPhoneNumberCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left"
             />
         <com.example.admin.view.CustomFontTextView
             android:id="@+id/billNumberCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left"
             />
         <com.example.admin.view.CustomFontTextView
             android:id="@+id/billAmountCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left"
             />
 </LinearLayout>
