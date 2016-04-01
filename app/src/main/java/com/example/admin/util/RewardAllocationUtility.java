@@ -49,7 +49,7 @@ public class RewardAllocationUtility {
             writer = new PrintWriter("D:/freddy/algo-analysis.txt", "UTF-8");
             for (int i = 1; i < 100; i++) {
                 Random r = new Random();
-                int low = 300;
+                int low = 200;
                 int high = 10000;
                 int result = r.nextInt(high - low) + low;
                 writer.append(i + "," + result + "," + (allocateCategory(result)));
@@ -91,7 +91,7 @@ public class RewardAllocationUtility {
             goldRatio += ((100.0 - (silverRatio + bronzeRatio + goldRatio)) * (float) (targetAmount - 3000) / 7500);
 
             bronzeRatio = (100.0 - (silverRatio + goldRatio));
-        } else {
+        } else if (targetAmount >= 6000) {
             //Chances are in order Gold (40% or more), Silver (20% or less), Bronze (12% or less)
             goldRatio = 40;
             silverRatio = 24;
