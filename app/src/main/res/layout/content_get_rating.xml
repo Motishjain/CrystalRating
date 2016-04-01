@@ -11,7 +11,6 @@
     android:id="@+id/ratingCardHolder"
     tools:context="com.example.admin.freddyspeaks.GetRatingActivity"
     tools:showIn="@layout/activity_get_rating"
-    android:background="@color/appBackGround"
     >
 
     <com.example.admin.view.CustomFontTextView

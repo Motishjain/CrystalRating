@@ -1,5 +1,7 @@
 package com.example.admin.util;
 
+import android.util.Log;
+
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
 import com.j256.ormlite.dao.Dao;
@@ -17,23 +19,59 @@ import java.util.Random;
 
 public class RewardAllocationUtility {
 
+    static int carryForwardAmount = 0;
+
     public static SelectedReward allocateReward(String userPhoneNumber, int billAmount, Dao<SelectedReward, Integer> selectedRewardDao, Dao<User, Integer> userDao) {
 
-        double bronzeRatio = 0, silverRatio = 0, goldRatio = 0;
-        int categoryAllocated = 0, carryForwardAmount = 0, targetAmount;
+        int categoryAllocated = 0, targetAmount;
         try {
             QueryBuilder<User, Integer> userQueryBuilder = userDao.queryBuilder();
             userQueryBuilder.where().eq("phoneNumber", userPhoneNumber);
             User currentUser = userQueryBuilder.queryForFirst();
             carryForwardAmount = currentUser.getCarryForwardAmount();
         } catch (SQLException e) {
-            //TODO handle error
-        } catch (Exception e) {
-
+            Log.e("Reward Allocation","Unable to fetch user");
         }
 
         targetAmount = billAmount + carryForwardAmount;
+        categoryAllocated = allocateCategory(targetAmount);
 
+        if (categoryAllocated > 0 && selectedRewardDao != null) {
+            return getReward(selectedRewardDao, categoryAllocated);
+        } else {
+            return null;
+        }
+    }
+
+    public static void main(String args[]) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("D:/freddy/algo-analysis.txt", "UTF-8");
+            for (int i = 1; i < 100; i++) {
+                Random r = new Random();
+                int low = 300;
+                int high = 10000;
+                int result = r.nextInt(high - low) + low;
+                writer.append(i + "," + result + "," + (allocateCategory(result)));
+                writer.println();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(writer!=null) {
+                writer.close();
+            }
+        }
+
+
+    }
+
+    private static int allocateCategory(int targetAmount) {
+
+        int categoryAllocated = 0;
+        double bronzeRatio = 0, silverRatio = 0, goldRatio = 0;
         if (targetAmount >= 500 && targetAmount < 1000) {
             bronzeRatio = 15.0 + (targetAmount - 500) / 20.0;
         } else if (targetAmount >= 1000 && targetAmount < 3000) {
@@ -85,34 +123,7 @@ public class RewardAllocationUtility {
             //Gold allocated
             categoryAllocated = 3;
         }
-        System.out.println(categoryAllocated);
-        if (categoryAllocated > 0 && selectedRewardDao != null) {
-            return getReward(selectedRewardDao, categoryAllocated);
-        } else {
-            return null;
-        }
-    }
-
-    public static void main(String args[]) {
-        allocateReward("123", 2500, null, null);
-        try {
-            int i = 0;
-
-            PrintWriter writer = new PrintWriter("C:/Users/bgurbuxsinghani/Documents/stuff/Algo/algoanalysis.txt", "UTF-8");
-            for (i = 1; i < 100; i++) {
-                Random r = new Random();
-                int Low = 300;
-                int High = 10000;
-                int Result = r.nextInt(High - Low) + Low;
-                writer.append(i + "," + Result + "," + (allocateReward("123", Result, null, null)));
-                writer.println();
-
-            }
-            writer.close();
-        } catch (Exception e) {
-        }
-
-
+        return categoryAllocated;
     }
 
     private static SelectedReward getReward(Dao<SelectedReward, Integer> selectedRewardDao, int categoryAllocated) {
