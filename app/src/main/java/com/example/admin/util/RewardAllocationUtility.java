@@ -72,15 +72,13 @@ public class RewardAllocationUtility {
 
         int categoryAllocated = 0;
         double bronzeRatio = 0, silverRatio = 0, goldRatio = 0;
-        if (targetAmount >= 500 && targetAmount < 1000) {
-            bronzeRatio = 15.0 + (targetAmount - 500) / 20.0;
-        } else if (targetAmount >= 1000 && targetAmount < 3000) {
-            //Chances are in order Bronze (40% or more), Silver (5% or less), Gold (0%)
+        if (targetAmount >= 500 && targetAmount < 3000) {
+            //Chances are in order Bronze (50% and more), Silver (5% or less), Gold (0%)
 
-            //40% + (max 40% of remaining depending on target amount)
-            //ex: if target amount = 2000, bR = 40 + 20% of 60 = 52%
-            bronzeRatio = 40.0 + (targetAmount - 1000) * 3.0 / 250.0;
-            silverRatio = (float) (targetAmount - 1000) / 50.0 * (100.0 - bronzeRatio) / 100.0;
+            //Bronze is 50% + (max 50% of remaining depending on target amount)
+            //ex: if target amount = 2000, bR = 50 + 30% of 50 = 65%
+            bronzeRatio = 50.0 + (targetAmount - 500) * 1.0 / 100.0;
+            silverRatio = (float) (targetAmount - 500) / 100.0 * (100.0 - bronzeRatio) / 100.0;
 
         } else if (targetAmount >= 3000 && targetAmount < 6000) {
             //Chances are in order Silver (40% or more), Bronze (7% or less), Gold (6% or less)
