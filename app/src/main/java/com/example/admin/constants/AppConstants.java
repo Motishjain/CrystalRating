@@ -36,4 +36,5 @@ public class AppConstants {
     public static final String REGISTER_WELCOME_MSG = "Freddy Welcomes you. Please Enter your outlet details";
 
     public static final String USER_WELCOME_MSG = "Hope you had a great time here. Please leave your feedback to help us improve";
+
 }

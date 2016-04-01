@@ -21,6 +21,12 @@ public class RewardAllocationUtility {
 
     static int carryForwardAmount = 0;
 
+    public static final int REWARD_AMOUNT_THRESHOLD_1 = 500;
+
+    public static final int REWARD_AMOUNT_THRESHOLD_2 = 3000;
+
+    public static final int REWARD_AMOUNT_THRESHOLD_3 = 6000;
+
     public static SelectedReward allocateReward(String userPhoneNumber, int billAmount, Dao<SelectedReward, Integer> selectedRewardDao, Dao<User, Integer> userDao) {
 
         int categoryAllocated = 0, targetAmount;
@@ -47,7 +53,7 @@ public class RewardAllocationUtility {
         PrintWriter writer = null;
         try {
             writer = new PrintWriter("D:/freddy/algo-analysis.txt", "UTF-8");
-            for (int i = 1; i < 100; i++) {
+            for (int i = 1; i < 500; i++) {
                 Random r = new Random();
                 int low = 200;
                 int high = 10000;
@@ -72,7 +78,7 @@ public class RewardAllocationUtility {
 
         int categoryAllocated = 0;
         double bronzeRatio = 0, silverRatio = 0, goldRatio = 0;
-        if (targetAmount >= 500 && targetAmount < 3000) {
+        if (targetAmount >= REWARD_AMOUNT_THRESHOLD_1 && targetAmount < REWARD_AMOUNT_THRESHOLD_2) {
             //Chances are in order Bronze (50% and more), Silver (5% or less), Gold (0%)
 
             //Bronze is 50% + (max 50% of remaining depending on target amount)
@@ -80,7 +86,7 @@ public class RewardAllocationUtility {
             bronzeRatio = 50.0 + (targetAmount - 500) * 1.0 / 100.0;
             silverRatio = (float) (targetAmount - 500) / 100.0 * (100.0 - bronzeRatio) / 100.0;
 
-        } else if (targetAmount >= 3000 && targetAmount < 6000) {
+        } else if (targetAmount >= REWARD_AMOUNT_THRESHOLD_2 && targetAmount < REWARD_AMOUNT_THRESHOLD_3) {
             //Chances are in order Silver (40% or more), Bronze (7% or less), Gold (6% or less)
             silverRatio = 40;
             bronzeRatio = 24;
@@ -89,7 +95,7 @@ public class RewardAllocationUtility {
             goldRatio += ((100.0 - (silverRatio + bronzeRatio + goldRatio)) * (float) (targetAmount - 3000) / 7500);
 
             bronzeRatio = (100.0 - (silverRatio + goldRatio));
-        } else if (targetAmount >= 6000) {
+        } else if (targetAmount >= REWARD_AMOUNT_THRESHOLD_3) {
             //Chances are in order Gold (40% or more), Silver (20% or less), Bronze (12% or less)
             goldRatio = 40;
             silverRatio = 24;
