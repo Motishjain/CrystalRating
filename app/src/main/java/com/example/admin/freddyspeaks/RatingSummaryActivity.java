@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -100,6 +101,7 @@ public class RatingSummaryActivity extends BaseActivity {
         legend.setTextSize(10);
         legend.setWordWrapEnabled(true);
 
+
         ratingSummaryChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
@@ -156,7 +158,7 @@ public class RatingSummaryActivity extends BaseActivity {
             }
 
             populateDummyFeedback();
-            populateAnsweredQuestionsList();
+
             //fetchFeedback();
         }
         catch(SQLException e) {
@@ -310,12 +312,17 @@ public class RatingSummaryActivity extends BaseActivity {
         RatingDetailsAdapter ratingOptionsAdapter = new RatingDetailsAdapter(R.layout.rating_detail_item, feedbackResponseSubList);
         ratingDetailsRecyclerView.setAdapter(ratingOptionsAdapter);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(dialog.getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        ratingDetailsRecyclerView.setLayoutManager(layoutManager);
+
         ratingDetailsCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+
         dialog.show();
     }
 
@@ -326,7 +333,7 @@ public class RatingSummaryActivity extends BaseActivity {
     //TODO remove stub
     public void populateDummyFeedback() {
         feedbackResponseList.clear();
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","1200","abc"));

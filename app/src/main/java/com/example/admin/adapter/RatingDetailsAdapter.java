@@ -42,15 +42,16 @@ public class RatingDetailsAdapter extends RecyclerView.Adapter<RatingDetailsAdap
     @Override
     public void onBindViewHolder(final RatingDetailHolder ratingDetailHolder, final int position) {
         FeedbackResponse feedbackResponse = feedbackResponseList.get(position);
-        ratingDetailHolder.userNameCellTextView.setText(feedbackResponseList.get(position).getUserName());
-        ratingDetailHolder.userPhoneNumberCellTextView.setText(feedbackResponseList.get(position).getUserPhoneNumber());
-        ratingDetailHolder.billNumberCellTextView.setText(feedbackResponseList.get(position).getBillNumber());
-        ratingDetailHolder.billAmountCellTextView.setText(feedbackResponseList.get(position).getBillAmount());
+        ratingDetailHolder.userNameCellTextView.setText(feedbackResponse.getUserName());
+        ratingDetailHolder.userPhoneNumberCellTextView.setText(feedbackResponse.getUserPhoneNumber());
+        ratingDetailHolder.billNumberCellTextView.setText(feedbackResponse.getBillNumber());
+        ratingDetailHolder.billAmountCellTextView.setText(feedbackResponse.getBillAmount());
 
     }
 
     @Override
     public int getItemCount() {
+
         return feedbackResponseList.size();
     }
 
@@ -61,7 +62,7 @@ public class RatingDetailsAdapter extends RecyclerView.Adapter<RatingDetailsAdap
 
         public RatingDetailHolder(View view){
             super(view);
-            userNameCellTextView = (TextView) view.findViewById(R.id.selectedOptionTextView);
+            userNameCellTextView = (TextView) view.findViewById(R.id.userNameCellTextView);
             userPhoneNumberCellTextView = (TextView) view.findViewById(R.id.userPhoneNumberCellTextView);
             billNumberCellTextView = (TextView) view.findViewById(R.id.billNumberCellTextView);
             billAmountCellTextView = (TextView) view.findViewById(R.id.billAmountCellTextView);
