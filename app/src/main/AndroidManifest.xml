@@ -38,7 +38,12 @@
         <activity
             android:name=".GetRatingActivity"
             android:label="@string/title_activity_get_rating"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".RewardConfigurationActivity"
             android:label="@string/title_activity_reward_configuration"
@@ -63,10 +68,6 @@
             android:name=".RatingSummaryActivity"
             android:label="@string/title_activity_rating_summary"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

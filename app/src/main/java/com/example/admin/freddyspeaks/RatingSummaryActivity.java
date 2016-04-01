@@ -98,7 +98,7 @@ public class RatingSummaryActivity extends BaseActivity {
         Legend legend = ratingSummaryChart.getLegend();
         textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/comicsansms.ttf");
         legend.setTypeface(textFont);
-        legend.setTextSize(10);
+        legend.setTextSize(30);
         legend.setWordWrapEnabled(true);
 
 

@@ -16,6 +16,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <include layout="@layout/content_get_rating" />
+    <include layout="@layout/content_get_rating"/>
 
 </android.support.design.widget.CoordinatorLayout>

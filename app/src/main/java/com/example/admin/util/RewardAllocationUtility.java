@@ -1,22 +1,14 @@
 package com.example.admin.util;
 
-import android.util.Log;
-
-import com.example.admin.constants.AppConstants;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
-import com.example.admin.webservice.request_objects.RewardSubmitRequest;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.io.PrintWriter;
 import java.security.SecureRandom;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -25,16 +17,9 @@ import java.util.Random;
 
 public class RewardAllocationUtility {
 
-    public static Map<Integer,String> categoryMapping = new HashMap<>();
-    static {
-        categoryMapping.put(1, AppConstants.BRONZE_CD);
-        categoryMapping.put(2, AppConstants.SILVER_CD);
-        categoryMapping.put(3, AppConstants.GOLD_CD);
-    }
+    public static int allocateReward(String userPhoneNumber, int billAmount,Dao<SelectedReward, Integer> selectedRewardDao, Dao<User, Integer> userDao) {
 
-    public static SelectedReward allocateReward(String userPhoneNumber, int billAmount,Dao<SelectedReward, Integer> selectedRewardDao, Dao<User, Integer> userDao) {
-
-        int bronzeRatio=0,silverRatio=0,goldRatio=0;
+        double bronzeRatio=0,silverRatio=0,goldRatio=0;
         int categoryAllocated = 0, carryForwardAmount = 0, targetAmount;
         try {
             QueryBuilder<User, Integer> userQueryBuilder = userDao.queryBuilder();
@@ -43,34 +28,56 @@ public class RewardAllocationUtility {
             carryForwardAmount = currentUser.getCarryForwardAmount();
         }
         catch(SQLException e) {
-            Log.e("RewardAllocation", "Unable to find user");
+            //TODO handle error
+        }
+        catch(Exception e){
+
         }
 
         targetAmount = billAmount + carryForwardAmount;
 
-        if(targetAmount<1000){
-            bronzeRatio = 15;
+        if(targetAmount>=500 && targetAmount<1000){
+            bronzeRatio = 15.0 + (targetAmount-500)/20.0;
         }
         else if(targetAmount>=1000 && targetAmount<3000){
             //Chances are in order Bronze (40% or more), Silver (5% or less), Gold (0%)
-            bronzeRatio = 40;
-            bronzeRatio += ((targetAmount-1000)/1000)*10;
-            silverRatio = (100-bronzeRatio) * (8/100);
-            goldRatio = 0;
+
+            //40% + (max 40% of remaining depending on target amount)
+            //ex: if target amount = 2000, bR = 40 + 20% of 60 = 52%
+            bronzeRatio = 40.0 + (targetAmount-1000)* 3.0/250.0;
+
+
+            silverRatio = (float)(targetAmount-1000)/50.0 * (100.0-bronzeRatio)/100.0;
+
         }
         else if(targetAmount>=3000 && targetAmount<6000){
             //Chances are in order Silver (40% or more), Bronze (7% or less), Gold (6% or less)
             silverRatio = 40;
-            silverRatio += ((targetAmount-3000)/1000)*10;
-            bronzeRatio = (100-(silverRatio)) * (15/100);
-            goldRatio = (100-(silverRatio+bronzeRatio))*(1/10);
+            bronzeRatio = 24;
+            goldRatio = 7;
+            silverRatio += ((100.0-(silverRatio+bronzeRatio+goldRatio))*(float)(targetAmount-3000)/7500);
+            goldRatio += ((100.0-(silverRatio+bronzeRatio+goldRatio))*(float)(targetAmount-3000)/7500);
+            
+	    //bronzeRatio += ((100.0-(silverRatio+bronzeRatio+goldRatio))*(float)(targetAmount-3000)/7500);
+            
+	    bronzeRatio = (100.0 - (silverRatio + goldRatio));
         }
         else {
             //Chances are in order Gold (40% or more), Silver (20% or less), Bronze (12% or less)
             goldRatio = 40;
-            goldRatio += ((targetAmount-6000)/1000)*10;
-            silverRatio = (100-(goldRatio)) * (30/100);
-            bronzeRatio = (100-(silverRatio+goldRatio))*(2/10);
+            silverRatio = 24;
+            bronzeRatio = 14;
+            for (int i=targetAmount; i>=7000; i-=1000){
+                goldRatio += (100-(silverRatio+bronzeRatio+goldRatio))*0.2;
+                silverRatio += (100-(silverRatio+bronzeRatio+goldRatio))*0.2;
+                bronzeRatio += (100-(silverRatio+bronzeRatio+goldRatio))*0.2;
+            }
+            int i = targetAmount%1000;
+            goldRatio += (100-(silverRatio+bronzeRatio+goldRatio))*0.2*i/1000;
+            silverRatio += (100-(silverRatio+bronzeRatio+goldRatio))*0.2*i/1000;
+            bronzeRatio += (100-(silverRatio+bronzeRatio+goldRatio))*0.2*i/1000;
+
+	    silverRatio = (100.0-(bronzeRatio+goldRatio));
         }
 
         Random randomGenerator = new SecureRandom();
@@ -90,39 +97,44 @@ public class RewardAllocationUtility {
             categoryAllocated = 3;
         }
         System.out.println(categoryAllocated);
-        if(categoryAllocated>0 && selectedRewardDao!=null)
-        {
-            return getReward(selectedRewardDao,categoryAllocated);
-        }
-        else {
-            return null;
-        }
+        // if(categoryAllocated>0 && selectedRewardDao!=null)
+        // {
+        //     return getReward(selectedRewardDao,categoryAllocated);
+        // }
+        //else {
+        //    return null;
+        // }
+        return categoryAllocated;
     }
 
     public static void main(String args[]) {
-        HashMap<String,List<String>> map = new HashMap<>();
-        List<String> bronzeList = new ArrayList<>();
-        bronzeList.add("1");
-        bronzeList.add("2");
-        map.put("BZ", bronzeList);
-        List<String> silverList = new ArrayList<>();
-        silverList.add("1");
-        silverList.add("2");
-        map.put("SL", silverList);
+        allocateReward("123",2500,null,null);
+        try{
+            int i=0;
 
-        RewardSubmitRequest request = new RewardSubmitRequest();
-        request.setOutletCode("AAB6G7H");
-        request.setRewardsMap(map);
+            PrintWriter writer = new PrintWriter("C:/Users/bgurbuxsinghani/Documents/stuff/Algo/algoanalysis.txt", "UTF-8");
+            for(i=1;i<100;i++)
+            {
+                Random r = new Random();
+                int Low = 300;
+                int High = 10000;
+                int Result = r.nextInt(High-Low) + Low;
+                writer.append(i + "," + Result + "," + (allocateReward("123", Result, null, null)));
+                writer.println();
 
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson  = builder.create();
-        System.out.println(gson.toJson(request));
+            }
+            writer.close();
+        }
+
+        catch(Exception e){}
+
+
     }
 
     private static SelectedReward getReward(Dao<SelectedReward, Integer> selectedRewardDao, int categoryAllocated) {
         QueryBuilder<SelectedReward,Integer> selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
         try {
-            selectedRewardQueryBuilder.where().eq("rewardCategory",categoryMapping.get(categoryAllocated));
+            selectedRewardQueryBuilder.where().eq("rewardCategory",categoryAllocated);
             List<SelectedReward> possibleRewards = selectedRewardQueryBuilder.query();
             if(possibleRewards.size()>0){
                 Random randomGenerator = new SecureRandom();

@@ -24,7 +24,8 @@
     <string name="register_outlet">Register your Outlet !</string>
     <string name="get_rating_header">Please rate us!</string>
     <string name="applicationFont">comicsansms</string>
-    <string name="headerFont">LCALLIG</string>
+    <string name="screenHeaderFont">verdana</string>
+    <string name="appHeaderFont">LCALLIG</string>
     <string name="configure_your_rewards">Configure your rewards!</string>
     <string name="bronze_box_header">Bronze Rewards (The Most Frequent)</string>
     <string name="silver_box_header">Silver Rewards (Special ones!)</string>

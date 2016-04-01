@@ -11,6 +11,7 @@
     android:id="@+id/ratingCardHolder"
     tools:context="com.example.admin.freddyspeaks.GetRatingActivity"
     tools:showIn="@layout/activity_get_rating"
+    android:background="@color/appBackGround"
     >
 
     <com.example.admin.view.CustomFontTextView
@@ -33,7 +34,7 @@
             android:layout_height="40dp"
             android:gravity="center"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/previous"
+            android:src="@drawable/previous_purple"
             android:onClick="getPreviousRating"
             android:background="#0000"/>
 
@@ -51,7 +52,7 @@
             android:layout_height="40dp"
             android:gravity="center"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/next"
+            android:src="@drawable/next_purple"
             android:onClick="getNextRating"
             android:background="#0000"/>
     </LinearLayout>
