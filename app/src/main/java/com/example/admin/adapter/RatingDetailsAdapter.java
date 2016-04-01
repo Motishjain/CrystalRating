@@ -34,7 +34,7 @@ public class RatingDetailsAdapter extends RecyclerView.Adapter<RatingDetailsAdap
 
     @Override
     public RatingDetailHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent);
         RatingDetailHolder ratingDetailHolder = new RatingDetailHolder(view);
         return ratingDetailHolder;
     }
