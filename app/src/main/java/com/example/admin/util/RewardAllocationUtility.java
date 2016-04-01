@@ -2,6 +2,7 @@ package com.example.admin.util;
 
 import android.util.Log;
 
+import com.example.admin.constants.AppConstants;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
 import com.j256.ormlite.dao.Dao;
@@ -10,7 +11,9 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import java.io.PrintWriter;
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -20,6 +23,12 @@ import java.util.Random;
 public class RewardAllocationUtility {
 
     static int carryForwardAmount = 0;
+    public static Map<Integer,String> categoryMapping = new HashMap<>();
+    static {
+        categoryMapping.put(1, AppConstants.BRONZE_CD);
+        categoryMapping.put(2, AppConstants.SILVER_CD);
+        categoryMapping.put(3, AppConstants.GOLD_CD);
+    }
 
     public static final int REWARD_AMOUNT_THRESHOLD_1 = 500;
 
@@ -133,7 +142,7 @@ public class RewardAllocationUtility {
     private static SelectedReward getReward(Dao<SelectedReward, Integer> selectedRewardDao, int categoryAllocated) {
         QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
         try {
-            selectedRewardQueryBuilder.where().eq("rewardCategory", categoryAllocated);
+            selectedRewardQueryBuilder.where().eq("rewardCategory", categoryMapping.get(categoryAllocated));
             List<SelectedReward> possibleRewards = selectedRewardQueryBuilder.query();
             if (possibleRewards.size() > 0) {
                 Random randomGenerator = new SecureRandom();

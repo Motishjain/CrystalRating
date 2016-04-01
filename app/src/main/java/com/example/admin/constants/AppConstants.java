@@ -37,4 +37,6 @@ public class AppConstants {
 
     public static final String USER_WELCOME_MSG = "Hope you had a great time here. Please leave your feedback to help us improve";
 
+    public static final String USER_CONGRATULATION_MSG = "Congratulations {userName}. You won a {rewardName}";
+
 }

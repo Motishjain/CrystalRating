@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Reward;
 import com.example.admin.database.SelectedReward;
 import com.example.admin.database.User;
 import com.example.admin.tasks.FetchRewardImageTask;
+import com.example.admin.tasks.TextToSpeechConversionTask;
 import com.example.admin.util.RewardAllocationUtility;
 import com.example.admin.view.CustomFontTextView;
 import com.example.admin.webservice.RestEndpointInterface;
@@ -58,6 +60,11 @@ public class RewardDisplayActivity extends BaseActivity {
             FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(resultRewardImage);
             fetchRewardImageTask.execute(rewardResult.getImage());
             resultRewardName.setText(rewardResult.getName());
+            TextToSpeechConversionTask textToSpeechConversionTask = new TextToSpeechConversionTask(getApplicationContext());
+            String message = AppConstants.USER_CONGRATULATION_MSG;
+            message = message.replace("{userName}",feedback.getUserName());
+            message = message.replace("{rewardName}",rewardResult.getName());
+            textToSpeechConversionTask.execute(message);
         }
         else {
 
