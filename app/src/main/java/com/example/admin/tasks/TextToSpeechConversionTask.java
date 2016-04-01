@@ -24,16 +24,16 @@ public class TextToSpeechConversionTask extends AsyncTask<String,Void,Void> {
     }
 
     @Override
-    protected Void doInBackground(String... text) {
+    protected Void doInBackground(final String... text) {
         textToSpeechConverter = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
                     {
                         textToSpeechConverter.setPitch(1.1f); // saw from internet
-                        textToSpeechConverter.setSpeechRate(0.4f); // f denotes float, it actually type casts 0.5 to float
+                        textToSpeechConverter.setSpeechRate(1.0f); // f denotes float, it actually type casts 0.5 to float
                         textToSpeechConverter.setLanguage(Locale.UK);
-                        textToSpeechConverter.speak(AppConstants.REGISTER_WELCOME_MSG, TextToSpeech.QUEUE_FLUSH, null);
+                        textToSpeechConverter.speak(text[0], TextToSpeech.QUEUE_FLUSH, null);
                     }
             }
         }});
