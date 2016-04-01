@@ -59,6 +59,7 @@ public class RatingSummaryActivity extends BaseActivity {
     TextView fromDateTextView,toDateTextView;
     Spinner questionsSpinner;
 
+    List<Question> questionList;
     Map<String,Question> questionMap = new HashMap<>();
     List<Question> answeredQuestionList = new ArrayList<>();
     List<FeedbackResponse> feedbackResponseList;
@@ -82,22 +83,28 @@ public class RatingSummaryActivity extends BaseActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         outletCode = sharedPreferences.getString("outletCode", null) ;
 
-        questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ratingSummaryChart.setNoDataText("No ratings found for selected question");
+        ratingSummaryChart.setDrawHoleEnabled(false);
+        ratingSummaryChart.setUsePercentValues(false);
+        ratingSummaryChart.setDrawSliceText(false);
+
+        Legend legend = ratingSummaryChart.getLegend();
+        textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/comicsansms.ttf");
+        legend.setTypeface(textFont);
+        legend.setTextSize(10);
+        legend.setWordWrapEnabled(true);
+
+        ratingSummaryChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Rating summary","Item selected");
-                selectedQuestion = answeredQuestionList.get(position);
-                //TODO remove stub
-                populateDummyFeedback();
-                refreshPieChart();
+            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+                //TODO open popup to show details
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.i("Rating summary","Nothing selected");
+            public void onNothingSelected() {
+
             }
         });
-
 
         simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy");
 
@@ -111,33 +118,33 @@ public class RatingSummaryActivity extends BaseActivity {
         fromDate = calendar.getTime();
         setDateTextView(fromDateTextView, fromDate);
 
-        ratingSummaryChart.setDrawHoleEnabled(false);
-        ratingSummaryChart.setUsePercentValues(false);
-        Legend legend = ratingSummaryChart.getLegend();
-        textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/comicsansms.ttf");
-        legend.setTypeface(textFont);
-        legend.setTextSize(10);
-
-        ratingSummaryChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+        questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                //TODO open popup to show details
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("Rating summary", "Item selected");
+                selectedQuestion = answeredQuestionList.get(position);
+                //TODO remove stub
+                refreshPieChart();
             }
 
             @Override
-            public void onNothingSelected() {
-
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.i("Rating summary", "Nothing selected");
             }
         });
+        questionsSpinner.setSelected(false);
+
         feedbackResponseList = new ArrayList<>();
         try {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
             questionQueryBuilder = questionDao.queryBuilder();
-            List<Question> questionList = questionQueryBuilder.query();
+            questionList = questionQueryBuilder.query();
             for(Question question:questionList) {
                 questionMap.put(question.getQuestionId(),question);
             }
 
+            populateDummyFeedback();
+            populateAnsweredQuestionsList();
             //fetchFeedback();
         }
         catch(SQLException e) {
@@ -179,7 +186,7 @@ public class RatingSummaryActivity extends BaseActivity {
             questionNames.add(questionMap.get(questionId).getName());
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, questionNames);
+                android.R.layout.simple_spinner_item, questionNames);
         questionsSpinner.setAdapter(dataAdapter);
     }
 
@@ -207,7 +214,9 @@ public class RatingSummaryActivity extends BaseActivity {
 
         for(int optionIndex=0;optionIndex<options.length;optionIndex++) {
             Integer count = ratingWiseFeedbackList.get(optionIndex+1)==null?0:ratingWiseFeedbackList.get(optionIndex+1).size();
-            entries.add(new Entry(count,optionIndex));
+            if(count>0) {
+                entries.add(new Entry(count,optionIndex));
+            }
         }
 
         PieDataSet dataset = new PieDataSet(entries, "Ratings");
@@ -215,14 +224,16 @@ public class RatingSummaryActivity extends BaseActivity {
         dataset.setValueTextSize(12);
         dataset.setValueTypeface(textFont);
         PieData data = new PieData(labels, dataset);
+
         data.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
                 int intValue = (int) value;
-                return intValue + " customers rated";
+                return intValue + " ratings";
             }
         });
         ratingSummaryChart.setData(data);
+        ratingSummaryChart.invalidate();
     }
 
     public void changeFromDate(View v) {
@@ -283,7 +294,8 @@ public class RatingSummaryActivity extends BaseActivity {
 
     //TODO remove stub
     public void populateDummyFeedback() {
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Motish","7738657059",null,"1234","2500","abc"));
+        feedbackResponseList.clear();
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234","2500","abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","1200","abc"));
@@ -294,6 +306,8 @@ public class RatingSummaryActivity extends BaseActivity {
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
         populateAnsweredQuestionsList();
     }
 
@@ -302,7 +316,11 @@ public class RatingSummaryActivity extends BaseActivity {
         Map<String,Integer> ratingMap = new HashMap<>();
         Random randomGenerator = new SecureRandom();
         int randomNumber = randomGenerator.nextInt(4);
-        ratingMap.put(selectedQuestion.getQuestionId(), (randomNumber + 1));
+        ratingMap.put(questionList.get(0).getQuestionId(), (randomNumber + 1));
+        ratingMap.put(questionList.get(1).getQuestionId(), (randomNumber + 1));
+        ratingMap.put(questionList.get(2).getQuestionId(), (randomNumber + 1));
+        ratingMap.put(questionList.get(3).getQuestionId(), (randomNumber + 1));
+        ratingMap.put(questionList.get(4).getQuestionId(), (randomNumber + 1));
         return ratingMap;
     }
 }
