@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/headerBg"
+        android:id="@+id/toolbar"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
         <com.example.admin.view.CustomFontTextView
-            style="@style/appHeader" />
+            style="@style/appHeader"
+            />
     </android.support.v7.widget.Toolbar>
-
-    <include layout="@layout/content_bill_details" />
 
 </android.support.design.widget.CoordinatorLayout>

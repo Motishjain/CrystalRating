@@ -13,6 +13,7 @@
             android:text="@string/rating_user_name_header"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_width="0dp"
             />
         <com.example.admin.view.CustomFontTextView
             android:id="@+id/userPhoneNumberHeader"
@@ -20,6 +21,7 @@
             android:text="@string/rating_user_phone_number_header"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_width="0dp"
             />
         <com.example.admin.view.CustomFontTextView
             android:id="@+id/billNumberHeader"
@@ -27,6 +29,7 @@
             android:text="@string/rating_bill_number_header"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_width="0dp"
             />
         <com.example.admin.view.CustomFontTextView
             android:id="@+id/billAmountHeader"
@@ -34,6 +37,7 @@
             android:text="@string/rating_bill_amount_header"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_width="0dp"
             />
     </LinearLayout>
 

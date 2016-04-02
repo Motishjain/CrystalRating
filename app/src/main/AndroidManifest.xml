@@ -23,10 +23,6 @@
             android:label="@string/title_activity_user_info"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".RateOutletActivity"
-            android:label="@string/title_activity_rate_outlet"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".LoadingActivity"
             android:label="@string/title_activity_loading"
             android:theme="@style/AppTheme.NoActionBar">
