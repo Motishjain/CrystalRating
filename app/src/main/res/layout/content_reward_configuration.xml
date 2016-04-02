@@ -26,22 +26,23 @@
         />
 
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="5"
         >
 
-<!--        <com.example.admin.view.CustomFontTextView
-            android:id="@+id/bronzeBoxHeader"
+        <com.example.admin.view.CustomFontTextView
             android:text="@string/bronze_box_header"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="3"
-            android:layout_alignParentLeft="true"
             android:shadowColor="@color/colorPrimaryDark"
             style="@style/rewardBoxHeader"
-            android:layout_gravity="left"
-            />-->
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_gravity="left" />
 
         <com.example.admin.view.CustomFontButton
             android:id="@+id/addBronzeRewardsButton"
@@ -51,12 +52,10 @@
             android:textAllCaps="false"
             android:textColor="#fff"
             android:layout_height="@dimen/addRewardButton"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="right|top"
-            android:layout_marginRight="5dp"
-            android:layout_width="wrap_content" />
-
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_width="0dp" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"
@@ -65,16 +64,36 @@
         android:layout_height="80dp"
         android:layout_marginTop="10dp" />
 
-    <com.example.admin.view.CustomFontButton
-        android:id="@+id/addSilverRewardsButton"
-        style="@style/formButton"
-        android:text="Add"
-        android:onClick="addSilverRewards"
-        android:textAllCaps="false"
-        android:layout_height="@dimen/addRewardButton"
-        android:layout_gravity="right"
+    <LinearLayout
         android:layout_marginTop="20dp"
-        android:textColor="#fff" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5"
+        >
+
+        <com.example.admin.view.CustomFontTextView
+            android:text="@string/silver_box_header"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="3"
+            android:shadowColor="@color/colorPrimaryDark"
+            style="@style/rewardBoxHeader"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_gravity="left" />
+
+        <com.example.admin.view.CustomFontButton
+            android:id="@+id/addSilverRewardsButton"
+            style="@style/formButton"
+            android:text="Add"
+            android:onClick="addSilverRewards"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:layout_height="@dimen/addRewardButton"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_width="0dp" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"
@@ -83,17 +102,36 @@
         android:layout_height="80dp"
         android:layout_marginTop="5dp"/>
 
-    <com.example.admin.view.CustomFontButton
-        android:id="@+id/addGoldRewardsButton"
-        style="@style/formButton"
-        android:elevation="3dp"
-        android:text="Add"
-        android:onClick="addGoldRewards"
-        android:textAllCaps="false"
-        android:layout_gravity="right"
-        android:layout_height="@dimen/addRewardButton"
+    <LinearLayout
         android:layout_marginTop="20dp"
-        android:textColor="#fff" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5"
+        >
+
+        <com.example.admin.view.CustomFontTextView
+            android:text="@string/gold_box_header"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="3"
+            android:shadowColor="@color/colorPrimaryDark"
+            style="@style/rewardBoxHeader"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_gravity="left" />
+
+        <com.example.admin.view.CustomFontButton
+            android:id="@+id/addGoldRewardsButton"
+            style="@style/formButton"
+            android:text="Add"
+            android:onClick="addGoldRewards"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:layout_height="@dimen/addRewardButton"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_width="0dp" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/level_reward_box"

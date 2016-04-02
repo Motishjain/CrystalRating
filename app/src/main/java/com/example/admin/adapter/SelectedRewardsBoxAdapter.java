@@ -68,14 +68,14 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
         ImageView selectedRewardImage;
         TextView selectedRewardCost;
         TextView selectedRewardName;
-        ImageButton selectedRewardDeleteButton;
+        ImageView selectedRewardDeleteButton;
 
         public SelectedRewardHolder(View view){
             super(view);
             selectedRewardImage = (ImageView) view.findViewById(R.id.selectedRewardImage);
             selectedRewardName = (TextView) view.findViewById(R.id.selectedRewardName);
             selectedRewardCost = (TextView) view.findViewById(R.id.selectedRewardCost);
-            selectedRewardDeleteButton = (ImageButton) view.findViewById(R.id.selectedRewardDeleteButton);
+            selectedRewardDeleteButton = (ImageView) view.findViewById(R.id.selectedRewardDeleteButton);
         }
     }
 
