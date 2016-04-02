@@ -49,8 +49,8 @@
             android:id="@+id/ratingNextArrow"
             android:layout_width="50dp"
             android:layout_height="40dp"
-            android:gravity="center"
-            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
             android:src="@drawable/next_purple"
             android:onClick="getNextRating"
             android:background="#0000"/>

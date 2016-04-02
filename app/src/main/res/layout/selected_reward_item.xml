@@ -26,14 +26,14 @@
         android:gravity="bottom|right"
         />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/selectedRewardDeleteButton"
         android:background="@drawable/delete"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="5dp"
-        android:gravity="bottom|left"
+        android:layout_gravity="bottom|left"
         />
 
 </FrameLayout>

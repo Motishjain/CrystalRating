@@ -72,6 +72,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         goldRewardsRecyclerView.setLayoutManager(layoutManager);
 
         try {
+            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
             selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
             selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
             updateScreen();
@@ -91,10 +92,12 @@ public class RewardConfigurationActivity extends AppCompatActivity {
 
     public void rewardConfigNext(View v) {
         if(!editMode) {
-            fetchQuestions();
+            fetchQuestionsAndMove();
         }
-        Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
-        startActivity(homePage);
+        else {
+            Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
+            startActivity(homePage);
+        }
     }
 
     public void addBronzeRewards(View v) {
@@ -238,7 +241,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         updateGoldRewardList();
     }
 
-    void fetchQuestions() {
+    void fetchQuestionsAndMove() {
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
         fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
@@ -252,12 +255,16 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                         dbQuestion.setName(questionResponse.getQuestionName());
                         dbQuestion.setQuestionType(questionResponse.getQuestionType());
                         dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
-                        //dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
-                        //TODO to be removed
-                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
+                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
                         dbQuestion.setSelected("Y");
                         questionDao.create(dbQuestion);
                     }
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("areQuestionsFetched", true);
+                    editor.commit();
+                    Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
+                    startActivity(homePage);
                 } catch (SQLException e) {
                     Log.e("RewardConfiguration", "Unable to fetch questions");
                 }

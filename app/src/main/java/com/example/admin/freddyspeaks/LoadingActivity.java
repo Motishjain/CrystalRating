@@ -1,7 +1,9 @@
 package com.example.admin.freddyspeaks;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -16,9 +18,6 @@ import java.util.List;
 public class LoadingActivity extends AppCompatActivity {
 
 
-    Dao<Outlet, Integer> outletDao;
-    QueryBuilder<Outlet, Integer> queryBuilder;
-    List<Outlet> outletList; //Maximum one row will exist
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +27,19 @@ public class LoadingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         try {
-            outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
-            queryBuilder = outletDao.queryBuilder();
-            outletList = queryBuilder.query();
-            if(outletList.size()>0){
-                Intent homePage = new Intent(LoadingActivity.this,HomePageActivity.class);
-                startActivity(homePage);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String outletCode = sharedPreferences.getString("outletCode", null) ;
+
+            if(outletCode!=null){
+                Boolean areQuestionsFetched = sharedPreferences.getBoolean("areQuestionsFetched", false) ;
+                if(areQuestionsFetched) {
+                    Intent homePage = new Intent(LoadingActivity.this,HomePageActivity.class);
+                    startActivity(homePage);
+                }
+                else {
+                    Intent homePage = new Intent(LoadingActivity.this,RewardConfigurationActivity.class);
+                    startActivity(homePage);
+                }
             }
             else {
                 Intent registerOutlet = new Intent(LoadingActivity.this,OutletDetailsActivity.class);

@@ -17,7 +17,7 @@ public class BaseActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("FreddySpeaks");
+        setTitle("");
     }
 
     @Override

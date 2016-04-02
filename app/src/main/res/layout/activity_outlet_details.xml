@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/headerBg"
+        android:id="@+id/toolbar"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
         <com.example.admin.view.CustomFontTextView
             style="@style/appHeader"

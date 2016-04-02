@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#237414</color>
-    <color name="colorPrimaryDark">#800080</color>
+    <color name="colorPrimaryDark">#660198</color>
     <color name="colorAccent">#FF4081</color>
     <color name="register_border">#FF0000</color>
     <color name="light_bg">#F1CAF4</color>
-    <color name="headerBg">#800080</color>
+    <color name="headerBg">#551A8B</color>
     <color name="textHint">#237414</color>
     <color name="textHighlight">#B00000</color>
-    <color name="formButtonBg">#800080</color>
+    <color name="formButtonBg">#551A8B</color>
     <color name="appBackGround">#F4BBFF</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
