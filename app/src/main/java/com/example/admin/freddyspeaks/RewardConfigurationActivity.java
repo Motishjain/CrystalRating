@@ -256,7 +256,6 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                         dbQuestion.setQuestionType(questionResponse.getQuestionType());
                         dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
                         dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
-                        dbQuestion.setSelected("Y");
                         questionDao.create(dbQuestion);
                     }
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
