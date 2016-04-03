@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,77 +11,86 @@
     android:id="@+id/ratingCardHolder"
     tools:context="com.example.admin.freddyspeaks.GetRatingActivity"
     tools:showIn="@layout/activity_get_rating"
+    android:background="@drawable/app_bg"
     >
 
-    <com.example.admin.view.CustomFontTextView
-        android:id="@+id/getRatingHeader"
-        android:text="@string/get_rating_header"
-        style="@style/screenHeader"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="90dp"
+    <ImageView
+        android:id="@+id/backgroundRatingImage"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:scaleType="centerInside"
+        android:layout_gravity="center"
+        android:alpha="0.4"
         />
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="350dp">
-
-        <ImageView
-            android:id="@+id/ratingBackArrow"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/previous_purple"
-            android:onClick="getPreviousRating"
-            android:background="#0000"/>
-
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/ratingBarPager"
-            android:background="@drawable/register_container"
-            android:layout_marginLeft="5dp"
-            android:layout_width="250dp"
-            android:layout_height="match_parent" />
-
-        <ImageView
-            android:id="@+id/ratingNextArrow"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/next_purple"
-            android:onClick="getNextRating"
-            android:background="#0000"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/footerButtons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        >
 
-        <com.example.admin.view.CustomFontButton
-            android:id="@+id/ratingPreviousButton"
-            style="@style/formButton"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:gravity="center"
-            android:text="@string/previous"
-            android:onClick="getPreviousRating"
-            />
+            android:orientation="horizontal"
+            android:layout_height="400dp">
 
-        <Space
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            />
+            <ImageView
+                android:id="@+id/ratingBackArrow"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/previous_purple"
+                android:onClick="getPreviousRating"
+                android:background="#0000"/>
 
-        <com.example.admin.view.CustomFontButton
-            android:id="@+id/ratingNextButton"
-            style="@style/formButton"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/ratingBarPager"
+                android:layout_marginLeft="5dp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/ratingNextArrow"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/next_purple"
+                android:onClick="getNextRating"
+                android:background="#0000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/footerButtons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/next"
-            android:onClick="getNextRating"
-            />
+            android:orientation="horizontal">
+
+            <com.example.admin.view.CustomFontButton
+                android:id="@+id/ratingPreviousButton"
+                style="@style/formButton"
+                android:gravity="center"
+                android:text="@string/previous"
+                android:onClick="getPreviousRating"
+                />
+
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                />
+
+            <com.example.admin.view.CustomFontButton
+                android:id="@+id/ratingNextButton"
+                style="@style/formButton"
+                android:gravity="center"
+                android:text="@string/next"
+                android:onClick="getNextRating"
+                />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

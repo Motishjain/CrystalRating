@@ -1,29 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:state_pressed="true" >
-        <shape android:shape="rectangle"  >
-            <corners android:radius="3dip" />
-            <stroke android:width="1dip" android:color="#5e7974" />
-            <gradient android:angle="-90" android:startColor="#345953" android:endColor="#689a92"  />
-        </shape>
-    </item>
-    <item android:state_focused="true">
-        <shape android:shape="rectangle"  >
-            <corners android:radius="3dip" />
-            <stroke android:width="1dip" android:color="#5e7974" />
-            <solid android:color="#58857e"/>
-        </shape>
-        <shape android:shape="rectangle">
-            <corners android:radius="3dp" />
-            <stroke android:width="1dp" android:color="@color/black"/>
-            <solid android:color="@color/formButtonBg" />
-        </shape>
-    </item>
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="3dp" />
-            <stroke android:width="1dp" android:color="@color/black"/>
-            <gradient android:angle="270" android:startColor="@color/formButtonBg" android:endColor="#D278FE"  />
+            <solid android:color="@color/formButtonBg" />
             <size android:height="8dp" />
             <padding android:left="4dp" android:right="4dp" />
         </shape>
