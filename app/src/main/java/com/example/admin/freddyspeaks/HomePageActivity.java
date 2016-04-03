@@ -25,10 +25,8 @@ public class HomePageActivity extends BaseActivity {
         addRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent billDetails = new Intent(HomePageActivity.this, GetRatingActivity.class);
-                FeedbackRequest feedback = new FeedbackRequest();
-                billDetails.putExtra("feedback",feedback);
-                startActivity(billDetails);
+                Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
+                startActivity(getRating);
             }
         });
     }

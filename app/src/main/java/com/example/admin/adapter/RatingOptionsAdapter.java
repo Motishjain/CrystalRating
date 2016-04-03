@@ -2,7 +2,9 @@ package com.example.admin.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,16 +68,18 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
         if(selected[position]) {
             holder.ratingOptionEmoticon.getLayoutParams().width = emoticonWidth + 2;
             holder.ratingOptionEmoticon.getLayoutParams().height = emoticonHeight + 2;
-            holder.selectedOptionTextView.setTextSize(optionTextSize+2);
+            holder.selectedOptionTextView.setTextSize(optionTextSize + 2);
             holder.selectedOptionTextView.setTypeface(null, Typeface.BOLD);
-            holder.ratingOptionRadioButton.setChecked(true);
+            GradientDrawable background = (GradientDrawable)holder.ratingOptionsLayout.getBackground();
+            background.setStroke(2, Color.BLACK);
         }
         else {
             holder.ratingOptionEmoticon.getLayoutParams().width = emoticonWidth;
             holder.ratingOptionEmoticon.getLayoutParams().height = emoticonHeight;
             holder.selectedOptionTextView.setTextSize(optionTextSize);
             holder.selectedOptionTextView.setTypeface(null, Typeface.NORMAL);
-            holder.ratingOptionRadioButton.setChecked(false);
+            GradientDrawable background = (GradientDrawable)holder.ratingOptionsLayout.getBackground();
+            background.setStroke(0,Color.BLACK);
         }
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -88,7 +92,6 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
             }
         };
         holder.ratingOptionsLayout.setOnClickListener(onClickListener);
-        holder.ratingOptionRadioButton.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -99,14 +102,12 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
 
     static class RatingOptionHolder extends RecyclerView.ViewHolder{
 
-        RadioButton ratingOptionRadioButton;
         ImageView ratingOptionEmoticon;
         TextView selectedOptionTextView;
         RelativeLayout ratingOptionsLayout;
 
         public RatingOptionHolder(View view){
             super(view);
-            ratingOptionRadioButton = (RadioButton) view.findViewById(R.id.ratingOptionRadioButton);
             ratingOptionEmoticon = (ImageView) view.findViewById(R.id.ratingOptionEmoticon);
             selectedOptionTextView = (TextView) view.findViewById(R.id.selectedOptionTextView);
             ratingOptionsLayout = (RelativeLayout) view.findViewById(R.id.ratingOptionsLayout);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -81,6 +82,9 @@ public class RatingSummaryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_summary);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         ratingSummaryChart = (PieChart) findViewById(R.id.ratingSummaryChart);
         fromDateTextView = (TextView) findViewById(R.id.fromDate);
         toDateTextView = (TextView) findViewById(R.id.toDate);
@@ -98,7 +102,8 @@ public class RatingSummaryActivity extends BaseActivity {
         Legend legend = ratingSummaryChart.getLegend();
         textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/comicsansms.ttf");
         legend.setTypeface(textFont);
-        legend.setTextSize(30);
+        legend.setTextSize(20);
+
         legend.setWordWrapEnabled(true);
 
 
@@ -233,7 +238,7 @@ public class RatingSummaryActivity extends BaseActivity {
             }
         }
 
-        PieDataSet dataset = new PieDataSet(entries, "Ratings");
+        PieDataSet dataset = new PieDataSet(entries, "");
         dataset.setColors(ColorTemplate.JOYFUL_COLORS);
         dataset.setValueTextSize(12);
         dataset.setValueTypeface(textFont);

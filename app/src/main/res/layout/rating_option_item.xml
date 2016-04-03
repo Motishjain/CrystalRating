@@ -3,22 +3,14 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_marginTop="25dp"
     android:id="@+id/ratingOptionsLayout"
+    android:background="@drawable/rating_option"
     android:layout_height="30dp">
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:gravity="bottom"
-        android:id="@+id/ratingOptionRadioButton"/>
 
     <ImageView
         android:id="@+id/ratingOptionEmoticon"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginLeft="2dp"
-        android:layout_toRightOf="@id/ratingOptionRadioButton"
         android:gravity="center"
         android:background="#0000"/>
 
