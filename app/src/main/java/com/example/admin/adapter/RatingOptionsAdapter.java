@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
 
     @Override
     public RatingOptionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent,false);
         RatingOptionHolder ratingOptionHolder = new RatingOptionHolder(view);
         emoticonWidth = ratingOptionHolder.ratingOptionEmoticon.getLayoutParams().width;
         emoticonHeight = ratingOptionHolder.ratingOptionEmoticon.getLayoutParams().height;
@@ -70,16 +71,16 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
             holder.ratingOptionEmoticon.getLayoutParams().height = emoticonHeight + 2;
             holder.selectedOptionTextView.setTextSize(optionTextSize + 2);
             holder.selectedOptionTextView.setTypeface(null, Typeface.BOLD);
-            GradientDrawable background = (GradientDrawable)holder.ratingOptionsLayout.getBackground();
-            background.setStroke(2, Color.BLACK);
+            LayerDrawable background = (LayerDrawable)holder.ratingOptionsLayout.getBackground();
+            ((GradientDrawable)(background.findDrawableByLayerId(background.getId(0)))).setStroke(0, Color.BLACK);
         }
         else {
             holder.ratingOptionEmoticon.getLayoutParams().width = emoticonWidth;
             holder.ratingOptionEmoticon.getLayoutParams().height = emoticonHeight;
             holder.selectedOptionTextView.setTextSize(optionTextSize);
             holder.selectedOptionTextView.setTypeface(null, Typeface.NORMAL);
-            GradientDrawable background = (GradientDrawable)holder.ratingOptionsLayout.getBackground();
-            background.setStroke(0,Color.BLACK);
+            LayerDrawable background = (LayerDrawable)holder.ratingOptionsLayout.getBackground();
+            ((GradientDrawable)(background.findDrawableByLayerId(background.getId(0)))).setStroke(0, Color.BLACK);
         }
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override

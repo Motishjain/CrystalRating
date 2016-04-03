@@ -69,8 +69,8 @@ public class RatingCardFragment extends Fragment {
         questionNameTextView = (TextView) ratingCard.findViewById(R.id.questionNameTextView);
         questionNameTextView.setText(question.getName());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext(),LinearLayoutManager.VERTICAL,false);
+
         ratingOptionsRecyclerView = (RecyclerView) ratingCard.findViewById(R.id.ratingOptionsRecyclerView);
         ratingOptionsRecyclerView.setLayoutManager(layoutManager);
 

@@ -4,10 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:id="@+id/ratingCardHolder"
     tools:context="com.example.admin.freddyspeaks.GetRatingActivity"
     tools:showIn="@layout/activity_get_rating"
@@ -16,11 +12,10 @@
 
     <ImageView
         android:id="@+id/backgroundRatingImage"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:scaleType="centerInside"
-        android:layout_gravity="center"
-        android:alpha="0.4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:alpha="0.2"
         />
 
     <LinearLayout

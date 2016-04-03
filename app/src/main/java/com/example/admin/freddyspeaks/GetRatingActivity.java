@@ -71,7 +71,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         ratingFragmentMap = new HashMap<>();
         ratingMap = new HashMap<>();
 
-/*        TextToSpeechConversionTask textToSpeechConversionTask = new TextToSpeechConversionTask(getApplicationContext());
+/*      TextToSpeechConversionTask textToSpeechConversionTask = new TextToSpeechConversionTask(getApplicationContext());
         textToSpeechConversionTask.execute(AppConstants.USER_WELCOME_MSG);*/
 
         feedback = new FeedbackRequest();
