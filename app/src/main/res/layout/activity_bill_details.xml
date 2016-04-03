@@ -18,4 +18,6 @@
             />
     </android.support.v7.widget.Toolbar>
 
+    <include layout="@layout/content_bill_details" />
+
 </android.support.design.widget.CoordinatorLayout>
