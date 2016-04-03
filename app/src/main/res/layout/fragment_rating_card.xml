@@ -6,21 +6,22 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="layout.RatingCardFragment"
-    android:weightSum="5"
+    android:weightSum="10"
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <com.example.admin.view.CustomFontTextView
         android:id="@+id/questionNameTextView"
-        android:layout_weight="1"
+        android:layout_marginTop="35dp"
+        android:layout_weight="4"
         style="@style/questionName" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ratingOptionsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="20dp"
-        android:layout_weight="4"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="30dp"
+        android:layout_weight="6"
         android:layout_marginRight="5dp"/>
 
 
