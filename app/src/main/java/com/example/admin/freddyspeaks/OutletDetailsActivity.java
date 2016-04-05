@@ -9,8 +9,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.admin.DeviceBootReceiver;
+import com.example.admin.receiver.DeviceBootReceiver;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Outlet;
@@ -27,8 +25,6 @@ import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.request_objects.OutletRequest;
 import com.example.admin.webservice.response_objects.PostServiceResponse;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -41,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OutletDetailsActivity extends AppCompatActivity {
+public class OutletDetailsActivity extends BaseActivity {
 
     EditText outletName, alias, addrLine1, addrLine2, pinCode, email, phoneNumber;
     Button nextButton;
@@ -115,7 +111,9 @@ public class OutletDetailsActivity extends AppCompatActivity {
                         PostServiceResponse postServiceResponse = response.body();
 
                         if (postServiceResponse.isSuccess()) {
-
+                            if(currentOutlet == null) {
+                                currentOutlet = new Outlet();
+                            }
                             currentOutlet.setOutletCode(postServiceResponse.getData().toString());
                             currentOutlet.setOutletName(outletRequest.getOutletName());
                             currentOutlet.setAliasName(outletRequest.getAliasName());
@@ -125,17 +123,12 @@ public class OutletDetailsActivity extends AppCompatActivity {
                             currentOutlet.setEmail(outletRequest.getEmail());
                             currentOutlet.setCellNumber(outletRequest.getCellNumber());
 
-                            //Check if edit mode
-                            if(currentOutlet.getOutletCode()!=null) {
-                                currentOutlet = new Outlet();
+                            //Check if this is create mode (Register Outlet)
+                            if(!editMode) {
                                 try {
                                     outletDao.create(currentOutlet);
-                                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("outletCode", currentOutlet.getOutletCode());
-                                    editor.commit();
 
-                                    // Set the alarm to start at approximately 12:00 a.m.
+                                    // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
                                     alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
                                     Intent intent = new Intent(OutletDetailsActivity.this, ScheduledAlarmReceiver.class);
@@ -143,7 +136,7 @@ public class OutletDetailsActivity extends AppCompatActivity {
 
                                     Calendar calendar = Calendar.getInstance();
                                     calendar.setTimeInMillis(System.currentTimeMillis());
-                                    calendar.set(Calendar.HOUR_OF_DAY, 14);
+                                    calendar.set(Calendar.HOUR_OF_DAY, 0);
                                     alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                                             AlarmManager.INTERVAL_DAY, alarmIntent);
                                     ComponentName receiver = new ComponentName(getApplicationContext(), DeviceBootReceiver.class);
@@ -151,6 +144,11 @@ public class OutletDetailsActivity extends AppCompatActivity {
                                     pm.setComponentEnabledSetting(receiver,
                                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                             PackageManager.DONT_KILL_APP);
+
+                                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("outletCode", currentOutlet.getOutletCode());
+                                    editor.commit();
 
                                 } catch (SQLException e) {
                                     e.printStackTrace();

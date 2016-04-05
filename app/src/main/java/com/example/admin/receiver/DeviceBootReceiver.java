@@ -1,4 +1,4 @@
-package com.example.admin;
+package com.example.admin.receiver;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
