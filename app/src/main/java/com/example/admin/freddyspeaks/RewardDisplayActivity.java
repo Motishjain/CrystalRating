@@ -30,7 +30,7 @@ public class RewardDisplayActivity extends BaseActivity {
     Dao<SelectedReward, Integer> selectedRewardDao;
     SelectedReward allocatedReward;
     Dao<User, Integer> userDao;
-    CustomFontTextView rewardDisplayHeader, rewardResultText, resultRewardName;
+    CustomFontTextView rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
     ImageView resultRewardImage;
 
     @Override
@@ -38,8 +38,8 @@ public class RewardDisplayActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_display);
 
-        rewardDisplayHeader = (CustomFontTextView) findViewById(R.id.rewardDisplayHeader);
-        rewardResultText = (CustomFontTextView) findViewById(R.id.rewardResultText);
+        rewardDisplayExclaimer = (CustomFontTextView) findViewById(R.id.rewardDisplayExclaimer);
+        rewardDisplayMessage = (CustomFontTextView) findViewById(R.id.rewardDisplayMessage);
         resultRewardName = (CustomFontTextView) findViewById(R.id.resultRewardName);
         resultRewardImage = (ImageView) findViewById(R.id.resultRewardImage);
 
@@ -60,6 +60,8 @@ public class RewardDisplayActivity extends BaseActivity {
             FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(resultRewardImage);
             fetchRewardImageTask.execute(rewardResult.getImage());
             resultRewardName.setText(rewardResult.getName());
+            rewardDisplayExclaimer.setText("Hurray!!!");
+            rewardDisplayMessage.setText("We have a reward for you!");
             TextToSpeechConversionTask textToSpeechConversionTask = new TextToSpeechConversionTask(getApplicationContext());
             String message = AppConstants.USER_CONGRATULATION_MSG;
             message = message.replace("{userName}",feedback.getUserName());

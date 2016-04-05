@@ -1,58 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".RewardDisplayActivity"
     tools:showIn="@layout/activity_reward_display">
 
-    <com.example.admin.view.CustomFontTextView
-        android:layout_marginTop="70dp"
-        android:id="@+id/rewardDisplayHeader"
-        style="@style/screenHeader"
-        />
-    <com.example.admin.view.CustomFontTextView
-        android:id="@+id/rewardResultText"
-        style="@style/rewardResult"
+    <ImageView
+        android:id="@+id/backgroundRewardDisplayImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:alpha="0.2"
         />
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="200dp"
-        android:id="@+id/rewardDisplayBox"
-        android:layout_height="200dp">
-
-        <ImageView
-            android:id="@+id/resultRewardImage"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:scaleType="centerInside"
-            android:gravity="center"
-            style="@style/rewardImage"
-            android:background="#0000"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.example.admin.view.CustomFontTextView
-            android:id="@+id/resultRewardName"
-            style="@style/rewardName"
-            android:gravity="top|center"
+            android:layout_marginTop="35dp"
+            android:id="@+id/rewardDisplayExclaimer"
+            style="@style/rewardDisplayExclaimer"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+        <com.example.admin.view.CustomFontTextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/rewardDisplayMessage"
+            style="@style/rewardDisplayMessage"
+            android:gravity="center"
+            android:layout_gravity="center"
             />
 
-    </FrameLayout>
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="200dp"
+            android:id="@+id/rewardDisplayBox"
+            android:layout_height="200dp">
 
-    <Button
-        android:id="@+id/rewardDisplayContinueButton"
-        style="@style/formButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="3dp"
-        android:text="Exit"
-        android:textAllCaps="false"
-        android:textColor="#fff" />
-</LinearLayout>
+            <ImageView
+                android:id="@+id/resultRewardImage"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:scaleType="centerInside"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/rewardImage"
+                android:background="#0000"/>
+
+            <com.example.admin.view.CustomFontTextView
+                android:id="@+id/resultRewardName"
+                style="@style/rewardName"
+                android:gravity="top|center"
+                />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/rewardDisplayContinueButton"
+            style="@style/formButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            android:text="Exit"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:textColor="#fff" />
+    </LinearLayout>
+</FrameLayout>

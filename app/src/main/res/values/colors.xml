@@ -5,11 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="register_border">#FF0000</color>
     <color name="light_bg">#F1CAF4</color>
-    <color name="headerBg">#551A8B</color>
+    <color name="headerBg">#2B4F81</color>
     <color name="textHint">#237414</color>
     <color name="textHighlight">#B00000</color>
     <color name="formButtonBg">#6A4351</color>
-    <color name="questionName">#800000</color>
+    <color name="dark_red">#800000</color>
     <color name="option_bg">#2B4F81</color>
     <color name="appBackGround">#F4BBFF</color>
     <color name="black">#000000</color>
