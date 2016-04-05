@@ -39,4 +39,6 @@ public class AppConstants {
 
     public static final String USER_CONGRATULATION_MSG = "Congratulations {userName}. You won a {rewardName}";
 
+    public static final int MAXIMUM_QUESTIONS = 3;
+
 }

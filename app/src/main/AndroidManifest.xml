@@ -3,13 +3,14 @@
     package="com.example.admin.freddyspeaks">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:largeHeap="true"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".OutletDetailsActivity"
@@ -29,6 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,8 +41,7 @@
         <activity
             android:name=".GetRatingActivity"
             android:label="@string/title_activity_get_rating"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".RewardConfigurationActivity"
             android:label="@string/title_activity_reward_configuration"
@@ -64,8 +65,14 @@
         <activity
             android:name=".RatingSummaryActivity"
             android:label="@string/title_activity_rating_summary"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <receiver android:name=".SampleBootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

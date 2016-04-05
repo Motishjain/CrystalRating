@@ -1,7 +1,12 @@
 package com.example.admin.freddyspeaks;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
@@ -13,9 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.admin.DeviceBootReceiver;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Outlet;
+import com.example.admin.receiver.ScheduledAlarmReceiver;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.request_objects.OutletRequest;
@@ -25,8 +32,10 @@ import com.google.gson.GsonBuilder;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.UpdateBuilder;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +51,8 @@ public class OutletDetailsActivity extends AppCompatActivity {
     boolean editMode;
     String outletCode;
 
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,9 +115,7 @@ public class OutletDetailsActivity extends AppCompatActivity {
                         PostServiceResponse postServiceResponse = response.body();
 
                         if (postServiceResponse.isSuccess()) {
-                            if(!editMode) {
-                                currentOutlet = new Outlet();
-                            }
+
                             currentOutlet.setOutletCode(postServiceResponse.getData().toString());
                             currentOutlet.setOutletName(outletRequest.getOutletName());
                             currentOutlet.setAliasName(outletRequest.getAliasName());
@@ -115,16 +124,54 @@ public class OutletDetailsActivity extends AppCompatActivity {
                             currentOutlet.setPinCode(outletRequest.getPinCode());
                             currentOutlet.setEmail(outletRequest.getEmail());
                             currentOutlet.setCellNumber(outletRequest.getCellNumber());
-                            try {
-                                outletDao.create(currentOutlet);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
 
-                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("outletCode", currentOutlet.getOutletCode());
-                            editor.commit();
+                            //Check if edit mode
+                            if(currentOutlet.getOutletCode()!=null) {
+                                currentOutlet = new Outlet();
+                                try {
+                                    outletDao.create(currentOutlet);
+                                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("outletCode", currentOutlet.getOutletCode());
+                                    editor.commit();
+
+                                    // Set the alarm to start at approximately 12:00 a.m.
+
+                                    alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                                    Intent intent = new Intent(OutletDetailsActivity.this, ScheduledAlarmReceiver.class);
+                                    alarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, intent, 0);
+
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTimeInMillis(System.currentTimeMillis());
+                                    calendar.set(Calendar.HOUR_OF_DAY, 14);
+                                    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                            AlarmManager.INTERVAL_DAY, alarmIntent);
+                                    ComponentName receiver = new ComponentName(getApplicationContext(), DeviceBootReceiver.class);
+                                    PackageManager pm = getApplicationContext().getPackageManager();
+                                    pm.setComponentEnabledSetting(receiver,
+                                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                                            PackageManager.DONT_KILL_APP);
+
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            else {
+                                try {
+                                    UpdateBuilder<Outlet, Integer> outletUpdateBuilder = outletDao.updateBuilder();
+                                    outletUpdateBuilder.updateColumnValue("outletName",currentOutlet.getOutletName());
+                                    outletUpdateBuilder.updateColumnValue("aliasName",currentOutlet.getAliasName());
+                                    outletUpdateBuilder.updateColumnValue("addrLine1",currentOutlet.getAddrLine1());
+                                    outletUpdateBuilder.updateColumnValue("addrLine2",currentOutlet.getAddrLine2());
+                                    outletUpdateBuilder.updateColumnValue("pinCode",currentOutlet.getPinCode());
+                                    outletUpdateBuilder.updateColumnValue("email",currentOutlet.getEmail());
+                                    outletUpdateBuilder.updateColumnValue("cellNumber",currentOutlet.getCellNumber());
+                                    outletUpdateBuilder.where().eq("outletCode",currentOutlet.getOutletCode());
+                                    outletUpdateBuilder.update();
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
                             Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
                             startActivity(configureRewards);
@@ -141,28 +188,11 @@ public class OutletDetailsActivity extends AppCompatActivity {
             }
 
         });
-
-        /*textToSpeechConverter=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    new Thread(new Runnable() {
-                        public void run() {
-                            textToSpeechConverter.setPitch(1.1f); // saw from internet
-                            textToSpeechConverter.setSpeechRate(0.4f); // f denotes float, it actually type casts 0.5 to float
-                            textToSpeechConverter.setLanguage(Locale.UK);
-                            textToSpeechConverter.speak(AppConstants.REGISTER_WELCOME_MSG, TextToSpeech.QUEUE_FLUSH, null);
-                        }
-                    }).start();
-                }
-            }
-        });*/
     }
 
     void populateFields(Dao<Outlet,Integer> outletDao) {
 
         QueryBuilder<Outlet,Integer> outletQueryBuilder = outletDao.queryBuilder();
-        Outlet currentOutlet;
         try {
             currentOutlet = outletQueryBuilder.queryForFirst();
             outletName.setText(currentOutlet.getOutletName());

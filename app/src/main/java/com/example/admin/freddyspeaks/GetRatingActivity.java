@@ -24,13 +24,9 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
-import java.security.SecureRandom;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import layout.RatingCardFragment;
 
@@ -86,6 +82,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         try {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
             questionQueryBuilder = questionDao.queryBuilder();
+            questionQueryBuilder.where().eq("selected","Y");
             questionList = questionQueryBuilder.query();
             long T3 = android.os.SystemClock.uptimeMillis();
             Log.d("GetRating",T3+"");
@@ -195,42 +192,8 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     }
 
     void setupRatingScreens() {
-        filterQuestions();
-        long T5 = android.os.SystemClock.uptimeMillis();
-        Log.d("GetRating", T5 + "");
-        initializeRatingFragments();
-        long T6 = android.os.SystemClock.uptimeMillis();
-        Log.d("GetRating", T6 + "");
-    }
-
-    void filterQuestions() {
-        List<Question> filteredList = new ArrayList<>();
-        List<Question> productQuestionList = new ArrayList<>();
-        List<Question> serviceQuestionList = new ArrayList<>();
-        List<Question> miscQuestionList = new ArrayList<>();
-        for(Question question:questionList) {
-            if(question.getQuestionType().equals(AppConstants.PRODUCT_QUESTION_TYPE)) {
-                productQuestionList.add(question);
-            }
-            else if(question.getQuestionType().equals(AppConstants.SERVICE_QUESTION_TYPE)) {
-                serviceQuestionList.add(question);
-            }
-            else if(question.getQuestionType().equals(AppConstants.MISCELLENOUS_QUESTION_TYPE)) {
-                miscQuestionList.add(question);
-            }
-        }
-
-        Random randomGenerator = new SecureRandom();
-        filteredList.add(productQuestionList.get(randomGenerator.nextInt(productQuestionList.size())));
-        filteredList.add(serviceQuestionList.get(randomGenerator.nextInt(serviceQuestionList.size())));
-        filteredList.add(miscQuestionList.get(randomGenerator.nextInt(miscQuestionList.size())));
-
-        questionList = filteredList;
-    }
-
-    void initializeRatingFragments() {
         currentQuestionIndex = 0;
-        totalQuestions = questionList.size();
+        totalQuestions = AppConstants.MAXIMUM_QUESTIONS;
         ratingPreviousButton.setVisibility(View.GONE);
         RatingFragmentsAdapter ratingFragmentsAdapter = new RatingFragmentsAdapter(getSupportFragmentManager(),this);
         ratingBarPager.setAdapter(ratingFragmentsAdapter);
