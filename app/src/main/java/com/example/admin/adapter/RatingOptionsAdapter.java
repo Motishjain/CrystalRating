@@ -72,7 +72,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
             holder.selectedOptionTextView.setTextSize(optionTextSize + 2);
             holder.selectedOptionTextView.setTypeface(null, Typeface.BOLD);
             LayerDrawable background = (LayerDrawable)holder.ratingOptionsLayout.getBackground();
-            ((GradientDrawable)(background.findDrawableByLayerId(background.getId(0)))).setStroke(0, Color.BLACK);
+            ((GradientDrawable)(background.findDrawableByLayerId(background.getId(0)))).setStroke(2, Color.BLACK);
         }
         else {
             holder.ratingOptionEmoticon.getLayoutParams().width = emoticonWidth;
