@@ -21,7 +21,7 @@ import java.util.Random;
 /**
  * Created by Admin on 4/6/2016.
  */
-public class ScheduledAlarmReceiver extends BroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {

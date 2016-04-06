@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -41,7 +40,7 @@
         <activity
             android:name=".GetRatingActivity"
             android:label="@string/title_activity_get_rating"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RewardConfigurationActivity"
             android:label="@string/title_activity_reward_configuration"
@@ -65,14 +64,19 @@
         <activity
             android:name=".RatingSummaryActivity"
             android:label="@string/title_activity_rating_summary"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".SampleBootReceiver"
+        <receiver
+            android:name="com.example.admin.receiver.DeviceBootReceiver"
             android:enabled="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name="com.example.admin.receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

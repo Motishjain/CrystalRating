@@ -126,8 +126,6 @@ public class OutletDetailsActivity extends BaseActivity {
                             //Check if this is create mode (Register Outlet)
                             if(!editMode) {
                                 try {
-                                    outletDao.create(currentOutlet);
-
                                     // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
                                     alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -139,12 +137,13 @@ public class OutletDetailsActivity extends BaseActivity {
                                     calendar.set(Calendar.HOUR_OF_DAY, 0);
                                     alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                                             AlarmManager.INTERVAL_DAY, alarmIntent);
-                                    ComponentName receiver = new ComponentName(getApplicationContext(), DeviceBootReceiver.class);
+                                    ComponentName receiver = new ComponentName(OutletDetailsActivity.this, DeviceBootReceiver.class);
                                     PackageManager pm = getApplicationContext().getPackageManager();
                                     pm.setComponentEnabledSetting(receiver,
                                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                             PackageManager.DONT_KILL_APP);
 
+                                    outletDao.create(currentOutlet);
                                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("outletCode", currentOutlet.getOutletCode());

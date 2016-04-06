@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorHint">#237414</item>
         <item name="android:textColorPrimary">@color/dark_red</item>
-        <item name="android:textColorSecondary">@color/dark_red</item>
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

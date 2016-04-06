@@ -12,7 +12,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
-        applicationId "com.example.mjai37.freddyspeaks"
+        applicationId "com.example.admin.freddyspeaks"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
