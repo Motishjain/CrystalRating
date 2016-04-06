@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.admin.receiver.ScheduledAlarmReceiver;
-
 import java.util.Calendar;
 
 /**
@@ -24,7 +22,7 @@ public class DeviceBootReceiver extends BroadcastReceiver {
             String outletCode = sharedPreferences.getString("outletCode", null) ;
             if(outletCode!=null) {
                 AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-                Intent schedulerIntent = new Intent(context, ScheduledAlarmReceiver.class);
+                Intent schedulerIntent = new Intent(context, AlarmReceiver.class);
                 PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, schedulerIntent, 0);
 
                 Calendar calendar = Calendar.getInstance();

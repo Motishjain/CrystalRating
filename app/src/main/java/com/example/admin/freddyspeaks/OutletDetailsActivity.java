@@ -16,11 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.admin.receiver.DeviceBootReceiver;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Outlet;
-import com.example.admin.receiver.ScheduledAlarmReceiver;
+import com.example.admin.receiver.AlarmReceiver;
+import com.example.admin.receiver.DeviceBootReceiver;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.request_objects.OutletRequest;
@@ -129,7 +129,7 @@ public class OutletDetailsActivity extends BaseActivity {
                                     // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
                                     alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                                    Intent intent = new Intent(OutletDetailsActivity.this, ScheduledAlarmReceiver.class);
+                                    Intent intent = new Intent(OutletDetailsActivity.this, AlarmReceiver.class);
                                     alarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, intent, 0);
 
                                     Calendar calendar = Calendar.getInstance();

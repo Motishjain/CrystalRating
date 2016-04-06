@@ -17,6 +17,7 @@ import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
 import com.example.admin.database.SelectedReward;
+import com.example.admin.tasks.SetRandomQuestionsTask;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.response_objects.QuestionResponse;
@@ -262,6 +263,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("areQuestionsFetched", true);
                     editor.commit();
+                    SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(RewardConfigurationActivity.this);
+                    setRandomQuestionsTask.execute();
                     Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
                     startActivity(homePage);
                 } catch (SQLException e) {
