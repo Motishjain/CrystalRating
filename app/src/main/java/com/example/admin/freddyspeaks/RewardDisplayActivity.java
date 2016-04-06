@@ -1,7 +1,10 @@
 package com.example.admin.freddyspeaks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.admin.constants.AppConstants;
@@ -37,6 +40,8 @@ public class RewardDisplayActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_display);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         rewardDisplayExclaimer = (CustomFontTextView) findViewById(R.id.rewardDisplayExclaimer);
         rewardDisplayMessage = (CustomFontTextView) findViewById(R.id.rewardDisplayMessage);
@@ -62,11 +67,6 @@ public class RewardDisplayActivity extends BaseActivity {
             resultRewardName.setText(rewardResult.getName());
             rewardDisplayExclaimer.setText("Hurray!!!");
             rewardDisplayMessage.setText("We have a reward for you!");
-            TextToSpeechConversionTask textToSpeechConversionTask = new TextToSpeechConversionTask(getApplicationContext());
-            String message = AppConstants.USER_CONGRATULATION_MSG;
-            message = message.replace("{userName}",feedback.getUserName());
-            message = message.replace("{rewardName}",rewardResult.getName());
-            textToSpeechConversionTask.execute(message);
         }
         else {
 
@@ -101,5 +101,10 @@ public class RewardDisplayActivity extends BaseActivity {
                 //TODO Handle failure
             }
         });
+    }
+
+    void exit(View v) {
+        Intent homePage = new Intent(RewardDisplayActivity.this, HomePageActivity.class);
+        startActivity(homePage);
     }
 }

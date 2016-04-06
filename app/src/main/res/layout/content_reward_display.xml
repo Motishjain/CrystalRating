@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".RewardDisplayActivity"
-    tools:showIn="@layout/activity_reward_display">
+    tools:showIn="@layout/activity_reward_display"
+    android:background="@drawable/app_bg">
 
     <ImageView
         android:id="@+id/backgroundRewardDisplayImage"
@@ -67,6 +68,7 @@
             android:elevation="3dp"
             android:text="Exit"
             android:gravity="center"
+            android:onClick="exit"
             android:layout_gravity="center"
             android:textAllCaps="false"
             android:textColor="#fff" />

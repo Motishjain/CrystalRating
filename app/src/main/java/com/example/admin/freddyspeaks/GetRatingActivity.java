@@ -52,7 +52,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         long T1 = android.os.SystemClock.uptimeMillis();
-        Log.d("GetRating",T1+"");
+        Log.d("GetRatingT1",T1+"");
         setContentView(R.layout.activity_get_rating);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,7 +63,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         AsyncImageSetterTask asyncImageSetterTask = new AsyncImageSetterTask(this,backgroundRatingImage);
         asyncImageSetterTask.execute(R.drawable.bags);
         long T2 = android.os.SystemClock.uptimeMillis();
-        Log.d("GetRating",T2+"");
+        Log.d("GetRatingT2",T2+"");
         ratingFragmentMap = new HashMap<>();
         ratingMap = new HashMap<>();
 
@@ -85,10 +85,10 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             questionQueryBuilder.where().eq("selected","Y");
             questionList = questionQueryBuilder.query();
             long T3 = android.os.SystemClock.uptimeMillis();
-            Log.d("GetRating",T3+"");
+            Log.d("GetRatingT3",T3+"");
             setupRatingScreens();
             long T4 = android.os.SystemClock.uptimeMillis();
-            Log.d("GetRating",T4+"");
+            Log.d("GetRatingT4",T4+"");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,9 +155,9 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
                 ratingPreviousButton.setVisibility(View.VISIBLE);
 
             } else {
-                Intent getUserInfo = new Intent(GetRatingActivity.this, UserInfoActivity.class);
-                getUserInfo.putExtra("feedback",feedback);
-                startActivity(getUserInfo);
+                Intent getBillDetails = new Intent(GetRatingActivity.this, BillDetailsActivity.class);
+                getBillDetails.putExtra("feedback",feedback);
+                startActivity(getBillDetails);
             }
         }
 
