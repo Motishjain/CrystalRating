@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/reward_item_bg"
-    android:layout_width="90dp"
+    android:layout_width="120dp"
     android:layout_margin="@dimen/item_offset"
-    android:layout_height="90dp">
+    android:layout_height="120dp">
 
     <ImageView
         android:id="@+id/selectedRewardImage"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:scaleType="centerInside"
         android:gravity="center"
-        style="@style/rewardImage"
-        android:background="#0000"/>
+        style="@style/rewardImage"  />
 
-    <com.example.admin.view.CustomFontTextView
-        android:id="@+id/selectedRewardName"
-        style="@style/rewardName"
-        android:gravity="top|center"
-        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|left"
+        android:orientation="vertical">
 
-    <com.example.admin.view.CustomFontTextView
-        android:id="@+id/selectedRewardCost"
-        style="@style/rewardCost"
-        android:gravity="bottom|right"
-        />
+        <com.example.admin.view.CustomFontTextView
+            android:id="@+id/selectedRewardName"
+            style="@style/rewardName" />
+
+        <com.example.admin.view.CustomFontTextView
+            android:id="@+id/selectedRewardCost"
+            style="@style/rewardCost" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/selectedRewardDeleteButton"
@@ -33,7 +36,8 @@
         android:layout_height="20dp"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_gravity="bottom|left"
+        android:layout_gravity="top|right"
+        android:backgroundTint="@color/dark_orange"
         />
 
 </FrameLayout>

@@ -103,7 +103,7 @@ public class RewardDisplayActivity extends BaseActivity {
         });
     }
 
-    void exit(View v) {
+    public void exit(View v) {
         Intent homePage = new Intent(RewardDisplayActivity.this, HomePageActivity.class);
         startActivity(homePage);
     }
