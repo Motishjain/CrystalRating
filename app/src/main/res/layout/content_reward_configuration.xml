@@ -1,151 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    android:layout_gravity="left"
-    android:background="@drawable/app_bg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.admin.freddyspeaks.RewardConfigurationActivity"
     tools:showIn="@layout/activity_reward_configuration">
 
-    <com.example.admin.view.CustomFontTextView
-        android:id="@+id/rewardConfigurationHeader"
-        android:text="@string/configure_your_rewards"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="3"
-        android:shadowColor="@color/dark_red"
-        style="@style/screenHeader"
-        android:layout_marginTop="50dp"
-        />
-
-
     <LinearLayout
-        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_gravity="left"
+        android:background="@drawable/app_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/addBronzeRewardsButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/add"
-            android:tint="@color/colorPrimary"
-            android:onClick="addBronzeRewards"
-            android:scaleType="fitXY"
-            android:background="#0000"/>
+        android:layout_height="match_parent">
 
         <com.example.admin.view.CustomFontTextView
-            android:text="@string/bronze_box_header"
+            android:id="@+id/rewardConfigurationHeader"
+            android:text="@string/configure_your_rewards"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="3"
-            android:shadowColor="@color/colorPrimaryDark"
-            style="@style/rewardBoxHeader"
-            android:layout_width="wrap_content"
-            android:layout_gravity="left|center" />
+            android:shadowColor="@color/dark_red"
+            style="@style/screenHeader"
+            android:layout_marginTop="50dp"
+            />
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
-        android:background="@drawable/level_reward_box"
-        android:id="@+id/bronzeRewardsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_marginTop="10dp" />
+            <ImageView
+                android:id="@+id/addBronzeRewardsButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/add"
+                android:tint="@color/colorPrimary"
+                android:onClick="addBronzeRewards"
+                android:scaleType="fitXY"
+                android:background="#0000"/>
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <com.example.admin.view.CustomFontTextView
+                android:text="@string/bronze_box_header"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="3"
+                android:shadowColor="@color/colorPrimaryDark"
+                style="@style/rewardBoxHeader"
+                android:layout_width="wrap_content"
+                android:layout_gravity="left|center" />
 
-        <ImageView
-            android:id="@+id/addSilverRewardsButton"
-            android:layout_width="30dp"
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:background="@drawable/level_reward_box"
+            android:id="@+id/bronzeRewardsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="10dp" />
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/addSilverRewardsButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/add"
+                android:tint="@color/colorPrimary"
+                android:onClick="addSilverRewards"
+                android:scaleType="fitXY"
+                android:background="#0000"/>
+
+            <com.example.admin.view.CustomFontTextView
+                android:text="@string/silver_box_header"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="3"
+                android:shadowColor="@color/colorPrimaryDark"
+                style="@style/rewardBoxHeader"
+                android:layout_width="wrap_content"
+                android:layout_gravity="left|center" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:background="@drawable/level_reward_box"
+            android:id="@+id/silverRewardsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="5dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="5"
+            >
+
+            <ImageView
+                android:id="@+id/addGoldRewardsButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/add"
+                android:tint="@color/colorPrimary"
+                android:onClick="addGoldRewards"
+                android:scaleType="fitXY"
+                android:background="#0000"/>
+
+            <com.example.admin.view.CustomFontTextView
+                android:text="@string/gold_box_header"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="3"
+                android:shadowColor="@color/colorPrimaryDark"
+                style="@style/rewardBoxHeader"
+                android:layout_width="wrap_content"
+                android:layout_gravity="left|center" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:background="@drawable/level_reward_box"
+            android:id="@+id/goldRewardsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <com.example.admin.view.CustomFontButton
+            android:id="@+id/rewardsConfigureNextButton"
+            style="@style/formButton"
+            android:elevation="3dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:text="Next"
+            android:onClick="rewardConfigNext"
             android:layout_height="30dp"
-            android:gravity="center"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/add"
-            android:tint="@color/colorPrimary"
-            android:onClick="addSilverRewards"
-            android:scaleType="fitXY"
-            android:background="#0000"/>
-
-        <com.example.admin.view.CustomFontTextView
-            android:text="@string/silver_box_header"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="3"
-            android:shadowColor="@color/colorPrimaryDark"
-            style="@style/rewardBoxHeader"
-            android:layout_width="wrap_content"
-            android:layout_gravity="left|center" />
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            />
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:background="@drawable/level_reward_box"
-        android:id="@+id/silverRewardsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_marginTop="5dp"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/bronze_box"
+        android:scaleType="fitXY"
+        android:background="#0000"/>
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="5"
-        >
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="260dp"
+        android:src="@drawable/silver_box"
+        android:scaleType="fitXY"
+        android:background="#0000"/>
 
-        <ImageView
-            android:id="@+id/addGoldRewardsButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/add"
-            android:tint="@color/colorPrimary"
-            android:onClick="addGoldRewards"
-            android:scaleType="fitXY"
-            android:background="#0000"/>
-
-        <com.example.admin.view.CustomFontTextView
-            android:text="@string/gold_box_header"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="3"
-            android:shadowColor="@color/colorPrimaryDark"
-            style="@style/rewardBoxHeader"
-            android:layout_width="wrap_content"
-            android:layout_gravity="left|center" />
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:background="@drawable/level_reward_box"
-        android:id="@+id/goldRewardsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-
-    <com.example.admin.view.CustomFontButton
-        android:id="@+id/rewardsConfigureNextButton"
-        style="@style/formButton"
-        android:elevation="3dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:text="Next"
-        android:onClick="rewardConfigNext"
-        android:layout_height="30dp"
-        android:textAllCaps="false"
-        android:textColor="#fff"
-        />
-
-</LinearLayout>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="460dp"
+        android:src="@drawable/gold_box"
+        android:scaleType="fitXY"
+        android:background="#0000"/>
+</FrameLayout>

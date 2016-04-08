@@ -11,7 +11,6 @@
         android:id="@+id/selectedRewardImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="5dp"
         android:scaleType="centerInside"
         android:layout_gravity="center_horizontal|center_vertical"
         style="@style/rewardImage"  />
