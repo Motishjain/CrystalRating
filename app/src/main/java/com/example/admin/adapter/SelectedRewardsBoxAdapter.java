@@ -33,7 +33,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
     @Override
     public SelectedRewardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent,false);
         return new SelectedRewardHolder(view);
 
     }
@@ -46,7 +46,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
         fetchRewardImageTask.execute(reward.getImage());
 
         holder.selectedRewardName.setText(reward.getName());
-        holder.selectedRewardCost.setText(reward.getCost());
+        holder.selectedRewardCost.setText("Rs."+reward.getCost());
         holder.selectedRewardDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

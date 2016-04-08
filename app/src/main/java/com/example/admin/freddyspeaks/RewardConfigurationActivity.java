@@ -155,7 +155,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                     public void deleteButtonClicked(int position) {
                         try {
                             DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                            selectedRewardDeleteBuilder.where().eq("reward",bronzeSelectedRewardList.get(position));
+                            selectedRewardDeleteBuilder.where().eq("reward", bronzeSelectedRewardList.get(position).getId());
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {

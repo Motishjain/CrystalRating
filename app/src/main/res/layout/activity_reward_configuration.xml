@@ -7,6 +7,8 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.admin.freddyspeaks.RewardConfigurationActivity">
 
+    <include layout="@layout/content_reward_configuration" />
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -17,7 +19,5 @@
             style="@style/appHeader"
             />
     </android.support.v7.widget.Toolbar>
-
-    <include layout="@layout/content_reward_configuration" />
 
 </android.support.design.widget.CoordinatorLayout>

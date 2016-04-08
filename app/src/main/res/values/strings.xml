@@ -27,9 +27,9 @@
     <string name="screenHeaderFont">verdana</string>
     <string name="appHeaderFont">LCALLIG</string>
     <string name="configure_your_rewards">Set your rewards!</string>
-    <string name="bronze_box_header">Bronze Rewards (The Most Frequent)</string>
-    <string name="silver_box_header">Silver Rewards (Special ones!)</string>
-    <string name="gold_box_header">Gold Rewards (Dream gifts!)</string>
+    <string name="bronze_box_header">Bronze - Frequent ones!</string>
+    <string name="silver_box_header">Silver - Special gifts!</string>
+    <string name="gold_box_header">Gold - Dream rewards!</string>
     <string name="title_activity_subscription_info">SubscriptionInfoActivity</string>
     <string name="title_activity_rating_summary">RatingSummaryActivity</string>
 
