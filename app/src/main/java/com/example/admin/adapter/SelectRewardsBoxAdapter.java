@@ -42,7 +42,7 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
     }
 
     @Override
-    public void onBindViewHolder(SelectRewardHolder holder, final int position) {
+    public void onBindViewHolder(final SelectRewardHolder holder, final int position) {
         final Reward reward = rewardList.get(position);
 
         if(reward.getImage()!=null && reward.getImage().length>0){
@@ -74,6 +74,15 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
                 reward.setSelected(checked);
+                rewardSelectionListener.rewardClicked(position, checked);
+            }
+        });
+
+        holder.selectRewardFrameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = holder.selectRewardCheckbox.isChecked();
+                reward.setSelected(!checked);
                 rewardSelectionListener.rewardClicked(position, checked);
             }
         });
