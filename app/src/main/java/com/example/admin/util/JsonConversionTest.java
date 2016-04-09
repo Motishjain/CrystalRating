@@ -1,8 +1,10 @@
 package com.example.admin.util;
 
 import com.example.admin.constants.AppConstants;
+import com.example.admin.webservice.request_objects.FeedbackRequest;
 import com.example.admin.webservice.request_objects.OutletRequest;
 import com.example.admin.webservice.request_objects.RewardSubmitRequest;
+import com.example.admin.webservice.response_objects.FeedbackResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -17,10 +19,6 @@ public class JsonConversionTest {
 
     public static void main(String args[]) {
         HashMap<String,List<String>> map = new HashMap<>();
-        List<String> bronzeList = new ArrayList<>();
-        bronzeList.add("1");
-        bronzeList.add("2");
-        map.put("BZ", bronzeList);
         List<String> silverList = new ArrayList<>();
         silverList.add("1");
         silverList.add("2");
@@ -28,7 +26,8 @@ public class JsonConversionTest {
 
         RewardSubmitRequest request = new RewardSubmitRequest();
         request.setOutletCode("AAB6G7H");
-        request.setRewardsMap(map);
+        request.setRewardCategory("SL");
+        request.setRewardIdList(silverList);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson  = builder.create();
@@ -45,5 +44,13 @@ public class JsonConversionTest {
         outletRequest.setEmail("motish@gh.com");
         outletRequest.setCellNumber("6464646464");
         System.out.println(gson.toJson(outletRequest));
+
+        FeedbackRequest feedbackRequest = new FeedbackRequest();
+        feedbackRequest.setOutletCode("69cb68c7");
+        feedbackRequest.setUserName("Motish");
+        feedbackRequest.setUserPhoneNumber("7738657059");
+        feedbackRequest.setBillNumber("23");
+        feedbackRequest.setBillAmount("2333");
+        System.out.println(gson.toJson(feedbackRequest));
     }
 }

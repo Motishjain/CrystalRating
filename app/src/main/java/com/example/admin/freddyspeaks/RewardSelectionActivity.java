@@ -219,8 +219,8 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             selectedRewardDeleteBuilder.where().eq("rewardCategory", rewardCategory);
             selectedRewardDeleteBuilder.delete();
 
-            Map<String,List<String>> rewardsMap = new HashMap<>();
-            rewardsMap.put(rewardCategory,new ArrayList<String>());
+            List<String> rewardIdList = new ArrayList<>();
+
 
             for(Reward reward:rewardsList) {
                 if(reward.isSelected()) {
@@ -228,12 +228,13 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                     selectedReward.setReward(reward);
                     selectedReward.setRewardCategory(rewardCategory);
                     selectedRewardDao.create(selectedReward);
-                    rewardsMap.get(rewardCategory).add(reward.getRewardId());
+                    rewardIdList.add(reward.getRewardId());
                 }
             }
             RewardSubmitRequest rewardSubmitRequest = new RewardSubmitRequest();
             rewardSubmitRequest.setOutletCode(outletCode);
-            rewardSubmitRequest.setRewardsMap(rewardsMap);
+            rewardSubmitRequest.setRewardCategory(rewardCategory);
+            rewardSubmitRequest.setRewardIdList(rewardIdList);
 
             RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
             Call<PostServiceResponse> saveRewardsCall = restEndpointInterface.saveRewards(rewardSubmitRequest);

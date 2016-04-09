@@ -10,7 +10,9 @@ public class RewardSubmitRequest {
 
     private String outletCode;
 
-    private Map<String,List<String>> rewardsMap;
+    private String rewardCategory;
+
+    private List<String> rewardIdList;
 
     public String getOutletCode() {
         return outletCode;
@@ -20,11 +22,20 @@ public class RewardSubmitRequest {
         this.outletCode = outletCode;
     }
 
-    public Map<String, List<String>> getRewardsMap() {
-        return rewardsMap;
+    public String getRewardCategory() {
+        return rewardCategory;
     }
 
-    public void setRewardsMap(Map<String, List<String>> rewardsMap) {
-        this.rewardsMap = rewardsMap;
+    public void setRewardCategory(String rewardCategory) {
+        this.rewardCategory = rewardCategory;
     }
+
+    public List<String> getRewardIdList() {
+        return rewardIdList;
+    }
+
+    public void setRewardIdList(List<String> rewardIdList) {
+        this.rewardIdList = rewardIdList;
+    }
+
 }
