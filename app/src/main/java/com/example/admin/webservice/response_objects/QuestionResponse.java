@@ -6,19 +6,19 @@ import com.j256.ormlite.field.DatabaseField;
  * Created by Admin on 3/16/2016.
  */
 public class QuestionResponse {
-    private String questionId;
+    private String _id;
     private String questionName;
     private String[] optionValues;
     private String[] emoticonIds;
     private String questionType;
 
 
-    public String getQuestionId() {
-        return questionId;
+    public String get_id() {
+        return _id;
     }
 
-    public void setQuestionId(String questionId) {
-        this.questionId = questionId;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getQuestionName() {

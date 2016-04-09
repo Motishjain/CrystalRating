@@ -17,6 +17,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -24,10 +25,10 @@ import retrofit2.http.Query;
  */
 public interface RestEndpointInterface {
     @GET(AppConstants.FETCH_REWARDS)
-    Call<List<RewardResponse>> fetchRewards(@Query("outletType") String outletType);
+    Call<List<RewardResponse>> fetchRewards(@Path("outletType") String outletType);
 
     @GET(AppConstants.FETCH_QUESTIONS)
-    Call<List<QuestionResponse>> fetchQuestions(@Query("outletType") String outletType);
+    Call<List<QuestionResponse>> fetchQuestions(@Path("outletType") String outletType);
 
     @POST(AppConstants.REGISTER_OUTLET)
     Call<PostServiceResponse> registerOutlet(@Body OutletRequest outletRequest);
@@ -39,6 +40,6 @@ public interface RestEndpointInterface {
     Call<PostServiceResponse> submitFeedback(@Body FeedbackRequest feedbackRequest);
 
     @GET(AppConstants.FETCH_FEEDBACK)
-    Call<List<FeedbackResponse>> fetchFeedback(@Query("outletCode") String outletCode, @Query("fromDate") String fromDate, @Query("toDate") String toDate);
+    Call<List<FeedbackResponse>> fetchFeedback(@Path("outletType") String outletCode, @Path("fromDate") String fromDate, @Query("Path") String toDate);
 
 }

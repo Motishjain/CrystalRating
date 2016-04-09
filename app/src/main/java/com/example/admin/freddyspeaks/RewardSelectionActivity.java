@@ -135,7 +135,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                     int i = 0;
                     for (RewardResponse rewardResponse : rewardResponseList) {
                         final Reward dbReward = new Reward();
-                        dbReward.setRewardId(rewardResponse.getId());
+                        dbReward.setRewardId(rewardResponse.get_id());
                         dbReward.setName(rewardResponse.getName());
                         dbReward.setImageUrl(rewardResponse.getImage());
                         dbReward.setCost(rewardResponse.getCost());
@@ -151,7 +151,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
             @Override
             public void onFailure(Call<List<RewardResponse>> call, Throwable t) {
-                //TODO handle failure
+                Log.e("Reward Selection","Not able to fetch rewards");
             }
         });
     }
@@ -253,7 +253,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
                 @Override
                 public void onFailure(Call<PostServiceResponse> call, Throwable t) {
-                    //TODO Handle failure
+                    Log.e("Reward Configuration","Unable to save rewards");
                 }
             });
         }

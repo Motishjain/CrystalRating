@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 3/26/2016.
@@ -51,6 +52,12 @@ public class JsonConversionTest {
         feedbackRequest.setUserPhoneNumber("7738657059");
         feedbackRequest.setBillNumber("23");
         feedbackRequest.setBillAmount("2333");
+
+        Map ratingsMap = new HashMap();
+        ratingsMap.put("56d6981bf7f48d65ebfb25ab","3");
+        ratingsMap.put("56d6981bf7f48d65ebfb25a","3");
+        feedbackRequest.setRatingsMap(ratingsMap);
+
         System.out.println(gson.toJson(feedbackRequest));
     }
 }

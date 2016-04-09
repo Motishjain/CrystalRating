@@ -252,7 +252,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                 try {
                     for (QuestionResponse questionResponse : questionResponseList) {
                         Question dbQuestion = new Question();
-                        dbQuestion.setQuestionId(questionResponse.getQuestionId());
+                        dbQuestion.setQuestionId(questionResponse.get_id());
                         dbQuestion.setName(questionResponse.getQuestionName());
                         dbQuestion.setQuestionType(questionResponse.getQuestionType());
                         dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));

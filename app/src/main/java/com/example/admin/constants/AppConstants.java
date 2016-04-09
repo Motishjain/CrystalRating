@@ -5,19 +5,19 @@ package com.example.admin.constants;
  */
 public class AppConstants {
 
-    public static final String BASE_URL = "http://ec2-52-36-181-188.us-west-2.compute.amazonaws.com/";
+    public static final String BASE_URL = "http://www.midwayideas.com/";
 
-    public static final String REGISTER_OUTLET = "register_outlet.php";
+    public static final String REGISTER_OUTLET = "registerOutlet";
 
-    public static final String FETCH_QUESTIONS = "fetch_questions.php";
+    public static final String FETCH_QUESTIONS = "fetchQuestions/{outletType}";
 
-    public static final String FETCH_REWARDS = "fetch_rewards.php";
+    public static final String FETCH_REWARDS = "fetchRewards/{outletType}";
 
-    public static final String SUBMIT_FEEDBACK = "submit_feedback.php";
+    public static final String SUBMIT_FEEDBACK = "submitFeedback";
 
-    public static final String FETCH_FEEDBACK = "fetch_feedback.php";
+    public static final String FETCH_FEEDBACK = "fetchFeedback/{outletCode}/{fromDate}/{toDate}";
 
-    public static final String SAVE_REWARDS = "save_rewards.php";
+    public static final String SAVE_REWARDS = "saveRewards";
 
     public static final String OUTLET_TYPE = "RET";
 

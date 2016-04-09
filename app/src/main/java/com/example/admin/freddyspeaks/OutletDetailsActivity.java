@@ -177,7 +177,7 @@ public class OutletDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<PostServiceResponse> call, Throwable t) {
-                        //TODO handle failure
+                        Log.e("Outlet details","Unable to save outlet");
                     }
                 });
 
