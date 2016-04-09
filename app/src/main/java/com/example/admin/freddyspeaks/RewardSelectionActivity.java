@@ -52,7 +52,6 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
     List<SelectRewardsBoxFragment> fragmentList = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

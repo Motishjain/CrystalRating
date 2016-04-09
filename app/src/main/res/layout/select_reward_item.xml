@@ -6,6 +6,7 @@
     android:layout_marginLeft="@dimen/item_offset"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
+    android:background="@drawable/level_reward_box"
     android:layout_height="100dp">
 
     <ImageView
@@ -42,10 +43,10 @@
         android:button="@drawable/checkbox"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         android:layout_gravity="top|right"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/white"
         />
 
 </FrameLayout>
