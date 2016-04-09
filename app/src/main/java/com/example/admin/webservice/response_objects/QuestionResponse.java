@@ -8,7 +8,7 @@ import com.j256.ormlite.field.DatabaseField;
 public class QuestionResponse {
     private String _id;
     private String questionName;
-    private String[] optionValues;
+    private String[] ratingValues;
     private String[] emoticonIds;
     private String questionType;
 
@@ -29,14 +29,6 @@ public class QuestionResponse {
         this.questionName = questionName;
     }
 
-    public String[] getOptionValues() {
-        return optionValues;
-    }
-
-    public void setOptionValues(String[] optionValues) {
-        this.optionValues = optionValues;
-    }
-
     public String getQuestionType() {
         return questionType;
     }
@@ -51,5 +43,13 @@ public class QuestionResponse {
 
     public void setEmoticonIds(String[] emoticonIds) {
         this.emoticonIds = emoticonIds;
+    }
+
+    public String[] getRatingValues() {
+        return ratingValues;
+    }
+
+    public void setRatingValues(String[] ratingValues) {
+        this.ratingValues = ratingValues;
     }
 }

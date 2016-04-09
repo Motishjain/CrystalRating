@@ -255,7 +255,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                         dbQuestion.setQuestionId(questionResponse.get_id());
                         dbQuestion.setName(questionResponse.getQuestionName());
                         dbQuestion.setQuestionType(questionResponse.getQuestionType());
-                        dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getOptionValues()));
+                        dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getRatingValues()));
                         dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
                         questionDao.create(dbQuestion);
                     }
@@ -274,7 +274,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<QuestionResponse>> call, Throwable t) {
-
+                Log.e("Reward Configuration","Unable to fetch questions");
             }
         });
     }

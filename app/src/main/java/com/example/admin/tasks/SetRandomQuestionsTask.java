@@ -21,11 +21,11 @@ import java.util.Random;
 /**
  * Created by Admin on 4/6/2016.
  */
-public class SetRandomQuestionsTask extends AsyncTask<Void,Void,Void> {
+public class SetRandomQuestionsTask extends AsyncTask<Void, Void, Void> {
 
     Context context;
 
-    public SetRandomQuestionsTask (Context context) {
+    public SetRandomQuestionsTask(Context context) {
         this.context = context;
     }
 
@@ -49,29 +49,33 @@ public class SetRandomQuestionsTask extends AsyncTask<Void,Void,Void> {
             questionDao = OpenHelperManager.getHelper(context, DBHelper.class).getCustomDao("Question");
             questionQueryBuilder = questionDao.queryBuilder();
             questionList = questionQueryBuilder.query();
-            if(questionList.size()==0) {
+            if (questionList.size() == 0) {
                 return;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for(Question question:questionList) {
-            if(question.getQuestionType().equals(AppConstants.PRODUCT_QUESTION_TYPE)) {
+        for (Question question : questionList) {
+            if (question.getQuestionType().equals(AppConstants.PRODUCT_QUESTION_TYPE)) {
                 productQuestionList.add(question);
-            }
-            else if(question.getQuestionType().equals(AppConstants.SERVICE_QUESTION_TYPE)) {
+            } else if (question.getQuestionType().equals(AppConstants.SERVICE_QUESTION_TYPE)) {
                 serviceQuestionList.add(question);
-            }
-            else if(question.getQuestionType().equals(AppConstants.MISCELLENOUS_QUESTION_TYPE)) {
+            } else if (question.getQuestionType().equals(AppConstants.MISCELLENOUS_QUESTION_TYPE)) {
                 miscQuestionList.add(question);
             }
         }
 
         Random randomGenerator = new SecureRandom();
         questionList.clear();
-        questionList.add(productQuestionList.get(randomGenerator.nextInt(productQuestionList.size())));
-        questionList.add(serviceQuestionList.get(randomGenerator.nextInt(serviceQuestionList.size())));
-        questionList.add(miscQuestionList.get(randomGenerator.nextInt(miscQuestionList.size())));
+        if (productQuestionList.size() > 0) {
+            questionList.add(productQuestionList.get(randomGenerator.nextInt(productQuestionList.size())));
+        }
+        if (serviceQuestionList.size() > 0) {
+            questionList.add(serviceQuestionList.get(randomGenerator.nextInt(serviceQuestionList.size())));
+        }
+        if (miscQuestionList.size() > 0) {
+            questionList.add(miscQuestionList.get(randomGenerator.nextInt(miscQuestionList.size())));
+        }
 
         try {
             questionUpdateBuilder = questionDao.updateBuilder();
@@ -79,17 +83,17 @@ public class SetRandomQuestionsTask extends AsyncTask<Void,Void,Void> {
             String selectedQuestionIds[] = new String[questionList.size()];
             int count = 0;
             //Select 3 questions
-            for(Question question:questionList) {
+            for (Question question : questionList) {
                 selectedQuestionIds[count++] = question.getQuestionId();
             }
-            questionUpdateBuilder.where().in("questionId",selectedQuestionIds);
+            questionUpdateBuilder.where().in("questionId", selectedQuestionIds);
             questionUpdateBuilder.updateColumnValue("selected", "Y");
             questionUpdateBuilder.update();
 
             questionUpdateBuilder.reset();
 
-            questionUpdateBuilder.where().notIn("questionId",selectedQuestionIds);
-            questionUpdateBuilder.updateColumnValue("selected","N");
+            questionUpdateBuilder.where().notIn("questionId", selectedQuestionIds);
+            questionUpdateBuilder.updateColumnValue("selected", "N");
             questionUpdateBuilder.update();
 
         } catch (SQLException e) {
