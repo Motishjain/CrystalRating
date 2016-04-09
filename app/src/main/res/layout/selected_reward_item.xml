@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/reward_item_bg"
     android:layout_width="130dp"
-    android:layout_marginLeft="10dp"
+    android:layout_marginLeft="@dimen/item_offset"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
     android:layout_height="130dp">

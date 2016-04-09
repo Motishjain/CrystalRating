@@ -52,7 +52,7 @@
         <activity
             android:name=".RewardSelectionActivity"
             android:label="@string/title_activity_reward_selection"
-            android:theme="@style/Theme.AppCompat.Dialog" />
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".ThanksActivity"
             android:label="@string/title_activity_thanks"

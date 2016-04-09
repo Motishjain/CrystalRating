@@ -155,7 +155,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                     public void deleteButtonClicked(int position) {
                         try {
                             DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                            selectedRewardDeleteBuilder.where().eq("reward", bronzeSelectedRewardList.get(position).getId());
+                            selectedRewardDeleteBuilder.where().eq("id",bronzeSelectedRewardList.get(position).getId());
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {
@@ -186,7 +186,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                     public void deleteButtonClicked(int position) {
                         try {
                             DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                            selectedRewardDeleteBuilder.where().eq("reward",silverSelectedRewardList.get(position));
+                            selectedRewardDeleteBuilder.where().eq("id",silverSelectedRewardList.get(position).getId());
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {
@@ -217,7 +217,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                     public void deleteButtonClicked(int position) {
                         try {
                             DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                            selectedRewardDeleteBuilder.where().eq("reward",goldSelectedRewardList.get(position));
+                            selectedRewardDeleteBuilder.where().eq("id",goldSelectedRewardList.get(position).getId());
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {

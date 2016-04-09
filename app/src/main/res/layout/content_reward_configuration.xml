@@ -154,31 +154,31 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="90dp"
         android:src="@drawable/bronze_box"
         android:scaleType="fitXY"
         android:background="#0000"/>
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="290dp"
         android:src="@drawable/silver_box"
         android:scaleType="fitXY"
         android:background="#0000"/>
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="460dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="490dp"
         android:src="@drawable/gold_box"
         android:scaleType="fitXY"
         android:background="#0000"/>
