@@ -27,6 +27,7 @@
             android:id="@+id/rewardDisplayExclaimer"
             style="@style/rewardDisplayExclaimer"
             android:gravity="center"
+            android:visibility="gone"
             android:layout_gravity="center"
             />
         <com.example.admin.view.CustomFontTextView
@@ -34,6 +35,24 @@
             android:id="@+id/rewardDisplayMessage"
             style="@style/rewardDisplayMessage"
             android:gravity="center"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            />
+
+        <com.example.admin.view.CustomFontTextView
+            android:layout_marginTop="35dp"
+            android:id="@+id/rewardNotFoundExclaimer"
+            style="@style/rewardDisplayExclaimer"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            />
+        <com.example.admin.view.CustomFontTextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/rewardNotFoundMessage"
+            style="@style/rewardDisplayMessage"
+            android:gravity="center"
+            android:visibility="gone"
             android:layout_gravity="center"
             />
 

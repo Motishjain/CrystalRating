@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -34,6 +35,7 @@ public class RewardDisplayActivity extends BaseActivity {
     SelectedReward allocatedReward;
     Dao<User, Integer> userDao;
     CustomFontTextView rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
+    CustomFontTextView rewardNotFoundExclaimer,rewardNotFoundMessage;
     ImageView resultRewardImage;
 
     @Override
@@ -45,6 +47,8 @@ public class RewardDisplayActivity extends BaseActivity {
 
         rewardDisplayExclaimer = (CustomFontTextView) findViewById(R.id.rewardDisplayExclaimer);
         rewardDisplayMessage = (CustomFontTextView) findViewById(R.id.rewardDisplayMessage);
+        rewardNotFoundExclaimer = (CustomFontTextView) findViewById(R.id.rewardNotFoundExclaimer);
+        rewardNotFoundMessage = (CustomFontTextView) findViewById(R.id.rewardNotFoundMessage);
         resultRewardName = (CustomFontTextView) findViewById(R.id.resultRewardName);
         resultRewardImage = (ImageView) findViewById(R.id.resultRewardImage);
 
@@ -67,9 +71,14 @@ public class RewardDisplayActivity extends BaseActivity {
             resultRewardName.setText(rewardResult.getName());
             rewardDisplayExclaimer.setText("Hurray!!!");
             rewardDisplayMessage.setText("We have a reward for you!");
+            rewardDisplayExclaimer.setVisibility(View.VISIBLE);
+            rewardDisplayMessage.setVisibility(View.VISIBLE);
         }
         else {
-
+            rewardNotFoundExclaimer.setText("Ahh! We couldn't find a reward for you.");
+            rewardNotFoundMessage.setText("Duly noted, you will be taken better care of next time :)");
+            rewardDisplayExclaimer.setVisibility(View.VISIBLE);
+            rewardDisplayMessage.setVisibility(View.VISIBLE);
         }
     }
 
@@ -92,13 +101,13 @@ public class RewardDisplayActivity extends BaseActivity {
                 PostServiceResponse postServiceResponse = response.body();
 
                 if (postServiceResponse.isSuccess()) {
-                    //TODO handle
+                    Log.i("Reward display","Feedback sent successfully");
                 }
             }
 
             @Override
             public void onFailure(Call<PostServiceResponse> call, Throwable t) {
-                //TODO Handle failure
+                Log.e("Reward display","Failed to submit feedback");
             }
         });
     }
