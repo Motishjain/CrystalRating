@@ -35,7 +35,7 @@ public class RewardDisplayActivity extends BaseActivity {
     SelectedReward allocatedReward;
     Dao<User, Integer> userDao;
     CustomFontTextView rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
-    CustomFontTextView rewardNotFoundExclaimer,rewardNotFoundMessage;
+    CustomFontTextView rewardNotFoundExclaimer,rewardNotFoundMessage,thankYouMessage1,thankYouMessage2;
     ImageView resultRewardImage;
 
     @Override
@@ -49,6 +49,8 @@ public class RewardDisplayActivity extends BaseActivity {
         rewardDisplayMessage = (CustomFontTextView) findViewById(R.id.rewardDisplayMessage);
         rewardNotFoundExclaimer = (CustomFontTextView) findViewById(R.id.rewardNotFoundExclaimer);
         rewardNotFoundMessage = (CustomFontTextView) findViewById(R.id.rewardNotFoundMessage);
+        thankYouMessage1 = (CustomFontTextView) findViewById(R.id.thankYouMessage1);
+        thankYouMessage2 = (CustomFontTextView) findViewById(R.id.thankYouMessage2);
         resultRewardName = (CustomFontTextView) findViewById(R.id.resultRewardName);
         resultRewardImage = (ImageView) findViewById(R.id.resultRewardImage);
 
@@ -77,8 +79,8 @@ public class RewardDisplayActivity extends BaseActivity {
         else {
             rewardNotFoundExclaimer.setText("Ahh! We couldn't find a reward for you.");
             rewardNotFoundMessage.setText("Duly noted, you will be taken better care of next time :)");
-            rewardDisplayExclaimer.setVisibility(View.VISIBLE);
-            rewardDisplayMessage.setVisibility(View.VISIBLE);
+            rewardNotFoundExclaimer.setVisibility(View.VISIBLE);
+            rewardNotFoundMessage.setVisibility(View.VISIBLE);
         }
     }
 

@@ -43,6 +43,7 @@
             android:layout_marginTop="35dp"
             android:id="@+id/rewardNotFoundExclaimer"
             style="@style/rewardDisplayExclaimer"
+            android:layout_width="300dp"
             android:gravity="center"
             android:visibility="gone"
             android:layout_gravity="center"
@@ -52,6 +53,7 @@
             android:id="@+id/rewardNotFoundMessage"
             style="@style/rewardDisplayMessage"
             android:gravity="center"
+            android:layout_width="300dp"
             android:visibility="gone"
             android:layout_gravity="center"
             />
@@ -79,12 +81,30 @@
 
         </FrameLayout>
 
+        <com.example.admin.view.CustomFontTextView
+            android:layout_marginTop="35dp"
+            android:id="@+id/thankYouMessage1"
+            style="@style/thankYouMessage"
+            android:gravity="center"
+            android:text="@string/thankYouMessage1"
+            android:layout_gravity="center"
+            />
+        <com.example.admin.view.CustomFontTextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/thankYouMessage2"
+            style="@style/thankYouMessage"
+            android:gravity="center"
+            android:text="@string/thankYouMessage2"
+            android:layout_gravity="center"
+            />
+
         <Button
             android:id="@+id/rewardDisplayContinueButton"
             style="@style/formButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="3dp"
+            android:layout_marginTop="30dp"
             android:text="Exit"
             android:gravity="center"
             android:onClick="exit"

@@ -7,12 +7,21 @@
         <item name="android:textColor">@color/dark_red</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="fontFamilyFile">@string/applicationFont</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <style name="rewardDisplayMessage">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20dp</item>
         <item name="android:textColor">@color/dark_red</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="fontFamilyFile">@string/applicationFont</item>
+    </style>
+    <style name="thankYouMessage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="fontFamilyFile">@string/applicationFont</item>
     </style>
