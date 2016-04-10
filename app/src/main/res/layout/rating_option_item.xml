@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_marginTop="13dp"
     android:paddingTop="4dp"
@@ -12,6 +12,8 @@
         android:id="@+id/ratingOptionEmoticon"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginLeft="15dp"
         android:gravity="center"
         android:layout_gravity="center"
@@ -19,9 +21,11 @@
 
     <com.example.admin.view.CustomFontTextView
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:layout_height="wrap_content"
         android:id="@+id/selectedOptionTextView"
-        android:layout_toRightOf="@id/ratingOptionEmoticon"
         style="@style/selectedOption" />
 
-</RelativeLayout>
+</LinearLayout>

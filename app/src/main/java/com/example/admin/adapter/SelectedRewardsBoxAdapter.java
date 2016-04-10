@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,12 +48,12 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
         holder.selectedRewardName.setText(reward.getName());
         holder.selectedRewardCost.setText("Rs."+reward.getCost());
-        holder.selectedRewardDeleteButton.setOnClickListener(new View.OnClickListener() {
+        holder.selectedRewardBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onAdapterInteractionListener.deleteFromDB(selectedRewardList.get(position).getId());
                 selectedRewardList.remove(position);
                 notifyDataSetChanged();
-                onAdapterInteractionListener.deleteButtonClicked(position);
             }
         });
     }
@@ -69,6 +70,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
         TextView selectedRewardCost;
         TextView selectedRewardName;
         ImageView selectedRewardDeleteButton;
+        FrameLayout selectedRewardBox;
 
         public SelectedRewardHolder(View view){
             super(view);
@@ -76,6 +78,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
             selectedRewardName = (TextView) view.findViewById(R.id.selectedRewardName);
             selectedRewardCost = (TextView) view.findViewById(R.id.selectedRewardCost);
             selectedRewardDeleteButton = (ImageView) view.findViewById(R.id.selectedRewardDeleteButton);
+            selectedRewardBox = (FrameLayout) view.findViewById(R.id.selectedRewardBox);
         }
     }
 
@@ -90,6 +93,6 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
     public interface OnAdapterInteractionListener {
         // TODO: Update argument type and name
-        void deleteButtonClicked(int position);
+        void deleteFromDB(Integer id);
     }
 }

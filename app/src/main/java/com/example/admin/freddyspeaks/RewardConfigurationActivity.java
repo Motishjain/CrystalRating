@@ -43,6 +43,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     SelectedRewardsBoxAdapter bronzeRewardsAdapter, silverRewardsAdapter, goldRewardsAdapter;
     String outletCode;
     boolean editMode;
+    List<SelectedReward> bronzeSelectedRewardList,silverSelectedRewardList,goldSelectedRewardList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,15 +148,15 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.BRONZE_CD);
 
-            final List<SelectedReward> bronzeSelectedRewardList = selectedRewardQueryBuilder.query();
+            bronzeSelectedRewardList = selectedRewardQueryBuilder.query();
 
             if(bronzeRewardsRecyclerView.getAdapter()==null) {
                 bronzeRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, bronzeSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
-                    public void deleteButtonClicked(int position) {
+                    public void deleteFromDB(Integer id) {
                         try {
                             DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                            selectedRewardDeleteBuilder.where().eq("id",bronzeSelectedRewardList.get(position).getId());
+                            selectedRewardDeleteBuilder.where().eq("id",id);
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {
@@ -179,14 +180,14 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.SILVER_CD);
 
-            final List<SelectedReward> silverSelectedRewardList = selectedRewardQueryBuilder.query();
+            silverSelectedRewardList  = selectedRewardQueryBuilder.query();
             if(silverRewardsRecyclerView.getAdapter()==null) {
                 silverRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, silverSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
-                    public void deleteButtonClicked(int position) {
+                    public void deleteFromDB(Integer id) {
                         try {
                             DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                            selectedRewardDeleteBuilder.where().eq("id",silverSelectedRewardList.get(position).getId());
+                            selectedRewardDeleteBuilder.where().eq("id",id);
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {
@@ -210,14 +211,14 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.GOLD_CD);
 
-            final List<SelectedReward> goldSelectedRewardList = selectedRewardQueryBuilder.query();
+            goldSelectedRewardList = selectedRewardQueryBuilder.query();
             if(goldRewardsRecyclerView.getAdapter()==null) {
                 goldRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, goldSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
-                    public void deleteButtonClicked(int position) {
+                    public void deleteFromDB(Integer id) {
                         try {
                             DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                            selectedRewardDeleteBuilder.where().eq("id",goldSelectedRewardList.get(position).getId());
+                            selectedRewardDeleteBuilder.where().eq("id",id);
                             selectedRewardDeleteBuilder.delete();
                         }
                         catch (SQLException e) {

@@ -105,13 +105,13 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
 
         ImageView ratingOptionEmoticon;
         TextView selectedOptionTextView;
-        RelativeLayout ratingOptionsLayout;
+        LinearLayout ratingOptionsLayout;
 
         public RatingOptionHolder(View view){
             super(view);
             ratingOptionEmoticon = (ImageView) view.findViewById(R.id.ratingOptionEmoticon);
             selectedOptionTextView = (TextView) view.findViewById(R.id.selectedOptionTextView);
-            ratingOptionsLayout = (RelativeLayout) view.findViewById(R.id.ratingOptionsLayout);
+            ratingOptionsLayout = (LinearLayout) view.findViewById(R.id.ratingOptionsLayout);
         }
     }
 }
