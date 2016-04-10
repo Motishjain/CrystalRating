@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.admin.freddyspeaks.BillDetailsActivity"
-    tools:showIn="@layout/activity_bill_details"
-    android:background="@drawable/app_bg">
-
-    <ImageView
-        android:id="@+id/backgroundBillDetailsImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:alpha="0.2"
-        />
-
+    tools:showIn="@layout/activity_bill_details">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,84 +14,111 @@
         android:orientation="vertical"
         >
 
-        <com.example.admin.view.CustomFontTextView
-            android:text="@string/bill_details_thanks_message"
-            android:layout_marginTop="25dp"
-            style="@style/billDetailsThanksMessage" />
-
-        <com.example.admin.view.CustomFontTextView
-            android:text="@string/bill_details_desription"
-            android:layout_marginTop="10dp"
-            style="@style/billDetailsDescription" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputBillNumberLayout"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp">
+            android:background="@drawable/app_bg">
 
-            <AutoCompleteTextView
-                android:id="@+id/inputBillNumberText"
+            <ImageView
+                android:id="@+id/backgroundBillDetailsImage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Bill Number"
-                android:inputType="number"
-                android:maxLength="10"
-                android:textColor="@color/colorPrimary" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:alpha="0.2"
+                />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputBillAmountLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/inputBillNumberLayout"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp">
-
-            <EditText
-                android:id="@+id/inputBillAmountText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Please enter transaction amount"
-                android:inputType="numberDecimal"
-                android:textColor="@color/colorPrimary" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/inputBillAmountLayout"
-            android:weightSum="2">
+                <com.example.admin.view.CustomFontTextView
+                    android:text="@string/bill_details_thanks_message"
+                    android:layout_marginTop="45dp"
+                    style="@style/billDetailsThanksMessage"
+                    />
 
-            <Button
-                android:id="@+id/billInfoResetButton"
-                style="@style/formButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:elevation="3dp"
-                android:text="Reset"
-                android:textAllCaps="false"
-                android:onClick="resetButtonClickHandler"
-                android:textColor="#fff" />
+                <com.example.admin.view.CustomFontTextView
+                    android:text="@string/bill_details_desription"
+                    android:layout_marginTop="25dp"
+                    android:layout_width="300dp"
+                    style="@style/billDetailsDescription" />
 
-            <Button
-                android:id="@+id/billInfoContinueButton"
-                style="@style/formButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:elevation="3dp"
-                android:text="Check out!"
-                android:textAllCaps="false"
-                android:onClick="nextButtonClickHandler"
-                android:textColor="#fff" />
-        </LinearLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputBillNumberLayout"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="35dp">
+
+                    <EditText
+                        android:id="@+id/inputBillNumberText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bill Number"
+                        android:inputType="number"
+                        android:textSize="25dp"
+                        android:maxLength="10"
+                        android:textColor="@color/colorPrimary" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputBillAmountLayout"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/inputBillNumberLayout"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="25dp">
+
+                    <EditText
+                        android:id="@+id/inputBillAmountText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:hint="Bill Amount (in Rs.)"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/colorPrimary" />
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="40dp"
+                    android:layout_below="@id/inputBillAmountLayout"
+                    android:weightSum="2">
+
+                    <Button
+                        android:id="@+id/billInfoResetButton"
+                        style="@style/formButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:elevation="3dp"
+                        android:text="Reset"
+                        android:textAllCaps="false"
+                        android:onClick="resetButtonClickHandler"
+                        android:textColor="#fff" />
+
+                    <Button
+                        android:id="@+id/billInfoContinueButton"
+                        style="@style/formButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:elevation="3dp"
+                        android:text="Check out!"
+                        android:textAllCaps="false"
+                        android:onClick="nextButtonClickHandler"
+                        android:textColor="#fff" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
-</FrameLayout>
+</ScrollView>

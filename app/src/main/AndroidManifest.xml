@@ -48,15 +48,12 @@
         <activity
             android:name=".BillDetailsActivity"
             android:label="@string/title_activity_bill_details"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".RewardSelectionActivity"
             android:label="@string/title_activity_reward_selection"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity
-            android:name=".ThanksActivity"
-            android:label="@string/title_activity_thanks"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SubscriptionInfoActivity"
             android:label="@string/title_activity_subscription_info"

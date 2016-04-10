@@ -7,17 +7,20 @@
     android:fitsSystemWindows="true"
     tools:context=".HomePageActivity">
 
+    <include layout="@layout/content_home_page" />
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="50dp"
         android:background="@color/headerBg"
         android:id="@+id/toolbar"
+        android:gravity="center_horizontal|center_vertical"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
         <com.example.admin.view.CustomFontTextView
             style="@style/appHeader"
+            android:gravity="center_vertical|center_horizontal"
             />
     </android.support.v7.widget.Toolbar>
 
-    <include layout="@layout/content_home_page" />
 
 </android.support.design.widget.CoordinatorLayout>

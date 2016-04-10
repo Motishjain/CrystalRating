@@ -148,9 +148,10 @@
                 <com.example.admin.view.CustomFontButton
                     android:id="@+id/rewardsConfigureNextButton"
                     style="@style/formButton"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:elevation="3dp"
                     android:onClick="rewardConfigNext"
                     android:text="Next"
