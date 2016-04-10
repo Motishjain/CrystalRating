@@ -69,21 +69,15 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
             holder.selectRewardFrameLayout.setAlpha(1.0f);
         }
 
-        holder.selectRewardCheckbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean checked = ((CheckBox) v).isChecked();
-                reward.setSelected(checked);
-                rewardSelectionListener.rewardClicked(position, checked);
-            }
-        });
-
         holder.selectRewardFrameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean checked = holder.selectRewardCheckbox.isChecked();
-                reward.setSelected(!checked);
-                rewardSelectionListener.rewardClicked(position, checked);
+                if(holder.selectRewardCheckbox.isEnabled()) {
+                    boolean checked = !holder.selectRewardCheckbox.isChecked();
+                    holder.selectRewardCheckbox.setChecked(checked);
+                    reward.setSelected(checked);
+                    rewardSelectionListener.rewardClicked(position, checked);
+                }
             }
         });
     }
