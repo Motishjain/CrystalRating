@@ -74,6 +74,7 @@
                 style="@style/formButton"
                 android:gravity="center"
                 android:text="@string/previous"
+                android:layout_width="100dp"
                 android:onClick="getPreviousRating"
                 />
 
@@ -87,6 +88,7 @@
                 style="@style/formButton"
                 android:gravity="center"
                 android:text="@string/next"
+                android:layout_width="100dp"
                 android:onClick="getNextRating"
                 />
         </LinearLayout>

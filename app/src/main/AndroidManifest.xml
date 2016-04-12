@@ -26,7 +26,8 @@
         <activity
             android:name=".LoadingActivity"
             android:label="@string/title_activity_loading"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
