@@ -39,7 +39,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
         this.question = question;
         optionValues = question.getRatingValues().split(",");
         emoticonIds = question.getEmoticonIds().split(",");
-        selected = new boolean[question.getRatingValues().length()];
+        selected = new boolean[optionValues.length];
         if(question.getSelectedOption()!=null && !question.getSelectedOption().equals("")) {
             selected[Integer.parseInt(question.getSelectedOption())-1] = true;
         }

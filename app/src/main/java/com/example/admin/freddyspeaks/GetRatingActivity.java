@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.admin.animation.DepthPageTransformer;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
@@ -92,6 +93,8 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        ratingBarPager.setPageTransformer(false,new DepthPageTransformer());
 
         ratingBarPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
