@@ -42,7 +42,7 @@
                 android:onClick="getPreviousRating"
                 android:background="#0000"/>
 
-            <android.support.v4.view.ViewPager
+            <com.example.admin.animation.ViewPagerCustomDuration
                 android:id="@+id/ratingBarPager"
                 android:layout_marginLeft="5dp"
                 android:layout_width="250dp"

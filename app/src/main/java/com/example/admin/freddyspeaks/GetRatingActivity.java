@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.admin.animation.DepthPageTransformer;
+import com.example.admin.animation.ViewPagerCustomDuration;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
@@ -42,7 +43,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     int currentQuestionIndex;
     Map<String,String> ratingMap;
 
-    ViewPager ratingBarPager;
+    ViewPagerCustomDuration ratingBarPager;
     Map<Integer,RatingCardFragment> ratingFragmentMap;
     Button ratingPreviousButton;
 
@@ -57,7 +58,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         setContentView(R.layout.activity_get_rating);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ratingBarPager = (ViewPager)findViewById(R.id.ratingBarPager);
+        ratingBarPager = (ViewPagerCustomDuration)findViewById(R.id.ratingBarPager);
         ratingPreviousButton = (Button) findViewById(R.id.ratingPreviousButton);
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
 
