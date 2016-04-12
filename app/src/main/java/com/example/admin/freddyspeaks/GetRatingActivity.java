@@ -94,7 +94,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             e.printStackTrace();
         }
 
-        ratingBarPager.setPageTransformer(false,new DepthPageTransformer());
+        ratingBarPager.setPageTransformer(true,new DepthPageTransformer());
 
         ratingBarPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
