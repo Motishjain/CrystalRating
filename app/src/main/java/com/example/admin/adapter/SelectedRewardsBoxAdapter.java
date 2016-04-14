@@ -52,9 +52,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
         holder.selectedRewardBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAdapterInteractionListener.deleteFromDB(selectedRewardList.get(position).getId());
-                selectedRewardList.remove(position);
-                notifyDataSetChanged();
+                onAdapterInteractionListener.removeSelectedReward(selectedRewardList.get(position).getId());
             }
         });
     }
@@ -94,6 +92,6 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
     public interface OnAdapterInteractionListener {
         // TODO: Update argument type and name
-        void deleteFromDB(Integer id);
+        void removeSelectedReward(int position);
     }
 }
