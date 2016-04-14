@@ -12,7 +12,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:weightSum="100.0"
     tools:context=".OutletDetailsActivity"
-    tools:showIn="@layout/activity_outlet_details">
+    tools:showIn="@layout/activity_outlet_details"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/app_bg">
 
     <com.example.admin.view.CustomFontTextView
         android:id="@+id/registerOutletHeader"

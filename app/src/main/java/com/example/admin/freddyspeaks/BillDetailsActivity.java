@@ -34,6 +34,7 @@ public class BillDetailsActivity extends BaseActivity {
         billAmount = (TextView) findViewById(R.id.inputBillAmountText);
         backgroundBillDetailsImage = (ImageView) findViewById(R.id.backgroundBillDetailsImage);
         backgroundBillDetailsImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.bags));
+
     }
 
     public void resetButtonClickHandler(View v) {

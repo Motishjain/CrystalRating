@@ -26,6 +26,7 @@ public class DialogBuilderUtil {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(msg);
+        alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, okButton,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -33,6 +34,5 @@ public class DialogBuilderUtil {
                     }
                 });
         alertDialog.show();
-        alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.app_bg);
     }
 }

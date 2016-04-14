@@ -218,8 +218,8 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     void setupRatingScreens() {
         currentQuestionIndex = 0;
         totalQuestions = AppConstants.MAXIMUM_QUESTIONS;
-        ratingPreviousButton.setVisibility(View.INVISIBLE);
-        ratingBackArrow.setVisibility(View.GONE);
+        ratingPreviousButton.setVisibility(View.GONE);
+        ratingBackArrow.setVisibility(View.INVISIBLE);
         RatingFragmentsAdapter ratingFragmentsAdapter = new RatingFragmentsAdapter(getSupportFragmentManager(),this);
         ratingBarPager.setAdapter(ratingFragmentsAdapter);
     }
