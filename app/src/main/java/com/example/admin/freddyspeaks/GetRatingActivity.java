@@ -150,6 +150,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
         if(selectedOption == null || selectedOption.trim().equals("")){
             //TODO show alert
+            displayQuestion(currentQuestionIndex);
             DialogBuilderUtil.showMessageDialog(this,"","Please select an option","Close");
         }
         else {
