@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.admin.database.Reward;
@@ -57,7 +58,7 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
         }
 
         holder.selectRewardName.setText(reward.getName());
-        holder.selectRewardCost.setText(reward.getCost());
+        holder.selectRewardCost.setText("Rs."+reward.getCost());
         holder.selectRewardCheckbox.setChecked(reward.isSelected());
 
         if(selectedLevel!=0 && selectedLevel!=reward.getLevel()){
@@ -107,7 +108,7 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
         TextView selectRewardCost;
         TextView selectRewardName;
         CheckBox selectRewardCheckbox;
-        FrameLayout selectRewardFrameLayout;
+        LinearLayout selectRewardFrameLayout;
 
         public SelectRewardHolder(View view){
             super(view);
@@ -115,7 +116,7 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
             selectRewardName = (TextView) view.findViewById(R.id.selectRewardName);
             selectRewardCost = (TextView) view.findViewById(R.id.selectRewardCost);
             selectRewardCheckbox = (CheckBox) view.findViewById(R.id.selectRewardCheckbox);
-            selectRewardFrameLayout = (FrameLayout) view.findViewById(R.id.selectRewardFrameLayout);
+            selectRewardFrameLayout = (LinearLayout) view.findViewById(R.id.selectRewardFrameLayout);
         }
     }
 
