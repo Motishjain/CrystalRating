@@ -35,7 +35,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
     @Override
     public SelectedRewardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
         return new SelectedRewardHolder(view);
 
     }
@@ -48,11 +48,11 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
         fetchRewardImageTask.execute(reward.getImage());
 
         holder.selectedRewardName.setText(reward.getName());
-        holder.selectedRewardCost.setText("Rs."+reward.getCost());
+        holder.selectedRewardCost.setText("Rs." + reward.getCost());
         holder.selectedRewardBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAdapterInteractionListener.removeSelectedReward(selectedRewardList.get(position).getId());
+                onAdapterInteractionListener.removeSelectedReward(position);
             }
         });
     }
@@ -63,7 +63,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
     }
 
 
-    static class SelectedRewardHolder extends RecyclerView.ViewHolder{
+    static class SelectedRewardHolder extends RecyclerView.ViewHolder {
 
         ImageView selectedRewardImage;
         TextView selectedRewardCost;
@@ -71,7 +71,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
         ImageView selectedRewardDeleteButton;
         LinearLayout selectedRewardBox;
 
-        public SelectedRewardHolder(View view){
+        public SelectedRewardHolder(View view) {
             super(view);
             selectedRewardImage = (ImageView) view.findViewById(R.id.selectedRewardImage);
             selectedRewardName = (TextView) view.findViewById(R.id.selectedRewardName);
