@@ -10,14 +10,26 @@
     <include layout="@layout/content_reward_configuration" />
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/headerBg"
-        android:id="@+id/toolbar"
-        app:popupTheme="@style/AppTheme.PopupOverlay" >
-        <com.example.admin.view.CustomFontTextView
-            style="@style/appHeader"
-            />
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <ImageView
+            android:id="@+id/activityBackButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#0000"
+            android:gravity="center"
+            android:onClick="closeActivity"
+            android:scaleType="fitXY"
+            android:src="@drawable/back_button"
+            android:tint="@color/white" />
+
+        <com.example.admin.view.CustomFontTextView style="@style/appHeader" />
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.CoordinatorLayout>

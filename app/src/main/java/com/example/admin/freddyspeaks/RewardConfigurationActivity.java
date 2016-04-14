@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.admin.adapter.SelectedRewardsBoxAdapter;
 import com.example.admin.constants.AppConstants;
@@ -46,6 +48,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     String outletCode;
     boolean editMode;
     List<SelectedReward> bronzeSelectedRewardList,silverSelectedRewardList,goldSelectedRewardList;
+    Button rewardsConfigureNextButton;
+    ImageView activityBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         bronzeRewardsRecyclerView = (RecyclerView)findViewById(R.id.bronzeRewardsRecyclerView);
         silverRewardsRecyclerView = (RecyclerView) findViewById(R.id.silverRewardsRecyclerView);
         goldRewardsRecyclerView = (RecyclerView) findViewById(R.id.goldRewardsRecyclerView);
+        rewardsConfigureNextButton = (Button) findViewById(R.id.rewardsConfigureNextButton);
+        activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         outletCode = sharedPreferences.getString("outletCode", null) ;
@@ -61,6 +67,15 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras!=null) {
             editMode = extras.getBoolean("editMode",false);
+        }
+
+        if(editMode) {
+            rewardsConfigureNextButton.setVisibility(View.INVISIBLE);
+            activityBackButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            rewardsConfigureNextButton.setVisibility(View.VISIBLE);
+            activityBackButton.setVisibility(View.GONE);
         }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -85,13 +100,6 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             Log.e("RewardConfiguration", "Unable to fetch selected rewards");
         }
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.game_menu, menu);
-        return true;
     }
 
     public void rewardConfigNext(View v) {
@@ -323,5 +331,9 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                 Log.e("Reward Configuration","Unable to fetch questions");
             }
         });
+    }
+
+    public void closeActivity(View v) {
+        this.finish();
     }
 }
