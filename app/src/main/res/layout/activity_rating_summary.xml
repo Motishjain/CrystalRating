@@ -13,9 +13,20 @@
         android:background="@color/headerBg"
         android:id="@+id/toolbar"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
-        <com.example.admin.view.CustomFontTextView
-            style="@style/appHeader"
-            />
+        <ImageView
+            android:id="@+id/activityBackButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#0000"
+            android:gravity="center"
+            android:onClick="closeActivity"
+            android:scaleType="fitXY"
+            android:src="@drawable/back_button"
+            android:tint="@color/white" />
+
+        <com.example.admin.view.CustomFontTextView style="@style/appHeader" android:layout_marginLeft="15dp"/>
     </android.support.v7.widget.Toolbar>
 
     <include layout="@layout/content_rating_summary" />

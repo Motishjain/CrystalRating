@@ -52,6 +52,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_configuration);
+
         bronzeRewardsRecyclerView = (RecyclerView)findViewById(R.id.bronzeRewardsRecyclerView);
         silverRewardsRecyclerView = (RecyclerView) findViewById(R.id.silverRewardsRecyclerView);
         goldRewardsRecyclerView = (RecyclerView) findViewById(R.id.goldRewardsRecyclerView);

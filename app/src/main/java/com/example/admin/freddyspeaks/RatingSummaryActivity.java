@@ -82,8 +82,6 @@ public class RatingSummaryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_summary);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         ratingSummaryChart = (PieChart) findViewById(R.id.ratingSummaryChart);
         fromDateTextView = (TextView) findViewById(R.id.fromDate);
