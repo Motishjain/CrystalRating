@@ -81,7 +81,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     }
 
     public void saveSelectedRewards(View v) {
-        progressDialog.setMessage("Fetching Rewards...");
+        progressDialog.setMessage("Saving Rewards...");
         progressDialog.show();
         SaveRewardsTask saveRewardsTask = new SaveRewardsTask(progressDialog);
         saveRewardsTask.execute(this);
