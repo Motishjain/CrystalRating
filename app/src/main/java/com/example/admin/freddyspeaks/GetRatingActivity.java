@@ -203,7 +203,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
         @Override
         public Fragment getItem(int position) {
-            RatingCardFragment ratingCardFragment = RatingCardFragment.newInstance(questionList.get(position),onFragmentInteractionListener);
+            RatingCardFragment ratingCardFragment = RatingCardFragment.newInstance(position+1,questionList.get(position),onFragmentInteractionListener,totalQuestions);
             ratingFragmentMap.put(position,ratingCardFragment);
             return ratingCardFragment;
         }

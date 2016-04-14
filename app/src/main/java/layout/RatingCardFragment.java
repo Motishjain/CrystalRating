@@ -29,10 +29,10 @@ public class RatingCardFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    TextView questionNameTextView;
+    TextView questionNameTextView,questionNumberTextView;
     Question question;
     RecyclerView ratingOptionsRecyclerView;
-    Button ratingPreviousButton;
+    int questionNumber,totalQuestions;
 
     private OnFragmentInteractionListener mListener;
 
@@ -47,12 +47,12 @@ public class RatingCardFragment extends Fragment {
      * @return A new instance of fragment RatingCardFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RatingCardFragment newInstance(Question question, OnFragmentInteractionListener mListener) {
+    public static RatingCardFragment newInstance(int questionNumber,Question question, OnFragmentInteractionListener mListener, int totalQuestions) {
         RatingCardFragment fragment = new RatingCardFragment();
-        Bundle args = new Bundle();
         fragment.question = question;
-
         fragment.mListener = mListener;
+        fragment.questionNumber = questionNumber;
+        fragment.totalQuestions = totalQuestions;
         return fragment;
     }
 
@@ -67,7 +67,9 @@ public class RatingCardFragment extends Fragment {
         // Inflate the layout for this fragment
         View ratingCard = inflater.inflate(R.layout.fragment_rating_card, container, false);
         questionNameTextView = (TextView) ratingCard.findViewById(R.id.questionNameTextView);
+        questionNumberTextView = (TextView) ratingCard.findViewById(R.id.questionNumberTextView);
         questionNameTextView.setText(question.getName());
+        questionNumberTextView.setText("#"+questionNumber+" of "+ totalQuestions);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext(),LinearLayoutManager.VERTICAL,false);
 

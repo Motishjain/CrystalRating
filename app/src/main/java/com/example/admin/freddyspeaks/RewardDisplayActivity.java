@@ -71,7 +71,7 @@ public class RewardDisplayActivity extends BaseActivity {
             FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(resultRewardImage);
             fetchRewardImageTask.execute(rewardResult.getImage());
             resultRewardName.setText(rewardResult.getName());
-            rewardDisplayExclaimer.setText("Hurray!!!");
+            rewardDisplayExclaimer.setText("Congratulations!!!");
             rewardDisplayMessage.setText("We have a reward for you!");
             rewardDisplayExclaimer.setVisibility(View.VISIBLE);
             rewardDisplayMessage.setVisibility(View.VISIBLE);
