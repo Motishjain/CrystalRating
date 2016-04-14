@@ -13,7 +13,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(context);
+        SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(context,null);
         setRandomQuestionsTask.execute();
     }
 

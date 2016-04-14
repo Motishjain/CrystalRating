@@ -97,8 +97,9 @@ public class SetRandomQuestionsTask extends AsyncTask<Void, Void, Void> {
             questionUpdateBuilder.where().notIn("questionId", selectedQuestionIds);
             questionUpdateBuilder.updateColumnValue("selected", "N");
             questionUpdateBuilder.update();
-
-            callBackListener.onTaskCompleted();
+            if(callBackListener!=null) {
+                callBackListener.onTaskCompleted();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

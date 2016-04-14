@@ -11,7 +11,7 @@ import com.example.admin.freddyspeaks.R;
  */
 public class DialogBuilderUtil {
 
-    public void showPromptDialog(Context context, String title, String msg, DialogInterface.OnClickListener positiveButtonClickHandler, DialogInterface.OnClickListener negativeButtonClickHandler) {
+    public static void showPromptDialog(Context context, String title, String msg, DialogInterface.OnClickListener positiveButtonClickHandler, DialogInterface.OnClickListener negativeButtonClickHandler) {
         new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(msg)
@@ -21,7 +21,7 @@ public class DialogBuilderUtil {
                 .show();
     }
 
-    public void showMessageDialog(Context context, String title, String msg, String okButton) {
+    public static void showMessageDialog(Context context, String title, String msg, String okButton) {
 
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
