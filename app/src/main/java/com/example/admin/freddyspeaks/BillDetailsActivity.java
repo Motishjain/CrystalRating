@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.util.ImageUtility;
+import com.example.admin.util.ValidationUtil;
 import com.example.admin.webservice.request_objects.FeedbackRequest;
 
 public class BillDetailsActivity extends BaseActivity {
@@ -45,18 +46,10 @@ public class BillDetailsActivity extends BaseActivity {
     }
 
     public void nextButtonClickHandler(View v) {
-        boolean allFieldsEntered = true;
-        if (billNumber.getText().toString().equals("")) {
-            inputBillNumberLayout.setError("Please enter bill number");
-            billNumber.findFocus();
-            allFieldsEntered = false;
-        }
-        if (billAmount.getText().toString().equals("")) {
-            inputBillAmountLayout.setError("Please enter bill amount");
-            billAmount.findFocus();
-            allFieldsEntered = false;
-        }
-        if(allFieldsEntered) {
+        inputBillNumberLayout.setError(null);
+        inputBillAmountLayout.setError(null);
+        if (!ValidationUtil.isTextViewEmpty(billNumber,inputBillNumberLayout,"Please enter bill number") &&
+                !ValidationUtil.isTextViewEmpty(billAmount,inputBillAmountLayout,"Please enter bill amount")) {
             feedback.setBillAmount(billAmount.getText().toString());
             feedback.setBillNumber(billNumber.getText().toString());
             Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
