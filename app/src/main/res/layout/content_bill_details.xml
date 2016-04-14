@@ -78,7 +78,7 @@
                         android:layout_below="@id/inputBillNumberLayout"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginTop="25dp">
+                        android:layout_marginTop="20dp">
 
                         <EditText
                             android:id="@+id/inputBillAmountText"
@@ -94,7 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="30dp"
                         android:layout_below="@id/inputBillAmountLayout"
                         android:weightSum="2">
 

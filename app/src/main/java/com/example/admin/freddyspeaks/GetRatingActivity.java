@@ -20,7 +20,7 @@ import com.example.admin.animation.ViewPagerCustomDuration;
 import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Question;
-import com.example.admin.tasks.AsyncImageSetterTask;
+import com.example.admin.util.ImageUtility;
 import com.example.admin.webservice.request_objects.FeedbackRequest;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -62,8 +62,8 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         ratingPreviousButton = (Button) findViewById(R.id.ratingPreviousButton);
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
 
-        AsyncImageSetterTask asyncImageSetterTask = new AsyncImageSetterTask(this,backgroundRatingImage);
-        asyncImageSetterTask.execute(R.drawable.bags);
+        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.bags));
+
         long T2 = android.os.SystemClock.uptimeMillis();
         Log.d("GetRatingT2",T2+"");
         ratingFragmentMap = new HashMap<>();

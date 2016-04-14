@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.admin.tasks.AsyncImageSetterTask;
+import com.example.admin.util.ImageUtility;
 
 public class HomePageActivity extends BaseActivity {
 
@@ -22,8 +22,8 @@ public class HomePageActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
-        AsyncImageSetterTask asyncImageSetterTask = new AsyncImageSetterTask(this,backgroundRatingImage);
-        asyncImageSetterTask.execute(R.drawable.bags);
+        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.bags));
+
 
         addRating = (Button) findViewById(R.id.add_rating);
 
