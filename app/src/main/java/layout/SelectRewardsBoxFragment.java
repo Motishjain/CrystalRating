@@ -2,6 +2,7 @@ package layout;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -90,6 +91,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         super.onAttach(activity);
         if (activity instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) activity;
+            mListener.fragmentCreated(level);
         } else {
             throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -120,6 +122,8 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void rewardClicked(int level, int index, boolean checked);
+
+        void fragmentCreated(int level);
     }
 
     public int getSelectedLevel() {

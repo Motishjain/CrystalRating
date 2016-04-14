@@ -15,6 +15,7 @@ import com.example.admin.constants.AppConstants;
 import com.example.admin.database.DBHelper;
 import com.example.admin.database.Reward;
 import com.example.admin.database.SelectedReward;
+import com.example.admin.util.DialogBuilderUtil;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.request_objects.RewardSubmitRequest;
@@ -45,7 +46,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
     private List<Reward> rewardsList;
     Map<Integer,List<Reward>> levelRewardsMap;
-    private ProgressDialog progress;
+    private ProgressDialog progressDialog;
     private String rewardCategory;
     private String outletCode;
     private int selectedLevel;
@@ -62,11 +63,11 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
         Bundle extras = getIntent().getExtras();
         rewardCategory = extras.getString("rewardCategory");
+        progressDialog = DialogBuilderUtil.createProgressDialog(this);
 
         try {
-            if(progress == null){
-                showProgressDialog();
-            }
+            progressDialog.setMessage("Fetching Rewards...");
+            progressDialog.show();
             rewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Reward");
             rewardQueryBuilder = rewardDao.queryBuilder();
             rewardQueryBuilder.orderBy("level",true);
@@ -123,6 +124,11 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         }
     }
 
+    @Override
+    public void fragmentCreated(int level) {
+        progressDialog.dismiss();
+    }
+
     public void fetchRewards() {
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<List<RewardResponse>> fetchRewardsCall = restEndpointInterface.fetchRewards(AppConstants.OUTLET_TYPE);
@@ -155,15 +161,6 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         });
     }
 
-    void showProgressDialog(){
-        progress=new ProgressDialog(this);
-        progress.setMessage("Fetching Rewards");
-        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progress.setIndeterminate(true);
-        progress.setProgress(0);
-        progress.show();
-    }
-
     void createLevelWiseFragments() {
         try {
             selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
@@ -183,10 +180,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         catch(SQLException e) {
             Log.e("RewardSelectionActivity","Failed to fetch saved rewards");
         }
-
         //To find all the saved rewards and show it pre-selected
-
-
         levelRewardsMap = new TreeMap<>();
 
         for(Reward reward:rewardsList) {
@@ -208,7 +202,6 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
             fragmentList.add(selectRewardsBoxFragment);
         }
         fragmentTransaction.commit();
-        progress.dismiss();
     }
 
     public void saveSelectedRewards(View v) {

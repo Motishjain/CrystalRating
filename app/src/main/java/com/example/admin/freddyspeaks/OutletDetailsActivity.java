@@ -2,6 +2,7 @@ package com.example.admin.freddyspeaks;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import com.example.admin.database.DBHelper;
 import com.example.admin.database.Outlet;
 import com.example.admin.receiver.AlarmReceiver;
 import com.example.admin.receiver.DeviceBootReceiver;
+import com.example.admin.util.DialogBuilderUtil;
 import com.example.admin.webservice.RestEndpointInterface;
 import com.example.admin.webservice.RetrofitSingleton;
 import com.example.admin.webservice.request_objects.OutletRequest;
@@ -51,6 +53,7 @@ public class OutletDetailsActivity extends BaseActivity {
 
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,7 @@ public class OutletDetailsActivity extends BaseActivity {
         nextButton = (Button) findViewById(R.id.registerOutletNextButton);
         registerOutletHeader = (TextView) findViewById(R.id.registerOutletHeader);
         activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
+        progressDialog = DialogBuilderUtil.createProgressDialog(this);
 
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
@@ -98,6 +102,14 @@ public class OutletDetailsActivity extends BaseActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(editMode)
+                {
+                    progressDialog.setMessage("Updating Outlet Details...");
+                }
+                else {
+                    progressDialog.setMessage("Registering Outlet...");
+                }
+                progressDialog.show();
                 final OutletRequest outletRequest = new OutletRequest();
                 outletRequest.setOutletName(outletName.getText().toString());
                 outletRequest.setAliasName(alias.getText().toString());
@@ -153,7 +165,9 @@ public class OutletDetailsActivity extends BaseActivity {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("outletCode", currentOutlet.getOutletCode());
                                     editor.commit();
-
+                                    progressDialog.dismiss();
+                                    Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
+                                    startActivity(configureRewards);
                                 } catch (SQLException e) {
                                     e.printStackTrace();
                                 }
@@ -170,13 +184,12 @@ public class OutletDetailsActivity extends BaseActivity {
                                     outletUpdateBuilder.updateColumnValue("cellNumber",currentOutlet.getCellNumber());
                                     outletUpdateBuilder.where().eq("outletCode",currentOutlet.getOutletCode());
                                     outletUpdateBuilder.update();
+                                    progressDialog.dismiss();
+                                    OutletDetailsActivity.this.finish();
                                 } catch (SQLException e) {
                                     e.printStackTrace();
                                 }
                             }
-
-                            Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
-                            startActivity(configureRewards);
                         }
                     }
 

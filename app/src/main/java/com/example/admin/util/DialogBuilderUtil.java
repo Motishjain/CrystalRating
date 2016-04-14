@@ -1,6 +1,7 @@
 package com.example.admin.util;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
@@ -34,5 +35,13 @@ public class DialogBuilderUtil {
                     }
                 });
         alertDialog.show();
+    }
+
+    public static ProgressDialog createProgressDialog(Context context){
+        ProgressDialog progressDialog=new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setProgress(0);
+        return  progressDialog;
     }
 }
