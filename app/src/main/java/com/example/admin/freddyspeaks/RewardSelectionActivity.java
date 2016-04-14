@@ -207,12 +207,14 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     public void saveSelectedRewards(View v) {
 
         try {
+            progressDialog.setMessage("Fetching Rewards...");
+            progressDialog.show();
+
             DeleteBuilder<SelectedReward,Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
             selectedRewardDeleteBuilder.where().eq("rewardCategory", rewardCategory);
             selectedRewardDeleteBuilder.delete();
 
             List<String> rewardIdList = new ArrayList<>();
-
 
             for(Reward reward:rewardsList) {
                 if(reward.isSelected()) {
@@ -234,7 +236,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
                 @Override
                 public void onResponse(Call<PostServiceResponse> call, Response<PostServiceResponse> response) {
                     PostServiceResponse postServiceResponse = response.body();
-
+                    progressDialog.dismiss();
                     if (postServiceResponse.isSuccess()) {
                         Intent rewardsSaved = new Intent();
                         rewardsSaved.putExtra("rewardsSelected", true);
