@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.constants.AppConstants;
@@ -46,6 +47,7 @@ public class OutletDetailsActivity extends BaseActivity {
     Outlet currentOutlet;
     boolean editMode;
     String outletCode;
+    ImageView activityBackButton;
 
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
@@ -66,6 +68,7 @@ public class OutletDetailsActivity extends BaseActivity {
         phoneNumber = (EditText) findViewById(R.id.inputPhoneNumberText);
         nextButton = (Button) findViewById(R.id.registerOutletNextButton);
         registerOutletHeader = (TextView) findViewById(R.id.registerOutletHeader);
+        activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
 
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
@@ -84,10 +87,12 @@ public class OutletDetailsActivity extends BaseActivity {
         if(!editMode) {
             registerOutletHeader.setText("Register your Outlet!");
             nextButton.setText("Register");
+            activityBackButton.setVisibility(View.GONE);
         }
         else {
             registerOutletHeader.setText("Edit Outlet Details");
             nextButton.setText("Update");
+            activityBackButton.setVisibility(View.VISIBLE);
         }
 
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -203,5 +208,9 @@ public class OutletDetailsActivity extends BaseActivity {
         catch (SQLException e) {
             Log.e("OutletDetailsActivity","Outlet details fetch error");
         }
+    }
+
+    public void closeActivity(View v) {
+        this.finish();
     }
 }

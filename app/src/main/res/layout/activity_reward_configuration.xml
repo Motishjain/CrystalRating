@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/activityBackButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:background="#0000"
@@ -29,7 +29,7 @@
             android:src="@drawable/back_button"
             android:tint="@color/white" />
 
-        <com.example.admin.view.CustomFontTextView style="@style/appHeader" />
+        <com.example.admin.view.CustomFontTextView style="@style/appHeader" android:layout_marginLeft="15dp"/>
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.CoordinatorLayout>

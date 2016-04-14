@@ -23,7 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="left"
-                android:background="@drawable/app_bg"
                 android:orientation="vertical">
 
                 <com.example.admin.view.CustomFontTextView
