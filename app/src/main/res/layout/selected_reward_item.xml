@@ -1,46 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="130dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
     android:layout_marginLeft="@dimen/item_offset"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
     android:id="@+id/selectedRewardBox"
-    android:layout_height="130dp">
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/selectedRewardDeleteButton"
+        android:background="@drawable/delete"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="top|right"
+        android:backgroundTint="@color/dark_orange"
+        />
 
     <ImageView
         android:id="@+id/selectedRewardImage"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:scaleType="centerInside"
         android:layout_gravity="center_horizontal|center_vertical"
         style="@style/rewardImage"  />
 
     <LinearLayout
+        android:layout_marginTop="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
-        android:layout_marginLeft="5dp"
         android:orientation="vertical">
 
         <com.example.admin.view.CustomFontTextView
             android:id="@+id/selectedRewardName"
+            android:layout_marginLeft="5dp"
             style="@style/rewardName" />
 
         <com.example.admin.view.CustomFontTextView
             android:id="@+id/selectedRewardCost"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
             style="@style/rewardCost" />
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/selectedRewardDeleteButton"
-        android:background="@drawable/delete"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="top|right"
-        android:tint="@color/dark_orange"
-        />
-
-</FrameLayout>
+</LinearLayout>

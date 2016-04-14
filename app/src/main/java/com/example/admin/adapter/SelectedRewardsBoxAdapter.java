@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.admin.database.Reward;
@@ -70,7 +71,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
         TextView selectedRewardCost;
         TextView selectedRewardName;
         ImageView selectedRewardDeleteButton;
-        FrameLayout selectedRewardBox;
+        LinearLayout selectedRewardBox;
 
         public SelectedRewardHolder(View view){
             super(view);
@@ -78,7 +79,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
             selectedRewardName = (TextView) view.findViewById(R.id.selectedRewardName);
             selectedRewardCost = (TextView) view.findViewById(R.id.selectedRewardCost);
             selectedRewardDeleteButton = (ImageView) view.findViewById(R.id.selectedRewardDeleteButton);
-            selectedRewardBox = (FrameLayout) view.findViewById(R.id.selectedRewardBox);
+            selectedRewardBox = (LinearLayout) view.findViewById(R.id.selectedRewardBox);
         }
     }
 
