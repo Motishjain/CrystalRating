@@ -33,12 +33,13 @@
         android:background="@drawable/register_container"
         android:layout_height="0dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
             android:paddingTop="@dimen/register_box_top_margin"
             android:id="@+id/registerContainerBox"
             >
@@ -65,7 +66,6 @@
                 android:id="@+id/inputAliasNameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputOutletNameLayout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:textColorHint="@color/textHint"
@@ -85,7 +85,6 @@
                 android:id="@+id/inputaddressLine1Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputAliasNameLayout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp">
@@ -103,7 +102,6 @@
                 android:id="@+id/inputaddressLine2Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputaddressLine1Layout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp">
@@ -121,7 +119,6 @@
                 android:id="@+id/inputPinCodeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputaddressLine2Layout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp">
@@ -140,7 +137,6 @@
                 android:id="@+id/inputEmailLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputPinCodeLayout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp">
@@ -158,7 +154,6 @@
                 android:id="@+id/inputPhoneNumberLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputEmailLayout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp">
@@ -173,14 +168,13 @@
                     style="@style/inputText" />
             </android.support.design.widget.TextInputLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/ScrollViewRegisterBox"
         android:layout_weight="15.0"
         android:weightSum="6">
 
