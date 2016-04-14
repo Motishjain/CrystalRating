@@ -264,10 +264,14 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("areQuestionsFetched", true);
                     editor.commit();
-                    SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(RewardConfigurationActivity.this);
+                    SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(RewardConfigurationActivity.this, new SetRandomQuestionsTask.CallBackListener() {
+                        @Override
+                        public void onTaskCompleted() {
+                            Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
+                            startActivity(homePage);
+                        }
+                    });
                     setRandomQuestionsTask.execute();
-                    Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
-                    startActivity(homePage);
                 } catch (SQLException e) {
                     Log.e("RewardConfiguration", "Unable to fetch questions");
                 }

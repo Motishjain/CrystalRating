@@ -19,7 +19,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.util.List;
 
-public class LoadingActivity extends AppCompatActivity implements BitmapPreLoadTask.OnTaskCompleted{
+public class LoadingActivity extends BaseActivity implements BitmapPreLoadTask.OnTaskCompleted{
 
     Integer[] resIdList = new Integer[]{R.drawable.bags};
 
@@ -46,7 +46,7 @@ public class LoadingActivity extends AppCompatActivity implements BitmapPreLoadT
     }
 
     @Override
-    public void onTaskCompleted(String response) {
+    public void onTaskCompleted() {
         progress.dismiss();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String outletCode = sharedPreferences.getString("outletCode", null) ;

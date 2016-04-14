@@ -17,12 +17,13 @@ public class BitmapPreLoadTask extends AsyncTask<Integer, Void, Void> {
 
     private Map<Integer,Bitmap> imageMap;
     private Context context;
+    OnTaskCompleted onTaskCompleted;
 
 
     public BitmapPreLoadTask(Context context, Map<Integer,Bitmap> imageMap, OnTaskCompleted onTaskCompleted) {
         this.imageMap = imageMap;
         this.context = context;
-
+        this.onTaskCompleted = onTaskCompleted;
     }
 
     @Override
@@ -39,10 +40,11 @@ public class BitmapPreLoadTask extends AsyncTask<Integer, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
+        onTaskCompleted.onTaskCompleted();
     }
 
     public interface OnTaskCompleted {
-        void onTaskCompleted(String response);
+        void onTaskCompleted();
     }
 
 

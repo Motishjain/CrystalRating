@@ -24,9 +24,11 @@ import java.util.Random;
 public class SetRandomQuestionsTask extends AsyncTask<Void, Void, Void> {
 
     Context context;
+    CallBackListener callBackListener;
 
-    public SetRandomQuestionsTask(Context context) {
+    public SetRandomQuestionsTask(Context context, CallBackListener callBackListener) {
         this.context = context;
+        this.callBackListener = callBackListener;
     }
 
     @Override
@@ -96,9 +98,14 @@ public class SetRandomQuestionsTask extends AsyncTask<Void, Void, Void> {
             questionUpdateBuilder.updateColumnValue("selected", "N");
             questionUpdateBuilder.update();
 
+            callBackListener.onTaskCompleted();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public interface CallBackListener {
+        void onTaskCompleted();
     }
 }
