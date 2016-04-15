@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_width="300dp"
+    android:layout_height="500dp"
     android:orientation="vertical"
-    tools:context="com.example.admin.freddyspeaks.RewardSelectionActivity"
+    tools:context="com.admin.freddyspeaks.RewardSelectionActivity"
     tools:showIn="@layout/activity_reward_selection">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="430dp">
+
+        <LinearLayout
+            android:id="@+id/rewardLevelBoxList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+    </ScrollView>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/footerButtons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rewardLevelBoxList">
+        android:layout_height="70dp"
+        android:gravity="right"
+        android:layout_marginTop="10dp"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <com.admin.view.CustomFontButton
+            android:id="@+id/cancelButton"
+            style="@style/formButton"
+            android:text="@string/cancel"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:onClick="close"
+            android:layout_weight="1"
+            />
+
+        <com.admin.view.CustomFontButton
+            android:id="@+id/saveSelectedRewardsButton"
+            style="@style/formButton"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="100dp"
+            android:onClick="saveSelectedRewards"
+            android:text="@string/save"
+            android:layout_weight="1"
+            />
     </LinearLayout>
 
-    <com.example.admin.view.CustomFontButton
-        android:id="@+id/saveSelectedRewardsButton"
-        android:layout_below="@id/rewardLevelBoxList"
-        android:onClick="saveSelectedRewards"
-        style="@style/formButton"
-        android:layout_marginLeft="40dp"
-        android:layout_weight="1"
-        android:text="Save"
-        android:textSize="15dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        />
-    </RelativeLayout>
-</ScrollView>
+</LinearLayout>

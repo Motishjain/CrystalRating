@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:layout_marginTop="35dp"
             android:id="@+id/rewardDisplayExclaimer"
             style="@style/rewardDisplayExclaimer"
@@ -30,7 +30,7 @@
             android:visibility="gone"
             android:layout_gravity="center"
             />
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:layout_marginTop="10dp"
             android:id="@+id/rewardDisplayMessage"
             style="@style/rewardDisplayMessage"
@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             />
 
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:layout_marginTop="35dp"
             android:id="@+id/rewardNotFoundExclaimer"
             style="@style/rewardDisplayExclaimer"
@@ -48,7 +48,7 @@
             android:visibility="gone"
             android:layout_gravity="center"
             />
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:layout_marginTop="10dp"
             android:id="@+id/rewardNotFoundMessage"
             style="@style/rewardDisplayMessage"
@@ -73,7 +73,7 @@
                 style="@style/rewardImage"
                 android:background="#0000"/>
 
-            <com.example.admin.view.CustomFontTextView
+            <com.admin.view.CustomFontTextView
                 android:id="@+id/resultRewardName"
                 style="@style/rewardName"
                 android:gravity="top|center"
@@ -81,7 +81,7 @@
 
         </FrameLayout>
 
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:layout_marginTop="35dp"
             android:id="@+id/thankYouMessage1"
             style="@style/thankYouMessage"
@@ -89,7 +89,7 @@
             android:text="@string/thankYouMessage1"
             android:layout_gravity="center"
             />
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:layout_marginTop="10dp"
             android:id="@+id/thankYouMessage2"
             style="@style/thankYouMessage"

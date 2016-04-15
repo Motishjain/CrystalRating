@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/header_top_margin"
-    tools:context="com.example.admin.freddyspeaks.RatingSummaryActivity"
+    tools:context="com.admin.freddyspeaks.RatingSummaryActivity"
     tools:showIn="@layout/activity_rating_summary">
 
     <LinearLayout
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:weightSum="4">
 
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/fromDate"
             android:layout_width="0dp"
             android:layout_weight="2"
@@ -31,7 +31,7 @@
             android:layout_gravity="bottom"
             android:background="@drawable/change_date"/>
 
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/toDate"
             android:layout_width="0dp"
             android:layout_weight="2"

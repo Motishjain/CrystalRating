@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="4">
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/userNameHeader"
             style="@style/ratingDetailHeaderColumn"
             android:text="@string/rating_user_name_header"
@@ -15,7 +15,7 @@
             android:gravity="center"
             android:layout_width="0dp"
             />
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/userPhoneNumberHeader"
             style="@style/ratingDetailHeaderColumn"
             android:text="@string/rating_user_phone_number_header"
@@ -23,7 +23,7 @@
             android:gravity="center"
             android:layout_width="0dp"
             />
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/billNumberHeader"
             style="@style/ratingDetailHeaderColumn"
             android:text="@string/rating_bill_number_header"
@@ -31,7 +31,7 @@
             android:gravity="center"
             android:layout_width="0dp"
             />
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/billAmountHeader"
             style="@style/ratingDetailHeaderColumn"
             android:text="@string/rating_bill_amount_header"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" />
 
-    <com.example.admin.view.CustomFontButton
+    <com.admin.view.CustomFontButton
         android:id="@+id/ratingDetailsCloseButton"
         style="@style/formButton"
         android:layout_marginTop="10dp"

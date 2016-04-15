@@ -3,28 +3,28 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:weightSum="4" >
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/userNameCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
             android:gravity="left"
             android:layout_width="0dp"
             />
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/userPhoneNumberCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
             android:gravity="left"
             android:layout_width="0dp"
             />
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/billNumberCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
             android:gravity="left"
             android:layout_width="0dp"
             />
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/billAmountCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"

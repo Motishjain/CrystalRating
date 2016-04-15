@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.admin.freddyspeaks.RewardConfigurationActivity">
+    tools:context="com.admin.freddyspeaks.RewardConfigurationActivity">
 
     <include layout="@layout/content_reward_configuration" />
 
@@ -29,7 +29,7 @@
             android:src="@drawable/back_button"
             android:tint="@color/white" />
 
-        <com.example.admin.view.CustomFontTextView style="@style/appHeader" android:layout_marginLeft="15dp"/>
+        <com.admin.view.CustomFontTextView style="@style/appHeader" android:layout_marginLeft="15dp"/>
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.CoordinatorLayout>

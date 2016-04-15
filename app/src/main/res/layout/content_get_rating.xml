@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/ratingCardHolder"
-    tools:context="com.example.admin.freddyspeaks.GetRatingActivity"
+    tools:context="com.admin.freddyspeaks.GetRatingActivity"
     tools:showIn="@layout/activity_get_rating"
     android:background="@drawable/app_bg"
     >
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_height="450dp">
+            android:layout_height="500dp">
 
             <ImageView
                 android:id="@+id/ratingBackArrow"
@@ -42,7 +42,7 @@
                 android:onClick="getPreviousRating"
                 android:background="#0000"/>
 
-            <com.example.admin.animation.ViewPagerCustomDuration
+            <com.admin.animation.ViewPagerCustomDuration
                 android:id="@+id/ratingBarPager"
                 android:layout_marginLeft="5dp"
                 android:layout_width="250dp"
@@ -69,7 +69,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.example.admin.view.CustomFontButton
+            <com.admin.view.CustomFontButton
                 android:id="@+id/ratingPreviousButton"
                 style="@style/formButton"
                 android:gravity="center"
@@ -83,7 +83,7 @@
                 android:layout_height="30dp"
                 />
 
-            <com.example.admin.view.CustomFontButton
+            <com.admin.view.CustomFontButton
                 android:id="@+id/ratingNextButton"
                 style="@style/formButton"
                 android:gravity="center"

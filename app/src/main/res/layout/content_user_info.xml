@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/header_top_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.admin.freddyspeaks.UserInfoActivity"
+    tools:context="com.admin.freddyspeaks.UserInfoActivity"
     tools:showIn="@layout/activity_user_info">
 
     <android.support.design.widget.TextInputLayout

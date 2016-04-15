@@ -13,7 +13,7 @@
         android:background="@color/headerBg"
         android:id="@+id/toolbar"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             style="@style/appHeader"
             />
     </android.support.v7.widget.Toolbar>

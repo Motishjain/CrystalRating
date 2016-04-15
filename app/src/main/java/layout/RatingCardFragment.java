@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.admin.adapter.RatingOptionsAdapter;
-import com.example.admin.database.Question;
-import com.example.admin.freddyspeaks.R;
+import com.admin.adapter.RatingOptionsAdapter;
+import com.admin.database.Question;
+import com.admin.freddyspeaks.R;
 
 /**
  * A simple {@link Fragment} subclass.

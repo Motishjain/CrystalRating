@@ -34,19 +34,17 @@
         android:layout_marginTop="2dp"
         android:orientation="vertical">
 
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/selectRewardName"
             style="@style/rewardName"
             android:layout_marginLeft="5dp"
-            android:gravity="top|center"
             />
 
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:id="@+id/selectRewardCost"
             style="@style/rewardCost"
             android:layout_marginTop="2dp"
             android:layout_marginLeft="5dp"
-            android:gravity="bottom|right"
             />
     </LinearLayout>
 

@@ -28,7 +28,7 @@
             android:src="@drawable/back_button"
             android:tint="@color/white" />
 
-        <com.example.admin.view.CustomFontTextView style="@style/appHeader" android:layout_marginLeft="15dp"/>
+        <com.admin.view.CustomFontTextView style="@style/appHeader" android:layout_marginLeft="15dp"/>
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.CoordinatorLayout>

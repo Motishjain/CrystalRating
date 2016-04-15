@@ -19,7 +19,7 @@
         android:layout_gravity="center"
         android:background="#0000"/>
 
-    <com.example.admin.view.CustomFontTextView
+    <com.admin.view.CustomFontTextView
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="2dp"

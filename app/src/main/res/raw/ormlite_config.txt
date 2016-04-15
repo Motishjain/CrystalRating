@@ -2,7 +2,7 @@
 # generated on 2016/03/27 10:53:34
 #
 # --table-start--
-dataClass=com.example.admin.database.Outlet
+dataClass=com.admin.database.Outlet
 tableName=OUTLET
 # --table-fields-start--
 # --field-start--
@@ -50,7 +50,7 @@ dataPersister=BOOLEAN
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.admin.database.User
+dataClass=com.admin.database.User
 tableName=USER
 # --table-fields-start--
 # --field-start--
@@ -70,7 +70,7 @@ fieldName=carryForwardAmount
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.admin.database.Question
+dataClass=com.admin.database.Question
 tableName=QUESTION
 # --table-fields-start--
 # --field-start--
@@ -95,7 +95,7 @@ fieldName=questionType
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.admin.database.Reward
+dataClass=com.admin.database.Reward
 tableName=REWARD
 # --table-fields-start--
 # --field-start--
@@ -125,7 +125,7 @@ dataPersister=BYTE_ARRAY
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.admin.database.SelectedReward
+dataClass=com.admin.database.SelectedReward
 tableName=SELECTED_REWARD
 # --table-fields-start--
 # --field-start--
@@ -144,7 +144,7 @@ fieldName=rewardCategory
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.example.admin.database.RewardHistory
+dataClass=com.admin.database.RewardHistory
 tableName=GOODIE_HISTORY
 # --table-fields-start--
 # --field-start--

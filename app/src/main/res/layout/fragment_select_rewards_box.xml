@@ -2,15 +2,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/item_offset"
+    android:layout_marginTop="15dp"
     android:background="@drawable/level_reward_box"
     tools:context="layout.SelectRewardsBoxFragment">
 
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/rewardsLevelHeader"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="left"
+        android:textSize="17dp"
+        android:textColor="@color/colorPrimaryDark"
+        style="@style/questionName" />
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
         android:id="@+id/fragmentRewardsList"
         android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dip"
+        android:background="@drawable/drop_shadow" >
+    </View>
 
 </LinearLayout>

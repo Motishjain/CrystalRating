@@ -13,10 +13,11 @@ import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.example.admin.adapter.SelectRewardsBoxAdapter;
-import com.example.admin.database.Reward;
-import com.example.admin.freddyspeaks.R;
+import com.admin.adapter.SelectRewardsBoxAdapter;
+import com.admin.database.Reward;
+import com.admin.freddyspeaks.R;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
 
     private OnFragmentInteractionListener mListener;
 
+    private TextView rewardsLevelHeader;
     private RecyclerView fragmentRewardsList;
 
     private SelectRewardsBoxAdapter selectRewardsBoxAdapter;
@@ -76,9 +78,13 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
 
         View selectRewardBoxFragment =  inflater.inflate(R.layout.fragment_select_rewards_box, container, false);
 
+        fragmentRewardsList = (RecyclerView) selectRewardBoxFragment.findViewById(R.id.fragmentRewardsList);
+        rewardsLevelHeader = (TextView) selectRewardBoxFragment.findViewById(R.id.rewardsLevelHeader);
+
+        rewardsLevelHeader.setText("Level "+this.selectedLevel+" rewards");
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(selectRewardBoxFragment.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        fragmentRewardsList = (RecyclerView) selectRewardBoxFragment.findViewById(R.id.fragmentRewardsList);
         fragmentRewardsList.setLayoutManager(layoutManager);
         selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(R.layout.select_reward_item, rewardList,this,selectedLevel);
         fragmentRewardsList.setAdapter(selectRewardsBoxAdapter);

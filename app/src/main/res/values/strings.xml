@@ -16,6 +16,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_reward_configuration">FreddySpeaks</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="title_activity_bill_details">FreddySpeaks</string>

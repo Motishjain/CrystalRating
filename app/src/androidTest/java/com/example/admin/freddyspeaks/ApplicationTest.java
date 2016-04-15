@@ -1,4 +1,4 @@
-package com.example.admin.freddyspeaks;
+package com.admin.freddyspeaks;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

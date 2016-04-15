@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.admin.freddyspeaks">
+    package="com.admin.freddyspeaks">
 
     <uses-permission android:name="android.permission.INTERNET" />
     uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -64,14 +64,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver
-            android:name="com.example.admin.receiver.DeviceBootReceiver"
+            android:name="com.admin.receiver.DeviceBootReceiver"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.example.admin.receiver.AlarmReceiver"
+            android:name="com.admin.receiver.AlarmReceiver"
             android:enabled="true"
             android:exported="true"></receiver>
     </application>

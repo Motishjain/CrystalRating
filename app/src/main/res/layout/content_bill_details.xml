@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.admin.freddyspeaks.BillDetailsActivity"
+    tools:context="com.admin.freddyspeaks.BillDetailsActivity"
     tools:showIn="@layout/activity_bill_details"
     android:focusable="true"
     android:focusableInTouchMode="true">
@@ -30,13 +30,13 @@
             android:gravity="center_horizontal"
             >
 
-            <com.example.admin.view.CustomFontTextView
+            <com.admin.view.CustomFontTextView
                 android:text="@string/bill_details_thanks_message"
                 android:layout_marginTop="45dp"
                 style="@style/billDetailsThanksMessage"
                 />
 
-            <com.example.admin.view.CustomFontTextView
+            <com.admin.view.CustomFontTextView
                 android:text="@string/bill_details_desription"
                 android:layout_marginTop="25dp"
                 android:layout_width="300dp"

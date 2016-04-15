@@ -24,7 +24,7 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <com.example.admin.view.CustomFontTextView
+        <com.admin.view.CustomFontTextView
             android:layout_marginTop="60dp"
             android:id="@+id/homeHeaderText1"
             style="@style/homeHeaderText"

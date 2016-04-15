@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.admin.freddyspeaks.RewardConfigurationActivity"
+        tools:context="com.admin.freddyspeaks.RewardConfigurationActivity"
         tools:showIn="@layout/activity_reward_configuration">
 
         <FrameLayout
@@ -25,7 +25,7 @@
                 android:layout_gravity="left"
                 android:orientation="vertical">
 
-                <com.example.admin.view.CustomFontTextView
+                <com.admin.view.CustomFontTextView
                     android:id="@+id/rewardConfigurationHeader"
                     style="@style/screenHeader"
                     android:layout_marginTop="50dp"
@@ -52,7 +52,7 @@
                         android:src="@drawable/add"
                         android:tint="@color/colorPrimary" />
 
-                    <com.example.admin.view.CustomFontTextView
+                    <com.admin.view.CustomFontTextView
                         style="@style/rewardBoxHeader"
                         android:layout_width="wrap_content"
                         android:layout_gravity="left|center"
@@ -88,7 +88,7 @@
                         android:src="@drawable/add"
                         android:tint="@color/colorPrimary" />
 
-                    <com.example.admin.view.CustomFontTextView
+                    <com.admin.view.CustomFontTextView
                         style="@style/rewardBoxHeader"
                         android:layout_width="wrap_content"
                         android:layout_gravity="left|center"
@@ -125,7 +125,7 @@
                         android:src="@drawable/add"
                         android:tint="@color/colorPrimary" />
 
-                    <com.example.admin.view.CustomFontTextView
+                    <com.admin.view.CustomFontTextView
                         style="@style/rewardBoxHeader"
                         android:layout_width="wrap_content"
                         android:layout_gravity="left|center"
@@ -144,7 +144,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/level_reward_box" />
 
-                <com.example.admin.view.CustomFontButton
+                <com.admin.view.CustomFontButton
                     android:id="@+id/rewardsConfigureNextButton"
                     style="@style/formButton"
                     android:layout_height="35dp"

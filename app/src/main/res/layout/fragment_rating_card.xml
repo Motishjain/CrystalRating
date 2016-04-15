@@ -9,7 +9,7 @@
     android:weightSum="20"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <com.example.admin.view.CustomFontTextView
+    <com.admin.view.CustomFontTextView
         android:id="@+id/questionNumberTextView"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
@@ -18,7 +18,7 @@
         android:textColor="@color/black"
         style="@style/questionName" />
 
-    <com.example.admin.view.CustomFontTextView
+    <com.admin.view.CustomFontTextView
         android:id="@+id/questionNameTextView"
         android:layout_marginTop="25dp"
         android:layout_weight="6"
