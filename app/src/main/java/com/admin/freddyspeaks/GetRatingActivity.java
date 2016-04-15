@@ -151,7 +151,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         if(selectedOption == null || selectedOption.trim().equals("")){
             //TODO show alert
             displayQuestion(currentQuestionIndex);
-            DialogBuilderUtil.showMessageDialog(this,"","Please select an option","Close");
+            DialogBuilderUtil.showMessageDialog(this,"","Please select an option","Ok");
         }
         else {
             ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), selectedOption);
