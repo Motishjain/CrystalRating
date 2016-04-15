@@ -20,4 +20,13 @@
         <item name="android:layout_height">match_parent</item>
         <item name="fontFamilyFile">@string/applicationFont</item>
     </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowTitleStyle">@style/CustomDialogTitle</item>
+    </style>
+
+    <style name="CustomDialogTitle" parent="@android:style/TextAppearance.DialogWindowTitle">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
 </resources>

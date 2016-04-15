@@ -81,7 +81,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         fragmentRewardsList = (RecyclerView) selectRewardBoxFragment.findViewById(R.id.fragmentRewardsList);
         rewardsLevelHeader = (TextView) selectRewardBoxFragment.findViewById(R.id.rewardsLevelHeader);
 
-        rewardsLevelHeader.setText("Level "+this.selectedLevel+" rewards");
+        rewardsLevelHeader.setText("Level "+this.level+" rewards");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(selectRewardBoxFragment.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

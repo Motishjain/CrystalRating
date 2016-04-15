@@ -13,7 +13,9 @@
         android:layout_marginTop="5dp"
         android:layout_gravity="left"
         android:textSize="17dp"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/colorPrimaryDark"
+        android:layout_height="wrap_content"
         style="@style/questionName" />
 
     <android.support.v7.widget.RecyclerView

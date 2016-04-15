@@ -67,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:weightSum="6"
             android:orientation="horizontal">
 
             <com.admin.view.CustomFontButton
@@ -74,21 +75,19 @@
                 style="@style/formButton"
                 android:gravity="center"
                 android:text="@string/previous"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:onClick="getPreviousRating"
-                />
-
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="30dp"
                 />
 
             <com.admin.view.CustomFontButton
                 android:id="@+id/ratingNextButton"
                 style="@style/formButton"
                 android:gravity="center"
+                android:layout_marginLeft="18dp"
                 android:text="@string/next"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:onClick="getNextRating"
                 />
         </LinearLayout>
