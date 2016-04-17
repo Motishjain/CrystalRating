@@ -24,6 +24,9 @@ import com.admin.webservice.response_objects.PostServiceResponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,6 +40,12 @@ public class RewardDisplayActivity extends BaseActivity {
     CustomFontTextView rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
     CustomFontTextView rewardNotFoundExclaimer,rewardNotFoundMessage,thankYouMessage1,thankYouMessage2;
     ImageView resultRewardImage;
+    public static Map<String,String> categoryMapping = new HashMap<>();
+    static {
+        categoryMapping.put(AppConstants.BRONZE_CD,"Bronze");
+        categoryMapping.put(AppConstants.SILVER_CD,"Silver");
+        categoryMapping.put(AppConstants.GOLD_CD,"Gold");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +79,21 @@ public class RewardDisplayActivity extends BaseActivity {
             Reward rewardResult = allocatedReward.getReward();
             FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(resultRewardImage);
             fetchRewardImageTask.execute(rewardResult.getImage());
-            resultRewardName.setText(rewardResult.getName());
-            rewardDisplayExclaimer.setText("Congratulations!!!");
-            rewardDisplayMessage.setText("We have a reward for you!");
+            resultRewardName.setText("It's "+rewardResult.getName().toUpperCase()+" from "+ categoryMapping.get(allocatedReward.getRewardCategory())+" category");
+            rewardDisplayExclaimer.setText("Congratulations!!");
+            rewardDisplayMessage.setText("We have a reward for you.");
             rewardDisplayExclaimer.setVisibility(View.VISIBLE);
             rewardDisplayMessage.setVisibility(View.VISIBLE);
+            rewardNotFoundExclaimer.setVisibility(View.GONE);
+            rewardNotFoundMessage.setVisibility(View.GONE);
         }
         else {
             rewardNotFoundExclaimer.setText("Ahh! We couldn't find a reward for you.");
             rewardNotFoundMessage.setText("Duly noted, you will be taken better care of next time :)");
             rewardNotFoundExclaimer.setVisibility(View.VISIBLE);
             rewardNotFoundMessage.setVisibility(View.VISIBLE);
+            rewardDisplayExclaimer.setVisibility(View.GONE);
+            rewardDisplayMessage.setVisibility(View.GONE);
         }
     }
 
