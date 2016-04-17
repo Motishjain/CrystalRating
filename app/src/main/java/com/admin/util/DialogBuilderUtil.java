@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.AnimationDrawable;
+import android.widget.ImageView;
 
 import com.admin.freddyspeaks.R;
 
@@ -40,6 +42,20 @@ public class DialogBuilderUtil {
     public static ProgressDialog createProgressDialog(Context context){
         ProgressDialog progressDialog=new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setContentView(R.layout.custom_progress_dialog);
+
+        ImageView animation = (ImageView) progressDialog.findViewById(R.id.animation);
+        animation.setBackgroundResource(R.drawable.progress_dialog_animation_list);
+        final AnimationDrawable animationDrawable = (AnimationDrawable) animation.getBackground();
+        animationDrawable.start();
+
+        progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                animationDrawable.stop();
+            }
+        });
+
         progressDialog.setIndeterminate(true);
         progressDialog.setProgress(0);
         return  progressDialog;

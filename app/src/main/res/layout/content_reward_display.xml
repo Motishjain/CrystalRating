@@ -27,6 +27,7 @@
             android:id="@+id/rewardDisplayExclaimer"
             style="@style/rewardDisplayExclaimer"
             android:gravity="center"
+            android:text="Congratulations!!!"
             android:visibility="gone"
             android:layout_gravity="center"
             />
@@ -35,16 +36,7 @@
             android:id="@+id/rewardDisplayMessage"
             style="@style/rewardDisplayMessage"
             android:gravity="center"
-            android:visibility="gone"
-            android:layout_gravity="center"
-            />
-
-        <com.admin.view.CustomFontTextView
-            android:layout_marginTop="35dp"
-            android:id="@+id/rewardNotFoundExclaimer"
-            style="@style/rewardDisplayExclaimer"
-            android:layout_width="300dp"
-            android:gravity="center"
+            android:text="We have a reward for you."
             android:visibility="gone"
             android:layout_gravity="center"
             />
@@ -59,9 +51,24 @@
             />
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="200dp"
-            android:id="@+id/rewardDisplayBox"
-            android:layout_height="200dp">
+            android:layout_width="match_parent"
+            android:id="@+id/rewardDisplayName"
+            android:background="@drawable/reward_display_name"
+            android:layout_height="wrap_content">
+
+            <com.admin.view.CustomFontTextView
+                android:id="@+id/resultRewardName"
+                style="@style/rewardName"
+                android:gravity="top|center"
+                />
+
+        </FrameLayout>
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:id="@+id/rewardDisplayImage"
+            android:background="@drawable/reward_display_image"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/resultRewardImage"
@@ -72,12 +79,6 @@
                 android:layout_gravity="center"
                 style="@style/rewardImage"
                 android:background="#0000"/>
-
-            <com.admin.view.CustomFontTextView
-                android:id="@+id/resultRewardName"
-                style="@style/rewardName"
-                android:gravity="top|center"
-                />
 
         </FrameLayout>
 
