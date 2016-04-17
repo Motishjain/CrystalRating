@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/headerBg"
+        android:onClick="closeActivity"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <ImageView
@@ -24,7 +25,6 @@
             android:layout_marginTop="5dp"
             android:background="#0000"
             android:gravity="center"
-            android:onClick="closeActivity"
             android:scaleType="fitXY"
             android:src="@drawable/back_button"
             android:tint="@color/white" />

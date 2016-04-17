@@ -63,16 +63,16 @@ public class RatingSummaryActivity extends BaseActivity {
     String outletCode;
 
     PieChart ratingSummaryChart;
-    TextView fromDateTextView,toDateTextView,ratingChartHeader,ratingChartSubHeader;
+    TextView fromDateTextView, toDateTextView, ratingChartHeader, ratingChartSubHeader;
     Spinner questionsSpinner;
 
     List<Question> questionList;
-    Map<String,Question> questionMap = new HashMap<>();
+    Map<String, Question> questionMap = new HashMap<>();
     List<Question> answeredQuestionList = new ArrayList<>();
     List<FeedbackResponse> feedbackResponseList;
     Question selectedQuestion;
     String[] options;
-    Map<Integer,List<Integer>> ratingWiseFeedbackList;
+    Map<Integer, List<Integer>> ratingWiseFeedbackList;
     Typeface textFont;
 
     Date fromDate, toDate;
@@ -95,7 +95,7 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingChartSubHeader.setText("(for the selected period)");
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        outletCode = sharedPreferences.getString("outletCode", null) ;
+        outletCode = sharedPreferences.getString("outletCode", null);
 
         ratingSummaryChart.setNoDataText("No ratings found for selected question");
         ratingSummaryChart.setDrawHoleEnabled(false);
@@ -115,9 +115,9 @@ public class RatingSummaryActivity extends BaseActivity {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
                 int optionIndex = e.getXIndex();
-                List<Integer> feedbackIndexList = ratingWiseFeedbackList.get(optionIndex+1);
+                List<Integer> feedbackIndexList = ratingWiseFeedbackList.get(optionIndex + 1);
                 List<FeedbackResponse> feedbackResponseSubList = new ArrayList<>();
-                for(Integer feedbackIndex: feedbackIndexList) {
+                for (Integer feedbackIndex : feedbackIndexList) {
                     feedbackResponseSubList.add(feedbackResponseList.get(feedbackIndex));
                 }
                 openRatingDetailsDialog(feedbackResponseSubList);
@@ -162,21 +162,20 @@ public class RatingSummaryActivity extends BaseActivity {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
             questionQueryBuilder = questionDao.queryBuilder();
             questionList = questionQueryBuilder.query();
-            for(Question question:questionList) {
-                questionMap.put(question.getQuestionId(),question);
+            for (Question question : questionList) {
+                questionMap.put(question.getQuestionId(), question);
             }
 
             populateDummyFeedback();
 
             //fetchFeedback();
-        }
-        catch(SQLException e) {
-            Log.e("RatingSummaryActivity","Unable to fetch questions");
+        } catch (SQLException e) {
+            Log.e("RatingSummaryActivity", "Unable to fetch questions");
         }
 
     }
 
-    public void fetchFeedback () {
+    public void fetchFeedback() {
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(fromDateTextView.getText().toString(), toDateTextView.getText().toString(), outletCode);
         fetchRewardsCall.enqueue(new Callback<List<FeedbackResponse>>() {
@@ -200,11 +199,11 @@ public class RatingSummaryActivity extends BaseActivity {
         Set<String> questionIdSet = new HashSet<>();
         List<String> questionNames = new ArrayList<>();
 
-        for(FeedbackResponse feedbackResponse:feedbackResponseList) {
+        for (FeedbackResponse feedbackResponse : feedbackResponseList) {
             questionIdSet.addAll(feedbackResponse.getRatingsMap().keySet());
         }
 
-        for(String questionId: questionIdSet) {
+        for (String questionId : questionIdSet) {
             answeredQuestionList.add(questionMap.get(questionId));
             questionNames.add(questionMap.get(questionId).getName());
         }
@@ -220,14 +219,14 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingWiseFeedbackList = new HashMap<>();
         int feedbackIndex = 0;
 
-        for(String option : options) {
+        for (String option : options) {
             labels.add(option);
         }
 
-        for(FeedbackResponse feedbackResponse:feedbackResponseList) {
+        for (FeedbackResponse feedbackResponse : feedbackResponseList) {
             Integer selectedOption = feedbackResponse.getRatingsMap().get(selectedQuestion.getQuestionId());
-            if(selectedOption!=null) {
-                if(ratingWiseFeedbackList.get(selectedOption)==null){
+            if (selectedOption != null) {
+                if (ratingWiseFeedbackList.get(selectedOption) == null) {
                     ratingWiseFeedbackList.put(selectedOption, new ArrayList<Integer>());
                 }
                 ratingWiseFeedbackList.get(selectedOption).add(feedbackIndex);
@@ -235,10 +234,10 @@ public class RatingSummaryActivity extends BaseActivity {
             feedbackIndex++;
         }
 
-        for(int optionIndex=0;optionIndex<options.length;optionIndex++) {
-            Integer count = ratingWiseFeedbackList.get(optionIndex+1)==null?0:ratingWiseFeedbackList.get(optionIndex+1).size();
-            if(count>0) {
-                entries.add(new Entry(count,optionIndex));
+        for (int optionIndex = 0; optionIndex < options.length; optionIndex++) {
+            Integer count = ratingWiseFeedbackList.get(optionIndex + 1) == null ? 0 : ratingWiseFeedbackList.get(optionIndex + 1).size();
+            if (count > 0) {
+                entries.add(new Entry(count, optionIndex));
             }
         }
 
@@ -268,13 +267,13 @@ public class RatingSummaryActivity extends BaseActivity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH,monthOfYear);
-                        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                        if(calendar.getTime().after(toDate)) {
+                        calendar.set(Calendar.MONTH, monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        if (calendar.getTime().after(toDate)) {
                             //TODO alert dialogue
                             return;
                         }
-                        if(!fromDate.equals(calendar.getTime())) {
+                        if (!fromDate.equals(calendar.getTime())) {
                             //fetchFeedback();
                         }
                         fromDate = calendar.getTime();
@@ -294,13 +293,13 @@ public class RatingSummaryActivity extends BaseActivity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH,monthOfYear);
-                        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                        if(calendar.getTime().before(fromDate)) {
+                        calendar.set(Calendar.MONTH, monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        if (calendar.getTime().before(fromDate)) {
                             //TODO alert dialogue
                             return;
                         }
-                        if(!toDate.equals(calendar.getTime())) {
+                        if (!toDate.equals(calendar.getTime())) {
                             //fetchFeedback();
                         }
                         toDate = calendar.getTime();
@@ -335,7 +334,7 @@ public class RatingSummaryActivity extends BaseActivity {
         dialog.show();
     }
 
-    public void setDateTextView(TextView textView,Date date) {
+    public void setDateTextView(TextView textView, Date date) {
         textView.setText(simpleDateFormat.format(date));
     }
 
@@ -345,22 +344,22 @@ public class RatingSummaryActivity extends BaseActivity {
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","1200","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "1200", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(),"Kunal","9976754567",null,"1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234","2500","abc"));
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
         populateAnsweredQuestionsList();
     }
 
     //TODO remove stub
-    public Map<String,Integer> createRatingsMap(){
-        Map<String,Integer> ratingMap = new HashMap<>();
+    public Map<String, Integer> createRatingsMap() {
+        Map<String, Integer> ratingMap = new HashMap<>();
         Random randomGenerator = new SecureRandom();
         int randomNumber = randomGenerator.nextInt(4);
         ratingMap.put(questionList.get(0).getQuestionId(), (randomNumber + 1));

@@ -62,14 +62,14 @@ public class OutletDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_outlet_details);
 
         Bundle extras = getIntent().getExtras();
-        if(extras!=null) {
-            editMode = extras.getBoolean("editMode",false);
+        if (extras != null) {
+            editMode = extras.getBoolean("editMode", false);
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            outletCode = sharedPreferences.getString("outletCode", null) ;
+            outletCode = sharedPreferences.getString("outletCode", null);
             populateFields(outletDao);
         }
 
-        if(editMode) {
+        if (editMode) {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
         }
@@ -92,12 +92,11 @@ public class OutletDetailsActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        if(!editMode) {
+        if (!editMode) {
             registerOutletHeader.setText("Register your Outlet!");
             nextButton.setText("Register");
             activityBackButton.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             registerOutletHeader.setText("Edit Outlet Details");
             nextButton.setText("Update");
             activityBackButton.setVisibility(View.VISIBLE);
@@ -106,16 +105,14 @@ public class OutletDetailsActivity extends BaseActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editMode)
-                {
+                if (editMode) {
                     progressDialog.setMessage("Updating Outlet Details...");
-                }
-                else {
+                } else {
                     progressDialog.setMessage("Registering Outlet...");
                 }
                 progressDialog.show();
                 long T1 = android.os.SystemClock.uptimeMillis();
-                Log.d("GetRatingT1",T1+"");
+                Log.d("GetRatingT1", T1 + "");
                 final OutletRequest outletRequest = new OutletRequest();
                 outletRequest.setOutletName(outletName.getText().toString());
                 outletRequest.setAliasName(alias.getText().toString());
@@ -134,10 +131,10 @@ public class OutletDetailsActivity extends BaseActivity {
                         PostServiceResponse postServiceResponse = response.body();
 
                         long T2 = android.os.SystemClock.uptimeMillis();
-                        Log.d("GetRatingT2",T2+"");
+                        Log.d("GetRatingT2", T2 + "");
 
                         if (postServiceResponse.isSuccess()) {
-                            if(currentOutlet == null) {
+                            if (currentOutlet == null) {
                                 currentOutlet = new Outlet();
                             }
                             currentOutlet.setOutletCode(postServiceResponse.getData().toString());
@@ -150,11 +147,11 @@ public class OutletDetailsActivity extends BaseActivity {
                             currentOutlet.setCellNumber(outletRequest.getCellNumber());
 
                             //Check if this is create mode (Register Outlet)
-                            if(!editMode) {
+                            if (!editMode) {
                                 try {
                                     // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
-                                    alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                                    alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                                     Intent intent = new Intent(OutletDetailsActivity.this, AlarmReceiver.class);
                                     alarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, intent, 0);
 
@@ -174,25 +171,24 @@ public class OutletDetailsActivity extends BaseActivity {
                                     editor.putString("outletCode", currentOutlet.getOutletCode());
                                     editor.commit();
                                     long T3 = android.os.SystemClock.uptimeMillis();
-                                    Log.d("GetRatingT3",T3+"");
+                                    Log.d("GetRatingT3", T3 + "");
                                     progressDialog.dismiss();
                                     Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
                                     startActivity(configureRewards);
                                 } catch (SQLException e) {
                                     e.printStackTrace();
                                 }
-                            }
-                            else {
+                            } else {
                                 try {
                                     UpdateBuilder<Outlet, Integer> outletUpdateBuilder = outletDao.updateBuilder();
-                                    outletUpdateBuilder.updateColumnValue("outletName",currentOutlet.getOutletName());
-                                    outletUpdateBuilder.updateColumnValue("aliasName",currentOutlet.getAliasName());
-                                    outletUpdateBuilder.updateColumnValue("addrLine1",currentOutlet.getAddrLine1());
-                                    outletUpdateBuilder.updateColumnValue("addrLine2",currentOutlet.getAddrLine2());
-                                    outletUpdateBuilder.updateColumnValue("pinCode",currentOutlet.getPinCode());
-                                    outletUpdateBuilder.updateColumnValue("email",currentOutlet.getEmail());
-                                    outletUpdateBuilder.updateColumnValue("cellNumber",currentOutlet.getCellNumber());
-                                    outletUpdateBuilder.where().eq("outletCode",currentOutlet.getOutletCode());
+                                    outletUpdateBuilder.updateColumnValue("outletName", currentOutlet.getOutletName());
+                                    outletUpdateBuilder.updateColumnValue("aliasName", currentOutlet.getAliasName());
+                                    outletUpdateBuilder.updateColumnValue("addrLine1", currentOutlet.getAddrLine1());
+                                    outletUpdateBuilder.updateColumnValue("addrLine2", currentOutlet.getAddrLine2());
+                                    outletUpdateBuilder.updateColumnValue("pinCode", currentOutlet.getPinCode());
+                                    outletUpdateBuilder.updateColumnValue("email", currentOutlet.getEmail());
+                                    outletUpdateBuilder.updateColumnValue("cellNumber", currentOutlet.getCellNumber());
+                                    outletUpdateBuilder.where().eq("outletCode", currentOutlet.getOutletCode());
                                     outletUpdateBuilder.update();
                                     progressDialog.dismiss();
                                     OutletDetailsActivity.this.finish();
@@ -205,7 +201,7 @@ public class OutletDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<PostServiceResponse> call, Throwable t) {
-                        Log.e("Outlet details","Unable to save outlet");
+                        Log.e("Outlet details", "Unable to save outlet");
                     }
                 });
 
@@ -215,9 +211,9 @@ public class OutletDetailsActivity extends BaseActivity {
         });
     }
 
-    void populateFields(Dao<Outlet,Integer> outletDao) {
+    void populateFields(Dao<Outlet, Integer> outletDao) {
 
-        QueryBuilder<Outlet,Integer> outletQueryBuilder = outletDao.queryBuilder();
+        QueryBuilder<Outlet, Integer> outletQueryBuilder = outletDao.queryBuilder();
         try {
             currentOutlet = outletQueryBuilder.queryForFirst();
             outletName.setText(currentOutlet.getOutletName());
@@ -227,13 +223,14 @@ public class OutletDetailsActivity extends BaseActivity {
             pinCode.setText(currentOutlet.getPinCode());
             email.setText(currentOutlet.getEmail());
             phoneNumber.setText(currentOutlet.getCellNumber());
-        }
-        catch (SQLException e) {
-            Log.e("OutletDetailsActivity","Outlet details fetch error");
+        } catch (SQLException e) {
+            Log.e("OutletDetailsActivity", "Outlet details fetch error");
         }
     }
 
     public void closeActivity(View v) {
-        this.finish();
+        if (editMode) {
+            this.finish();
+        }
     }
 }

@@ -44,7 +44,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     SelectedRewardsBoxAdapter bronzeRewardsAdapter, silverRewardsAdapter, goldRewardsAdapter;
     String outletCode;
     boolean editMode;
-    List<SelectedReward> bronzeSelectedRewardList,silverSelectedRewardList,goldSelectedRewardList;
+    List<SelectedReward> bronzeSelectedRewardList, silverSelectedRewardList, goldSelectedRewardList;
     Button rewardsConfigureNextButton;
     ImageView activityBackButton;
 
@@ -53,25 +53,24 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_configuration);
 
-        bronzeRewardsRecyclerView = (RecyclerView)findViewById(R.id.bronzeRewardsRecyclerView);
+        bronzeRewardsRecyclerView = (RecyclerView) findViewById(R.id.bronzeRewardsRecyclerView);
         silverRewardsRecyclerView = (RecyclerView) findViewById(R.id.silverRewardsRecyclerView);
         goldRewardsRecyclerView = (RecyclerView) findViewById(R.id.goldRewardsRecyclerView);
         rewardsConfigureNextButton = (Button) findViewById(R.id.rewardsConfigureNextButton);
         activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        outletCode = sharedPreferences.getString("outletCode", null) ;
+        outletCode = sharedPreferences.getString("outletCode", null);
 
         Bundle extras = getIntent().getExtras();
-        if(extras!=null) {
-            editMode = extras.getBoolean("editMode",false);
+        if (extras != null) {
+            editMode = extras.getBoolean("editMode", false);
         }
 
-        if(editMode) {
+        if (editMode) {
             rewardsConfigureNextButton.setVisibility(View.INVISIBLE);
             activityBackButton.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             rewardsConfigureNextButton.setVisibility(View.VISIBLE);
             activityBackButton.setVisibility(View.GONE);
         }
@@ -101,10 +100,9 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     }
 
     public void rewardConfigNext(View v) {
-        if(!editMode) {
+        if (!editMode) {
             fetchQuestionsAndMove();
-        }
-        else {
+        } else {
             Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
             startActivity(homePage);
         }
@@ -132,11 +130,10 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
-        if(data!=null) {
+        if (data != null) {
             boolean rewardsSelected = data.getBooleanExtra("rewardsSelected", false);
 
             if (rewardsSelected) {
@@ -158,7 +155,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
 
             bronzeSelectedRewardList = selectedRewardQueryBuilder.query();
 
-            if(bronzeRewardsRecyclerView.getAdapter()==null) {
+            if (bronzeRewardsRecyclerView.getAdapter() == null) {
                 bronzeRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, bronzeSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
                     public void removeSelectedReward(final int position) {
@@ -168,13 +165,12 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                                 try {
                                     SelectedReward rewardToBeRemoved = bronzeSelectedRewardList.get(position);
                                     DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                                    selectedRewardDeleteBuilder.where().eq("id",rewardToBeRemoved.getId());
+                                    selectedRewardDeleteBuilder.where().eq("id", rewardToBeRemoved.getId());
                                     selectedRewardDeleteBuilder.delete();
                                     bronzeSelectedRewardList.remove(position);
                                     bronzeRewardsAdapter.notifyDataSetChanged();
-                                }
-                                catch (SQLException e) {
-                                    Log.e("RewardConfiguration","Unable to delete bronze reward");
+                                } catch (SQLException e) {
+                                    Log.e("RewardConfiguration", "Unable to delete bronze reward");
                                 }
                             }
                         }, new DialogInterface.OnClickListener() {
@@ -186,8 +182,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                     }
                 });
                 bronzeRewardsRecyclerView.setAdapter(bronzeRewardsAdapter);
-            }
-            else {
+            } else {
                 bronzeRewardsAdapter.setSelectedRewardList(bronzeSelectedRewardList);
                 bronzeRewardsAdapter.notifyDataSetChanged();
             }
@@ -201,8 +196,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             selectedRewardQueryBuilder.reset();
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.SILVER_CD);
 
-            silverSelectedRewardList  = selectedRewardQueryBuilder.query();
-            if(silverRewardsRecyclerView.getAdapter()==null) {
+            silverSelectedRewardList = selectedRewardQueryBuilder.query();
+            if (silverRewardsRecyclerView.getAdapter() == null) {
                 silverRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, silverSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
                     public void removeSelectedReward(final int position) {
@@ -212,13 +207,12 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                                 try {
                                     SelectedReward rewardToBeRemoved = silverSelectedRewardList.get(position);
                                     DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                                    selectedRewardDeleteBuilder.where().eq("id",rewardToBeRemoved.getId());
+                                    selectedRewardDeleteBuilder.where().eq("id", rewardToBeRemoved.getId());
                                     selectedRewardDeleteBuilder.delete();
                                     silverSelectedRewardList.remove(position);
                                     silverRewardsAdapter.notifyDataSetChanged();
-                                }
-                                catch (SQLException e) {
-                                    Log.e("RewardConfiguration","Unable to delete bronze reward");
+                                } catch (SQLException e) {
+                                    Log.e("RewardConfiguration", "Unable to delete bronze reward");
                                 }
                             }
                         }, new DialogInterface.OnClickListener() {
@@ -230,8 +224,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                     }
                 });
                 silverRewardsRecyclerView.setAdapter(silverRewardsAdapter);
-            }
-            else {
+            } else {
                 silverRewardsAdapter.setSelectedRewardList(silverSelectedRewardList);
                 silverRewardsAdapter.notifyDataSetChanged();
             }
@@ -246,7 +239,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.GOLD_CD);
 
             goldSelectedRewardList = selectedRewardQueryBuilder.query();
-            if(goldRewardsRecyclerView.getAdapter()==null) {
+            if (goldRewardsRecyclerView.getAdapter() == null) {
                 goldRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, goldSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
                     public void removeSelectedReward(final int position) {
@@ -256,13 +249,12 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                                 try {
                                     SelectedReward rewardToBeRemoved = goldSelectedRewardList.get(position);
                                     DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                                    selectedRewardDeleteBuilder.where().eq("id",rewardToBeRemoved.getId());
+                                    selectedRewardDeleteBuilder.where().eq("id", rewardToBeRemoved.getId());
                                     selectedRewardDeleteBuilder.delete();
                                     goldSelectedRewardList.remove(position);
                                     goldRewardsAdapter.notifyDataSetChanged();
-                                }
-                                catch (SQLException e) {
-                                    Log.e("RewardConfiguration","Unable to delete bronze reward");
+                                } catch (SQLException e) {
+                                    Log.e("RewardConfiguration", "Unable to delete bronze reward");
                                 }
                             }
                         }, new DialogInterface.OnClickListener() {
@@ -274,8 +266,7 @@ public class RewardConfigurationActivity extends AppCompatActivity {
                     }
                 });
                 goldRewardsRecyclerView.setAdapter(goldRewardsAdapter);
-            }
-            else {
+            } else {
                 goldRewardsAdapter.setSelectedRewardList(goldSelectedRewardList);
                 goldRewardsAdapter.notifyDataSetChanged();
             }
@@ -326,12 +317,14 @@ public class RewardConfigurationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<QuestionResponse>> call, Throwable t) {
-                Log.e("Reward Configuration","Unable to fetch questions");
+                Log.e("Reward Configuration", "Unable to fetch questions");
             }
         });
     }
 
     public void closeActivity(View v) {
-        this.finish();
+        if (editMode) {
+            this.finish();
+        }
     }
 }
