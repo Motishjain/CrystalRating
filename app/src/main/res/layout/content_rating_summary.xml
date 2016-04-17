@@ -82,6 +82,22 @@
         android:background="@drawable/custom_spinner_container"
         android:layout_marginTop="10dp" />
 
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/ratingChartHeader"
+        style="@style/ratingChartHeader"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
+
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/ratingChartSubHeader"
+        style="@style/ratingChartSubHeader"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
+
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/ratingSummaryChart"
         android:layout_width="350dp"

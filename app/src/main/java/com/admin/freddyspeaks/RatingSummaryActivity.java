@@ -63,7 +63,7 @@ public class RatingSummaryActivity extends BaseActivity {
     String outletCode;
 
     PieChart ratingSummaryChart;
-    TextView fromDateTextView,toDateTextView;
+    TextView fromDateTextView,toDateTextView,ratingChartHeader,ratingChartSubHeader;
     Spinner questionsSpinner;
 
     List<Question> questionList;
@@ -87,7 +87,12 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingSummaryChart = (PieChart) findViewById(R.id.ratingSummaryChart);
         fromDateTextView = (TextView) findViewById(R.id.fromDate);
         toDateTextView = (TextView) findViewById(R.id.toDate);
+        ratingChartHeader = (TextView) findViewById(R.id.ratingChartHeader);
+        ratingChartSubHeader = (TextView) findViewById(R.id.ratingChartSubHeader);
         questionsSpinner = (Spinner) findViewById(R.id.questionsSpinner);
+
+        ratingChartHeader.setText("RATINGS RECEIVED");
+        ratingChartSubHeader.setText("(for the selected period)");
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         outletCode = sharedPreferences.getString("outletCode", null) ;
