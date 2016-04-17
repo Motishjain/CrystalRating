@@ -110,7 +110,6 @@ public class RatingSummaryActivity extends BaseActivity {
         legend.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
         legend.setWordWrapEnabled(true);
 
-
         ratingSummaryChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
