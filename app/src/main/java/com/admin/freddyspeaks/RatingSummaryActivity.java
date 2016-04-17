@@ -365,4 +365,8 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingMap.put(questionList.get(4).getQuestionId(), (randomNumber + 1));
         return ratingMap;
     }
+
+    public void closeActivity(View v) {
+        this.finish();
+    }
 }
