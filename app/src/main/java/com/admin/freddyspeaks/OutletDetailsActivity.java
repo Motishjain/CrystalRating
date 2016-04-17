@@ -60,8 +60,19 @@ public class OutletDetailsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outlet_details);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null) {
+            editMode = extras.getBoolean("editMode",false);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            outletCode = sharedPreferences.getString("outletCode", null) ;
+            populateFields(outletDao);
+        }
+
+        if(editMode) {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+        }
 
         outletName = (EditText) findViewById(R.id.inputOutletNameText);
         alias = (EditText) findViewById(R.id.inputAliasNameText);
@@ -79,14 +90,6 @@ public class OutletDetailsActivity extends BaseActivity {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-        Bundle extras = getIntent().getExtras();
-        if(extras!=null) {
-            editMode = extras.getBoolean("editMode",false);
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            outletCode = sharedPreferences.getString("outletCode", null) ;
-            populateFields(outletDao);
         }
 
         if(!editMode) {
