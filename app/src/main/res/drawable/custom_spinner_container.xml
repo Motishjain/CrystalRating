@@ -9,11 +9,11 @@
             <padding
                 android:bottom="2dp"
                 android:left="2dp"
-                android:right="10dp"
+                android:right="2dp"
                 android:top="2dp" />
         </shape>
     </item>
-    <item>
+    <item android:width="2dp" android:height="2dp">
         <bitmap
             android:gravity="end"
             android:src="@drawable/drop_arrow" />

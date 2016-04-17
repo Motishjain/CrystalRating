@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:weightSum="10">
@@ -21,7 +21,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_weight="3"
             android:text="From Date" />
 
         <ImageView
@@ -34,13 +34,14 @@
             android:id="@+id/fromDate"
             style="@style/dateText"
             android:layout_width="0dp"
+            android:gravity="center"
             android:layout_height="wrap_content"
-            android:layout_weight="6" />
+            android:layout_weight="7" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:background="@drawable/summary_date_container"
         android:gravity="center"
         android:weightSum="10">
@@ -50,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_weight="3"
             android:text="To Date" />
 
         <ImageView
@@ -64,12 +65,13 @@
             style="@style/dateText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="6" />
+            android:gravity="center"
+            android:layout_weight="7" />
     </LinearLayout>
 
     <com.admin.view.CustomFontTextView
         style="@style/selectQuestion"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,29 +80,32 @@
     <Spinner
         android:id="@+id/questionsSpinner"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/custom_spinner_container"
         android:layout_marginTop="10dp" />
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/ratingChartHeader"
         style="@style/ratingChartHeader"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="60dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="left"
         />
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/ratingChartSubHeader"
         style="@style/ratingChartSubHeader"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="80dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/ratingSummaryChart"
-        android:layout_width="350dp"
-        android:layout_height="350dp" />
+        android:layout_marginTop="10dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp" />
 
 </LinearLayout>
