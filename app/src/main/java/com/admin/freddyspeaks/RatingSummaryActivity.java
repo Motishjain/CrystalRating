@@ -47,6 +47,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -123,7 +124,7 @@ public class RatingSummaryActivity extends BaseActivity {
             }
         });
 
-        simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy");
+        simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
 
         //Set to date for feedback
         calendar = Calendar.getInstance();

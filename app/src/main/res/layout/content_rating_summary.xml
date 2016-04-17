@@ -18,16 +18,46 @@
         android:weightSum="4">
 
         <com.admin.view.CustomFontTextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            style="@style/dateText"
+            android:text="From Date"
+            />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:onClick="changeFromDate"
+            android:layout_gravity="bottom"
+            android:background="@drawable/change_date"/>
+        <com.admin.view.CustomFontTextView
             android:id="@+id/fromDate"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
             style="@style/dateText"
             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4">
+
+        <com.admin.view.CustomFontTextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            style="@style/dateText"
+            android:text="To Date"
+            />
+
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:onClick="changeFromDate"
+            android:onClick="changeToDate"
             android:layout_gravity="bottom"
             android:background="@drawable/change_date"/>
 
@@ -38,13 +68,6 @@
             android:layout_height="wrap_content"
             style="@style/dateText"
             />
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:onClick="changeToDate"
-            android:layout_gravity="bottom"
-            android:background="@drawable/change_date"/>
-
     </LinearLayout>
 
     <Spinner
