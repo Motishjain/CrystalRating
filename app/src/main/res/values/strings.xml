@@ -47,6 +47,5 @@
     <string name="thankYouMessage2">We hope to see you again!</string>
 
     <string name="homeHeaderText1">Share your shopping experience and win a reward !!!</string>
-    <string name="gcm_defaultSenderId">331035725817</string>
 
 </resources>

@@ -24,6 +24,7 @@ import com.admin.database.Outlet;
 import com.admin.receiver.AlarmReceiver;
 import com.admin.receiver.DeviceBootReceiver;
 import com.admin.util.DialogBuilderUtil;
+import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.request_objects.OutletRequest;
@@ -72,7 +73,7 @@ public class OutletDetailsActivity extends BaseActivity {
         nextButton = (Button) findViewById(R.id.registerOutletNextButton);
         registerOutletHeader = (TextView) findViewById(R.id.registerOutletHeader);
         activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
-        progressDialog = DialogBuilderUtil.createProgressDialog(this);
+        progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
 
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");

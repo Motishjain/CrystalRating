@@ -9,6 +9,7 @@ import com.admin.database.Reward;
 import com.admin.tasks.BuildSelectRewardFragmentsTask;
 import com.admin.tasks.SaveRewardsTask;
 import com.admin.util.DialogBuilderUtil;
+import com.admin.view.CustomProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_selection);
-        progressDialog = DialogBuilderUtil.createProgressDialog(this);
+        progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
         progressDialog.setMessage("Loading Rewards...");
         progressDialog.show();
         try {

@@ -83,7 +83,8 @@ public class RewardAllocationUtility {
 
     }
 
-    private static int allocateCategory(int targetAmount) {
+    private static int allocateCategory(int targetAmount) {//target amt + carry forward amt
+
 
         int categoryAllocated = 0;
         double bronzeRatio = 0, silverRatio = 0, goldRatio = 0;
@@ -100,8 +101,8 @@ public class RewardAllocationUtility {
             silverRatio = 40;
             bronzeRatio = 24;
             goldRatio = 7;
-            silverRatio += ((100.0 - (silverRatio + bronzeRatio + goldRatio)) * (float) (targetAmount - 3000) / 7500);
-            goldRatio += ((100.0 - (silverRatio + bronzeRatio + goldRatio)) * (float) (targetAmount - 3000) / 7500);
+            silverRatio += ((100.0 - (silverRatio + bronzeRatio + goldRatio)) * (float) (targetAmount - REWARD_AMOUNT_THRESHOLD_2) / 7500);
+            goldRatio += ((100.0 - (silverRatio + bronzeRatio + goldRatio)) * (float) (targetAmount - REWARD_AMOUNT_THRESHOLD_2) / 7500);
 
             bronzeRatio = (100.0 - (silverRatio + goldRatio));
         } else if (targetAmount >= REWARD_AMOUNT_THRESHOLD_3) {
@@ -129,12 +130,26 @@ public class RewardAllocationUtility {
         if (randomNumber < bronzeRatio) {
             //Bronze allocated
             categoryAllocated = 1;
+            if(targetAmount < REWARD_AMOUNT_THRESHOLD_1)
+                carryForwardAmount = 0;
+            else
+                carryForwardAmount = targetAmount - REWARD_AMOUNT_THRESHOLD_1;
+
         } else if (randomNumber < (bronzeRatio + silverRatio)) {
             //Silver allocated
             categoryAllocated = 2;
+            if(targetAmount < REWARD_AMOUNT_THRESHOLD_2)
+                carryForwardAmount = 0;
+            else
+                carryForwardAmount = targetAmount - REWARD_AMOUNT_THRESHOLD_2;
+
         } else if (randomNumber < (bronzeRatio + silverRatio + goldRatio)) {
             //Gold allocated
             categoryAllocated = 3;
+            if(targetAmount < REWARD_AMOUNT_THRESHOLD_3)
+                carryForwardAmount = 0;
+            else
+                carryForwardAmount = targetAmount - REWARD_AMOUNT_THRESHOLD_3;
         }
         return categoryAllocated;
     }

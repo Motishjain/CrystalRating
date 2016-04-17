@@ -32,12 +32,19 @@
             android:layout_gravity="center"
             />
         <com.admin.view.CustomFontTextView
+            android:layout_marginTop="35dp"
+            android:id="@+id/rewardNotFoundExclaimer"
+            style="@style/rewardDisplayExclaimer"
+            android:gravity="center"
+            android:text="Congratulations!!!"
+            android:layout_gravity="center"
+            />
+        <com.admin.view.CustomFontTextView
             android:layout_marginTop="10dp"
             android:id="@+id/rewardDisplayMessage"
             style="@style/rewardDisplayMessage"
             android:gravity="center"
             android:text="We have a reward for you."
-            android:visibility="gone"
             android:layout_gravity="center"
             />
         <com.admin.view.CustomFontTextView

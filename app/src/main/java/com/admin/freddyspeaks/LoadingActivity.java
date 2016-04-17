@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Window;
 
 import com.admin.tasks.ApplicationStartupTask;
 import com.admin.util.DialogBuilderUtil;
+import com.admin.view.CustomProgressDialog;
 
 public class LoadingActivity extends BaseActivity implements ApplicationStartupTask.OnTaskCompleted{
 
@@ -23,7 +25,7 @@ public class LoadingActivity extends BaseActivity implements ApplicationStartupT
         setSupportActionBar(toolbar);
 
         try {
-            progress = DialogBuilderUtil.createProgressDialog(this);
+            progress = CustomProgressDialog.createCustomProgressDialog(this);
             progress.setMessage("Starting application");
             progress.show();
             ApplicationStartupTask applicationStartupTask = new ApplicationStartupTask(this);
