@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +23,7 @@ import com.admin.database.Question;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.FeedbackResponse;
+import com.admin.webservice.response_objects.Rating;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -45,12 +45,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,16 +65,13 @@ public class RatingSummaryActivity extends BaseActivity {
     Spinner questionsSpinner;
 
     List<Question> questionList;
-    Map<String, Question> questionMap = new HashMap<>();
-    List<Question> answeredQuestionList = new ArrayList<>();
     List<FeedbackResponse> feedbackResponseList;
     Question selectedQuestion;
-    String[] options;
     Map<Integer, List<Integer>> ratingWiseFeedbackList;
     Typeface textFont;
 
     Date fromDate, toDate;
-    SimpleDateFormat simpleDateFormat;
+    SimpleDateFormat simpleDateFormat,webServiceDateFormat;
     Calendar calendar;
 
     @Override
@@ -129,6 +124,7 @@ public class RatingSummaryActivity extends BaseActivity {
         });
 
         simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
+        webServiceDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         //Set to date for feedback
         calendar = Calendar.getInstance();
@@ -140,11 +136,28 @@ public class RatingSummaryActivity extends BaseActivity {
         fromDate = calendar.getTime();
         setDateTextView(fromDateTextView, fromDate);
 
+        List<String> questionNames = new ArrayList<>();
+
+        try {
+            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
+            questionQueryBuilder = questionDao.queryBuilder();
+            questionList = questionQueryBuilder.query();
+            for (Question question : questionList) {
+                questionNames.add(question.getName());
+            }
+        } catch (SQLException e) {
+            Log.e("RatingSummaryActivity", "Unable to fetch questions");
+        }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, questionNames);
+        questionsSpinner.setAdapter(dataAdapter);
+
         questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("Rating summary", "Item selected");
-                selectedQuestion = answeredQuestionList.get(position);
+                selectedQuestion = questionList.get(position);
                 //TODO remove stub
                 refreshPieChart();
             }
@@ -156,65 +169,33 @@ public class RatingSummaryActivity extends BaseActivity {
         });
         questionsSpinner.setSelected(false);
 
-        feedbackResponseList = new ArrayList<>();
-        try {
-            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
-            questionQueryBuilder = questionDao.queryBuilder();
-            questionList = questionQueryBuilder.query();
-            for (Question question : questionList) {
-                questionMap.put(question.getQuestionId(), question);
-            }
-
-            populateDummyFeedback();
-
-            //fetchFeedback();
-        } catch (SQLException e) {
-            Log.e("RatingSummaryActivity", "Unable to fetch questions");
-        }
-
+        fetchFeedback();
     }
 
     public void fetchFeedback() {
+        feedbackResponseList = new ArrayList<>();
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(fromDateTextView.getText().toString(), toDateTextView.getText().toString(), outletCode);
+        Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(outletCode,webServiceDateFormat.format(fromDate), webServiceDateFormat.format(toDate));
         fetchRewardsCall.enqueue(new Callback<List<FeedbackResponse>>() {
             @Override
             public void onResponse(Call<List<FeedbackResponse>> call, Response<List<FeedbackResponse>> response) {
                 if (response.isSuccess()) {
                     feedbackResponseList = response.body();
-                    populateAnsweredQuestionsList();
                 }
             }
 
             @Override
             public void onFailure(Call<List<FeedbackResponse>> call, Throwable t) {
-                //TODO handle failure
+                Log.e("RatingSummary","Unable to fetch feedback",t);
             }
         });
     }
 
-    public void populateAnsweredQuestionsList() {
-        answeredQuestionList.clear();
-        Set<String> questionIdSet = new HashSet<>();
-        List<String> questionNames = new ArrayList<>();
-
-        for (FeedbackResponse feedbackResponse : feedbackResponseList) {
-            questionIdSet.addAll(feedbackResponse.getRatingsMap().keySet());
-        }
-
-        for (String questionId : questionIdSet) {
-            answeredQuestionList.add(questionMap.get(questionId));
-            questionNames.add(questionMap.get(questionId).getName());
-        }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, questionNames);
-        questionsSpinner.setAdapter(dataAdapter);
-    }
 
     public void refreshPieChart() {
         List<Entry> entries = new ArrayList<>();
         List<String> labels = new ArrayList<>();
-        options = selectedQuestion.getRatingValues().split(",");
+        String[] options = selectedQuestion.getRatingValues().split(",");
         ratingWiseFeedbackList = new HashMap<>();
         int feedbackIndex = 0;
 
@@ -223,7 +204,15 @@ public class RatingSummaryActivity extends BaseActivity {
         }
 
         for (FeedbackResponse feedbackResponse : feedbackResponseList) {
-            Integer selectedOption = feedbackResponse.getRatingsMap().get(selectedQuestion.getQuestionId());
+            Integer selectedOption = null;
+
+            for(Rating rating: feedbackResponse.getRatings()) {
+                if(rating.getQuestionId().equals(selectedQuestion.getQuestionId()))
+                {
+                    selectedOption = rating.getSelectedOptionIndex();
+                }
+            }
+
             if (selectedOption != null) {
                 if (ratingWiseFeedbackList.get(selectedOption) == null) {
                     ratingWiseFeedbackList.put(selectedOption, new ArrayList<Integer>());
@@ -273,7 +262,8 @@ public class RatingSummaryActivity extends BaseActivity {
                             return;
                         }
                         if (!fromDate.equals(calendar.getTime())) {
-                            //fetchFeedback();
+                            fetchFeedback();
+                            refreshPieChart();
                         }
                         fromDate = calendar.getTime();
                         setDateTextView(fromDateTextView, fromDate);
@@ -299,7 +289,8 @@ public class RatingSummaryActivity extends BaseActivity {
                             return;
                         }
                         if (!toDate.equals(calendar.getTime())) {
-                            //fetchFeedback();
+                            fetchFeedback();
+                            refreshPieChart();
                         }
                         toDate = calendar.getTime();
                         setDateTextView(toDateTextView, toDate);
@@ -340,7 +331,7 @@ public class RatingSummaryActivity extends BaseActivity {
     //TODO remove stub
     public void populateDummyFeedback() {
         feedbackResponseList.clear();
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
+        /*feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "1200", "abc"));
@@ -352,8 +343,7 @@ public class RatingSummaryActivity extends BaseActivity {
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
         feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
-        populateAnsweredQuestionsList();
+        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));*/
     }
 
     //TODO remove stub

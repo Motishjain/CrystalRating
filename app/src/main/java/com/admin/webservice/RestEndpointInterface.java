@@ -40,6 +40,6 @@ public interface RestEndpointInterface {
     Call<PostServiceResponse> submitFeedback(@Body FeedbackRequest feedbackRequest);
 
     @GET(AppConstants.FETCH_FEEDBACK)
-    Call<List<FeedbackResponse>> fetchFeedback(@Path("outletType") String outletCode, @Path("fromDate") String fromDate, @Query("Path") String toDate);
+    Call<List<FeedbackResponse>> fetchFeedback(@Path("outletCode") String outletCode, @Path("fromDate") String fromDate, @Path("toDate") String toDate);
 
 }

@@ -46,15 +46,18 @@ public class LoadingActivity extends BaseActivity implements ApplicationStartupT
             Boolean areQuestionsFetched = sharedPreferences.getBoolean("areQuestionsFetched", false) ;
             if(areQuestionsFetched) {
                 Intent homePage = new Intent(LoadingActivity.this,HomePageActivity.class);
+                homePage.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(homePage);
             }
             else {
-                Intent homePage = new Intent(LoadingActivity.this,RewardConfigurationActivity.class);
-                startActivity(homePage);
+                Intent configureRewards = new Intent(LoadingActivity.this,RewardConfigurationActivity.class);
+                configureRewards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(configureRewards);
             }
         }
         else {
             Intent registerOutlet = new Intent(LoadingActivity.this,OutletDetailsActivity.class);
+            registerOutlet.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(registerOutlet);
         }
     }

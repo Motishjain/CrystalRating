@@ -1,6 +1,8 @@
 package com.admin.webservice.response_objects;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,30 +10,30 @@ import java.util.Map;
  */
 public class FeedbackResponse {
 
-    public FeedbackResponse(Map<String,Integer> ratingsMap,String userName,String userPhoneNumber,Timestamp createdTs,String billNumber,String billAmount, String rewardId){
-        this.ratingsMap = ratingsMap;
+    public FeedbackResponse(List<Rating> ratings,String userName,String userPhoneNumber,Timestamp createdDate,String billNumber,String billAmount, String rewardId){
+        this.ratings = ratings;
         this.userName = userName;
         this.userPhoneNumber = userPhoneNumber;
-        this.createdTs = createdTs;
+        this.createdDate = createdDate;
         this.billNumber = billNumber;
         this.billAmount = billAmount;
         this.rewardId = rewardId;
     }
 
-    private Map<String,Integer> ratingsMap;
+    private List<Rating> ratings;
     private String userName;
     private String userPhoneNumber;
-    private Timestamp createdTs;
     private String billNumber;
     private String billAmount;
+    private Date createdDate;
     private String rewardId;
 
-    public Map<String, Integer> getRatingsMap() {
-        return ratingsMap;
+    public List<Rating> getRatings() {
+        return ratings;
     }
 
-    public void setRatingsMap(Map<String, Integer> ratingsMap) {
-        this.ratingsMap = ratingsMap;
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 
     public String getUserName() {
@@ -50,12 +52,12 @@ public class FeedbackResponse {
         this.userPhoneNumber = userPhoneNumber;
     }
 
-    public Timestamp getCreatedTs() {
-        return createdTs;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreatedTs(Timestamp createdTs) {
-        this.createdTs = createdTs;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getBillNumber() {
