@@ -240,7 +240,7 @@ public class RatingSummaryActivity extends BaseActivity {
         }
 
         PieDataSet dataset = new PieDataSet(entries, "");
-        dataset.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataset.setColors(new int[]{R.color.rating1,R.color.rating2,R.color.rating3,R.color.rating4,R.color.rating5},this);
         dataset.setValueTextSize(12);
         dataset.setValueTypeface(textFont);
         PieData data = new PieData(labels, dataset);
@@ -249,7 +249,7 @@ public class RatingSummaryActivity extends BaseActivity {
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
                 int intValue = (int) value;
-                return intValue + " ratings";
+                return intValue + "";
             }
         });
         ratingSummaryChart.setData(data);
