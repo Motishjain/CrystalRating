@@ -181,6 +181,7 @@ public class RatingSummaryActivity extends BaseActivity {
             public void onResponse(Call<List<FeedbackResponse>> call, Response<List<FeedbackResponse>> response) {
                 if (response.isSuccess()) {
                     feedbackResponseList = response.body();
+                    refreshPieChart();
                 }
             }
 
@@ -201,6 +202,15 @@ public class RatingSummaryActivity extends BaseActivity {
 
         for (String option : options) {
             labels.add(option);
+        }
+
+        if(feedbackResponseList.size()>0) {
+            ratingChartHeader.setVisibility(View.VISIBLE);
+            ratingChartSubHeader.setVisibility(View.VISIBLE);
+        }
+        else {
+            ratingChartHeader.setVisibility(View.INVISIBLE);
+            ratingChartSubHeader.setVisibility(View.INVISIBLE);
         }
 
         for (FeedbackResponse feedbackResponse : feedbackResponseList) {
@@ -262,10 +272,9 @@ public class RatingSummaryActivity extends BaseActivity {
                             return;
                         }
                         if (!fromDate.equals(calendar.getTime())) {
+                            fromDate = calendar.getTime();
                             fetchFeedback();
-                            refreshPieChart();
                         }
-                        fromDate = calendar.getTime();
                         setDateTextView(fromDateTextView, fromDate);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -289,10 +298,9 @@ public class RatingSummaryActivity extends BaseActivity {
                             return;
                         }
                         if (!toDate.equals(calendar.getTime())) {
+                            toDate = calendar.getTime();
                             fetchFeedback();
-                            refreshPieChart();
                         }
-                        toDate = calendar.getTime();
                         setDateTextView(toDateTextView, toDate);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));

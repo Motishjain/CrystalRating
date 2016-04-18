@@ -24,15 +24,15 @@ import com.admin.freddyspeaks.R;
  * Use the {@link RatingCardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RatingCardFragment extends Fragment {
+public class RatingCardFragment extends Fragment implements RatingOptionsAdapter.OnItemSelectedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    TextView questionNameTextView,questionNumberTextView;
+    TextView questionNameTextView, questionNumberTextView;
     Question question;
     RecyclerView ratingOptionsRecyclerView;
-    int questionNumber,totalQuestions;
+    int questionNumber, totalQuestions;
 
     private OnFragmentInteractionListener mListener;
 
@@ -47,7 +47,7 @@ public class RatingCardFragment extends Fragment {
      * @return A new instance of fragment RatingCardFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RatingCardFragment newInstance(int questionNumber,Question question, OnFragmentInteractionListener mListener, int totalQuestions) {
+    public static RatingCardFragment newInstance(int questionNumber, Question question, OnFragmentInteractionListener mListener, int totalQuestions) {
         RatingCardFragment fragment = new RatingCardFragment();
         fragment.question = question;
         fragment.mListener = mListener;
@@ -69,27 +69,21 @@ public class RatingCardFragment extends Fragment {
         questionNameTextView = (TextView) ratingCard.findViewById(R.id.questionNameTextView);
         questionNumberTextView = (TextView) ratingCard.findViewById(R.id.questionNumberTextView);
         questionNameTextView.setText(question.getName());
-        questionNumberTextView.setText("#"+questionNumber+" of "+ totalQuestions);
+        questionNumberTextView.setText("#" + questionNumber + " of " + totalQuestions);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext(), LinearLayoutManager.VERTICAL, false);
 
         ratingOptionsRecyclerView = (RecyclerView) ratingCard.findViewById(R.id.ratingOptionsRecyclerView);
         ratingOptionsRecyclerView.setLayoutManager(layoutManager);
 
-        if(ratingOptionsRecyclerView.getAdapter()==null) {
-            RatingOptionsAdapter ratingOptionsAdapter = new RatingOptionsAdapter(R.layout.rating_option_item, question);
+        if (ratingOptionsRecyclerView.getAdapter() == null) {
+            RatingOptionsAdapter ratingOptionsAdapter = new RatingOptionsAdapter(R.layout.rating_option_item, question, this);
             ratingOptionsRecyclerView.setAdapter(ratingOptionsAdapter);
         }
 
         return ratingCard;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -108,6 +102,11 @@ public class RatingCardFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onItemSelected(int position) {
+        mListener.onQuestionAnswered();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -120,6 +119,6 @@ public class RatingCardFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onQuestionAnswered();
     }
 }

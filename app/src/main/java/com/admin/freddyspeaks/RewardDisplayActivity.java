@@ -129,6 +129,7 @@ public class RewardDisplayActivity extends BaseActivity {
 
     public void exit(View v) {
         Intent homePage = new Intent(RewardDisplayActivity.this, HomePageActivity.class);
+        homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(homePage);
     }
 }

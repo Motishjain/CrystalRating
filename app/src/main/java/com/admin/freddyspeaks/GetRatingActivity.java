@@ -46,8 +46,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
     ViewPagerCustomDuration ratingBarPager;
     Map<Integer,RatingCardFragment> ratingFragmentMap;
-    Button ratingPreviousButton;
-    Button ratingNextButton;
+    Button ratingDoneButton;
 
     FeedbackRequest feedback;
 
@@ -61,8 +60,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ratingBarPager = (ViewPagerCustomDuration)findViewById(R.id.ratingBarPager);
-        ratingPreviousButton = (Button) findViewById(R.id.ratingPreviousButton);
-        ratingNextButton = (Button) findViewById(R.id.ratingNextButton);
+        ratingDoneButton = (Button) findViewById(R.id.ratingDoneButton);
         ratingBackArrow = (ImageView) findViewById(R.id.ratingBackArrow);
         ratingNextArrow = (ImageView) findViewById(R.id.ratingNextArrow);
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
@@ -169,22 +167,16 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     void displayQuestion(int questionIndex) {
         ratingBarPager.setCurrentItem(questionIndex);
         if(questionIndex == 0) {
-            ratingPreviousButton.setVisibility(View.GONE);
             ratingBackArrow.setVisibility(View.INVISIBLE);
             ratingNextArrow.setVisibility(View.VISIBLE);
-            ratingNextButton.setText("Next");
         }
         else if(questionIndex == totalQuestions - 1) {
-            ratingPreviousButton.setVisibility(View.VISIBLE);
             ratingBackArrow.setVisibility(View.VISIBLE);
             ratingNextArrow.setVisibility(View.INVISIBLE);
-            ratingNextButton.setText("Done!");
         }
         else {
-            ratingPreviousButton.setVisibility(View.VISIBLE);
             ratingBackArrow.setVisibility(View.VISIBLE);
             ratingNextArrow.setVisibility(View.VISIBLE);
-            ratingNextButton.setText("Next");
         }
     }
 
@@ -212,14 +204,18 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onQuestionAnswered() {
+        if(currentQuestionIndex == totalQuestions - 1) {
+            ratingDoneButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            getNextRating(null);
+        }
     }
 
     void setupRatingScreens() {
         currentQuestionIndex = 0;
         totalQuestions = AppConstants.MAXIMUM_QUESTIONS;
-        ratingPreviousButton.setVisibility(View.GONE);
         ratingBackArrow.setVisibility(View.INVISIBLE);
         RatingFragmentsAdapter ratingFragmentsAdapter = new RatingFragmentsAdapter(getSupportFragmentManager(),this);
         ratingBarPager.setAdapter(ratingFragmentsAdapter);

@@ -63,31 +63,19 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/footerButtons"
+            android:id="@+id/footerButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:weightSum="6"
             android:orientation="horizontal">
 
             <com.admin.view.CustomFontButton
-                android:id="@+id/ratingPreviousButton"
+                android:id="@+id/ratingDoneButton"
                 style="@style/formButton"
-                android:gravity="center"
-                android:text="@string/previous"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:onClick="getPreviousRating"
-                />
-
-            <com.admin.view.CustomFontButton
-                android:id="@+id/ratingNextButton"
-                style="@style/formButton"
-                android:gravity="center"
-                android:layout_marginLeft="18dp"
-                android:text="@string/next"
-                android:layout_width="0dp"
-                android:layout_weight="2"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="@string/done"
+                android:visibility="invisible"
                 android:onClick="getNextRating"
                 />
         </LinearLayout>

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -33,10 +34,12 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
     int emoticonHeight, emoticonWidth;
     float optionTextSize;
     Context context;
+    RatingOptionsAdapter.OnItemSelectedListener onItemSelectedListener;
 
-    public RatingOptionsAdapter(int layoutResourceId, Question question) {
+    public RatingOptionsAdapter(int layoutResourceId, Question question, RatingOptionsAdapter.OnItemSelectedListener onItemSelectedListener) {
         this.layoutResourceId = layoutResourceId;
         this.question = question;
+        this.onItemSelectedListener = onItemSelectedListener;
         optionValues = question.getRatingValues().split(",");
         emoticonIds = question.getEmoticonIds().split(",");
         selected = new boolean[optionValues.length];
@@ -91,6 +94,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
                 question.setSelectedOption((selectedOption + 1) + "");
                 selected[position] = true;
                 notifyDataSetChanged();
+                onItemSelectedListener.onItemSelected(position);
             }
         };
         holder.ratingOptionsLayout.setOnClickListener(onClickListener);
@@ -114,5 +118,9 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
             selectedOptionTextView = (TextView) view.findViewById(R.id.selectedOptionTextView);
             ratingOptionsLayout = (LinearLayout) view.findViewById(R.id.ratingOptionsLayout);
         }
+    }
+
+    public interface OnItemSelectedListener {
+        void onItemSelected(int position);
     }
 }
