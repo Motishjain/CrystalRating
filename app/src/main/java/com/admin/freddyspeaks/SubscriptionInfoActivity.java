@@ -39,6 +39,7 @@ public class SubscriptionInfoActivity extends BaseActivity {
     Spinner subscriptionSpinner;
     Dao<Outlet, Integer> outletDao;
     List<String> subscriptionList;
+    List<Integer> subscriptionAmountList;
     TextView subscriptionSummary,transactionResultMessage;
 
     @Override
@@ -57,6 +58,10 @@ public class SubscriptionInfoActivity extends BaseActivity {
         subscriptionList.add("3 months (Rs. 500)");
         subscriptionList.add("6 months (Rs. 800)");
         subscriptionList.add("1 year (Rs. 1200)");
+        subscriptionAmountList = new ArrayList<>();
+        subscriptionAmountList.add(500);
+        subscriptionAmountList.add(800);
+        subscriptionAmountList.add(1200);
 
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
@@ -73,6 +78,7 @@ public class SubscriptionInfoActivity extends BaseActivity {
 
     public void payNow(View v) {
         Outlet currentOutlet = null;
+        int selectedSubscriptionIndex = subscriptionSpinner.getSelectedItemPosition();
         QueryBuilder<Outlet, Integer> outletQueryBuilder = outletDao.queryBuilder();
         try {
             currentOutlet = outletQueryBuilder.queryForFirst();
@@ -92,22 +98,22 @@ public class SubscriptionInfoActivity extends BaseActivity {
         builder.setDebugMerchantId("4828127");// Debug Merchant ID
         builder.setDebugSalt("Z6cEj6SP");// Debug Salt
 
-        builder.setAmount(10);
+        builder.setAmount(subscriptionAmountList.get(selectedSubscriptionIndex));
 
         builder.setTnxId("0nf7");
 
 
         builder.setPhone(currentOutlet.getCellNumber());
 
-        builder.setProductName("Subscription");
+        builder.setProductName("Subscription for"+subscriptionList.get(selectedSubscriptionIndex));
 
-        builder.setFirstName("piyush");
+        builder.setFirstName(currentOutlet.getOutletName());
 
         builder.setEmail(currentOutlet.getEmail());
 
         builder.setsUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/success.php");
         builder.setfUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/failure.php");
-        builder.setUdf1("");
+        builder.setUdf1("Outlet code - "+currentOutlet.getOutletCode());
         builder.setUdf2("");
         builder.setUdf3("");
         builder.setUdf4("");
