@@ -42,6 +42,8 @@ public class BaseActivity  extends AppCompatActivity {
                 return true;
 
             case R.id.actionSubscriptionInfo:
+                Intent subscriptionInfo = new Intent(BaseActivity.this,SubscriptionInfoActivity.class);
+                startActivity(subscriptionInfo);
                 return true;
 
             case R.id.actionFeedbackSummary:

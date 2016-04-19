@@ -11,64 +11,155 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.admin.constants.AppConstants;
+import com.admin.database.DBHelper;
+import com.admin.database.Outlet;
 import com.android.vending.billing.IInAppBillingService;
 import com.admin.freddyspeaks.R;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.payUMoney.sdk.PayUmoneySdkInitilizer;
+import com.payUMoney.sdk.SdkConstants;
 
-public class SubscriptionInfoActivity extends AppCompatActivity {
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-    IInAppBillingService mService;
-    ServiceConnection mServiceConn;
+public class SubscriptionInfoActivity extends BaseActivity {
+
+    Button payNowButton;
+    Spinner subscriptionSpinner;
+    Dao<Outlet, Integer> outletDao;
+    List<String> subscriptionList;
+    TextView subscriptionSummary,transactionResultMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        establishConnection();
         setContentView(R.layout.activity_subscription_info);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        Intent serviceIntent =
-                new Intent("com.android.vending.billing.InAppBillingService.BIND");
-        serviceIntent.setPackage("com.android.vending");
-        bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+        payNowButton = (Button) findViewById(R.id.payNowButton);
+        subscriptionSpinner = (Spinner) findViewById(R.id.subscriptionSpinner);
+        subscriptionSummary = (TextView) findViewById(R.id.subscriptionSummary);
+        transactionResultMessage = (TextView) findViewById(R.id.transactionResultMessage);
+
+        subscriptionSummary.setText("Free trial till ");
+
+        subscriptionList = new ArrayList<>();
+        subscriptionList.add("3 months (Rs. 500)");
+        subscriptionList.add("6 months (Rs. 800)");
+        subscriptionList.add("1 year (Rs. 1200)");
+
+        try {
+            outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, subscriptionList);
+        subscriptionSpinner.setAdapter(dataAdapter);
+
+        payNowButton.setVisibility(View.VISIBLE);
     }
 
-    void establishConnection() {
-        mServiceConn = new ServiceConnection() {
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                mService = null;
-            }
+    public void payNow(View v) {
+        Outlet currentOutlet = null;
+        QueryBuilder<Outlet, Integer> outletQueryBuilder = outletDao.queryBuilder();
+        try {
+            currentOutlet = outletQueryBuilder.queryForFirst();
+        } catch (SQLException e) {
+            Log.e("OutletDetailsActivity", "Outlet details fetch error");
+        }
 
-            @Override
-            public void onServiceConnected(ComponentName name,
-                                           IBinder service) {
-                mService = IInAppBillingService.Stub.asInterface(service);
-            }
-        };
+        PayUmoneySdkInitilizer.PaymentParam.Builder builder = new PayUmoneySdkInitilizer.PaymentParam.Builder();
+
+        builder.setKey(""); //Put your live KEY here
+        builder.setSalt(""); //Put your live SALT here
+        builder.setMerchantId(AppConstants.MERCHANT_ID);
+
+
+        builder.setIsDebug(true);
+        builder.setDebugKey("F4Vvyz");// Debug Key
+        builder.setDebugMerchantId("4828127");// Debug Merchant ID
+        builder.setDebugSalt("Z6cEj6SP");// Debug Salt
+
+        builder.setAmount(10);
+
+        builder.setTnxId("0nf7");
+
+
+        builder.setPhone(currentOutlet.getCellNumber());
+
+        builder.setProductName("Subscription");
+
+        builder.setFirstName("piyush");
+
+        builder.setEmail(currentOutlet.getEmail());
+
+        builder.setsUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/success.php");
+        builder.setfUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/failure.php");
+        builder.setUdf1("");
+        builder.setUdf2("");
+        builder.setUdf3("");
+        builder.setUdf4("");
+        builder.setUdf5("");
+
+        PayUmoneySdkInitilizer.PaymentParam paymentParam = builder.build();
+
+        PayUmoneySdkInitilizer.startPaymentActivityForResult(this, paymentParam);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mService != null) {
-            unbindService(mServiceConn);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == PayUmoneySdkInitilizer.PAYU_SDK_PAYMENT_REQUEST_CODE) {
+
+            if (resultCode == RESULT_OK) {
+                Log.i("SubscriptionInfo", "Success - Payment ID : " + data.getStringExtra(SdkConstants.PAYMENT_ID));
+                String paymentId = data.getStringExtra(SdkConstants.PAYMENT_ID);
+                showMessage(true, "Payment Success Id : " + paymentId);
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.i("SubscriptionInfo", "failure");
+                showMessage(false, "Transaction was cancelled");
+            } else if (resultCode == PayUmoneySdkInitilizer.RESULT_FAILED) {
+                Log.i("app_activity", "failure");
+
+                if (data != null) {
+                    if (data.getStringExtra(SdkConstants.RESULT).equals("cancel")) {
+                        showMessage(false, "Transaction was cancelled");
+                    } else {
+                        showMessage(false, "Transaction failure");
+                    }
+                }
+                //Write your code if there's no result
+            } else if (resultCode == PayUmoneySdkInitilizer.RESULT_BACK) {
+                Log.i("SubscriptionInfo", "User returned without login");
+                showMessage(false, "User returned without login");
+            }
+        }
+
+    }
+
+    void showMessage(boolean success, String message) {
+        if(success) {
+            transactionResultMessage.setVisibility(View.VISIBLE);
+            transactionResultMessage.setText(message);
+            payNowButton.setVisibility(View.GONE);
+        }
+        else {
+
         }
     }
 
-    void subscribe(int months) {
-        /*Bundle bundle = mService.getBuyIntent(3, "com.example.myapp",
-                "", "subs", developerPayload);
-
-        PendingIntent pendingIntent = bundle.getParcelable(RESPONSE_BUY_INTENT);
-        if (bundle.getInt(RESPONSE_CODE) == BILLING_RESPONSE_RESULT_OK) {
-            // Start purchase flow (this brings up the Google Play UI).
-            // Result will be delivered through onActivityResult().
-            startIntentSenderForResult(pendingIntent, RC_BUY, new Intent(),
-                    Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-        }*/
+    public void closeActivity(View v) {
+        this.finish();
     }
 }

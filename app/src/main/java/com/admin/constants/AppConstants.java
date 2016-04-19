@@ -41,4 +41,6 @@ public class AppConstants {
 
     public static final int MAXIMUM_QUESTIONS = 3;
 
+    public static final String MERCHANT_ID = "5474224";
+
 }

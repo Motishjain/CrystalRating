@@ -8,24 +8,31 @@
     tools:context="com.admin.freddyspeaks.SubscriptionInfoActivity">
 
     <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/headerBg"
         android:id="@+id/toolbar"
-        app:popupTheme="@style/AppTheme.PopupOverlay" >
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/headerBg"
+        android:onClick="closeActivity"
+        android:gravity="center_horizontal|center_vertical"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <ImageView
+            android:id="@+id/activityBackButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#0000"
+            android:gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/back_button"
+            android:tint="@color/white" />
+
         <com.admin.view.CustomFontTextView
             style="@style/appHeader"
-            />
+            android:gravity="center_vertical|center_horizontal" />
     </android.support.v7.widget.Toolbar>
 
     <include layout="@layout/content_subscription_info" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>

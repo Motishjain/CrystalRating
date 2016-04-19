@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -12,4 +13,56 @@
     tools:context="com.admin.freddyspeaks.SubscriptionInfoActivity"
     tools:showIn="@layout/activity_subscription_info">
 
-</RelativeLayout>
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/subscriptionSummary"
+        style="@style/subscriptionSummary"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.admin.view.CustomFontTextView
+            style="@style/selectSubscription"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Extend Subscription for:" />
+
+        <Spinner
+            android:id="@+id/subscriptionSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/custom_spinner_container"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/transactionResultMessage"
+        style="@style/transactionResultMessage"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <com.admin.view.CustomFontButton
+        android:id="@+id/payNowButton"
+        style="@style/formButton"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="@string/pay_now"
+        android:visibility="invisible"
+        android:onClick="payNow"
+        />
+
+</LinearLayout>

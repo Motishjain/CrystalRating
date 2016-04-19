@@ -2,13 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.admin.freddyspeaks">
 
-    <permission android:name="com.admin.freddyspeaks.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+    <permission
+        android:name="com.admin.freddyspeaks.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.c2dm.permission.SEND" />
-    <uses-permission android:name="com.admin.freddyspeaks.permission.C2D_MESSAGE"/>
+    <uses-permission android:name="com.admin.freddyspeaks.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
@@ -31,10 +33,11 @@
         <activity
             android:name=".LoadingActivity"
             android:label="@string/title_activity_loading"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -54,7 +57,7 @@
             android:name=".BillDetailsActivity"
             android:label="@string/title_activity_bill_details"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".RewardSelectionActivity"
             android:label="@string/title_activity_reward_selection"
@@ -78,19 +81,21 @@
         <receiver
             android:name="com.admin.receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.admin.freddyspeaks" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="com.admin.services.NodeGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
@@ -102,7 +107,10 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
-        <service android:name="com.admin.services.RegistrationIntentService" android:exported="false"/>
+        <service
+            android:name="com.admin.services.RegistrationIntentService"
+            android:exported="false" />
+
     </application>
 
 </manifest>
