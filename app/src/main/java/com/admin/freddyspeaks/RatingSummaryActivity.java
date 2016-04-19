@@ -2,6 +2,7 @@ package com.admin.freddyspeaks;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.admin.adapter.RatingDetailsAdapter;
 import com.admin.database.DBHelper;
 import com.admin.database.Question;
+import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.FeedbackResponse;
@@ -69,6 +71,7 @@ public class RatingSummaryActivity extends BaseActivity {
     Question selectedQuestion;
     Map<Integer, List<Integer>> ratingWiseFeedbackList;
     Typeface textFont;
+    private ProgressDialog progressDialog;
 
     Date fromDate, toDate;
     SimpleDateFormat simpleDateFormat,webServiceDateFormat;
@@ -85,6 +88,7 @@ public class RatingSummaryActivity extends BaseActivity {
         ratingChartHeader = (TextView) findViewById(R.id.ratingChartHeader);
         ratingChartSubHeader = (TextView) findViewById(R.id.ratingChartSubHeader);
         questionsSpinner = (Spinner) findViewById(R.id.questionsSpinner);
+        progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
 
         ratingChartHeader.setText("RATINGS RECEIVED");
         ratingChartSubHeader.setText("(for the selected period)");
@@ -173,6 +177,7 @@ public class RatingSummaryActivity extends BaseActivity {
     }
 
     public void fetchFeedback() {
+        progressDialog.show();
         feedbackResponseList = new ArrayList<>();
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(outletCode,webServiceDateFormat.format(fromDate), webServiceDateFormat.format(toDate));
@@ -182,12 +187,14 @@ public class RatingSummaryActivity extends BaseActivity {
                 if (response.isSuccess()) {
                     feedbackResponseList = response.body();
                     refreshPieChart();
+                    progressDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<List<FeedbackResponse>> call, Throwable t) {
                 Log.e("RatingSummary","Unable to fetch feedback",t);
+                progressDialog.dismiss();
             }
         });
     }
