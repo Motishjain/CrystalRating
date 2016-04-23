@@ -2,6 +2,7 @@ package com.admin.freddyspeaks;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -15,7 +16,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class RatingSummaryActivity extends BaseActivity {
+import layout.RatingChartFragment;
+
+public class RatingSummaryActivity extends BaseActivity implements RatingChartFragment.OnFragmentInteractionListener{
 
     TextView fromDateTextView, toDateTextView;
     ProgressDialog progressDialog;
@@ -110,5 +113,10 @@ public class RatingSummaryActivity extends BaseActivity {
 
     public void closeActivity(View v) {
         this.finish();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
