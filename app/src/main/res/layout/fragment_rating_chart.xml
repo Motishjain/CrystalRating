@@ -2,25 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="layout.RatingChartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/ratingChartHeader" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/ratingValue" />
+        <TextView
+            android:id="@+id/ratingChartHeader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/ratingValue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <com.admin.view.CustomFontTextView
         style="@style/selectQuestion"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
         android:text="Select Question:" />
 
     <Spinner
@@ -29,13 +35,13 @@
         android:layout_height="30dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/custom_spinner_container"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_spinner_container" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/ratingSummaryChart"
-        android:layout_marginTop="10dp"
         android:layout_width="300dp"
-        android:layout_height="300dp" />
+        android:layout_height="300dp"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

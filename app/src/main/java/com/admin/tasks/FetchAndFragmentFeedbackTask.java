@@ -47,10 +47,16 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
 
     //List of feedbacks for a given time frame
     List<FeedbackResponse> feedbackResponseList;
+    List<Question> productQuestionList;
+    List<Question> serviceQuestionList;
+    List<Question> miscQuestionList;
 
     /*Map to save ratings for each question id (String). In turn, for every question id there is a map
     storing list of feedbackId indexes for each ratingOption*/
     Map<String,Map<Integer, List<Integer>>> questionWiseRatingFeedbackIndexList;
+
+    double productAverageRating, serviceAverageRating, miscAverageRating;
+
     SimpleDateFormat webServiceDateFormat;
     Date fromDate, toDate;
 
@@ -62,8 +68,8 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
     @Override
     protected Void doInBackground(RatingSummaryActivity... input) {
         RatingSummaryActivity ratingSummaryActivity = input[0];
-
         progressDialog = CustomProgressDialog.createCustomProgressDialog(ratingSummaryActivity);
+        progressDialog.show();
         webServiceDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         fetchFeedback(ratingSummaryActivity,fromDate,toDate);
         return null;
@@ -99,9 +105,9 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
             questionDao = OpenHelperManager.getHelper(activity, DBHelper.class).getCustomDao("Question");
             questionQueryBuilder = questionDao.queryBuilder();
             List<Question> questionList = questionQueryBuilder.query();
-            List<Question> productQuestionList = new ArrayList<>();
-            List<Question> serviceQuestionList = new ArrayList<>();
-            List<Question> miscQuestionList = new ArrayList<>();
+            productQuestionList = new ArrayList<>();
+            serviceQuestionList = new ArrayList<>();
+            miscQuestionList = new ArrayList<>();
 
             for (Question question : questionList) {
                 if (question.getQuestionType().equals(AppConstants.PRODUCT_QUESTION_TYPE)) {
@@ -113,20 +119,25 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
                 }
             }
 
+            productAverageRating = calculateAverageRating(productQuestionList);
+            serviceAverageRating = calculateAverageRating(serviceQuestionList);
+            miscAverageRating = calculateAverageRating(miscQuestionList);
+
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            RatingChartFragment productRatingChartFragment = RatingChartFragment.newInstance("Product ratings",
+            RatingChartFragment productRatingChartFragment = RatingChartFragment.newInstance("Product ratings",productAverageRating,
                     productQuestionList,feedbackResponseList, questionWiseRatingFeedbackIndexList);
             fragmentTransaction.add(R.id.ratingCategoryFragments, productRatingChartFragment, "Product chart fragment");
-            RatingChartFragment serviceRatingChartFragment = RatingChartFragment.newInstance("Service ratings",
+            RatingChartFragment serviceRatingChartFragment = RatingChartFragment.newInstance("Service ratings", serviceAverageRating,
                     serviceQuestionList,feedbackResponseList, questionWiseRatingFeedbackIndexList);
             fragmentTransaction.add(R.id.ratingCategoryFragments, serviceRatingChartFragment, "Service chart fragment");
-            RatingChartFragment miscRatingChartFragment = RatingChartFragment.newInstance("Misc. ratings",
+            RatingChartFragment miscRatingChartFragment = RatingChartFragment.newInstance("Misc. ratings", miscAverageRating,
                     miscQuestionList,feedbackResponseList, questionWiseRatingFeedbackIndexList);
             fragmentTransaction.add(R.id.ratingCategoryFragments, miscRatingChartFragment, "Misc. chart fragment");
 
             fragmentTransaction.commit();
+            progressDialog.dismiss();
         }
         catch (SQLException e) {
 
@@ -152,5 +163,24 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
             }
             feedbackIndex++;
         }
+    }
+
+    public double calculateAverageRating(List<Question> questionList) {
+        double sumRatingValue = 0;
+        int totalQuestions = questionList.size();
+        for(Question question:questionList) {
+            Map<Integer, List<Integer>> ratingWiseFeedbackList = questionWiseRatingFeedbackIndexList.get(question.getQuestionId());
+            int options = question.getRatingValues().split(",").length;
+            double sumQuestionRatingValue = 0;
+            int sumQuestionRatings = 0;
+            for(Integer optionValue:ratingWiseFeedbackList.keySet()) {
+                int rating = options - optionValue - 1;
+                sumQuestionRatingValue += ratingWiseFeedbackList.get(optionValue).size()*rating;
+                sumQuestionRatings += ratingWiseFeedbackList.get(optionValue).size();
+            }
+            //Normalizing the rating as out of 5
+            sumRatingValue += ((sumQuestionRatingValue/sumQuestionRatings)/options)*5;
+        }
+        return sumRatingValue/totalQuestions;
     }
 }

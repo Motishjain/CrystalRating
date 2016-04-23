@@ -52,10 +52,10 @@ public class RatingChartFragment extends Fragment {
 
     /*Map to save ratings for each question id (String). In turn, for every question id there is a map
      storing list of feedbackId indexes for each ratingOption*/
-    Map<String,Map<Integer, List<Integer>>> questionWiseRatingFeedbackIndexList;
+    Map<String, Map<Integer, List<Integer>>> questionWiseRatingFeedbackIndexList;
     Spinner questionsSpinner;
     PieChart ratingSummaryChart;
-    TextView ratingChartHeader,ratingValue;
+    TextView ratingChartHeader, ratingValue;
     Question selectedQuestion;
     List<FeedbackResponse> feedbackResponseList;
 
@@ -66,12 +66,14 @@ public class RatingChartFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment RatingChartFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RatingChartFragment newInstance(String header, List<Question> questionList,List<FeedbackResponse> feedbackResponseList, Map<String,Map<Integer, List<Integer>>> questionWiseRatingFeedbackIndexList) {
+    public static RatingChartFragment newInstance(String header, double averageRating, List<Question> questionList, List<FeedbackResponse> feedbackResponseList, Map<String, Map<Integer, List<Integer>>> questionWiseRatingFeedbackIndexList) {
         RatingChartFragment fragment = new RatingChartFragment();
         fragment.header = header;
+        fragment.averageRating = averageRating;
         fragment.questionList = questionList;
         fragment.feedbackResponseList = feedbackResponseList;
         fragment.questionWiseRatingFeedbackIndexList = questionWiseRatingFeedbackIndexList;
@@ -164,7 +166,6 @@ public class RatingChartFragment extends Fragment {
     }
 
 
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -218,7 +219,6 @@ public class RatingChartFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(dialog.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         ratingDetailsRecyclerView.setLayoutManager(layoutManager);
-
         ratingDetailsCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
