@@ -69,45 +69,10 @@
             android:layout_weight="7" />
     </LinearLayout>
 
-    <com.admin.view.CustomFontTextView
-        style="@style/selectQuestion"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Question:" />
-
-    <Spinner
-        android:id="@+id/questionsSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/custom_spinner_container"
-        android:layout_marginTop="10dp" />
-
-    <com.admin.view.CustomFontTextView
-        android:id="@+id/ratingChartHeader"
-        style="@style/ratingChartHeader"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="60dp"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_gravity="left"
-        />
-
-    <com.admin.view.CustomFontTextView
-        android:id="@+id/ratingChartSubHeader"
-        style="@style/ratingChartSubHeader"
-        android:layout_marginLeft="80dp"
-        android:visibility="invisible"
-        android:layout_height="wrap_content"
-        />
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/ratingSummaryChart"
-        android:layout_marginTop="10dp"
-        android:layout_width="300dp"
-        android:layout_height="300dp" />
+    <LinearLayout
+        android:id="@+id/ratingCategoryFragments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
 
 </LinearLayout>

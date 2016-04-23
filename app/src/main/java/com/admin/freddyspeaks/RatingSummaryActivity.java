@@ -1,79 +1,24 @@
 package com.admin.freddyspeaks;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.admin.adapter.RatingDetailsAdapter;
-import com.admin.database.DBHelper;
-import com.admin.database.Question;
-import com.admin.view.CustomProgressDialog;
-import com.admin.webservice.RestEndpointInterface;
-import com.admin.webservice.RetrofitSingleton;
-import com.admin.webservice.response_objects.FeedbackResponse;
-import com.admin.webservice.response_objects.Rating;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
+import com.admin.tasks.FetchAndFragmentFeedbackTask;
 
-import java.security.SecureRandom;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Random;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RatingSummaryActivity extends BaseActivity {
 
-    Dao<Question, Integer> questionDao;
-    QueryBuilder<Question, Integer> questionQueryBuilder;
-    String outletCode;
-
-    PieChart ratingSummaryChart;
-    TextView fromDateTextView, toDateTextView, ratingChartHeader, ratingChartSubHeader;
-    Spinner questionsSpinner;
-
-    List<Question> questionList;
-    List<FeedbackResponse> feedbackResponseList;
-    Question selectedQuestion;
-    Map<Integer, List<Integer>> ratingWiseFeedbackList;
-    Typeface textFont;
-    private ProgressDialog progressDialog;
+    TextView fromDateTextView, toDateTextView;
 
     Date fromDate, toDate;
-    SimpleDateFormat simpleDateFormat,webServiceDateFormat;
+    SimpleDateFormat simpleDateFormat;
     Calendar calendar;
 
     @Override
@@ -81,53 +26,10 @@ public class RatingSummaryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_summary);
 
-        ratingSummaryChart = (PieChart) findViewById(R.id.ratingSummaryChart);
         fromDateTextView = (TextView) findViewById(R.id.fromDate);
         toDateTextView = (TextView) findViewById(R.id.toDate);
-        ratingChartHeader = (TextView) findViewById(R.id.ratingChartHeader);
-        ratingChartSubHeader = (TextView) findViewById(R.id.ratingChartSubHeader);
-        questionsSpinner = (Spinner) findViewById(R.id.questionsSpinner);
-        progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
-
-        ratingChartHeader.setText("RATINGS RECEIVED");
-        ratingChartSubHeader.setText("(for the selected period)");
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        outletCode = sharedPreferences.getString("outletCode", null);
-
-        ratingSummaryChart.setNoDataText("No ratings found for selected question");
-        ratingSummaryChart.setDrawHoleEnabled(false);
-        ratingSummaryChart.setUsePercentValues(false);
-        ratingSummaryChart.setDrawSliceText(false);
-        ratingSummaryChart.setDescription("");
-
-        Legend legend = ratingSummaryChart.getLegend();
-        textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/comicsansms.ttf");
-        legend.setTypeface(textFont);
-        legend.setTextSize(15);
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
-        legend.setWordWrapEnabled(true);
-
-        ratingSummaryChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                int optionIndex = e.getXIndex();
-                List<Integer> feedbackIndexList = ratingWiseFeedbackList.get(optionIndex + 1);
-                List<FeedbackResponse> feedbackResponseSubList = new ArrayList<>();
-                for (Integer feedbackIndex : feedbackIndexList) {
-                    feedbackResponseSubList.add(feedbackResponseList.get(feedbackIndex));
-                }
-                openRatingDetailsDialog(feedbackResponseSubList);
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
 
         simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
-        webServiceDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         //Set to date for feedback
         calendar = Calendar.getInstance();
@@ -139,127 +41,8 @@ public class RatingSummaryActivity extends BaseActivity {
         fromDate = calendar.getTime();
         setDateTextView(fromDateTextView, fromDate);
 
-        List<String> questionNames = new ArrayList<>();
-
-        try {
-            questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
-            questionQueryBuilder = questionDao.queryBuilder();
-            questionList = questionQueryBuilder.query();
-            for (Question question : questionList) {
-                questionNames.add(question.getName());
-            }
-        } catch (SQLException e) {
-            Log.e("RatingSummaryActivity", "Unable to fetch questions");
-        }
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, questionNames);
-        questionsSpinner.setAdapter(dataAdapter);
-
-        questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Rating summary", "Item selected");
-                selectedQuestion = questionList.get(position);
-                //TODO remove stub
-                refreshPieChart();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.i("Rating summary", "Nothing selected");
-            }
-        });
-        questionsSpinner.setSelected(false);
-
-        fetchFeedback();
-    }
-
-    public void fetchFeedback() {
-        progressDialog.show();
-        feedbackResponseList = new ArrayList<>();
-        RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(outletCode,webServiceDateFormat.format(fromDate), webServiceDateFormat.format(toDate));
-        fetchRewardsCall.enqueue(new Callback<List<FeedbackResponse>>() {
-            @Override
-            public void onResponse(Call<List<FeedbackResponse>> call, Response<List<FeedbackResponse>> response) {
-                if (response.isSuccess()) {
-                    feedbackResponseList = response.body();
-                    refreshPieChart();
-                    progressDialog.dismiss();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<FeedbackResponse>> call, Throwable t) {
-                Log.e("RatingSummary","Unable to fetch feedback",t);
-                progressDialog.dismiss();
-            }
-        });
-    }
-
-
-    public void refreshPieChart() {
-        List<Entry> entries = new ArrayList<>();
-        List<String> labels = new ArrayList<>();
-        String[] options = selectedQuestion.getRatingValues().split(",");
-        ratingWiseFeedbackList = new HashMap<>();
-        int feedbackIndex = 0;
-
-        for (String option : options) {
-            labels.add(option);
-        }
-
-        if(feedbackResponseList.size()>0) {
-            ratingChartHeader.setVisibility(View.VISIBLE);
-            ratingChartSubHeader.setVisibility(View.VISIBLE);
-        }
-        else {
-            ratingChartHeader.setVisibility(View.INVISIBLE);
-            ratingChartSubHeader.setVisibility(View.INVISIBLE);
-        }
-
-        for (FeedbackResponse feedbackResponse : feedbackResponseList) {
-            Integer selectedOption = null;
-
-            for(Rating rating: feedbackResponse.getRatings()) {
-                if(rating.getQuestionId().equals(selectedQuestion.getQuestionId()))
-                {
-                    selectedOption = rating.getSelectedOptionIndex();
-                }
-            }
-
-            if (selectedOption != null) {
-                if (ratingWiseFeedbackList.get(selectedOption) == null) {
-                    ratingWiseFeedbackList.put(selectedOption, new ArrayList<Integer>());
-                }
-                ratingWiseFeedbackList.get(selectedOption).add(feedbackIndex);
-            }
-            feedbackIndex++;
-        }
-
-        for (int optionIndex = 0; optionIndex < options.length; optionIndex++) {
-            Integer count = ratingWiseFeedbackList.get(optionIndex + 1) == null ? 0 : ratingWiseFeedbackList.get(optionIndex + 1).size();
-            if (count > 0) {
-                entries.add(new Entry(count, optionIndex));
-            }
-        }
-
-        PieDataSet dataset = new PieDataSet(entries, "");
-        dataset.setColors(new int[]{R.color.rating1,R.color.rating2,R.color.rating3,R.color.rating4,R.color.rating5},this);
-        dataset.setValueTextSize(12);
-        dataset.setValueTypeface(textFont);
-        PieData data = new PieData(labels, dataset);
-
-        data.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                int intValue = (int) value;
-                return intValue + "";
-            }
-        });
-        ratingSummaryChart.setData(data);
-        ratingSummaryChart.invalidate();
+        FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate);
+        fetchAndFragmentFeedbackTask.execute(this);
     }
 
     public void changeFromDate(View v) {
@@ -279,7 +62,8 @@ public class RatingSummaryActivity extends BaseActivity {
                         }
                         if (!fromDate.equals(calendar.getTime())) {
                             fromDate = calendar.getTime();
-                            fetchFeedback();
+                            FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate);
+                            fetchAndFragmentFeedbackTask.execute(RatingSummaryActivity.this);
                         }
                         setDateTextView(fromDateTextView, fromDate);
                     }
@@ -305,7 +89,8 @@ public class RatingSummaryActivity extends BaseActivity {
                         }
                         if (!toDate.equals(calendar.getTime())) {
                             toDate = calendar.getTime();
-                            fetchFeedback();
+                            FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate);
+                            fetchAndFragmentFeedbackTask.execute(RatingSummaryActivity.this);
                         }
                         setDateTextView(toDateTextView, toDate);
                     }
@@ -314,63 +99,8 @@ public class RatingSummaryActivity extends BaseActivity {
         toDatePickerDialog.show();
     }
 
-    void openRatingDetailsDialog(List<FeedbackResponse> feedbackResponseSubList) {
-        final Dialog dialog = new Dialog(RatingSummaryActivity.this);
-        dialog.setContentView(R.layout.rating_details_popup);
-        dialog.setTitle("Ratings Detail");
-        RecyclerView ratingDetailsRecyclerView = (RecyclerView) dialog.findViewById(R.id.ratingDetailsRecyclerView);
-        Button ratingDetailsCloseButton = (Button) dialog.findViewById(R.id.ratingDetailsCloseButton);
-
-        RatingDetailsAdapter ratingOptionsAdapter = new RatingDetailsAdapter(R.layout.rating_detail_item, feedbackResponseSubList);
-        ratingDetailsRecyclerView.setAdapter(ratingOptionsAdapter);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(dialog.getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        ratingDetailsRecyclerView.setLayoutManager(layoutManager);
-
-        ratingDetailsCloseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
-
     public void setDateTextView(TextView textView, Date date) {
         textView.setText(simpleDateFormat.format(date));
-    }
-
-    //TODO remove stub
-    public void populateDummyFeedback() {
-        feedbackResponseList.clear();
-        /*feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "1200", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Kunal", "9976754567", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Motish", "7738657059", null, "1234", "2500", "abc"));
-        feedbackResponseList.add(new FeedbackResponse(createRatingsMap(), "Bhupender", "9876765654", null, "1234", "2500", "abc"));*/
-    }
-
-    //TODO remove stub
-    public Map<String, Integer> createRatingsMap() {
-        Map<String, Integer> ratingMap = new HashMap<>();
-        Random randomGenerator = new SecureRandom();
-        int randomNumber = randomGenerator.nextInt(4);
-        ratingMap.put(questionList.get(0).getQuestionId(), (randomNumber + 1));
-        ratingMap.put(questionList.get(1).getQuestionId(), (randomNumber + 1));
-        ratingMap.put(questionList.get(2).getQuestionId(), (randomNumber + 1));
-        ratingMap.put(questionList.get(3).getQuestionId(), (randomNumber + 1));
-        ratingMap.put(questionList.get(4).getQuestionId(), (randomNumber + 1));
-        return ratingMap;
     }
 
     public void closeActivity(View v) {
