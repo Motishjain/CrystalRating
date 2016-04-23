@@ -1,12 +1,14 @@
 package com.admin.freddyspeaks;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.admin.tasks.FetchAndFragmentFeedbackTask;
+import com.admin.view.CustomProgressDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,6 +18,7 @@ import java.util.Locale;
 public class RatingSummaryActivity extends BaseActivity {
 
     TextView fromDateTextView, toDateTextView;
+    ProgressDialog progressDialog;
 
     Date fromDate, toDate;
     SimpleDateFormat simpleDateFormat;
@@ -41,7 +44,9 @@ public class RatingSummaryActivity extends BaseActivity {
         fromDate = calendar.getTime();
         setDateTextView(fromDateTextView, fromDate);
 
-        FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate);
+        progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
+        progressDialog.show();
+        FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate, toDate, progressDialog);
         fetchAndFragmentFeedbackTask.execute(this);
     }
 
@@ -62,7 +67,7 @@ public class RatingSummaryActivity extends BaseActivity {
                         }
                         if (!fromDate.equals(calendar.getTime())) {
                             fromDate = calendar.getTime();
-                            FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate);
+                            FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate, progressDialog);
                             fetchAndFragmentFeedbackTask.execute(RatingSummaryActivity.this);
                         }
                         setDateTextView(fromDateTextView, fromDate);
@@ -89,7 +94,7 @@ public class RatingSummaryActivity extends BaseActivity {
                         }
                         if (!toDate.equals(calendar.getTime())) {
                             toDate = calendar.getTime();
-                            FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate);
+                            FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate, progressDialog);
                             fetchAndFragmentFeedbackTask.execute(RatingSummaryActivity.this);
                         }
                         setDateTextView(toDateTextView, toDate);

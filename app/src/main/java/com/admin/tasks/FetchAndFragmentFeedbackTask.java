@@ -53,23 +53,22 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
 
     /*Map to save ratings for each question id (String). In turn, for every question id there is a map
     storing list of feedbackId indexes for each ratingOption*/
-    Map<String,Map<Integer, List<Integer>>> questionWiseRatingFeedbackIndexList;
+    Map<String,Map<Integer, List<Integer>>> questionWiseRatingFeedbackIndexList = new HashMap<>();
 
     double productAverageRating, serviceAverageRating, miscAverageRating;
 
     SimpleDateFormat webServiceDateFormat;
     Date fromDate, toDate;
 
-    public FetchAndFragmentFeedbackTask(Date fromDate, Date toDate) {
+    public FetchAndFragmentFeedbackTask(Date fromDate, Date toDate, ProgressDialog progressDialog) {
         this.fromDate = fromDate;
         this.toDate = toDate;
+        this.progressDialog = progressDialog;
     }
 
     @Override
     protected Void doInBackground(RatingSummaryActivity... input) {
         RatingSummaryActivity ratingSummaryActivity = input[0];
-        progressDialog = CustomProgressDialog.createCustomProgressDialog(ratingSummaryActivity);
-        progressDialog.show();
         webServiceDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         fetchFeedback(ratingSummaryActivity,fromDate,toDate);
         return null;
@@ -167,20 +166,26 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
 
     public double calculateAverageRating(List<Question> questionList) {
         double sumRatingValue = 0;
+        List<Question> answeredQuestionList = new ArrayList<>();
         int totalQuestions = questionList.size();
         for(Question question:questionList) {
             Map<Integer, List<Integer>> ratingWiseFeedbackList = questionWiseRatingFeedbackIndexList.get(question.getQuestionId());
             int options = question.getRatingValues().split(",").length;
             double sumQuestionRatingValue = 0;
             int sumQuestionRatings = 0;
-            for(Integer optionValue:ratingWiseFeedbackList.keySet()) {
-                int rating = options - optionValue - 1;
-                sumQuestionRatingValue += ratingWiseFeedbackList.get(optionValue).size()*rating;
-                sumQuestionRatings += ratingWiseFeedbackList.get(optionValue).size();
+            if(ratingWiseFeedbackList!=null) {
+                for (Integer optionValue : ratingWiseFeedbackList.keySet()) {
+                    int rating = options - optionValue - 1;
+                    sumQuestionRatingValue += ratingWiseFeedbackList.get(optionValue).size() * rating;
+                    sumQuestionRatings += ratingWiseFeedbackList.get(optionValue).size();
+                }
+                //Normalizing the rating as out of 5
+                sumRatingValue += ((sumQuestionRatingValue / sumQuestionRatings) / options) * 5;
+                answeredQuestionList.add(question);
             }
-            //Normalizing the rating as out of 5
-            sumRatingValue += ((sumQuestionRatingValue/sumQuestionRatings)/options)*5;
         }
+        questionList.clear();
+        questionList.addAll(answeredQuestionList);
         return sumRatingValue/totalQuestions;
     }
 }

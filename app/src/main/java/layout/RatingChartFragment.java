@@ -101,6 +101,7 @@ public class RatingChartFragment extends Fragment {
         ratingSummaryChart.setDescription("");
 
         ratingChartHeader.setText(header);
+        ratingValue.setText(round(averageRating,2)+"");
 
         Legend legend = ratingSummaryChart.getLegend();
         legend.setTextSize(15);
@@ -242,5 +243,10 @@ public class RatingChartFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private static double round (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 }
