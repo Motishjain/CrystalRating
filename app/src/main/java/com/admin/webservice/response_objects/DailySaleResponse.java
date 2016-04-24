@@ -5,22 +5,22 @@ package com.admin.webservice.response_objects;
  */
 public class DailySaleResponse {
 
-    private String saleDate;
-    private double totalAmount;
+    private String dayOfMonth;
+    private String totalSale;
 
-    public String getSaleDate() {
-        return saleDate;
+    public String getDayOfMonth() {
+        return dayOfMonth;
     }
 
-    public void setSaleDate(String saleDate) {
-        this.saleDate = saleDate;
+    public void setDayOfMonth(String dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
     }
 
-    public double getTotalAmount() {
-        return totalAmount;
+    public String getTotalSale() {
+        return totalSale;
     }
 
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
+    public void setTotalSale(String totalSale) {
+        this.totalSale = totalSale;
     }
 }

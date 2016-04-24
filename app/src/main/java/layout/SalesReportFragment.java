@@ -122,7 +122,7 @@ public class SalesReportFragment extends Fragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         String outletCode = sharedPreferences.getString("outletCode", null);
 
-        Call<List<DailySaleResponse>> fetchSalesDataCall = restEndpointInterface.fetchSalesData(outletCode, monthSpinner.getSelectedItem().toString());
+        Call<List<DailySaleResponse>> fetchSalesDataCall = restEndpointInterface.fetchSalesData(outletCode, Calendar.getInstance().get(Calendar.YEAR) + "", monthSpinner.getSelectedItem().toString());
         fetchSalesDataCall.enqueue(new Callback<List<DailySaleResponse>>() {
             @Override
             public void onResponse(Call<List<DailySaleResponse>> call, Response<List<DailySaleResponse>> response) {
@@ -144,17 +144,11 @@ public class SalesReportFragment extends Fragment {
     public void refreshLineChart() {
 
         //To store day of month, total sales information
-        Map<Integer, Double> salesMap = new HashMap<>();
+        Map<String, Double> salesMap = new HashMap<>();
 
         Calendar calendar = Calendar.getInstance();
         for (DailySaleResponse dailySaleResponse : monthlySalesList) {
-            try {
-                Date saleDate = simpleDateFormat.parse(dailySaleResponse.getSaleDate());
-                calendar.setTime(saleDate);
-                salesMap.put(calendar.get(Calendar.DAY_OF_MONTH), dailySaleResponse.getTotalAmount());
-            } catch (ParseException e) {
-                Log.e(TAG, "Unable to parse date", e);
-            }
+            salesMap.put(dailySaleResponse.getDayOfMonth(), Double.parseDouble(dailySaleResponse.getTotalSale()));
         }
 
         calendar.set(Calendar.MONTH, monthSpinner.getSelectedItemPosition());
@@ -167,7 +161,7 @@ public class SalesReportFragment extends Fragment {
 
         for (int day = 1; day < calendar.getMaximum(Calendar.DAY_OF_MONTH); day++) {
             entries.add(new Entry(salesMap.get(day) != null ? salesMap.get(day).floatValue() : 0, day - 1));
-            labels.add(dayLabels[day-1]);
+            labels.add(dayLabels[day - 1]);
         }
         LineDataSet dataset = new LineDataSet(entries, "Sales Amount");
 
@@ -175,5 +169,4 @@ public class SalesReportFragment extends Fragment {
         salesReportChart.setData(data);
         salesReportChart.invalidate();
     }
-
 }

@@ -44,6 +44,6 @@ public interface RestEndpointInterface {
     Call<List<FeedbackResponse>> fetchFeedback(@Path("outletCode") String outletCode, @Path("fromDate") String fromDate, @Path("toDate") String toDate);
 
     @GET(AppConstants.FETCH_SALES_DATA)
-    Call<List<DailySaleResponse>> fetchSalesData(@Path("outletCode") String outletCode, @Path("month") String month);
+    Call<List<DailySaleResponse>> fetchSalesData(@Path("outletCode") String outletCode,@Path("year") String year, @Path("month") String month);
 
 }
