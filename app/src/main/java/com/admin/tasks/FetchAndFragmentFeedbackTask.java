@@ -12,8 +12,6 @@ import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Question;
 import com.admin.freddyspeaks.R;
-import com.admin.freddyspeaks.RatingSummaryActivity;
-import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.FeedbackResponse;
@@ -33,6 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import layout.RatingChartFragment;
+import layout.RatingSummaryFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,7 +39,7 @@ import retrofit2.Response;
 /**
  * Created by admin on 22-04-2016.
  */
-public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivity, Void, Void> {
+public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragment, Void, Void> {
 
     private ProgressDialog progressDialog;
     Dao<Question, Integer> questionDao;
@@ -68,16 +67,16 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
     }
 
     @Override
-    protected Void doInBackground(RatingSummaryActivity... input) {
-        RatingSummaryActivity ratingSummaryActivity = input[0];
+    protected Void doInBackground(RatingSummaryFragment... input) {
+        RatingSummaryFragment ratingSummaryFragment = input[0];
         webServiceDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        fetchFeedback(ratingSummaryActivity,fromDate,toDate);
+        fetchFeedback(ratingSummaryFragment,fromDate,toDate);
         return null;
     }
 
-    public void fetchFeedback(final RatingSummaryActivity ratingSummaryActivity, Date fromDate, Date toDate) {
+    public void fetchFeedback(final RatingSummaryFragment ratingSummaryFragment, Date fromDate, Date toDate) {
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ratingSummaryActivity);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ratingSummaryFragment.getActivity());
         String outletCode = sharedPreferences.getString("outletCode", null);
         feedbackResponseList = new ArrayList<>();
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
@@ -93,7 +92,7 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
                 if (response.isSuccess()) {
                     feedbackResponseList = response.body();
                     divideRatingsByQuestion();
-                    createFragments(ratingSummaryActivity);
+                    createFragments(ratingSummaryFragment);
                 }
             }
 
@@ -105,9 +104,9 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
         });
     }
 
-    public void createFragments(RatingSummaryActivity activity){
+    public void createFragments(RatingSummaryFragment fragment){
         try {
-            questionDao = OpenHelperManager.getHelper(activity, DBHelper.class).getCustomDao("Question");
+            questionDao = OpenHelperManager.getHelper(fragment.getActivity(), DBHelper.class).getCustomDao("Question");
             questionQueryBuilder = questionDao.queryBuilder();
             List<Question> questionList = questionQueryBuilder.query();
             productQuestionList = new ArrayList<>();
@@ -128,7 +127,7 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
             serviceAverageRating = calculateAverageRating(serviceQuestionList);
             miscAverageRating = calculateAverageRating(miscQuestionList);
 
-            FragmentManager fragmentManager = activity.getSupportFragmentManager();
+            FragmentManager fragmentManager = fragment.getActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             RatingChartFragment productRatingChartFragment = RatingChartFragment.newInstance("Product ratings",productAverageRating,

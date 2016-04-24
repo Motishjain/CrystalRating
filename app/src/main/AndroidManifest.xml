@@ -67,7 +67,7 @@
             android:label="@string/title_activity_subscription_info"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".RatingSummaryActivity"
+            android:name=".FeedbackAnalysisActivity"
             android:label="@string/title_activity_rating_summary"
             android:theme="@style/AppTheme.NoActionBar" />
 

@@ -3,7 +3,6 @@ package com.admin.freddyspeaks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -47,7 +46,7 @@ public class BaseActivity  extends AppCompatActivity {
                 return true;
 
             case R.id.actionFeedbackSummary:
-                Intent ratingSummary = new Intent(BaseActivity.this,RatingSummaryActivity.class);
+                Intent ratingSummary = new Intent(BaseActivity.this,FeedbackAnalysisActivity.class);
                 startActivity(ratingSummary);
                 return true;
 

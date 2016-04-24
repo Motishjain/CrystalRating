@@ -1,13 +1,18 @@
-package com.admin.freddyspeaks;
+package layout;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.admin.freddyspeaks.R;
 import com.admin.tasks.FetchAndFragmentFeedbackTask;
 import com.admin.view.CustomProgressDialog;
 
@@ -16,9 +21,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import layout.RatingChartFragment;
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * Use the {@link RatingSummaryFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class RatingSummaryFragment extends Fragment implements RatingChartFragment.OnFragmentInteractionListener{
 
-public class RatingSummaryActivity extends BaseActivity implements RatingChartFragment.OnFragmentInteractionListener{
 
     TextView fromDateTextView, toDateTextView;
     ProgressDialog progressDialog;
@@ -27,13 +37,34 @@ public class RatingSummaryActivity extends BaseActivity implements RatingChartFr
     SimpleDateFormat simpleDateFormat;
     Calendar calendar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rating_summary);
 
-        fromDateTextView = (TextView) findViewById(R.id.fromDate);
-        toDateTextView = (TextView) findViewById(R.id.toDate);
+    public RatingSummaryFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     * @return A new instance of fragment RatingSummaryFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static RatingSummaryFragment newInstance() {
+        RatingSummaryFragment fragment = new RatingSummaryFragment();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View ratingSummaryFragment = inflater.inflate(R.layout.fragment_rating_summary, container, false);
+        fromDateTextView = (TextView) ratingSummaryFragment.findViewById(R.id.fromDate);
+        toDateTextView = (TextView) ratingSummaryFragment.findViewById(R.id.toDate);
 
         simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
 
@@ -47,16 +78,17 @@ public class RatingSummaryActivity extends BaseActivity implements RatingChartFr
         fromDate = calendar.getTime();
         setDateTextView(fromDateTextView, fromDate);
 
-        progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
+        progressDialog = CustomProgressDialog.createCustomProgressDialog(this.getActivity());
         progressDialog.show();
         FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate, toDate, progressDialog);
         fetchAndFragmentFeedbackTask.execute(this);
+        return ratingSummaryFragment;
     }
 
     public void changeFromDate(View v) {
         calendar = Calendar.getInstance();
         calendar.setTime(fromDate);
-        DatePickerDialog fromDatePickerDialog = new DatePickerDialog(this,
+        DatePickerDialog fromDatePickerDialog = new DatePickerDialog(this.getActivity(),
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
@@ -71,7 +103,7 @@ public class RatingSummaryActivity extends BaseActivity implements RatingChartFr
                         if (!fromDate.equals(calendar.getTime())) {
                             fromDate = calendar.getTime();
                             FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate, progressDialog);
-                            fetchAndFragmentFeedbackTask.execute(RatingSummaryActivity.this);
+                            fetchAndFragmentFeedbackTask.execute(RatingSummaryFragment.this);
                         }
                         setDateTextView(fromDateTextView, fromDate);
                     }
@@ -83,7 +115,7 @@ public class RatingSummaryActivity extends BaseActivity implements RatingChartFr
     public void changeToDate(View v) {
         calendar = Calendar.getInstance();
         calendar.setTime(toDate);
-        DatePickerDialog toDatePickerDialog = new DatePickerDialog(this,
+        DatePickerDialog toDatePickerDialog = new DatePickerDialog(this.getActivity(),
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
@@ -98,7 +130,7 @@ public class RatingSummaryActivity extends BaseActivity implements RatingChartFr
                         if (!toDate.equals(calendar.getTime())) {
                             toDate = calendar.getTime();
                             FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate, progressDialog);
-                            fetchAndFragmentFeedbackTask.execute(RatingSummaryActivity.this);
+                            fetchAndFragmentFeedbackTask.execute(RatingSummaryFragment.this);
                         }
                         setDateTextView(toDateTextView, toDate);
                     }
@@ -109,10 +141,6 @@ public class RatingSummaryActivity extends BaseActivity implements RatingChartFr
 
     public void setDateTextView(TextView textView, Date date) {
         textView.setText(simpleDateFormat.format(date));
-    }
-
-    public void closeActivity(View v) {
-        this.finish();
     }
 
     @Override
