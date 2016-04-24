@@ -8,14 +8,14 @@
         android:title="@string/action_edit_profile"
         app:showAsAction="never" />
     <item
-        android:id="@+id/actionManageRewards"
+        android:id="@+id/actionRewards"
         android:orderInCategory="100"
-        android:title="@string/action_check_reports"
+        android:title="@string/action_rewards"
         app:showAsAction="never" />
     <item
         android:id="@+id/actionFeedbackSummary"
         android:orderInCategory="100"
-        android:title="@string/action_feedback_summary"
+        android:title="@string/action_check_reports"
         app:showAsAction="never" />
     <item
         android:id="@+id/actionSubscriptionInfo"

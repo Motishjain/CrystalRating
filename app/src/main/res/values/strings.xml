@@ -2,8 +2,8 @@
     <string name="app_name">FreddySpeaks</string>
     <string name="app_header">FreddySpeaks</string>
     <string name="action_edit_profile">Edit Outlet Details</string>
-    <string name="action_check_reports">Check reports</string>
-    <string name="action_feedback_summary">Monitor Feedback</string>
+    <string name="action_rewards">Rewards</string>
+    <string name="action_check_reports">Check Reports</string>
     <string name="action_subscription_info">Subscription Info</string>
     <string name="title_activity_home_page">FreddySpeaks</string>
     <string name="title_activity_user_info">FreddySpeaks</string>

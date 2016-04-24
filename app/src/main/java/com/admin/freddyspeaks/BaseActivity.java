@@ -34,7 +34,7 @@ public class BaseActivity  extends AppCompatActivity {
                 startActivity(outletDetails);
                 return true;
 
-            case R.id.actionManageRewards:
+            case R.id.actionRewards:
                 Intent configureRewards = new Intent(BaseActivity.this,RewardConfigurationActivity.class);
                 configureRewards.putExtra("editMode",true);
                 startActivity(configureRewards);
