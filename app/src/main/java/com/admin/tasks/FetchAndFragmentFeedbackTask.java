@@ -173,7 +173,6 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
     public double calculateAverageRating(List<Question> questionList) {
         double sumRatingValue = 0;
         List<Question> answeredQuestionList = new ArrayList<>();
-        int totalQuestions = questionList.size();
         for(Question question:questionList) {
             Map<Integer, List<Integer>> ratingWiseFeedbackList = questionWiseRatingFeedbackIndexList.get(question.getQuestionId());
             int options = question.getRatingValues().split(",").length;
@@ -181,7 +180,7 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
             int sumQuestionRatings = 0;
             if(ratingWiseFeedbackList!=null) {
                 for (Integer optionValue : ratingWiseFeedbackList.keySet()) {
-                    int rating = options - optionValue - 1;
+                    int rating = options - optionValue + 1;
                     sumQuestionRatingValue += ratingWiseFeedbackList.get(optionValue).size() * rating;
                     sumQuestionRatings += ratingWiseFeedbackList.get(optionValue).size();
                 }
@@ -192,6 +191,6 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
         }
         questionList.clear();
         questionList.addAll(answeredQuestionList);
-        return sumRatingValue/totalQuestions;
+        return sumRatingValue/answeredQuestionList.size();
     }
 }

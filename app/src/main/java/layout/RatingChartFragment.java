@@ -185,9 +185,7 @@ public class RatingChartFragment extends Fragment {
 
         for (int optionIndex = 0; optionIndex < options.length; optionIndex++) {
             Integer count = ratingWiseFeedbackList.get(optionIndex + 1) == null ? 0 : ratingWiseFeedbackList.get(optionIndex + 1).size();
-            if (count > 0) {
-                entries.add(new Entry(count, optionIndex));
-            }
+            entries.add(new Entry(count, optionIndex));
         }
 
         PieDataSet dataset = new PieDataSet(entries, "");
@@ -199,7 +197,13 @@ public class RatingChartFragment extends Fragment {
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
                 int intValue = (int) value;
-                return intValue + "";
+                if(intValue>0)
+                {
+                    return intValue + "";
+                }
+                else {
+                    return "";
+                }
             }
         });
         ratingSummaryChart.setData(data);
