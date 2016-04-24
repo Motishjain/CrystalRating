@@ -122,7 +122,7 @@ public class SalesReportFragment extends Fragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         String outletCode = sharedPreferences.getString("outletCode", null);
 
-        Call<List<DailySaleResponse>> fetchSalesDataCall = restEndpointInterface.fetchSalesData(outletCode, Calendar.getInstance().get(Calendar.YEAR) + "", monthSpinner.getSelectedItem().toString());
+        Call<List<DailySaleResponse>> fetchSalesDataCall = restEndpointInterface.fetchSalesData(outletCode, Calendar.getInstance().get(Calendar.YEAR) + "", monthSpinner.getSelectedItemPosition()+"");
         fetchSalesDataCall.enqueue(new Callback<List<DailySaleResponse>>() {
             @Override
             public void onResponse(Call<List<DailySaleResponse>> call, Response<List<DailySaleResponse>> response) {
