@@ -4,10 +4,18 @@
     android:layout_height="match_parent"
     tools:context="layout.SalesReportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/salesReportChart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="300dp" />
+
+    <Spinner
+        android:id="@+id/monthSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="2dp"
+        android:paddingRight="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_spinner_container" />
 
 </FrameLayout>

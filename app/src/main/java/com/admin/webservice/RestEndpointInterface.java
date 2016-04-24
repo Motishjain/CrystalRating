@@ -4,6 +4,7 @@ import com.admin.constants.AppConstants;
 import com.admin.webservice.request_objects.OutletRequest;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.admin.webservice.request_objects.RewardSubmitRequest;
+import com.admin.webservice.response_objects.DailySaleResponse;
 import com.admin.webservice.response_objects.FeedbackResponse;
 import com.admin.webservice.response_objects.PostServiceResponse;
 import com.admin.webservice.response_objects.QuestionResponse;
@@ -41,5 +42,8 @@ public interface RestEndpointInterface {
 
     @GET(AppConstants.FETCH_FEEDBACK)
     Call<List<FeedbackResponse>> fetchFeedback(@Path("outletCode") String outletCode, @Path("fromDate") String fromDate, @Path("toDate") String toDate);
+
+    @GET(AppConstants.FETCH_SALES_DATA)
+    Call<List<DailySaleResponse>> fetchSalesData(@Path("outletCode") String outletCode, @Path("month") String month);
 
 }

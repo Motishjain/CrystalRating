@@ -17,6 +17,8 @@ public class AppConstants {
 
     public static final String FETCH_FEEDBACK = "fetchFeedback/{outletCode}/{fromDate}/{toDate}";
 
+    public static final String FETCH_SALES_DATA = "fetchSalesData/{outletCode}/{month}";
+
     public static final String SAVE_REWARDS = "saveRewards";
 
     public static final String OUTLET_TYPE = "RET";
