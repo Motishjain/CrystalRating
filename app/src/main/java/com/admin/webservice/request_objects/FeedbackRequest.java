@@ -25,6 +25,8 @@ public class FeedbackRequest implements Serializable {
 
     private String rewardCategory;
 
+    private String createdDate;
+
     public String getOutletCode() {
         return outletCode;
     }
@@ -87,5 +89,9 @@ public class FeedbackRequest implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 }

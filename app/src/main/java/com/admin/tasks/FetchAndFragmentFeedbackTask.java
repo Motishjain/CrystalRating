@@ -25,6 +25,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -80,7 +81,12 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryActivit
         String outletCode = sharedPreferences.getString("outletCode", null);
         feedbackResponseList = new ArrayList<>();
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(outletCode, webServiceDateFormat.format(fromDate), webServiceDateFormat.format(toDate));
+        //Add one day to toDate as the time saved is greater than the date. If feedback is saved on 23rd Apr, timestamp is saved as 23rd Apr + (time)
+        Calendar c = Calendar.getInstance();
+        c.setTime(toDate);
+        c.add(Calendar.DAY_OF_MONTH,1);
+
+        Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(outletCode, webServiceDateFormat.format(fromDate), webServiceDateFormat.format(c.getTime()));
         fetchRewardsCall.enqueue(new Callback<List<FeedbackResponse>>() {
             @Override
             public void onResponse(Call<List<FeedbackResponse>> call, Response<List<FeedbackResponse>> response) {

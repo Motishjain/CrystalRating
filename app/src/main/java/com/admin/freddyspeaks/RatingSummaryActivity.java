@@ -43,7 +43,7 @@ public class RatingSummaryActivity extends BaseActivity implements RatingChartFr
         setDateTextView(toDateTextView, toDate);
 
         //Set from date for feedback
-        calendar.add(Calendar.DAY_OF_MONTH, -2);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
         fromDate = calendar.getTime();
         setDateTextView(fromDateTextView, fromDate);
 
@@ -76,7 +76,7 @@ public class RatingSummaryActivity extends BaseActivity implements RatingChartFr
                         setDateTextView(fromDateTextView, fromDate);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        fromDatePickerDialog.setTitle("Select From Date");
+        fromDatePickerDialog.setTitle("From:");
         fromDatePickerDialog.show();
     }
 
@@ -103,7 +103,7 @@ public class RatingSummaryActivity extends BaseActivity implements RatingChartFr
                         setDateTextView(toDateTextView, toDate);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        toDatePickerDialog.setTitle("Select To Date");
+        toDatePickerDialog.setTitle("To:");
         toDatePickerDialog.show();
     }
 

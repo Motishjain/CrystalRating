@@ -24,6 +24,7 @@ import com.admin.webservice.response_objects.PostServiceResponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,6 +109,7 @@ public class RewardDisplayActivity extends BaseActivity {
     }
 
     void submitFeedback() {
+        feedback.setCreatedDate(new Date().toString());
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<PostServiceResponse> submitFeedbackCall = restEndpointInterface.submitFeedback(feedback);
         submitFeedbackCall.enqueue(new Callback<PostServiceResponse>() {
