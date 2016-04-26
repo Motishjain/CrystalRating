@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.admin.freddyspeaks.R;
@@ -35,7 +36,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
     Date fromDate, toDate;
     SimpleDateFormat simpleDateFormat;
     Calendar calendar;
-
+    ImageView fromDateImage,toDateImage;
 
     public RatingSummaryFragment() {
         // Required empty public constructor
@@ -64,6 +65,22 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
         View ratingSummaryFragment = inflater.inflate(R.layout.fragment_rating_summary, container, false);
         fromDateTextView = (TextView) ratingSummaryFragment.findViewById(R.id.fromDate);
         toDateTextView = (TextView) ratingSummaryFragment.findViewById(R.id.toDate);
+        fromDateImage = (ImageView) ratingSummaryFragment.findViewById(R.id.fromDateImage);
+        toDateImage = (ImageView) ratingSummaryFragment.findViewById(R.id.toDateImage);
+
+        fromDateImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeFromDate(view);
+            }
+        });
+
+        toDateImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeToDate(view);
+            }
+        });
 
         simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
 

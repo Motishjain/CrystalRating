@@ -34,9 +34,9 @@
 
             <ImageView
                 android:layout_width="20dp"
+                android:id="@+id/fromDateImage"
                 android:layout_height="20dp"
-                android:background="@drawable/from_date_icon"
-                android:onClick="changeFromDate"
+                android:background="@drawable/date_picker"
                 android:layout_marginRight="16dp" />
 
         </LinearLayout>
@@ -67,10 +67,10 @@
                 android:gravity="center" />
 
             <ImageView
+                android:id="@+id/toDateImage"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/to_date_icon"
-                android:onClick="changeToDate"
+                android:background="@drawable/date_picker"
                 android:layout_marginRight="16dp" />
 
         </LinearLayout>
@@ -80,6 +80,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="48dp" />
+            android:layout_marginTop="18dp" />
     </LinearLayout>
 </ScrollView>
