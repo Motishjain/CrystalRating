@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -129,6 +130,20 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragmen
 
             FragmentManager fragmentManager = fragment.getActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            Fragment productRatingFragment = fragmentManager.findFragmentByTag("Product chart fragment");
+            Fragment serviceRatingFragment = fragmentManager.findFragmentByTag("Service chart fragment");
+            Fragment miscRatingFragment = fragmentManager.findFragmentByTag("Misc. chart fragment");
+
+            if(productRatingFragment!=null) {
+                fragmentTransaction.remove(productRatingFragment);
+            }
+            if(serviceRatingFragment!=null) {
+                fragmentTransaction.remove(serviceRatingFragment);
+            }
+            if(miscRatingFragment!=null) {
+                fragmentTransaction.remove(miscRatingFragment);
+            }
 
             RatingChartFragment productRatingChartFragment = RatingChartFragment.newInstance("Product ratings",productAverageRating,
                     productQuestionList,feedbackResponseList, questionWiseRatingFeedbackIndexList);
