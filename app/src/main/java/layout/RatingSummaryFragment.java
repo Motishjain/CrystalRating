@@ -118,6 +118,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
                         }
                         if (!fromDate.equals(calendar.getTime())) {
                             fromDate = calendar.getTime();
+                            progressDialog.show();
                             FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate, progressDialog);
                             fetchAndFragmentFeedbackTask.execute(RatingSummaryFragment.this);
                         }
@@ -145,6 +146,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
                         }
                         if (!toDate.equals(calendar.getTime())) {
                             toDate = calendar.getTime();
+                            progressDialog.show();
                             FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate, progressDialog);
                             fetchAndFragmentFeedbackTask.execute(RatingSummaryFragment.this);
                         }
