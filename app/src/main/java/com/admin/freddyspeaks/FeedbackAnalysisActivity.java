@@ -60,7 +60,6 @@ public class FeedbackAnalysisActivity extends BaseActivity{
             }
 
             tab.setCustomView(relativeLayout);
-            tab.select();
         }
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -85,20 +84,12 @@ public class FeedbackAnalysisActivity extends BaseActivity{
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
 
-                // Set image alpha
-                if (tab.getPosition() == 0){
-                    imageViewGraph.setImageAlpha(80);
-                    imageViewPieChart.setImageAlpha(0xFF);
-                } else {
-                    imageViewGraph.setImageAlpha(0xFF);
-                    imageViewPieChart.setImageAlpha(80);
-                }
             }
         });
     }
