@@ -2,16 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'freddyspeaks'
-            keyPassword 'sangam1$'
-            storeFile file('C:/Users/Admin/freddyspeaks.jks')
-            storePassword 'sangam1$'
-        }
-    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+
     defaultConfig {
         applicationId "com.admin.freddyspeaks"
         minSdkVersion 19
@@ -23,7 +16,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
     }
 }
