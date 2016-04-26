@@ -53,7 +53,7 @@ public class RatingChartFragment extends Fragment {
     double averageRating;
     List<Question> questionList;
     boolean isExpanded;
-    LinearLayout chartContainer;
+    LinearLayout chartContainer,chartHeaderContainer;
 
     /*Map to save ratings for each question id (String). In turn, for every question id there is a map
      storing list of feedbackId indexes for each ratingOption*/
@@ -97,14 +97,15 @@ public class RatingChartFragment extends Fragment {
         View ratingChartFragment = inflater.inflate(R.layout.fragment_rating_chart, container, false);
         ratingSummaryChart = (PieChart) ratingChartFragment.findViewById(R.id.ratingSummaryChart);
         ratingChartHeader = (TextView) ratingChartFragment.findViewById(R.id.ratingChartHeader);
+        chartHeaderContainer = (LinearLayout) ratingChartFragment.findViewById(R.id.chartHeaderContainer);
         chartContainer = (LinearLayout) ratingChartFragment.findViewById(R.id.chartContainer);
         ratingValue = (TextView) ratingChartFragment.findViewById(R.id.ratingValue);
         questionsSpinner = (Spinner) ratingChartFragment.findViewById(R.id.questionsSpinner);
 
-        chartContainer.setOnClickListener(new View.OnClickListener() {
+        chartHeaderContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                expandCollapseChart(view);
+                expandCollapseChart(chartContainer);
             }
         });
 
