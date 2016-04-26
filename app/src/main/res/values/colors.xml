@@ -22,4 +22,5 @@
     <color name="rating3">#FF9900</color>
     <color name="rating4">#FFFF00</color>
     <color name="rating5">#FF0000</color>
+    <color name="popupButtonBg">#FFFFFF</color>
 </resources>
