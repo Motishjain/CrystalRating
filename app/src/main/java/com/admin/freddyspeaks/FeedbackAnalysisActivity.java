@@ -57,7 +57,6 @@ public class FeedbackAnalysisActivity extends BaseActivity{
                 imageViewPieChart = imageView;
             } else {
                 imageViewGraph = imageView;
-                imageViewGraph.setImageAlpha(80);
             }
 
             tab.setCustomView(relativeLayout);

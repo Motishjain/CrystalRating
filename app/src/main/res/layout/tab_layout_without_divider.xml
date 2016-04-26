@@ -4,6 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <!-- Tab Logo -->
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/imageViewLogo"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="32dp"/>
+
     <!-- Tab title -->
     <TextView
         android:id="@+id/tab_title"
@@ -17,12 +26,4 @@
         android:layout_marginLeft="16dp"
         android:textColor="@drawable/tab_item_selector" />
 
-    <!-- Tab Logo -->
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:id="@+id/imageViewLogo"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="32dp"/>
 </RelativeLayout>
