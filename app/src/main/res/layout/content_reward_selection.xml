@@ -14,7 +14,7 @@
         <LinearLayout
             android:id="@+id/rewardLevelBoxList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
 
@@ -22,34 +22,26 @@
         android:id="@+id/footerButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:layout_gravity="bottom"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="0dp"
         android:weightSum="2"
         android:orientation="horizontal">
-
-        <com.admin.view.CustomFontButton
-            android:id="@+id/cancelButton"
-            style="@style/formButton"
-            android:text="@string/cancel"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:onClick="close"
-            android:layout_weight="1"
-            />
-
-        <com.admin.view.CustomFontButton
+            <Button
             android:id="@+id/saveSelectedRewardsButton"
-            style="@style/formButton"
-            android:layout_height="40dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_width="100dp"
+            style="@style/popupButton_save"
+            android:layout_height="35dp"
             android:onClick="saveSelectedRewards"
             android:text="@string/save"
             android:layout_weight="1"
             />
+            <Button
+            android:id="@+id/cancelButton"
+            style="@style/popupButton_cancel"
+            android:text="@string/cancel"
+            android:layout_height="35dp"
+            android:onClick="close"
+            android:layout_weight="1"
+            />
     </LinearLayout>
-
 </LinearLayout>
