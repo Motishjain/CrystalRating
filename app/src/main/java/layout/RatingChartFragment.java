@@ -1,10 +1,10 @@
 package layout;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +16,7 @@ import android.view.animation.Transformation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -63,6 +64,8 @@ public class RatingChartFragment extends Fragment {
     TextView ratingChartHeader, ratingValue;
     Question selectedQuestion;
     List<FeedbackResponse> feedbackResponseList;
+    View colorStrip;
+    ImageView arrow;
 
     public RatingChartFragment() {
         // Required empty public constructor
@@ -101,6 +104,8 @@ public class RatingChartFragment extends Fragment {
         chartContainer = (LinearLayout) ratingChartFragment.findViewById(R.id.chartContainer);
         ratingValue = (TextView) ratingChartFragment.findViewById(R.id.ratingValue);
         questionsSpinner = (Spinner) ratingChartFragment.findViewById(R.id.questionsSpinner);
+        colorStrip = ratingChartFragment.findViewById(R.id.ratingLeftLine);
+        arrow = (ImageView) ratingChartFragment.findViewById(R.id.imageViewDropdown);
 
         chartHeaderContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +122,10 @@ public class RatingChartFragment extends Fragment {
 
         ratingChartHeader.setText(header);
         ratingValue.setText(round(averageRating,2)+"");
+
+        // After all preparings set color according pie
+        ratingValue.setTextColor(getAverageStringColor(round(averageRating,2)));
+        colorStrip.setBackgroundColor(getAverageStringColor(round(averageRating,2)));
 
         Legend legend = ratingSummaryChart.getLegend();
         legend.setTextSize(15);
@@ -168,6 +177,35 @@ public class RatingChartFragment extends Fragment {
         questionsSpinner.setSelected(false);
 
         return ratingChartFragment;
+    }
+
+    /**
+     * Get color of the average.
+     * @return
+     */
+    public int getAverageStringColor(double average){
+        if (4 < average && average <= 5){
+            return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating1);
+        }
+
+        if (3 < average && average <= 4){
+            return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating2);
+        }
+
+        if (2 < average && average <= 3){
+            return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating3);
+        }
+
+        if (1 < average && average <= 2){
+            return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating4);
+        }
+
+        if (0 <= average && average <= 1){
+            return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating5);
+        }
+
+        // Default value
+        return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating4);
     }
 
     public void refreshPieChart() {
@@ -289,10 +327,14 @@ public class RatingChartFragment extends Fragment {
         if(isExpanded) {
             collapse(v);
             isExpanded = false;
+
+            arrow.setImageDrawable(getResources().getDrawable(R.drawable.arrow_down));
         }
         else {
             expand(v);
             isExpanded = true;
+
+            arrow.setImageDrawable(getResources().getDrawable(R.drawable.arrow_up));
         }
     }
 

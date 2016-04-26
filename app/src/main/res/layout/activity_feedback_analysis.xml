@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +14,9 @@
         android:background="@color/headerBg"
         android:id="@+id/toolbar"
         android:onClick="closeActivity"
+        android:elevation="7dp"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
+
         <ImageView
             android:id="@+id/activityBackButton"
             android:layout_width="25dp"
@@ -26,7 +29,10 @@
             android:src="@drawable/back_button"
             android:tint="@color/white" />
 
-        <com.admin.view.CustomFontTextView style="@style/appHeader" android:layout_marginLeft="15dp"/>
+        <com.admin.view.CustomFontTextView
+            style="@style/appHeader"
+            android:layout_marginLeft="15dp"/>
+
     </android.support.v7.widget.Toolbar>
 
     <include layout="@layout/content_feedback_analysis" />

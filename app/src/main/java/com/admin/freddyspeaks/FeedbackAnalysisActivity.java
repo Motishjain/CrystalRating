@@ -5,14 +5,20 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import layout.RatingSummaryFragment;
 import layout.SalesReportFragment;
 
 public class FeedbackAnalysisActivity extends BaseActivity{
+
+    private ImageView imageViewPieChart;
+    private ImageView imageViewGraph;
 
 
     @Override
@@ -21,9 +27,42 @@ public class FeedbackAnalysisActivity extends BaseActivity{
         setContentView(R.layout.activity_feedback_analysis);
         setTitle("");
         TabLayout tabLayout = (TabLayout) findViewById(R.id.feedbackTabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Ratings"));
-        tabLayout.addTab(tabLayout.newTab().setText("Sales Report"));
+        tabLayout.addTab(tabLayout.newTab().setText("Ratings").setIcon(R.drawable.tab_logo_pie_chart));
+        tabLayout.addTab(tabLayout.newTab().setText("Sales").setIcon(R.drawable.tab_logo_graph));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        // Set new view.
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+
+            RelativeLayout relativeLayout;
+            if (i == 0){
+                relativeLayout = (RelativeLayout)
+                        LayoutInflater.from(this).inflate(R.layout.tab_layout_without_divider, tabLayout, false);
+            } else {
+                relativeLayout = (RelativeLayout)
+                        LayoutInflater.from(this).inflate(R.layout.tab_layout_with_divider, tabLayout, false);
+            }
+
+            // Set title.
+            TextView tabTextView = (TextView) relativeLayout.findViewById(R.id.tab_title);
+            tabTextView.setText(tab.getText());
+
+            // Set logo.
+            ImageView imageView = (ImageView) relativeLayout.findViewById(R.id.imageViewLogo);
+            imageView.setImageDrawable(tab.getIcon());
+
+            // Get images for changing.
+            if (i == 0) {
+                imageViewPieChart = imageView;
+            } else {
+                imageViewGraph = imageView;
+                imageViewGraph.setImageAlpha(80);
+            }
+
+            tab.setCustomView(relativeLayout);
+            tab.select();
+        }
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         FeedbackAnalysisAdapter feedbackAnalysisAdapter = new FeedbackAnalysisAdapter(getSupportFragmentManager());
@@ -34,6 +73,15 @@ public class FeedbackAnalysisActivity extends BaseActivity{
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
+                //
+                if (tab.getPosition() == 0){
+                    imageViewGraph.setImageAlpha(80);
+                    imageViewPieChart.setImageAlpha(0xFF);
+                } else {
+                    imageViewGraph.setImageAlpha(0xFF);
+                    imageViewPieChart.setImageAlpha(80);
+                }
             }
 
             @Override
