@@ -3,17 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:paddingTop="60dp"
+    android:paddingTop="?attr/actionBarSize"
     tools:context=".FeedbackAnalysisActivity"
     tools:showIn="@layout/activity_feedback_analysis">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/feedbackTabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:layout_height="40dp"
+        android:background="@color/headerBg"
+        app:tabIndicatorColor="#B74E55"
+        app:tabIndicatorHeight="2dp"
+        app:tabTextColor="#9E9E9E"
+        app:tabSelectedTextColor="#ffffff"
         android:elevation="6dp"
+        app:tabPaddingStart="0dp"
+        app:tabPaddingEnd="0dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

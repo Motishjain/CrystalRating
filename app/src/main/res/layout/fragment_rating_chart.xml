@@ -7,24 +7,47 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:id="@+id/chartHeaderContainer"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#1E0F46"
+        android:layout_marginTop="2dp">
+
+        <View
+            android:id="@+id/ratingLeftLine"
+            android:layout_width="16dp"
+            android:layout_height="match_parent"
+            android:background="#1DE9B6"/>
 
         <TextView
             android:id="@+id/ratingChartHeader"
             style="@style/selectQuestion"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="left"
+            android:layout_marginLeft="3dp"
+            android:layout_gravity="center_vertical|left"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FFFFFFFF"
+            android:layout_weight="13" />
 
         <TextView
             android:id="@+id/ratingValue"
             style="@style/selectQuestion"
-            android:layout_gravity="right"
+            android:layout_gravity="center_vertical|right"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_weight="1"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/imageViewDropdown"
+            android:src="@drawable/arrow_down"
+            android:layout_gravity="center"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp" />
 
     </LinearLayout>
 
@@ -39,24 +62,44 @@
             style="@style/selectQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="Select a question to view its ratings:" />
+            android:layout_marginTop="16dp"
+            android:text="Select a question to view its ratings:"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
 
-        <Spinner
-            android:id="@+id/questionsSpinner"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginLeft="2dp"
-            android:paddingRight="50dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_spinner_container" />
+            android:layout_marginBottom="16dp">
+
+            <Spinner
+                android:id="@+id/questionsSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="32dp"
+                android:paddingRight="20dp"
+                android:background="@drawable/custom_spinner_container"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/imageView2"
+                android:src="@drawable/drop_arrow"
+                android:layout_centerVertical="true"
+                android:layout_alignEnd="@+id/questionsSpinner" />
+        </RelativeLayout>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/ratingSummaryChart"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 
