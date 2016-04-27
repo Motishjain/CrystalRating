@@ -33,16 +33,6 @@
             android:gravity="center_vertical|center_horizontal" />
     </android.support.v7.widget.Toolbar>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:divider="@null"
-        android:dividerHeight="3dp"
-        android:id="@+id/listViewPayment">
-
-    </ListView>
-
-    <!--<include layout="@layout/content_subscription_info" />-->
+    <include layout="@layout/content_subscription_info" />
 
 </android.support.design.widget.CoordinatorLayout>

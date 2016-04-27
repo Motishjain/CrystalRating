@@ -93,7 +93,7 @@ public class SubscriptionInfoActivity extends BaseActivity {
         }
 
         SubscriptionAdapter subscriptionAdapter = new SubscriptionAdapter(this,
-                R.layout.content_subscription_info, getSubscriptionData());
+                R.layout.content_subscription_item, getSubscriptionData());
 
         listViewPayment.setAdapter(subscriptionAdapter);
 

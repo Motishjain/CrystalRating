@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="75dp"
+    android:paddingBottom="11dp"
+    android:paddingLeft="11dp"
+    android:paddingRight="11dp"
+    android:paddingTop="11dp"
+    tools:context="com.admin.freddyspeaks.SubscriptionInfoActivity"
+    android:background="@drawable/subscribe_item_border">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textViewSubscriptionName"
+            android:textColor="#394263"
+            android:textStyle="bold"
+            android:text="" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textViewSubscriptionPrice"
+            android:textColor="#394263"
+            android:text="" />
+    </LinearLayout>
+
+    <com.admin.view.CustomFontButton
+        android:id="@+id/payNowButton"
+        style="@style/formButton"
+        android:layout_width="430dp"
+        android:layout_height="match_parent"
+        android:text="@string/button_renew"
+        android:visibility="visible"
+        android:background="@drawable/subscribe_button_corners"
+        android:layout_weight="3"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp" />
+
+</LinearLayout>
