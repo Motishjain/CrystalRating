@@ -42,6 +42,8 @@ public class SubscriptionInfoActivity extends BaseActivity {
     List<Integer> subscriptionAmountList;
     TextView subscriptionSummary,transactionResultMessage;
 
+    boolean active,activeTrial,subscriptionPending,subscriptionExpired;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,20 @@ public class SubscriptionInfoActivity extends BaseActivity {
         subscriptionSpinner = (Spinner) findViewById(R.id.subscriptionSpinner);
         subscriptionSummary = (TextView) findViewById(R.id.subscriptionSummary);
         transactionResultMessage = (TextView) findViewById(R.id.transactionResultMessage);
+
+
+        if(active) {
+
+        }
+        else if(activeTrial) {
+
+        }
+        else if(subscriptionPending) {
+
+        }
+        else if(subscriptionExpired) {
+
+        }
 
         subscriptionSummary.setText("Free trial till ");
 
