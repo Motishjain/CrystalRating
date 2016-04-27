@@ -36,6 +36,7 @@ import com.j256.ormlite.stmt.UpdateBuilder;
 
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -122,6 +123,7 @@ public class OutletDetailsActivity extends BaseActivity {
                 outletRequest.setPinCode(pinCode.getText().toString());
                 outletRequest.setEmail(email.getText().toString());
                 outletRequest.setCellNumber(phoneNumber.getText().toString());
+                outletRequest.setCreatedDate(new Date().toString());
 
                 RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
                 Call<PostServiceResponse> registerOutletCall = restEndpointInterface.registerOutlet(outletRequest);

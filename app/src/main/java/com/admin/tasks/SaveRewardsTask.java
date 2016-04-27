@@ -20,6 +20,7 @@ import com.j256.ormlite.stmt.DeleteBuilder;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -71,6 +72,7 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
         rewardSubmitRequest.setOutletCode(activity.getOutletCode());
         rewardSubmitRequest.setRewardCategory(activity.getRewardCategory());
         rewardSubmitRequest.setRewardIdList(rewardIdList);
+        rewardSubmitRequest.setCreatedDate(new Date().toString());
 
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<PostServiceResponse> saveRewardsCall = restEndpointInterface.saveRewards(rewardSubmitRequest);

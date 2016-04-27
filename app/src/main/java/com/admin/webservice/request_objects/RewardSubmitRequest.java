@@ -14,6 +14,8 @@ public class RewardSubmitRequest {
 
     private List<String> rewardIdList;
 
+    private String createdDate;
+
     public String getOutletCode() {
         return outletCode;
     }
@@ -38,4 +40,11 @@ public class RewardSubmitRequest {
         this.rewardIdList = rewardIdList;
     }
 
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
 }

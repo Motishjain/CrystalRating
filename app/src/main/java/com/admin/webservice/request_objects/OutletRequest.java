@@ -25,6 +25,8 @@ public class OutletRequest {
 
     private String workPhoneNumber;
 
+    private String createdDate;
+
     public String getOutletName() {
         return outletName;
     }
@@ -95,5 +97,13 @@ public class OutletRequest {
 
     public void setWorkPhoneNumber(String workPhoneNumber) {
         this.workPhoneNumber = workPhoneNumber;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 }
