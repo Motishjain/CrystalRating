@@ -1,143 +1,128 @@
 package com.admin.freddyspeaks;
 
-import android.app.PendingIntent;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.admin.constants.AppConstants;
-import com.admin.database.DBHelper;
-import com.admin.database.Outlet;
-import com.android.vending.billing.IInAppBillingService;
-import com.admin.freddyspeaks.R;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
+import com.admin.adapter.SubscriptionAdapter;
 import com.payUMoney.sdk.PayUmoneySdkInitilizer;
 import com.payUMoney.sdk.SdkConstants;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SubscriptionInfoActivity extends BaseActivity {
 
-    Button payNowButton;
-    Spinner subscriptionSpinner;
-    Dao<Outlet, Integer> outletDao;
-    List<String> subscriptionList;
-    List<Integer> subscriptionAmountList;
-    TextView subscriptionSummary,transactionResultMessage;
+    ListView listViewPayment;
 
-    boolean active,activeTrial,subscriptionPending,subscriptionExpired;
+    boolean active = false,activeTrial = false,subscriptionPending = false,subscriptionExpired = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription_info);
 
-        payNowButton = (Button) findViewById(R.id.payNowButton);
-        subscriptionSpinner = (Spinner) findViewById(R.id.subscriptionSpinner);
-        subscriptionSummary = (TextView) findViewById(R.id.subscriptionSummary);
-        transactionResultMessage = (TextView) findViewById(R.id.transactionResultMessage);
+        listViewPayment = (ListView) findViewById(R.id.listViewPayment);
 
+        LayoutInflater inflater = getLayoutInflater();
+        View header = inflater.inflate(R.layout.content_subscription_header, listViewPayment, false);
+        View footer = inflater.inflate(R.layout.content_subscription_footer, listViewPayment, false);
 
-        if(active) {
+        LinearLayout linearLayoutActiveOrTrial = (LinearLayout)
+                header.findViewById(R.id.linearLayoutActiveTrial);
+        LinearLayout linearLayoutPending = (LinearLayout)
+                header.findViewById(R.id.linearLayoutPendingReneval);
+        LinearLayout linearLayoutExpired = (LinearLayout)
+                header.findViewById(R.id.linearLayoutPaymentExpired);
 
+        boolean noFooterFlag = false;
+
+        if(activeTrial) {
+            linearLayoutActiveOrTrial.setVisibility(View.VISIBLE);
+            linearLayoutPending.setVisibility(View.GONE);
+            linearLayoutExpired.setVisibility(View.GONE);
+
+            TextView head = (TextView) header.findViewById(R.id.textViewHead);
+            head.setText("Active (Trial)");
+            TextView subhead = (TextView) header.findViewById(R.id.textViewSubhead);
+            subhead.setText("Expires On: 25 May 2016 (30 days)");
+
+            noFooterFlag = true;
         }
-        else if(activeTrial) {
+        else if(active) {
+            linearLayoutActiveOrTrial.setVisibility(View.VISIBLE);
+            linearLayoutPending.setVisibility(View.GONE);
+            linearLayoutExpired.setVisibility(View.GONE);
 
+            TextView head = (TextView) header.findViewById(R.id.textViewHead);
+            head.setText("Active");
+            TextView subhead = (TextView) header.findViewById(R.id.textViewSubhead);
+            subhead.setText("Expires On: 25 May 2016 (30 days)");
+
+            noFooterFlag = true;
         }
         else if(subscriptionPending) {
+            linearLayoutActiveOrTrial.setVisibility(View.GONE);
+            linearLayoutPending.setVisibility(View.VISIBLE);
+            linearLayoutExpired.setVisibility(View.GONE);
 
+            TextView head = (TextView) header.findViewById(R.id.textViewPendingRenewal);
+            head.setText("Pending Renewal");
+            TextView subhead = (TextView) header.findViewById(R.id.textViewSubheadPendingRenewal);
+            subhead.setText("Expired On: 25 April 2016");
+
+            TextView footerMessage = (TextView) footer.findViewById(R.id.textViewFooter);
+            footerMessage.setText("The application will continue to work till 2 June 2016(7 days). Kindly renew your subscription");
         }
         else if(subscriptionExpired) {
+            linearLayoutActiveOrTrial.setVisibility(View.GONE);
+            linearLayoutPending.setVisibility(View.GONE);
+            linearLayoutExpired.setVisibility(View.VISIBLE);
 
+            TextView head = (TextView) header.findViewById(R.id.textViewExpired);
+            head.setText("Expired");
+            TextView subhead = (TextView) header.findViewById(R.id.textViewSubheadExpired);
+            subhead.setText("Expired On: 25 May 2016");
+
+            TextView footerMessage = (TextView) footer.findViewById(R.id.textViewFooter);
+            footerMessage.setText("Your service has expired, kindly renew the same to get going again !");
         }
 
-        subscriptionSummary.setText("Free trial till ");
+        SubscriptionAdapter subscriptionAdapter = new SubscriptionAdapter(this,
+                R.layout.content_subscription_info, getSubscriptionData());
 
-        subscriptionList = new ArrayList<>();
-        subscriptionList.add("3 months (Rs. 500)");
-        subscriptionList.add("6 months (Rs. 800)");
-        subscriptionList.add("1 year (Rs. 1200)");
-        subscriptionAmountList = new ArrayList<>();
-        subscriptionAmountList.add(500);
-        subscriptionAmountList.add(800);
-        subscriptionAmountList.add(1200);
+        listViewPayment.setAdapter(subscriptionAdapter);
 
-        try {
-            outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
-        } catch (Exception e) {
-            e.printStackTrace();
+        listViewPayment.addHeaderView(header);
+
+        if (!noFooterFlag){
+            listViewPayment.addFooterView(footer);
         }
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, subscriptionList);
-        subscriptionSpinner.setAdapter(dataAdapter);
-
-        payNowButton.setVisibility(View.VISIBLE);
     }
 
-    public void payNow(View v) {
-        Outlet currentOutlet = null;
-        int selectedSubscriptionIndex = subscriptionSpinner.getSelectedItemPosition();
-        QueryBuilder<Outlet, Integer> outletQueryBuilder = outletDao.queryBuilder();
-        try {
-            currentOutlet = outletQueryBuilder.queryForFirst();
-        } catch (SQLException e) {
-            Log.e("OutletDetailsActivity", "Outlet details fetch error");
-        }
+    private ArrayList<SubscriptionAdapter.SubscriptionInfo> getSubscriptionData(){
+        ArrayList<SubscriptionAdapter.SubscriptionInfo> subscriptionInfos = new ArrayList<>();
 
-        PayUmoneySdkInitilizer.PaymentParam.Builder builder = new PayUmoneySdkInitilizer.PaymentParam.Builder();
+        subscriptionInfos.add(new SubscriptionAdapter.SubscriptionInfo(
+                "1 year subscription",
+                2500
+        ));
 
-        builder.setKey(""); //Put your live KEY here
-        builder.setSalt(""); //Put your live SALT here
-        builder.setMerchantId(AppConstants.MERCHANT_ID);
+        subscriptionInfos.add(new SubscriptionAdapter.SubscriptionInfo(
+                "6 month subscription",
+                1500
+        ));
 
+        subscriptionInfos.add(new SubscriptionAdapter.SubscriptionInfo(
+                "3 month subscription",
+                800
+        ));
 
-        builder.setIsDebug(true);
-        builder.setDebugKey("F4Vvyz");// Debug Key
-        builder.setDebugMerchantId("4828127");// Debug Merchant ID
-        builder.setDebugSalt("Z6cEj6SP");// Debug Salt
-
-        builder.setAmount(subscriptionAmountList.get(selectedSubscriptionIndex));
-
-        builder.setTnxId("0nf7");
-
-
-        builder.setPhone(currentOutlet.getCellNumber());
-
-        builder.setProductName("Subscription for"+subscriptionList.get(selectedSubscriptionIndex));
-
-        builder.setFirstName(currentOutlet.getOutletName());
-
-        builder.setEmail(currentOutlet.getEmail());
-
-        builder.setsUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/success.php");
-        builder.setfUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/failure.php");
-        builder.setUdf1("Outlet code - "+currentOutlet.getOutletCode());
-        builder.setUdf2("");
-        builder.setUdf3("");
-        builder.setUdf4("");
-        builder.setUdf5("");
-
-        PayUmoneySdkInitilizer.PaymentParam paymentParam = builder.build();
-
-        PayUmoneySdkInitilizer.startPaymentActivityForResult(this, paymentParam);
+        return  subscriptionInfos;
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -172,9 +157,6 @@ public class SubscriptionInfoActivity extends BaseActivity {
 
     void showMessage(boolean success, String message) {
         if(success) {
-            transactionResultMessage.setVisibility(View.VISIBLE);
-            transactionResultMessage.setText(message);
-            payNowButton.setVisibility(View.GONE);
         }
         else {
 
