@@ -116,7 +116,7 @@ public class RatingChartFragment extends Fragment {
 
         ratingSummaryChart.setNoDataText("No ratings found for selected question");
         ratingSummaryChart.setDrawHoleEnabled(false);
-        ratingSummaryChart.setUsePercentValues(false);
+        ratingSummaryChart.setUsePercentValues(true);
         ratingSummaryChart.setDrawSliceText(false);
         ratingSummaryChart.setDescription("");
 
@@ -226,6 +226,7 @@ public class RatingChartFragment extends Fragment {
         PieDataSet dataset = new PieDataSet(entries, "");
         dataset.setColors(new int[]{R.color.rating1, R.color.rating2, R.color.rating3, R.color.rating4, R.color.rating5}, getContext());
         dataset.setValueTextSize(12);
+        dataset.setSliceSpace(1.0f);
         PieData data = new PieData(labels, dataset);
 
         data.setValueFormatter(new ValueFormatter() {
@@ -234,7 +235,7 @@ public class RatingChartFragment extends Fragment {
                 int intValue = (int) value;
                 if(intValue>0)
                 {
-                    return intValue + "";
+                    return intValue + "%";
                 }
                 else {
                     return "";
