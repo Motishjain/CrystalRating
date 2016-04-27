@@ -30,6 +30,9 @@ public class Question implements Serializable {
     @DatabaseField
     private String questionType;
 
+    @DatabaseField
+    private String questionInputType;
+
     private String selectedOption;
 
     public String getQuestionId() {
@@ -94,5 +97,13 @@ public class Question implements Serializable {
             return true;
         }
         return false;
+    }
+
+    public String getQuestionInputType() {
+        return questionInputType;
+    }
+
+    public void setQuestionInputType(String questionInputType) {
+        this.questionInputType = questionInputType;
     }
 }

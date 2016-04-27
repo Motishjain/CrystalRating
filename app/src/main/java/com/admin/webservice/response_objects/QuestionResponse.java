@@ -11,6 +11,7 @@ public class QuestionResponse {
     private String[] ratingValues;
     private String[] emoticonIds;
     private String questionType;
+    private String questionInputType;
 
 
     public String get_id() {
@@ -51,5 +52,13 @@ public class QuestionResponse {
 
     public void setRatingValues(String[] ratingValues) {
         this.ratingValues = ratingValues;
+    }
+
+    public String getQuestionInputType() {
+        return questionInputType;
+    }
+
+    public void setQuestionInputType(String questionInputType) {
+        this.questionInputType = questionInputType;
     }
 }

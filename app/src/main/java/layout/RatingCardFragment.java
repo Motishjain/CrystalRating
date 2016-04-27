@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.admin.adapter.RatingOptionsAdapter;
+import com.admin.constants.AppConstants;
 import com.admin.database.Question;
 import com.admin.freddyspeaks.R;
 
@@ -32,6 +34,7 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
     TextView questionNameTextView, questionNumberTextView;
     Question question;
     RecyclerView ratingOptionsRecyclerView;
+    RatingBar ratingBar;
     int questionNumber, totalQuestions;
 
     private OnFragmentInteractionListener mListener;
@@ -68,17 +71,33 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
         View ratingCard = inflater.inflate(R.layout.fragment_rating_card, container, false);
         questionNameTextView = (TextView) ratingCard.findViewById(R.id.questionNameTextView);
         questionNumberTextView = (TextView) ratingCard.findViewById(R.id.questionNumberTextView);
+        ratingOptionsRecyclerView = (RecyclerView) ratingCard.findViewById(R.id.ratingOptionsRecyclerView);
+        ratingBar = (RatingBar) ratingCard.findViewById(R.id.ratingBar);
         questionNameTextView.setText(question.getName());
         questionNumberTextView.setText("#" + questionNumber + " of " + totalQuestions);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext(), LinearLayoutManager.VERTICAL, false);
+        if(question.getQuestionInputType()!=null && question.getQuestionInputType().equals(AppConstants.STAR_RATING)) {
+            ratingOptionsRecyclerView.setVisibility(View.GONE);
+            ratingBar.setVisibility(View.VISIBLE);
+            ratingBar.setNumStars(question.getRatingValues().split(",").length);
+            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                    question.setSelectedOption(((int)v)+"");
+                }
+            });
+        }
 
-        ratingOptionsRecyclerView = (RecyclerView) ratingCard.findViewById(R.id.ratingOptionsRecyclerView);
-        ratingOptionsRecyclerView.setLayoutManager(layoutManager);
+        else {
+            ratingBar.setVisibility(View.GONE);
+            ratingOptionsRecyclerView.setVisibility(View.VISIBLE);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext(), LinearLayoutManager.VERTICAL, false);
+            ratingOptionsRecyclerView.setLayoutManager(layoutManager);
 
-        if (ratingOptionsRecyclerView.getAdapter() == null) {
-            RatingOptionsAdapter ratingOptionsAdapter = new RatingOptionsAdapter(R.layout.rating_option_item, question, this);
-            ratingOptionsRecyclerView.setAdapter(ratingOptionsAdapter);
+            if (ratingOptionsRecyclerView.getAdapter() == null) {
+                RatingOptionsAdapter ratingOptionsAdapter = new RatingOptionsAdapter(R.layout.rating_option_item, question, this);
+                ratingOptionsRecyclerView.setAdapter(ratingOptionsAdapter);
+            }
         }
 
         return ratingCard;
