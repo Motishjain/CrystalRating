@@ -1,21 +1,89 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="layout.SalesReportFragment">
+    android:orientation="vertical"
+    tools:context="layout.SalesReportFragment"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+        android:paddingBottom="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <Spinner
+                android:id="@+id/monthSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@drawable/sales_report_dropdown_border"
+                android:paddingRight="10dp"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/drop_arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <Spinner
+                android:id="@+id/yearSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@drawable/sales_report_dropdown_border"
+                android:paddingRight="10dp"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/drop_arrow" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Sales"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:autoText="false"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="30dp" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/salesReportChart"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="36dp"
+        android:layout_marginTop="16dp" />
 
-    <Spinner
-        android:id="@+id/monthSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginLeft="2dp"
-        android:paddingRight="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/custom_spinner_container" />
-
-</FrameLayout>
+</LinearLayout>

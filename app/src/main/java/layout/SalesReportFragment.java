@@ -1,9 +1,8 @@
 package layout;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -20,21 +19,19 @@ import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.DailySaleResponse;
-import com.admin.webservice.response_objects.FeedbackResponse;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.text.DateFormatSymbols;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -54,8 +51,8 @@ public class SalesReportFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
 
     LineChart salesReportChart;
-    Spinner monthSpinner;
-    List<String> monthsList;
+    Spinner monthSpinner, yearSpinner;
+    List<String> monthsList, yearsList;
     ProgressDialog progressDialog;
     List<DailySaleResponse> monthlySalesList;
     SimpleDateFormat simpleDateFormat;
@@ -89,15 +86,20 @@ public class SalesReportFragment extends Fragment {
         View salesReportFragment = inflater.inflate(R.layout.fragment_sales_report, container, false);
         salesReportChart = (LineChart) salesReportFragment.findViewById(R.id.salesReportChart);
         monthSpinner = (Spinner) salesReportFragment.findViewById(R.id.monthSpinner);
+        yearSpinner = (Spinner) salesReportFragment.findViewById(R.id.yearSpinner);
         progressDialog = CustomProgressDialog.createCustomProgressDialog(this.getActivity());
+
+        Calendar gc = Calendar.getInstance();
 
         monthsList = new ArrayList<>();
         monthsList.addAll(Arrays.asList(new DateFormatSymbols().getMonths()));
+
+        yearsList = getArrayListYears();
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_item, monthsList);
-        monthSpinner.setAdapter(dataAdapter);
+        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(getContext(),
+                R.layout.component_spinner_sales_reports, monthsList);
+        monthSpinner.setAdapter(monthAdapter);
         monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -111,6 +113,25 @@ public class SalesReportFragment extends Fragment {
                 Log.i("Rating summary", "Nothing selected");
             }
         });
+        monthSpinner.setSelection(gc.get(Calendar.MONTH));
+
+        ArrayAdapter<String> yearsAdapter = new ArrayAdapter<>(getContext(),
+                R.layout.component_spinner_sales_reports, yearsList);
+        yearSpinner.setAdapter(yearsAdapter);
+        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("Rating summary", "Item selected");
+                progressDialog.show();
+                fetchSalesData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.i("Rating summary", "Nothing selected");
+            }
+        });
+        yearSpinner.setSelection(gc.get(Calendar.YEAR) - 2000);
 
         progressDialog.show();
         fetchSalesData();
@@ -163,10 +184,45 @@ public class SalesReportFragment extends Fragment {
             entries.add(new Entry(salesMap.get(day) != null ? salesMap.get(day).floatValue() : 0, day - 1));
             labels.add(dayLabels[day - 1]);
         }
+
         LineDataSet dataset = new LineDataSet(entries, "Sales Amount");
 
+        Legend legend = salesReportChart.getLegend();
+        legend.setEnabled(false);
+
+        XAxis xAxis = salesReportChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelRotationAngle(-45);
+        xAxis.setAxisLineWidth(2);
+        xAxis.setLabelsToSkip(5);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawGridLines(false);
+        xAxis.setAxisLineColor(Color.parseColor("#282D43"));
+
+        YAxis yAxisLeft = salesReportChart.getAxisLeft();
+        yAxisLeft.setDrawGridLines(false);
+        yAxisLeft.setDrawAxisLine(true);
+        yAxisLeft.setAxisLineColor(Color.parseColor("#282D43"));
+
+        YAxis yAxisRight = salesReportChart.getAxisRight();
+        yAxisRight.setDrawGridLines(false);
+        yAxisRight.setDrawAxisLine(false);
+        yAxisRight.setDrawTopYLabelEntry(false);
+        yAxisRight.setDrawLabels(false);
+
+
         LineData data = new LineData(labels, dataset);
+        data.setHighlightEnabled(true);
         salesReportChart.setData(data);
         salesReportChart.invalidate();
+    }
+
+    private ArrayList<String> getArrayListYears(){
+        ArrayList<String> years = new ArrayList<>();
+        for (int i = 2000; i <= 2030; i++){
+            years.add("" + i);
+        }
+
+        return years;
     }
 }
