@@ -1,6 +1,7 @@
 package com.admin.freddyspeaks;
 
-import android.content.DialogInterface;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,8 +19,8 @@ import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Question;
 import com.admin.database.SelectedReward;
+import com.admin.dialogs.DeleteRewardDialogFragment;
 import com.admin.tasks.SetRandomQuestionsTask;
-import com.admin.util.DialogBuilderUtil;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.QuestionResponse;
@@ -35,7 +36,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RewardConfigurationActivity extends AppCompatActivity {
+public class RewardConfigurationActivity extends AppCompatActivity
+        implements DeleteRewardDialogFragment.DeleteRewardDialogListener{
 
     RecyclerView bronzeRewardsRecyclerView, silverRewardsRecyclerView, goldRewardsRecyclerView;
     Dao<SelectedReward, Integer> selectedRewardDao;
@@ -47,6 +49,12 @@ public class RewardConfigurationActivity extends AppCompatActivity {
     List<SelectedReward> bronzeSelectedRewardList, silverSelectedRewardList, goldSelectedRewardList;
     Button rewardsConfigureNextButton;
     ImageView activityBackButton;
+    private DialogFragment dialogDelete;
+
+    //Delete element:
+    private SelectedRewardsBoxAdapter adapterFromDel;
+    private List<SelectedReward> listFromDel;
+    private int positionFromDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         goldRewardsRecyclerView = (RecyclerView) findViewById(R.id.goldRewardsRecyclerView);
         rewardsConfigureNextButton = (Button) findViewById(R.id.rewardsConfigureNextButton);
         activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
+
+        dialogDelete = new DeleteRewardDialogFragment();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         outletCode = sharedPreferences.getString("outletCode", null);
@@ -97,6 +107,11 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             Log.e("RewardConfiguration", "Unable to fetch selected rewards");
         }
 
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        return super.onCreateDialog(id);
     }
 
     public void rewardConfigNext(View v) {
@@ -158,27 +173,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             if (bronzeRewardsRecyclerView.getAdapter() == null) {
                 bronzeRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, bronzeSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
-                    public void removeSelectedReward(final int position) {
-                        DialogBuilderUtil.showPromptDialog(RewardConfigurationActivity.this, "Confirm", "Delete?", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    SelectedReward rewardToBeRemoved = bronzeSelectedRewardList.get(position);
-                                    DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                                    selectedRewardDeleteBuilder.where().eq("id", rewardToBeRemoved.getId());
-                                    selectedRewardDeleteBuilder.delete();
-                                    bronzeSelectedRewardList.remove(position);
-                                    bronzeRewardsAdapter.notifyDataSetChanged();
-                                } catch (SQLException e) {
-                                    Log.e("RewardConfiguration", "Unable to delete bronze reward");
-                                }
-                            }
-                        }, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
+                    public void removeSelectedReward(int position) {
+                        prepareforDeleting(bronzeRewardsAdapter, bronzeSelectedRewardList, position);
                     }
                 });
                 bronzeRewardsRecyclerView.setAdapter(bronzeRewardsAdapter);
@@ -200,27 +196,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             if (silverRewardsRecyclerView.getAdapter() == null) {
                 silverRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, silverSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
-                    public void removeSelectedReward(final int position) {
-                        DialogBuilderUtil.showPromptDialog(RewardConfigurationActivity.this, "Confirm", "Delete?", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    SelectedReward rewardToBeRemoved = silverSelectedRewardList.get(position);
-                                    DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                                    selectedRewardDeleteBuilder.where().eq("id", rewardToBeRemoved.getId());
-                                    selectedRewardDeleteBuilder.delete();
-                                    silverSelectedRewardList.remove(position);
-                                    silverRewardsAdapter.notifyDataSetChanged();
-                                } catch (SQLException e) {
-                                    Log.e("RewardConfiguration", "Unable to delete bronze reward");
-                                }
-                            }
-                        }, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
+                    public void removeSelectedReward(int position) {
+                        prepareforDeleting(silverRewardsAdapter, silverSelectedRewardList, position);
                     }
                 });
                 silverRewardsRecyclerView.setAdapter(silverRewardsAdapter);
@@ -242,27 +219,8 @@ public class RewardConfigurationActivity extends AppCompatActivity {
             if (goldRewardsRecyclerView.getAdapter() == null) {
                 goldRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, goldSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
                     @Override
-                    public void removeSelectedReward(final int position) {
-                        DialogBuilderUtil.showPromptDialog(RewardConfigurationActivity.this, "Confirm", "Delete?", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    SelectedReward rewardToBeRemoved = goldSelectedRewardList.get(position);
-                                    DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
-                                    selectedRewardDeleteBuilder.where().eq("id", rewardToBeRemoved.getId());
-                                    selectedRewardDeleteBuilder.delete();
-                                    goldSelectedRewardList.remove(position);
-                                    goldRewardsAdapter.notifyDataSetChanged();
-                                } catch (SQLException e) {
-                                    Log.e("RewardConfiguration", "Unable to delete bronze reward");
-                                }
-                            }
-                        }, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
+                    public void removeSelectedReward(int position) {
+                        prepareforDeleting(goldRewardsAdapter, goldSelectedRewardList, position);
                     }
                 });
                 goldRewardsRecyclerView.setAdapter(goldRewardsAdapter);
@@ -327,5 +285,37 @@ public class RewardConfigurationActivity extends AppCompatActivity {
         if (editMode) {
             this.finish();
         }
+    }
+
+    private void prepareforDeleting(SelectedRewardsBoxAdapter adapter, List<SelectedReward> list, int position){
+        dialogDelete.show(getFragmentManager(), "");
+
+        adapterFromDel = adapter;
+        listFromDel = list;
+        positionFromDel = position;
+    }
+
+    @Override
+    public void onDeleteDialogPositiveClick(DialogFragment dialog) {
+        if (listFromDel != null && adapterFromDel != null) {
+            try {
+                SelectedReward rewardToBeRemoved = listFromDel.get(positionFromDel);
+                DeleteBuilder<SelectedReward, Integer> selectedRewardDeleteBuilder = selectedRewardDao.deleteBuilder();
+                selectedRewardDeleteBuilder.where().eq("id", rewardToBeRemoved.getId());
+                selectedRewardDeleteBuilder.delete();
+                listFromDel.remove(positionFromDel);
+                adapterFromDel.notifyDataSetChanged();
+            } catch (SQLException e) {
+                Log.e("RewardConfiguration", "Unable to delete bronze reward");
+            }
+        }
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onDeleteDialogNegativeClick(DialogFragment dialog) {
+        adapterFromDel = null;
+        listFromDel = null;
+        dialog.dismiss();
     }
 }
