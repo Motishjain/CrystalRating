@@ -9,6 +9,7 @@ import com.admin.webservice.response_objects.FeedbackResponse;
 import com.admin.webservice.response_objects.PostServiceResponse;
 import com.admin.webservice.response_objects.QuestionResponse;
 import com.admin.webservice.response_objects.RewardResponse;
+import com.admin.webservice.response_objects.SubscriptionResponse;
 
 import java.util.List;
 
@@ -45,5 +46,8 @@ public interface RestEndpointInterface {
 
     @GET(AppConstants.FETCH_SALES_DATA)
     Call<List<DailySaleResponse>> fetchSalesData(@Path("outletCode") String outletCode,@Path("year") String year, @Path("month") String month);
+
+    @GET(AppConstants.FETCH_SUBSCRIPTION)
+    Call<SubscriptionResponse> fetchSubscription(@Path("outletCode") String outletCode);
 
 }

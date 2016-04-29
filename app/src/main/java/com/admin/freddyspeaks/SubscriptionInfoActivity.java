@@ -1,7 +1,9 @@
 package com.admin.freddyspeaks;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,27 +12,39 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.admin.adapter.SubscriptionAdapter;
+import com.admin.database.Subscription;
+import com.admin.tasks.FetchSubscriptionTask;
 import com.payUMoney.sdk.PayUmoneySdkInitilizer;
 import com.payUMoney.sdk.SdkConstants;
 
 import java.util.ArrayList;
 
-public class SubscriptionInfoActivity extends BaseActivity {
+public class SubscriptionInfoActivity extends BaseActivity implements FetchSubscriptionTask.OnTaskCompleted {
 
     ListView listViewPayment;
 
-    boolean active = false,activeTrial = false,subscriptionPending = false,subscriptionExpired = true;
+    Subscription subscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription_info);
-
         listViewPayment = (ListView) findViewById(R.id.listViewPayment);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String outletCode = sharedPreferences.getString("outletCode", null);
+
+        FetchSubscriptionTask fetchSubscriptionTask = new FetchSubscriptionTask(this,this);
+        fetchSubscriptionTask.execute(outletCode);
+    }
+
+    public void setupSubscriptionScreen() {
 
         LayoutInflater inflater = getLayoutInflater();
         View header = inflater.inflate(R.layout.content_subscription_header, listViewPayment, false);
         View footer = inflater.inflate(R.layout.content_subscription_footer, listViewPayment, false);
+
+        boolean noFooterFlag = false;
 
         LinearLayout linearLayoutActiveOrTrial = (LinearLayout)
                 header.findViewById(R.id.linearLayoutActiveTrial);
@@ -39,9 +53,11 @@ public class SubscriptionInfoActivity extends BaseActivity {
         LinearLayout linearLayoutExpired = (LinearLayout)
                 header.findViewById(R.id.linearLayoutPaymentExpired);
 
-        boolean noFooterFlag = false;
+        String activationStatus = subscription.getActivationStatus();
+        String expiryDate = subscription.getExpiryDate();
 
-        if(activeTrial) {
+
+        if(activationStatus.equals("TR")) {
             linearLayoutActiveOrTrial.setVisibility(View.VISIBLE);
             linearLayoutPending.setVisibility(View.GONE);
             linearLayoutExpired.setVisibility(View.GONE);
@@ -49,11 +65,11 @@ public class SubscriptionInfoActivity extends BaseActivity {
             TextView head = (TextView) header.findViewById(R.id.textViewHead);
             head.setText("Active (Trial)");
             TextView subhead = (TextView) header.findViewById(R.id.textViewSubhead);
-            subhead.setText("Expires On: 25 May 2016 (30 days)");
+            subhead.setText("Expires On:"+expiryDate);
 
             noFooterFlag = true;
         }
-        else if(active) {
+        else if(activationStatus.equals("ACT")) {
             linearLayoutActiveOrTrial.setVisibility(View.VISIBLE);
             linearLayoutPending.setVisibility(View.GONE);
             linearLayoutExpired.setVisibility(View.GONE);
@@ -61,11 +77,11 @@ public class SubscriptionInfoActivity extends BaseActivity {
             TextView head = (TextView) header.findViewById(R.id.textViewHead);
             head.setText("Active");
             TextView subhead = (TextView) header.findViewById(R.id.textViewSubhead);
-            subhead.setText("Expires On: 25 May 2016 (30 days)");
+            subhead.setText("Expires On:"+expiryDate+" (30 days remaining)");
 
             noFooterFlag = true;
         }
-        else if(subscriptionPending) {
+        else if(activationStatus.equals("PEN")) {
             linearLayoutActiveOrTrial.setVisibility(View.GONE);
             linearLayoutPending.setVisibility(View.VISIBLE);
             linearLayoutExpired.setVisibility(View.GONE);
@@ -73,12 +89,12 @@ public class SubscriptionInfoActivity extends BaseActivity {
             TextView head = (TextView) header.findViewById(R.id.textViewPendingRenewal);
             head.setText("Pending Renewal");
             TextView subhead = (TextView) header.findViewById(R.id.textViewSubheadPendingRenewal);
-            subhead.setText("Expired On: 25 April 2016");
+            subhead.setText("Expired On:"+expiryDate);
 
             TextView footerMessage = (TextView) footer.findViewById(R.id.textViewFooter);
             footerMessage.setText("The application will continue to work till 2 June 2016(7 days). Kindly renew your subscription");
         }
-        else if(subscriptionExpired) {
+        else if(activationStatus.equals("EXP")) {
             linearLayoutActiveOrTrial.setVisibility(View.GONE);
             linearLayoutPending.setVisibility(View.GONE);
             linearLayoutExpired.setVisibility(View.VISIBLE);
@@ -86,7 +102,7 @@ public class SubscriptionInfoActivity extends BaseActivity {
             TextView head = (TextView) header.findViewById(R.id.textViewExpired);
             head.setText("Expired");
             TextView subhead = (TextView) header.findViewById(R.id.textViewSubheadExpired);
-            subhead.setText("Expired On: 25 May 2016");
+            subhead.setText("Expired On:"+expiryDate);
 
             TextView footerMessage = (TextView) footer.findViewById(R.id.textViewFooter);
             footerMessage.setText("Your service has expired, kindly renew the same to get going again !");
@@ -103,6 +119,7 @@ public class SubscriptionInfoActivity extends BaseActivity {
             listViewPayment.addFooterView(footer);
         }
     }
+
 
     private ArrayList<SubscriptionAdapter.SubscriptionInfo> getSubscriptionData(){
         ArrayList<SubscriptionAdapter.SubscriptionInfo> subscriptionInfos = new ArrayList<>();
@@ -165,5 +182,13 @@ public class SubscriptionInfoActivity extends BaseActivity {
 
     public void closeActivity(View v) {
         this.finish();
+    }
+
+    @Override
+    public void onTaskCompleted(Subscription subscription) {
+        if(subscription != null) {
+            this.subscription = subscription;
+            setupSubscriptionScreen();
+        }
     }
 }

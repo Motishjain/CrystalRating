@@ -24,7 +24,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "Outlets.db";
     private static final int DATABASE_VERSION = 1;
 
-    public static final Class[] DB_CLASSES = new Class[]{Outlet.class,User.class,Question.class,Reward.class,SelectedReward.class,RewardHistory.class};
+    public static final Class[] DB_CLASSES = new Class[]{Outlet.class,User.class,Question.class,Reward.class,SelectedReward.class,RewardHistory.class,Subscription.class};
 
     private Map<String,Dao> daoMap = new HashMap<>();
 

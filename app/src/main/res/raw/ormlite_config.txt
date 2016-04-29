@@ -1,5 +1,5 @@
 #
-# generated on 2016/03/27 10:53:34
+# generated on 2016/04/30 12:56:55
 #
 # --table-start--
 dataClass=com.admin.database.Outlet
@@ -91,6 +91,9 @@ fieldName=selected
 # --field-start--
 fieldName=questionType
 # --field-end--
+# --field-start--
+fieldName=questionInputType
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -159,6 +162,23 @@ fieldName=userPhoneNumber
 # --field-end--
 # --field-start--
 fieldName=createdTs
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.admin.database.Subscription
+tableName=subscription
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=expiryDate
+# --field-end--
+# --field-start--
+fieldName=activationStatus
 # --field-end--
 # --table-fields-end--
 # --table-end--
