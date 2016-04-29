@@ -5,14 +5,14 @@ package com.admin.webservice.response_objects;
  */
 public class DailySaleResponse {
 
-    private String dayOfMonth;
+    private Integer dayOfMonth;
     private String totalSale;
 
-    public String getDayOfMonth() {
+    public Integer getDayOfMonth() {
         return dayOfMonth;
     }
 
-    public void setDayOfMonth(String dayOfMonth) {
+    public void setDayOfMonth(Integer dayOfMonth) {
         this.dayOfMonth = dayOfMonth;
     }
 

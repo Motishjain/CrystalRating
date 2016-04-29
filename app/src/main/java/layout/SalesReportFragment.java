@@ -165,7 +165,7 @@ public class SalesReportFragment extends Fragment {
     public void refreshLineChart() {
 
         //To store day of month, total sales information
-        Map<String, Double> salesMap = new HashMap<>();
+        Map<Integer, Double> salesMap = new HashMap<>();
 
         Calendar calendar = Calendar.getInstance();
         for (DailySaleResponse dailySaleResponse : monthlySalesList) {
@@ -210,9 +210,9 @@ public class SalesReportFragment extends Fragment {
         yAxisRight.setDrawTopYLabelEntry(false);
         yAxisRight.setDrawLabels(false);
 
-
         LineData data = new LineData(labels, dataset);
-        data.setHighlightEnabled(true);
+
+        data.setHighlightEnabled(false);
         salesReportChart.setData(data);
         salesReportChart.invalidate();
     }
