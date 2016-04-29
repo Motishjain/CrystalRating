@@ -111,8 +111,6 @@ public class OutletDetailsActivity extends BaseActivity {
                     progressDialog.setMessage("Registering Outlet...");
                 }
                 progressDialog.show();
-                long T1 = android.os.SystemClock.uptimeMillis();
-                Log.d("GetRatingT1", T1 + "");
                 final OutletRequest outletRequest = new OutletRequest();
                 outletRequest.setOutletName(outletName.getText().toString());
                 outletRequest.setAliasName(alias.getText().toString());
@@ -130,10 +128,6 @@ public class OutletDetailsActivity extends BaseActivity {
                     @Override
                     public void onResponse(Call<PostServiceResponse> call, Response<PostServiceResponse> response) {
                         PostServiceResponse postServiceResponse = response.body();
-
-                        long T2 = android.os.SystemClock.uptimeMillis();
-                        Log.d("GetRatingT2", T2 + "");
-
                         if (postServiceResponse.isSuccess()) {
                             if (currentOutlet == null) {
                                 currentOutlet = new Outlet();
@@ -158,6 +152,7 @@ public class OutletDetailsActivity extends BaseActivity {
 
                                     Calendar calendar = Calendar.getInstance();
                                     calendar.setTimeInMillis(System.currentTimeMillis());
+                                    calendar.add(Calendar.DATE,1);
                                     calendar.set(Calendar.HOUR_OF_DAY, 0);
                                     alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                                             AlarmManager.INTERVAL_DAY, alarmIntent);
@@ -171,8 +166,6 @@ public class OutletDetailsActivity extends BaseActivity {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("outletCode", currentOutlet.getOutletCode());
                                     editor.commit();
-                                    long T3 = android.os.SystemClock.uptimeMillis();
-                                    Log.d("GetRatingT3", T3 + "");
                                     progressDialog.dismiss();
                                     Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
                                     startActivity(configureRewards);
