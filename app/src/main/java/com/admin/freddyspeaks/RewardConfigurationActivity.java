@@ -19,7 +19,7 @@ import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Question;
 import com.admin.database.SelectedReward;
-import com.admin.dialogs.DeleteRewardDialogFragment;
+import com.admin.dialogs.CustomDialogFragment;
 import com.admin.tasks.SetRandomQuestionsTask;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
@@ -37,7 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RewardConfigurationActivity extends AppCompatActivity
-        implements DeleteRewardDialogFragment.DeleteRewardDialogListener{
+        implements CustomDialogFragment.CustomDialogListener {
 
     RecyclerView bronzeRewardsRecyclerView, silverRewardsRecyclerView, goldRewardsRecyclerView;
     Dao<SelectedReward, Integer> selectedRewardDao;
@@ -67,7 +67,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
         rewardsConfigureNextButton = (Button) findViewById(R.id.rewardsConfigureNextButton);
         activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
 
-        dialogDelete = new DeleteRewardDialogFragment();
+        dialogDelete = CustomDialogFragment.newInstance(R.layout.dialog_rewards_delete);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         outletCode = sharedPreferences.getString("outletCode", null);
@@ -296,7 +296,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDeleteDialogPositiveClick(DialogFragment dialog) {
+    public void onDialogPositiveClick() {
         if (listFromDel != null && adapterFromDel != null) {
             try {
                 SelectedReward rewardToBeRemoved = listFromDel.get(positionFromDel);
@@ -309,13 +309,13 @@ public class RewardConfigurationActivity extends AppCompatActivity
                 Log.e("RewardConfiguration", "Unable to delete bronze reward");
             }
         }
-        dialog.dismiss();
+        dialogDelete.dismiss();
     }
 
     @Override
-    public void onDeleteDialogNegativeClick(DialogFragment dialog) {
+    public void onDialogNegativeClick() {
         adapterFromDel = null;
         listFromDel = null;
-        dialog.dismiss();
+        dialogDelete.dismiss();
     }
 }

@@ -14,43 +14,52 @@ import com.admin.freddyspeaks.R;
 /**
  * Created by verona1024.
  */
-public class DeleteRewardDialogFragment extends DialogFragment {
+public class CustomDialogFragment extends DialogFragment {
 
-    public interface DeleteRewardDialogListener {
-        public void onDeleteDialogPositiveClick(DialogFragment dialog);
-        public void onDeleteDialogNegativeClick(DialogFragment dialog);
+    int layoutResourceId;
+    private CustomDialogListener customDialogListener;
+
+    /* @return A new instance of fragment CustomDialogFragment.
+            */
+    // TODO: Rename and change types and number of parameters
+
+    public static CustomDialogFragment newInstance(int layoutResourceId) {
+        CustomDialogFragment fragment = new CustomDialogFragment();
+        fragment.layoutResourceId = layoutResourceId;
+        return fragment;
     }
 
-    private DeleteRewardDialogListener deleteRewardDialogListener;
-    private DeleteRewardDialogFragment deleteRewardDialogFragment;
+    public interface CustomDialogListener {
+        void onDialogPositiveClick();
+        void onDialogNegativeClick();
+    }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
         try {
-            deleteRewardDialogListener = (DeleteRewardDialogListener) activity;
+            customDialogListener = (CustomDialogListener) activity;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
-            throw new ClassCastException(activity.toString() + " must implement deleteRewardDialogListener");
+            throw new ClassCastException(activity.toString() + " must implement customDialogListener");
         }
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        deleteRewardDialogFragment = this;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View dialog = inflater.inflate(R.layout.dialog_rewards_delete, null);
+        View dialog = inflater.inflate(layoutResourceId, null);
 
         Button buttonOk = (Button) dialog.findViewById(R.id.buttonOk);
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteRewardDialogListener.onDeleteDialogPositiveClick(deleteRewardDialogFragment);
+                customDialogListener.onDialogPositiveClick();
             }
         });
 
@@ -58,7 +67,7 @@ public class DeleteRewardDialogFragment extends DialogFragment {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteRewardDialogListener.onDeleteDialogNegativeClick(deleteRewardDialogFragment);
+                customDialogListener.onDialogNegativeClick();
             }
         });
 
