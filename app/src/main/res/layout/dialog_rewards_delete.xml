@@ -43,7 +43,7 @@
             android:textColor="#394263"
             android:id="@+id/buttonOk"
             android:layout_weight="1"
-            android:background="@drawable/dialog_delete_button_background" />
+            android:background="@drawable/button_with_top_background" />
 
         <View
             android:layout_width="1dp"
@@ -57,6 +57,6 @@
             android:textColor="#394263"
             android:id="@+id/buttonCancel"
             android:layout_weight="1"
-            android:background="@drawable/dialog_delete_button_background" />
+            android:background="@drawable/button_with_top_background" />
     </LinearLayout>
 </LinearLayout>

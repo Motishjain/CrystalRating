@@ -9,7 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="430dp">
+        android:layout_height="453dp">
 
         <LinearLayout
             android:id="@+id/rewardLevelBoxList"
@@ -19,6 +19,38 @@
     </ScrollView>
 
     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:textColor="#394263"
+            android:id="@+id/saveSelectedRewardsButton"
+            android:onClick="saveSelectedRewards"
+            android:layout_weight="1"
+            android:background="@drawable/button_with_top_background" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textColor="#394263"
+            android:onClick="close"
+            android:layout_weight="1"
+            android:background="@drawable/button_with_top_background" />
+    </LinearLayout>
+
+    <!--<LinearLayout
         android:id="@+id/footerButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,20 +60,20 @@
         android:weightSum="2"
         android:orientation="horizontal">
             <Button
-            android:id="@+id/saveSelectedRewardsButton"
+            android:id="@+id/"
             style="@style/popupButton_save"
             android:layout_height="35dp"
-            android:onClick="saveSelectedRewards"
-            android:text="@string/save"
+
+
             android:layout_weight="1"
             />
             <Button
-            android:id="@+id/cancelButton"
+            android:id="@+id/"
             style="@style/popupButton_cancel"
-            android:text="@string/cancel"
+
             android:layout_height="35dp"
-            android:onClick="close"
+
             android:layout_weight="1"
             />
-    </LinearLayout>
+    </LinearLayout>-->
 </LinearLayout>
