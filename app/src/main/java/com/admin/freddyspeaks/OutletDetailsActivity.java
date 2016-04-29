@@ -61,6 +61,17 @@ public class OutletDetailsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outlet_details);
+        outletName = (EditText) findViewById(R.id.inputOutletNameText);
+        alias = (EditText) findViewById(R.id.inputAliasNameText);
+        addrLine1 = (EditText) findViewById(R.id.inputaddressLine1Text);
+        addrLine2 = (EditText) findViewById(R.id.inputaddressLine2Text);
+        pinCode = (EditText) findViewById(R.id.inputPinCodeText);
+        email = (EditText) findViewById(R.id.inputEmailText);
+        phoneNumber = (EditText) findViewById(R.id.inputPhoneNumberText);
+        nextButton = (Button) findViewById(R.id.registerOutletNextButton);
+        registerOutletHeader = (TextView) findViewById(R.id.registerOutletHeader);
+        activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
+        progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
 
         try {
             outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
@@ -80,18 +91,6 @@ public class OutletDetailsActivity extends BaseActivity {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
         }
-
-        outletName = (EditText) findViewById(R.id.inputOutletNameText);
-        alias = (EditText) findViewById(R.id.inputAliasNameText);
-        addrLine1 = (EditText) findViewById(R.id.inputaddressLine1Text);
-        addrLine2 = (EditText) findViewById(R.id.inputaddressLine2Text);
-        pinCode = (EditText) findViewById(R.id.inputPinCodeText);
-        email = (EditText) findViewById(R.id.inputEmailText);
-        phoneNumber = (EditText) findViewById(R.id.inputPhoneNumberText);
-        nextButton = (Button) findViewById(R.id.registerOutletNextButton);
-        registerOutletHeader = (TextView) findViewById(R.id.registerOutletHeader);
-        activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
-        progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
 
         if (!editMode) {
             registerOutletHeader.setText("Register your Outlet!");
