@@ -62,6 +62,12 @@ public class OutletDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outlet_details);
 
+        try {
+            outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             editMode = extras.getBoolean("editMode", false);
@@ -86,12 +92,6 @@ public class OutletDetailsActivity extends BaseActivity {
         registerOutletHeader = (TextView) findViewById(R.id.registerOutletHeader);
         activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
         progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
-
-        try {
-            outletDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Outlet");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         if (!editMode) {
             registerOutletHeader.setText("Register your Outlet!");
