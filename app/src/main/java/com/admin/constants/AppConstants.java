@@ -21,6 +21,8 @@ public class AppConstants {
 
     public static final String FETCH_SUBSCRIPTION = "fetchSubscription/{outletCode}";
 
+    public static final String SAVE_GCM_TOKEN = "saveGCMToken/{outletCode}/{token}";
+
     public static final String SAVE_REWARDS = "saveRewards";
 
     public static final String OUTLET_TYPE = "RET";

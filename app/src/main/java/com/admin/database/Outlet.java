@@ -49,6 +49,9 @@ public class Outlet implements Serializable {
     @DatabaseField
     private String activeFlag;
 
+    @DatabaseField
+    private String gcmToken;
+
     @DatabaseField(dataType = DataType.BOOLEAN)
     private boolean areGoodiesAvailable;
 
@@ -154,5 +157,13 @@ public class Outlet implements Serializable {
 
     public void setOutletType(String outletType) {
         this.outletType = outletType;
+    }
+
+    public String getGcmToken() {
+        return gcmToken;
+    }
+
+    public void setGcmToken(String gcmToken) {
+        this.gcmToken = gcmToken;
     }
 }

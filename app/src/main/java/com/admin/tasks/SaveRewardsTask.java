@@ -9,11 +9,10 @@ import com.admin.database.DBHelper;
 import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.freddyspeaks.RewardSelectionActivity;
-import com.admin.util.ImageUtility;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.request_objects.RewardSubmitRequest;
-import com.admin.webservice.response_objects.PostServiceResponse;
+import com.admin.webservice.response_objects.SaveServiceReponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -75,13 +74,13 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
         rewardSubmitRequest.setCreatedDate(new Date().toString());
 
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        Call<PostServiceResponse> saveRewardsCall = restEndpointInterface.saveRewards(rewardSubmitRequest);
-        saveRewardsCall.enqueue(new Callback<PostServiceResponse>() {
+        Call<SaveServiceReponse> saveRewardsCall = restEndpointInterface.saveRewards(rewardSubmitRequest);
+        saveRewardsCall.enqueue(new Callback<SaveServiceReponse>() {
             @Override
-            public void onResponse(Call<PostServiceResponse> call, Response<PostServiceResponse> response) {
-                PostServiceResponse postServiceResponse = response.body();
+            public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
+                SaveServiceReponse saveServiceReponse = response.body();
                 progressDialog.dismiss();
-                if (postServiceResponse.isSuccess()) {
+                if (saveServiceReponse.isSuccess()) {
                     Intent rewardsSaved = new Intent();
                     rewardsSaved.putExtra("rewardsSelected", true);
                     activity.setResult(200, rewardsSaved);
@@ -90,7 +89,7 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
             }
 
             @Override
-            public void onFailure(Call<PostServiceResponse> call, Throwable t) {
+            public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Reward Configuration","Unable to save rewards");
             }

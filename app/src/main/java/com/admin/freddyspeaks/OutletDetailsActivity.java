@@ -23,12 +23,12 @@ import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
 import com.admin.receiver.AlarmReceiver;
 import com.admin.receiver.DeviceBootReceiver;
-import com.admin.util.DialogBuilderUtil;
+import com.admin.services.RegistrationIntentService;
 import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.request_objects.OutletRequest;
-import com.admin.webservice.response_objects.PostServiceResponse;
+import com.admin.webservice.response_objects.SaveServiceReponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -123,16 +123,16 @@ public class OutletDetailsActivity extends BaseActivity {
                 outletRequest.setCreatedDate(new Date().toString());
 
                 RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-                Call<PostServiceResponse> registerOutletCall = restEndpointInterface.registerOutlet(outletRequest);
-                registerOutletCall.enqueue(new Callback<PostServiceResponse>() {
+                Call<SaveServiceReponse> registerOutletCall = restEndpointInterface.registerOutlet(outletRequest);
+                registerOutletCall.enqueue(new Callback<SaveServiceReponse>() {
                     @Override
-                    public void onResponse(Call<PostServiceResponse> call, Response<PostServiceResponse> response) {
-                        PostServiceResponse postServiceResponse = response.body();
-                        if (postServiceResponse.isSuccess()) {
+                    public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
+                        SaveServiceReponse saveServiceReponse = response.body();
+                        if (saveServiceReponse.isSuccess()) {
                             if (currentOutlet == null) {
                                 currentOutlet = new Outlet();
                             }
-                            currentOutlet.setOutletCode(postServiceResponse.getData().toString());
+                            currentOutlet.setOutletCode(saveServiceReponse.getData().toString());
                             currentOutlet.setOutletName(outletRequest.getOutletName());
                             currentOutlet.setAliasName(outletRequest.getAliasName());
                             currentOutlet.setAddrLine1(outletRequest.getAddrLine1());
@@ -144,6 +144,10 @@ public class OutletDetailsActivity extends BaseActivity {
                             //Check if this is create mode (Register Outlet)
                             if (!editMode) {
                                 try {
+
+                                    //Register GCM token with app server
+                                    Intent gcmRegistrationIntent = new Intent(OutletDetailsActivity.this, RegistrationIntentService.class);
+                                    startService(gcmRegistrationIntent);
                                     // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
                                     alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -194,7 +198,7 @@ public class OutletDetailsActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<PostServiceResponse> call, Throwable t) {
+                    public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
                         Log.e("Outlet details", "Unable to save outlet");
                     }
                 });

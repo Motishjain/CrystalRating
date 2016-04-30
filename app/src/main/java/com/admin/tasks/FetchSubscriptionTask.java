@@ -56,8 +56,8 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
             }
             //Load Retrofit API
             RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-            Call<SubscriptionResponse> fetchRewardsCall = restEndpointInterface.fetchSubscription(outletCode);
-            fetchRewardsCall.enqueue(new Callback<SubscriptionResponse>() {
+            Call<SubscriptionResponse> fetchSubscriptionCall = restEndpointInterface.fetchSubscription(outletCode);
+            fetchSubscriptionCall.enqueue(new Callback<SubscriptionResponse>() {
                 @Override
                 public void onResponse(Call<SubscriptionResponse> call, Response<SubscriptionResponse> response) {
                     if (response.isSuccess()) {

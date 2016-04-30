@@ -2,7 +2,6 @@ package com.admin.freddyspeaks;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,13 +13,12 @@ import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.database.User;
 import com.admin.tasks.FetchRewardImageTask;
-import com.admin.tasks.TextToSpeechConversionTask;
 import com.admin.util.RewardAllocationUtility;
 import com.admin.view.CustomFontTextView;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.request_objects.FeedbackRequest;
-import com.admin.webservice.response_objects.PostServiceResponse;
+import com.admin.webservice.response_objects.SaveServiceReponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
@@ -111,19 +109,19 @@ public class RewardDisplayActivity extends BaseActivity {
     void submitFeedback() {
         feedback.setCreatedDate(new Date().toString());
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        Call<PostServiceResponse> submitFeedbackCall = restEndpointInterface.submitFeedback(feedback);
-        submitFeedbackCall.enqueue(new Callback<PostServiceResponse>() {
+        Call<SaveServiceReponse> submitFeedbackCall = restEndpointInterface.submitFeedback(feedback);
+        submitFeedbackCall.enqueue(new Callback<SaveServiceReponse>() {
             @Override
-            public void onResponse(Call<PostServiceResponse> call, Response<PostServiceResponse> response) {
-                PostServiceResponse postServiceResponse = response.body();
+            public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
+                SaveServiceReponse saveServiceReponse = response.body();
 
-                if (postServiceResponse.isSuccess()) {
+                if (saveServiceReponse.isSuccess()) {
                     Log.i("Reward display","Feedback sent successfully");
                 }
             }
 
             @Override
-            public void onFailure(Call<PostServiceResponse> call, Throwable t) {
+            public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
                 Log.e("Reward display","Failed to submit feedback");
             }
         });

@@ -3,7 +3,7 @@ package com.admin.webservice.response_objects;
 /**
  * Created by Admin on 3/15/2016.
  */
-public class PostServiceResponse {
+public class SaveServiceReponse {
     private boolean success;
     private Object data;
     private String msg;
