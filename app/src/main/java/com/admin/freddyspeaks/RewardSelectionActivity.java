@@ -1,12 +1,14 @@
 package com.admin.freddyspeaks;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.admin.database.Reward;
 import com.admin.tasks.BuildSelectRewardFragmentsTask;
+import com.admin.tasks.FetchSubscriptionTask;
 import com.admin.tasks.SaveRewardsTask;
 import com.admin.util.DialogBuilderUtil;
 import com.admin.view.CustomProgressDialog;
@@ -17,7 +19,7 @@ import java.util.Map;
 
 import layout.SelectRewardsBoxFragment;
 
-public class RewardSelectionActivity extends AppCompatActivity implements SelectRewardsBoxFragment.OnFragmentInteractionListener {
+public class RewardSelectionActivity extends AppCompatActivity implements SelectRewardsBoxFragment.OnFragmentInteractionListener,SaveRewardsTask.OnTaskCompleted {
 
     List<Reward> rewardsList;
     Map<Integer, List<Reward>> levelRewardsMap;
@@ -84,7 +86,7 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     public void saveSelectedRewards(View v) {
         progressDialog.setMessage("Saving Rewards...");
         progressDialog.show();
-        SaveRewardsTask saveRewardsTask = new SaveRewardsTask(progressDialog);
+        SaveRewardsTask saveRewardsTask = new SaveRewardsTask(progressDialog,this);
         saveRewardsTask.execute(this);
     }
 
@@ -134,5 +136,14 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
 
     public void setLevelRewardsMap(Map<Integer, List<Reward>> levelRewardsMap) {
         this.levelRewardsMap = levelRewardsMap;
+    }
+
+    @Override
+    public void onTaskCompleted() {
+        Intent rewardsSaved = new Intent();
+        rewardsSaved.putExtra("rewardsSelected", true);
+        rewardsSaved.putExtra("selectedLevel", selectedLevel);
+        setResult(200, rewardsSaved);
+        finish();
     }
 }

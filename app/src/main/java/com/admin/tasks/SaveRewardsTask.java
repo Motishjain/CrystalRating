@@ -8,6 +8,7 @@ import android.util.Log;
 import com.admin.database.DBHelper;
 import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
+import com.admin.database.Subscription;
 import com.admin.freddyspeaks.RewardSelectionActivity;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
@@ -33,9 +34,11 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
 
     Dao<SelectedReward, Integer> selectedRewardDao;
     ProgressDialog progressDialog;
+    OnTaskCompleted onTaskCompleted;
 
-    public SaveRewardsTask(ProgressDialog progressDialog) {
+    public SaveRewardsTask(ProgressDialog progressDialog, OnTaskCompleted onTaskCompleted) {
         this.progressDialog = progressDialog;
+        this.onTaskCompleted = onTaskCompleted;
     }
 
     @Override
@@ -81,10 +84,7 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
                 SaveServiceReponse saveServiceReponse = response.body();
                 progressDialog.dismiss();
                 if (saveServiceReponse.isSuccess()) {
-                    Intent rewardsSaved = new Intent();
-                    rewardsSaved.putExtra("rewardsSelected", true);
-                    activity.setResult(200, rewardsSaved);
-                    activity.finish();
+                    onTaskCompleted.onTaskCompleted();
                 }
             }
 
@@ -100,5 +100,9 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
+    }
+
+    public interface OnTaskCompleted {
+        void onTaskCompleted();
     }
 }

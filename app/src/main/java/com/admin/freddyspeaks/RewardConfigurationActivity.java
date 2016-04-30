@@ -50,6 +50,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
     Button rewardsConfigureNextButton;
     ImageView activityBackButton;
     private DialogFragment dialogDelete;
+    private int bronzeRewardsLevel,silverRewardsLevel,goldRewardsLevel;
 
     //Delete element:
     private SelectedRewardsBoxAdapter adapterFromDel;
@@ -153,10 +154,13 @@ public class RewardConfigurationActivity extends AppCompatActivity
 
             if (rewardsSelected) {
                 if (requestCode == 1) {
+                    bronzeRewardsLevel = data.getIntExtra("selectedLevel",0);
                     updateBronzeRewardList();
                 } else if (requestCode == 2) {
+                    silverRewardsLevel = data.getIntExtra("selectedLevel",0);
                     updateSilverRewardList();
                 } else if (requestCode == 3) {
+                    goldRewardsLevel = data.getIntExtra("selectedLevel",0);
                     updateGoldRewardList();
                 }
             }
