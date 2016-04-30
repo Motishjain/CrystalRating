@@ -63,25 +63,6 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputAliasNameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:textColorHint="@color/textHint"
-                android:layout_marginTop="15dp">
-
-                <com.admin.view.CustomFontEditText
-                    android:id="@+id/inputAliasNameText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Alias Name (Display name)"
-                    android:inputType="text"
-                    style="@style/inputText"
-                    />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
                 android:id="@+id/inputaddressLine1Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

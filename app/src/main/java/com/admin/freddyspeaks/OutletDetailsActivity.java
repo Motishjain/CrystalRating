@@ -44,7 +44,7 @@ import retrofit2.Response;
 
 public class OutletDetailsActivity extends BaseActivity {
 
-    EditText outletName, alias, addrLine1, addrLine2, pinCode, email, phoneNumber;
+    EditText outletName, addrLine1, addrLine2, pinCode, email, phoneNumber;
     Button nextButton;
     TextView registerOutletHeader;
     Dao<Outlet, Integer> outletDao;
@@ -62,7 +62,6 @@ public class OutletDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outlet_details);
         outletName = (EditText) findViewById(R.id.inputOutletNameText);
-        alias = (EditText) findViewById(R.id.inputAliasNameText);
         addrLine1 = (EditText) findViewById(R.id.inputaddressLine1Text);
         addrLine2 = (EditText) findViewById(R.id.inputaddressLine2Text);
         pinCode = (EditText) findViewById(R.id.inputPinCodeText);
@@ -113,7 +112,6 @@ public class OutletDetailsActivity extends BaseActivity {
                 progressDialog.show();
                 final OutletRequest outletRequest = new OutletRequest();
                 outletRequest.setOutletName(outletName.getText().toString());
-                outletRequest.setAliasName(alias.getText().toString());
                 outletRequest.setAddrLine1(addrLine1.getText().toString());
                 outletRequest.setOutletType(AppConstants.OUTLET_TYPE);
                 outletRequest.setAddrLine2(addrLine2.getText().toString());
@@ -134,7 +132,6 @@ public class OutletDetailsActivity extends BaseActivity {
                             }
                             currentOutlet.setOutletCode(saveServiceReponse.getData().toString());
                             currentOutlet.setOutletName(outletRequest.getOutletName());
-                            currentOutlet.setAliasName(outletRequest.getAliasName());
                             currentOutlet.setAddrLine1(outletRequest.getAddrLine1());
                             currentOutlet.setAddrLine2(outletRequest.getAddrLine2());
                             currentOutlet.setPinCode(outletRequest.getPinCode());
@@ -180,7 +177,6 @@ public class OutletDetailsActivity extends BaseActivity {
                                 try {
                                     UpdateBuilder<Outlet, Integer> outletUpdateBuilder = outletDao.updateBuilder();
                                     outletUpdateBuilder.updateColumnValue("outletName", currentOutlet.getOutletName());
-                                    outletUpdateBuilder.updateColumnValue("aliasName", currentOutlet.getAliasName());
                                     outletUpdateBuilder.updateColumnValue("addrLine1", currentOutlet.getAddrLine1());
                                     outletUpdateBuilder.updateColumnValue("addrLine2", currentOutlet.getAddrLine2());
                                     outletUpdateBuilder.updateColumnValue("pinCode", currentOutlet.getPinCode());
@@ -215,7 +211,6 @@ public class OutletDetailsActivity extends BaseActivity {
         try {
             currentOutlet = outletQueryBuilder.queryForFirst();
             outletName.setText(currentOutlet.getOutletName());
-            alias.setText(currentOutlet.getAliasName());
             addrLine1.setText(currentOutlet.getAddrLine1());
             addrLine2.setText(currentOutlet.getAddrLine2());
             pinCode.setText(currentOutlet.getPinCode());

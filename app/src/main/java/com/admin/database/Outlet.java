@@ -26,9 +26,6 @@ public class Outlet implements Serializable {
     private String outletCode;
 
     @DatabaseField
-    private String aliasName;
-
-    @DatabaseField
     private String addrLine1;
 
     @DatabaseField
@@ -69,14 +66,6 @@ public class Outlet implements Serializable {
 
     public void setOutletName(String outletName) {
         this.outletName = outletName;
-    }
-
-    public String getAliasName() {
-        return aliasName;
-    }
-
-    public void setAliasName(String aliasName) {
-        this.aliasName = aliasName;
     }
 
     public String getAddrLine1() {

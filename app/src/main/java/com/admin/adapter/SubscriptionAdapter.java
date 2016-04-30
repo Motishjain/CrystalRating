@@ -116,9 +116,9 @@ public class SubscriptionAdapter extends ArrayAdapter<SubscriptionAdapter.Subscr
 
         PayUmoneySdkInitilizer.PaymentParam.Builder builder = new PayUmoneySdkInitilizer.PaymentParam.Builder();
 
-        builder.setKey(""); //Put your live KEY here
-        builder.setSalt(""); //Put your live SALT here
         builder.setMerchantId(AppConstants.MERCHANT_ID);
+        builder.setKey(AppConstants.PAYU_KEY); //Put your live KEY here
+        builder.setSalt(AppConstants.PAYU_SALT); //Put your live SALT here
 
 
         builder.setIsDebug(true);

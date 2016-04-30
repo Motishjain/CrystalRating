@@ -49,6 +49,11 @@ public class AppConstants {
 
     public static final String MERCHANT_ID = "5474224";
 
+    public static final String PAYU_KEY = "5474224";
+
+    public static final String PAYU_SALT = "AUR87LDlIS";
+
+
     public static final String OPTION_RATING = "OPT";
 
     public static final String STAR_RATING = "STR";
