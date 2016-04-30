@@ -8,7 +8,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".HomePageActivity"
     tools:showIn="@layout/activity_home_page"
-    android:background="@drawable/app_bg">
+    android:background="@drawable/app_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <ImageView
         android:id="@+id/backgroundRatingImage"
