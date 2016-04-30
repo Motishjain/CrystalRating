@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
-import com.admin.receiver.AlarmReceiver;
+import com.admin.receiver.SetQuestionsAlarmReceiver;
 import com.admin.receiver.DeviceBootReceiver;
 import com.admin.services.RegistrationIntentService;
 import com.admin.view.CustomProgressDialog;
@@ -148,12 +148,11 @@ public class OutletDetailsActivity extends BaseActivity {
                                     // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
                                     alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                                    Intent intent = new Intent(OutletDetailsActivity.this, AlarmReceiver.class);
+                                    Intent intent = new Intent(OutletDetailsActivity.this, SetQuestionsAlarmReceiver.class);
                                     alarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, intent, 0);
 
                                     Calendar calendar = Calendar.getInstance();
                                     calendar.setTimeInMillis(System.currentTimeMillis());
-                                    calendar.add(Calendar.DATE,1);
                                     calendar.set(Calendar.HOUR_OF_DAY, 0);
                                     alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                                             AlarmManager.INTERVAL_DAY, alarmIntent);

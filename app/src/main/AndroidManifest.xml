@@ -79,7 +79,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.admin.receiver.AlarmReceiver"
+            android:name="com.admin.receiver.SetQuestionsAlarmReceiver"
             android:enabled="true"
             android:exported="true" />
         <receiver

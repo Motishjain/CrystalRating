@@ -22,7 +22,7 @@ public class DeviceBootReceiver extends BroadcastReceiver {
             String outletCode = sharedPreferences.getString("outletCode", null) ;
             if(outletCode!=null) {
                 AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-                Intent schedulerIntent = new Intent(context, AlarmReceiver.class);
+                Intent schedulerIntent = new Intent(context, SetQuestionsAlarmReceiver.class);
                 PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, schedulerIntent, 0);
 
                 Calendar calendar = Calendar.getInstance();

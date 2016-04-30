@@ -9,7 +9,7 @@ import com.admin.tasks.SetRandomQuestionsTask;
 /**
  * Created by Admin on 4/6/2016.
  */
-public class AlarmReceiver extends BroadcastReceiver {
+public class SetQuestionsAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
