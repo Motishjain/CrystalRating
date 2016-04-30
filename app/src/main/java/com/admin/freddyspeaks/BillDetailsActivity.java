@@ -8,16 +8,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.admin.dialogs.CustomDialogFragment;
 import com.admin.util.ImageUtility;
 import com.admin.util.ValidationUtil;
 import com.admin.webservice.request_objects.FeedbackRequest;
 
-public class BillDetailsActivity extends BaseActivity {
+public class BillDetailsActivity extends BaseActivity{
 
     TextInputLayout inputBillAmountLayout, inputBillNumberLayout;
     TextView billNumber, billAmount;
     FeedbackRequest feedback;
     ImageView backgroundBillDetailsImage;
+    CustomDialogFragment dialogConfirmExit, dialogConfirmBill;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,42 @@ public class BillDetailsActivity extends BaseActivity {
         inputBillAmountLayout.setError(null);
         if (!ValidationUtil.isTextViewEmpty(billNumber,inputBillNumberLayout,"Please enter bill number") &&
                 !ValidationUtil.isTextViewEmpty(billAmount,inputBillAmountLayout,"Please enter bill amount")) {
-            feedback.setBillAmount(billAmount.getText().toString());
-            feedback.setBillNumber(billNumber.getText().toString());
-            Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
-            displayReward.putExtra("feedback",feedback);
-            startActivity(displayReward);
+            dialogConfirmBill = CustomDialogFragment.newInstance(R.layout.dialog_confirm_exit, new CustomDialogFragment.CustomDialogListener() {
+                @Override
+                public void onDialogPositiveClick() {
+                    dialogConfirmBill.dismiss();
+                    feedback.setBillAmount(billAmount.getText().toString());
+                    feedback.setBillNumber(billNumber.getText().toString());
+                    Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
+                    displayReward.putExtra("feedback",feedback);
+                    startActivity(displayReward);
+                }
+
+                @Override
+                public void onDialogNegativeClick() {
+                    dialogConfirmBill.dismiss();
+                }
+            },new String[]{"Confirm Bill Amount: Rs. "+billAmount.getText()+"?"});
+            dialogConfirmBill.show(getFragmentManager(), "");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialogConfirmExit = CustomDialogFragment.newInstance(R.layout.dialog_confirm_exit, new CustomDialogFragment.CustomDialogListener() {
+            @Override
+            public void onDialogPositiveClick() {
+                dialogConfirmExit.dismiss();
+                Intent homePage = new Intent(BillDetailsActivity.this, HomePageActivity.class);
+                homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homePage);
+            }
+
+            @Override
+            public void onDialogNegativeClick() {
+                dialogConfirmExit.dismiss();
+            }
+        });
+        dialogConfirmExit.show(getFragmentManager(), "");
     }
 }

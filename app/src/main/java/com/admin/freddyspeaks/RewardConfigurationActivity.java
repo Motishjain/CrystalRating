@@ -68,7 +68,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
         rewardsConfigureNextButton = (Button) findViewById(R.id.rewardsConfigureNextButton);
         activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
 
-        dialogDelete = CustomDialogFragment.newInstance(R.layout.dialog_rewards_delete);
+        dialogDelete = CustomDialogFragment.newInstance(R.layout.dialog_rewards_delete,this);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         outletCode = sharedPreferences.getString("outletCode", null);

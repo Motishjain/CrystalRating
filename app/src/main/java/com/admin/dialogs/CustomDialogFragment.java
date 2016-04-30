@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.admin.freddyspeaks.R;
 
@@ -18,32 +19,23 @@ public class CustomDialogFragment extends DialogFragment {
 
     int layoutResourceId;
     private CustomDialogListener customDialogListener;
+    private String[] customMessages;
 
     /* @return A new instance of fragment CustomDialogFragment.
             */
     // TODO: Rename and change types and number of parameters
 
-    public static CustomDialogFragment newInstance(int layoutResourceId) {
+    public static CustomDialogFragment newInstance(int layoutResourceId, CustomDialogListener customDialogListener, String... customMessages) {
         CustomDialogFragment fragment = new CustomDialogFragment();
         fragment.layoutResourceId = layoutResourceId;
+        fragment.customDialogListener = customDialogListener;
+        fragment.customMessages = customMessages;
         return fragment;
     }
 
     public interface CustomDialogListener {
         void onDialogPositiveClick();
         void onDialogNegativeClick();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        try {
-            customDialogListener = (CustomDialogListener) activity;
-        } catch (ClassCastException e) {
-            // The activity doesn't implement the interface, throw exception
-            throw new ClassCastException(activity.toString() + " must implement customDialogListener");
-        }
     }
 
     @Override
@@ -70,6 +62,14 @@ public class CustomDialogFragment extends DialogFragment {
                 customDialogListener.onDialogNegativeClick();
             }
         });
+
+        if(customMessages!=null) {
+            for(int i = 0;i < customMessages.length; i++) {
+                String customMessage = customMessages[i];
+                TextView customTextView = (TextView) dialog.findViewById(getActivity().getResources().getIdentifier("customTextView"+(i+1), "id", getActivity().getPackageName()));
+                customTextView.setText(customMessage);
+            }
+        }
 
         // Inflate and set the layout for the dialog
         builder.setView(dialog);

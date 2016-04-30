@@ -20,6 +20,7 @@ import com.admin.animation.ViewPagerCustomDuration;
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Question;
+import com.admin.dialogs.CustomDialogFragment;
 import com.admin.util.DialogBuilderUtil;
 import com.admin.util.ImageUtility;
 import com.admin.webservice.request_objects.FeedbackRequest;
@@ -33,7 +34,7 @@ import java.util.Map;
 
 import layout.RatingCardFragment;
 
-public class GetRatingActivity extends BaseActivity implements RatingCardFragment.OnFragmentInteractionListener{
+public class GetRatingActivity extends BaseActivity implements RatingCardFragment.OnFragmentInteractionListener, CustomDialogFragment.CustomDialogListener{
 
 
     Dao<Question, Integer> questionDao;
@@ -47,6 +48,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     ViewPagerCustomDuration ratingBarPager;
     Map<Integer,RatingCardFragment> ratingFragmentMap;
     Button ratingDoneButton;
+    CustomDialogFragment dialogConfirmExit;
 
     FeedbackRequest feedback;
 
@@ -209,6 +211,26 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         ratingBackArrow.setVisibility(View.INVISIBLE);
         RatingFragmentsAdapter ratingFragmentsAdapter = new RatingFragmentsAdapter(getSupportFragmentManager(),this);
         ratingBarPager.setAdapter(ratingFragmentsAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialogConfirmExit = CustomDialogFragment.newInstance(R.layout.dialog_confirm_exit, this);
+        dialogConfirmExit.show(getFragmentManager(), "");
+    }
+
+
+    @Override
+    public void onDialogPositiveClick() {
+        dialogConfirmExit.dismiss();
+        Intent homePage = new Intent(GetRatingActivity.this, HomePageActivity.class);
+        homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homePage);
+    }
+
+    @Override
+    public void onDialogNegativeClick() {
+        dialogConfirmExit.dismiss();
     }
 
 }
