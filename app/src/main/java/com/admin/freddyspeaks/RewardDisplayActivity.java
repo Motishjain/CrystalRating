@@ -12,6 +12,7 @@ import com.admin.database.DBHelper;
 import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.database.User;
+import com.admin.dialogs.CustomDialogFragment;
 import com.admin.tasks.FetchRewardImageTask;
 import com.admin.util.RewardAllocationUtility;
 import com.admin.view.CustomFontTextView;
@@ -39,7 +40,10 @@ public class RewardDisplayActivity extends BaseActivity {
     CustomFontTextView rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
     CustomFontTextView rewardNotFoundExclaimer,rewardNotFoundMessage,thankYouMessage1,thankYouMessage2;
     ImageView resultRewardImage;
+    CustomDialogFragment dialogConfirmExit;
     public static Map<String,String> categoryMapping = new HashMap<>();
+
+
     static {
         categoryMapping.put(AppConstants.BRONZE_CD,"Bronze");
         categoryMapping.put(AppConstants.SILVER_CD,"Silver");
@@ -132,4 +136,24 @@ public class RewardDisplayActivity extends BaseActivity {
         homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(homePage);
     }
+
+    @Override
+    public void onBackPressed() {
+        dialogConfirmExit = CustomDialogFragment.newInstance(R.layout.dialog_confirm_exit, new CustomDialogFragment.CustomDialogListener() {
+            @Override
+            public void onDialogPositiveClick() {
+                dialogConfirmExit.dismiss();
+                Intent homePage = new Intent(RewardDisplayActivity.this, HomePageActivity.class);
+                homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homePage);
+            }
+
+            @Override
+            public void onDialogNegativeClick() {
+                dialogConfirmExit.dismiss();
+            }
+        });
+        dialogConfirmExit.show(getFragmentManager(), "");
+    }
+
 }
