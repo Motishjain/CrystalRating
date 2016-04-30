@@ -34,16 +34,36 @@
             android:layout_gravity="center"
             />
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/inputUserPhoneNumberLayout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteInputUserPhoneNumberText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textColor="@color/colorPrimary" />
+        </android.support.design.widget.TextInputLayout>
+
         <Button
-            android:id="@+id/add_rating"
+            android:id="@+id/getStartedButton"
             style="@style/formButton"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="25dp"
             android:elevation="3dp"
-            android:text="Leave a review!"
+            android:text="Get Started!"
             android:textAllCaps="false"
             android:textColor="#fff" />
+
+
     </LinearLayout>
 
 </FrameLayout>

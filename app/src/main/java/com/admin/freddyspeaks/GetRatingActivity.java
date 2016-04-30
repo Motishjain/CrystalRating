@@ -49,7 +49,6 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     Map<Integer,RatingCardFragment> ratingFragmentMap;
     Button ratingDoneButton;
     CustomDialogFragment dialogConfirmExit;
-
     FeedbackRequest feedback;
 
 

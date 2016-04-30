@@ -40,7 +40,7 @@ public class UserPhoneNumberInputAdapter extends ArrayAdapter<User> {
         if (user != null) {
             TextView userPhoneNameLabel = (TextView) v.findViewById(R.id.userPhoneNameLabel);
             if (userPhoneNameLabel != null) {
-                userPhoneNameLabel.setText(user.getPhoneNumber()+"  "+user.getName());
+                userPhoneNameLabel.setText(user.getPhoneNumber());
             }
         }
         return v;
@@ -59,7 +59,7 @@ public class UserPhoneNumberInputAdapter extends ArrayAdapter<User> {
         }
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            if (constraint != null) {
+            if (constraint != null && constraint.length()>=4) {
                 suggestions.clear();
                 for (User user : userList) {
                     if(user.getPhoneNumber().toLowerCase().startsWith(constraint.toString().toLowerCase())){
