@@ -52,7 +52,7 @@ public class BillDetailsActivity extends BaseActivity{
         inputBillAmountLayout.setError(null);
         if (!ValidationUtil.isTextViewEmpty(billNumber,inputBillNumberLayout,"Please enter bill number") &&
                 !ValidationUtil.isTextViewEmpty(billAmount,inputBillAmountLayout,"Please enter bill amount")) {
-            dialogConfirmBill = CustomDialogFragment.newInstance(R.layout.dialog_confirm_exit, new CustomDialogFragment.CustomDialogListener() {
+            dialogConfirmBill = CustomDialogFragment.newInstance(R.layout.dialog_confirm_bill, new CustomDialogFragment.CustomDialogListener() {
                 @Override
                 public void onDialogPositiveClick() {
                     dialogConfirmBill.dismiss();
@@ -67,7 +67,7 @@ public class BillDetailsActivity extends BaseActivity{
                 public void onDialogNegativeClick() {
                     dialogConfirmBill.dismiss();
                 }
-            },new String[]{"Confirm Bill Amount: Rs. "+billAmount.getText()+"?"});
+            },"Confirm Bill Amount: Rs. "+billAmount.getText()+"?");
             dialogConfirmBill.show(getFragmentManager(), "");
         }
     }
