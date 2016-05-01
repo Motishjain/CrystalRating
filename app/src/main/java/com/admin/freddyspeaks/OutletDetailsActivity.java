@@ -21,9 +21,11 @@ import android.widget.TextView;
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
+import com.admin.receiver.CheckSubscriptionAlarmReceiver;
 import com.admin.receiver.SetQuestionsAlarmReceiver;
 import com.admin.receiver.DeviceBootReceiver;
 import com.admin.services.RegistrationIntentService;
+import com.admin.tasks.UpdateSubscriptionStatusTask;
 import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
@@ -54,7 +56,7 @@ public class OutletDetailsActivity extends BaseActivity {
     ImageView activityBackButton;
 
     private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
+    private PendingIntent setQuestionsAlarmIntent, checkSubscriptionAlarmIntent;
     private ProgressDialog progressDialog;
 
     @Override
@@ -148,20 +150,31 @@ public class OutletDetailsActivity extends BaseActivity {
                                     // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
                                     alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                                    Intent intent = new Intent(OutletDetailsActivity.this, SetQuestionsAlarmReceiver.class);
-                                    alarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, intent, 0);
+                                    Intent setQuestionsIntent = new Intent(OutletDetailsActivity.this, SetQuestionsAlarmReceiver.class);
+                                    setQuestionsAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, setQuestionsIntent, 0);
+
+                                    Intent checkSubscriptionIntent = new Intent(OutletDetailsActivity.this, CheckSubscriptionAlarmReceiver.class);
+                                    checkSubscriptionAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, checkSubscriptionIntent, 0);
 
                                     Calendar calendar = Calendar.getInstance();
                                     calendar.setTimeInMillis(System.currentTimeMillis());
                                     calendar.set(Calendar.HOUR_OF_DAY, 0);
                                     alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                                            AlarmManager.INTERVAL_DAY, alarmIntent);
+                                            AlarmManager.INTERVAL_DAY, setQuestionsAlarmIntent);
+
+                                    calendar.set(Calendar.HOUR_OF_DAY, 14);
+
+                                    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                            AlarmManager.INTERVAL_DAY, checkSubscriptionAlarmIntent);
+
                                     ComponentName receiver = new ComponentName(OutletDetailsActivity.this, DeviceBootReceiver.class);
                                     PackageManager pm = getApplicationContext().getPackageManager();
                                     pm.setComponentEnabledSetting(receiver,
                                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                             PackageManager.DONT_KILL_APP);
                                     outletDao.create(currentOutlet);
+                                    UpdateSubscriptionStatusTask updateSubscriptionStatusTask = new UpdateSubscriptionStatusTask(OutletDetailsActivity.this);
+                                    updateSubscriptionStatusTask.execute();
                                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("outletCode", currentOutlet.getOutletCode());
