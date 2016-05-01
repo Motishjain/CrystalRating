@@ -58,4 +58,12 @@ public class AppConstants {
 
     public static final String STAR_RATING = "STR";
 
+    public static final String SUBSCRIPTION_TRIAL = "TR";
+
+    public static final String SUBSCRIPTION_ACTIVE = "ACT";
+
+    public static final String SUBSCRIPTION_PENDING = "PEN";
+
+    public static final String SUBSCRIPTION_EXPIRED = "EXP";
+
 }

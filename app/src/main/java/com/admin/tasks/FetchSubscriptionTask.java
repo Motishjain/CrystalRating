@@ -47,7 +47,7 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String... input) {
         String outletCode = input[0];
         try {
-            subscriptionDao = OpenHelperManager.getHelper(context, DBHelper.class).getCustomDao("Outlet");
+            subscriptionDao = OpenHelperManager.getHelper(context, DBHelper.class).getCustomDao("Subscription");
             QueryBuilder<Subscription,Integer> subscriptionQueryBuilder = subscriptionDao.queryBuilder();
             List<Subscription> subscriptionList = subscriptionQueryBuilder.query();
             if(subscriptionList.size()>0) {

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.admin.adapter.SubscriptionAdapter;
+import com.admin.constants.AppConstants;
 import com.admin.database.Subscription;
 import com.admin.tasks.FetchSubscriptionTask;
 import com.payUMoney.sdk.PayUmoneySdkInitilizer;
@@ -57,7 +58,7 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
         String expiryDate = subscription.getExpiryDate();
 
 
-        if(activationStatus.equals("TR")) {
+        if(activationStatus.equals(AppConstants.SUBSCRIPTION_TRIAL)) {
             linearLayoutActiveOrTrial.setVisibility(View.VISIBLE);
             linearLayoutPending.setVisibility(View.GONE);
             linearLayoutExpired.setVisibility(View.GONE);
@@ -69,7 +70,7 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
 
             noFooterFlag = true;
         }
-        else if(activationStatus.equals("ACT")) {
+        else if(activationStatus.equals(AppConstants.SUBSCRIPTION_ACTIVE)) {
             linearLayoutActiveOrTrial.setVisibility(View.VISIBLE);
             linearLayoutPending.setVisibility(View.GONE);
             linearLayoutExpired.setVisibility(View.GONE);
@@ -81,7 +82,7 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
 
             noFooterFlag = true;
         }
-        else if(activationStatus.equals("PEN")) {
+        else if(activationStatus.equals(AppConstants.SUBSCRIPTION_PENDING)) {
             linearLayoutActiveOrTrial.setVisibility(View.GONE);
             linearLayoutPending.setVisibility(View.VISIBLE);
             linearLayoutExpired.setVisibility(View.GONE);
@@ -94,7 +95,7 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
             TextView footerMessage = (TextView) footer.findViewById(R.id.textViewFooter);
             footerMessage.setText("The application will continue to work till 2 June 2016(7 days). Kindly renew your subscription");
         }
-        else if(activationStatus.equals("EXP")) {
+        else if(activationStatus.equals(AppConstants.SUBSCRIPTION_EXPIRED)) {
             linearLayoutActiveOrTrial.setVisibility(View.GONE);
             linearLayoutPending.setVisibility(View.GONE);
             linearLayoutExpired.setVisibility(View.VISIBLE);
