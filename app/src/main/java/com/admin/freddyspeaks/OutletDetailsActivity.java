@@ -181,6 +181,7 @@ public class OutletDetailsActivity extends BaseActivity {
                                     editor.commit();
                                     progressDialog.dismiss();
                                     Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
+                                    configureRewards.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(configureRewards);
                                 } catch (SQLException e) {
                                     e.printStackTrace();

@@ -120,6 +120,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
             fetchQuestionsAndMove();
         } else {
             Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
+            homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(homePage);
         }
     }
@@ -269,6 +270,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
                         @Override
                         public void onTaskCompleted() {
                             Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
+                            homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(homePage);
                         }
                     });
