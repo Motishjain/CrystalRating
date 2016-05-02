@@ -119,9 +119,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
         if (!editMode) {
             fetchQuestionsAndMove();
         } else {
-            Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
-            homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(homePage);
+            this.finish();
         }
     }
 
@@ -270,7 +268,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
                         @Override
                         public void onTaskCompleted() {
                             Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
-                            homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(homePage);
                         }
                     });
