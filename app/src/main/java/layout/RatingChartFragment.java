@@ -1,12 +1,9 @@
 package layout;
 
-import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +12,13 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.admin.adapter.RatingDetailsAdapter;
 import com.admin.database.Question;
+import com.admin.dialogs.CustomPieChartDialog;
 import com.admin.freddyspeaks.R;
 import com.admin.webservice.response_objects.FeedbackResponse;
 import com.github.mikephil.charting.charts.PieChart;
@@ -66,6 +62,7 @@ public class RatingChartFragment extends Fragment {
     List<FeedbackResponse> feedbackResponseList;
     View colorStrip;
     ImageView arrow;
+    private CustomPieChartDialog dialogInfo;
 
     public RatingChartFragment() {
         // Required empty public constructor
@@ -156,7 +153,7 @@ public class RatingChartFragment extends Fragment {
             questionNames.add(question.getName());
         }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(),
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(),
                 android.R.layout.simple_spinner_item, questionNames);
         questionsSpinner.setAdapter(dataAdapter);
 
@@ -224,7 +221,7 @@ public class RatingChartFragment extends Fragment {
         }
 
         PieDataSet dataset = new PieDataSet(entries, "");
-        dataset.setColors(new int[]{R.color.rating1, R.color.rating2, R.color.rating3, R.color.rating4, R.color.rating5}, getContext());
+        dataset.setColors(new int[]{R.color.rating1, R.color.rating2, R.color.rating3, R.color.rating4, R.color.rating5}, getActivity().getApplicationContext());
         dataset.setValueTextSize(12);
         dataset.setSliceSpace(1.0f);
         PieData data = new PieData(labels, dataset);
@@ -248,26 +245,8 @@ public class RatingChartFragment extends Fragment {
 
 
     void openRatingDetailsDialog(List<FeedbackResponse> feedbackResponseSubList) {
-        final Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.rating_details_popup);
-        dialog.setTitle("Ratings Detail");
-        RecyclerView ratingDetailsRecyclerView = (RecyclerView) dialog.findViewById(R.id.ratingDetailsRecyclerView);
-        Button ratingDetailsCloseButton = (Button) dialog.findViewById(R.id.ratingDetailsCloseButton);
-
-        RatingDetailsAdapter ratingOptionsAdapter = new RatingDetailsAdapter(R.layout.rating_detail_item, feedbackResponseSubList);
-        ratingDetailsRecyclerView.setAdapter(ratingOptionsAdapter);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(dialog.getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        ratingDetailsRecyclerView.setLayoutManager(layoutManager);
-        ratingDetailsCloseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
+        dialogInfo = CustomPieChartDialog.newInstance(R.layout.rating_details_popup, feedbackResponseSubList);
+        dialogInfo.show(getActivity().getSupportFragmentManager(), "");
     }
 
     public static void expand(final View v) {

@@ -9,26 +9,34 @@
             android:layout_weight="1"
             android:gravity="left"
             android:layout_width="0dp"
-            />
+            android:background="@drawable/rating_details_item_border"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
         <com.admin.view.CustomFontTextView
             android:id="@+id/userPhoneNumberCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
             android:gravity="left"
             android:layout_width="0dp"
-            />
+            android:background="@drawable/rating_details_item_border"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
         <com.admin.view.CustomFontTextView
             android:id="@+id/billNumberCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
             android:gravity="left"
             android:layout_width="0dp"
-            />
+            android:background="@drawable/rating_details_item_border"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
         <com.admin.view.CustomFontTextView
             android:id="@+id/billAmountCellTextView"
             style="@style/ratingDetailCell"
             android:layout_weight="1"
             android:gravity="left"
             android:layout_width="0dp"
-            />
+            android:background="@drawable/rating_details_item_border"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
 </LinearLayout>
