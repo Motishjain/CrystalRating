@@ -1,42 +1,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ratingDetailLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:weightSum="4" >
-        <com.admin.view.CustomFontTextView
-            android:id="@+id/userNameCellTextView"
-            style="@style/ratingDetailCell"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:layout_width="0dp"
-            android:background="@drawable/rating_details_item_border"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp" />
-        <com.admin.view.CustomFontTextView
-            android:id="@+id/userPhoneNumberCellTextView"
-            style="@style/ratingDetailCell"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:layout_width="0dp"
-            android:background="@drawable/rating_details_item_border"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp" />
-        <com.admin.view.CustomFontTextView
-            android:id="@+id/billNumberCellTextView"
-            style="@style/ratingDetailCell"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:layout_width="0dp"
-            android:background="@drawable/rating_details_item_border"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp" />
-        <com.admin.view.CustomFontTextView
-            android:id="@+id/billAmountCellTextView"
-            style="@style/ratingDetailCell"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:layout_width="0dp"
-            android:background="@drawable/rating_details_item_border"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp" />
+    android:weightSum="20">
+
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/billDateTextView"
+        style="@style/ratingDetailCell"
+        android:layout_width="0dp"
+        android:layout_weight="5.5"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" />
+
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/userPhoneNumberCellTextView"
+        style="@style/ratingDetailCell"
+        android:layout_width="0dp"
+        android:layout_weight="5.5"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" />
+
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/billNumberCellTextView"
+        style="@style/ratingDetailCell"
+        android:layout_width="0dp"
+        android:layout_weight="4.5"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" />
+
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/billAmountCellTextView"
+        style="@style/ratingDetailCell"
+        android:layout_width="0dp"
+        android:layout_weight="4.5"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" />
 </LinearLayout>
