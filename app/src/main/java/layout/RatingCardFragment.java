@@ -84,6 +84,7 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                     question.setSelectedOption(((int)v)+"");
+                    mListener.onQuestionAnswered();
                 }
             });
         }
