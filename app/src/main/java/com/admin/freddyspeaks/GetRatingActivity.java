@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -194,7 +195,15 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         if (currentQuestionIndex == totalQuestions - 1) {
             ratingDoneButton.setVisibility(View.VISIBLE);
         } else {
-            getNextRating(null);
+            Runnable getNextRatingTask = new Runnable() {
+                @Override
+                public void run() {
+                    getNextRating(null);
+                }
+            };
+            Handler intervalHandler = new Handler();
+            intervalHandler.postDelayed(getNextRatingTask,400);
+
         }
     }
 

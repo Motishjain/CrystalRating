@@ -80,11 +80,14 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
             ratingOptionsRecyclerView.setVisibility(View.GONE);
             ratingBar.setVisibility(View.VISIBLE);
             ratingBar.setNumStars(question.getRatingValues().split(",").length);
+            ratingBar.setMax(question.getRatingValues().split(",").length);
             ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override
-                public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                    question.setSelectedOption(((int)v)+"");
-                    mListener.onQuestionAnswered();
+                public void onRatingChanged(RatingBar ratingBar, float v, boolean fromUser) {
+                    if(fromUser) {
+                        question.setSelectedOption(((int)v)+"");
+                        mListener.onQuestionAnswered();
+                    }
                 }
             });
         }

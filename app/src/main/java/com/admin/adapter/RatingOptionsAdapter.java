@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,9 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
     int emoticonHeight, emoticonWidth;
     float optionTextSize;
     Context context;
+    int selectedOptionBgColor, unSelectedOptionBgColor;
     RatingOptionsAdapter.OnItemSelectedListener onItemSelectedListener;
+
 
     public RatingOptionsAdapter(int layoutResourceId, Question question, RatingOptionsAdapter.OnItemSelectedListener onItemSelectedListener) {
         this.layoutResourceId = layoutResourceId;
@@ -57,6 +60,8 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
         emoticonHeight = ratingOptionHolder.ratingOptionEmoticon.getLayoutParams().height;
         optionTextSize = ratingOptionHolder.selectedOptionTextView.getTextSize();
         context = ratingOptionHolder.ratingOptionEmoticon.getContext();
+        selectedOptionBgColor = ContextCompat.getColor(context.getApplicationContext(),R.color.selected_option_bg);
+        unSelectedOptionBgColor = ContextCompat.getColor(context.getApplicationContext(),R.color.unselected_option_bg);
         return ratingOptionHolder;
     }
 
@@ -73,18 +78,16 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
         if(selected[position]) {
             holder.ratingOptionEmoticon.getLayoutParams().width = emoticonWidth + 2;
             holder.ratingOptionEmoticon.getLayoutParams().height = emoticonHeight + 2;
-            holder.selectedOptionTextView.setTextSize(optionTextSize + 2);
             holder.selectedOptionTextView.setTypeface(null, Typeface.BOLD);
             LayerDrawable background = (LayerDrawable)holder.ratingOptionsLayout.getBackground();
-            ((GradientDrawable)(background.findDrawableByLayerId(background.getId(0)))).setStroke(2, Color.BLACK);
+            ((GradientDrawable)(background.findDrawableByLayerId(background.getId(0)))).setColor(selectedOptionBgColor);
         }
         else {
             holder.ratingOptionEmoticon.getLayoutParams().width = emoticonWidth;
             holder.ratingOptionEmoticon.getLayoutParams().height = emoticonHeight;
-            holder.selectedOptionTextView.setTextSize(optionTextSize);
             holder.selectedOptionTextView.setTypeface(null, Typeface.NORMAL);
             LayerDrawable background = (LayerDrawable)holder.ratingOptionsLayout.getBackground();
-            ((GradientDrawable)(background.findDrawableByLayerId(background.getId(0)))).setStroke(0, Color.BLACK);
+            ((GradientDrawable)(background.findDrawableByLayerId(background.getId(0)))).setColor(unSelectedOptionBgColor);
         }
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override

@@ -1,49 +1,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="layout.RatingCardFragment"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:weightSum="20"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    tools:context="layout.RatingCardFragment">
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/questionNumberTextView"
+        style="@style/questionName"
+        android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
-        android:layout_gravity="center"
-        android:textSize="17dp"
         android:textColor="@color/black"
-        style="@style/questionName" />
+        android:textSize="17dp" />
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/questionNameTextView"
+        style="@style/questionName"
         android:layout_marginTop="25dp"
-        android:layout_weight="6"
-        style="@style/questionName" />
+        android:layout_weight="6" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ratingOptionsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
         android:layout_gravity="top"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="30dp"
         android:layout_weight="13"
-        android:layout_marginRight="5dp"/>
+        android:visibility="gone" />
 
-    <android.support.v7.widget.AppCompatRatingBar
+    <RatingBar
         android:id="@+id/ratingBar"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:visibility="gone"
         style="@style/ratingBar"
-        android:background="@drawable/rating_option"
-        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginRight="5dp"
-        />
-
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rating_option"
+        android:indeterminateDrawable="@drawable/rating_stars"
+        android:progressDrawable="@drawable/rating_stars"
+        android:visibility="gone" />
 
 </LinearLayout>

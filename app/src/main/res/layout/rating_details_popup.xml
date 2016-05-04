@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="2dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingBottom="2dp"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -10,6 +15,7 @@
         android:text="Rating Details"
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:textColor="#B74E55" />
@@ -23,14 +29,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="4"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+        android:weightSum="20"
+        android:paddingTop="5dp">
         <com.admin.view.CustomFontTextView
             android:id="@+id/userNameHeader"
             style="@style/ratingDetailHeaderColumn"
-            android:text="@string/rating_user_name_header"
-            android:layout_weight="1"
+            android:text="@string/rating_date_header"
+            android:layout_weight="5.5"
             android:gravity="center"
             android:layout_width="0dp"
             android:background="#B74E55"
@@ -42,7 +47,7 @@
             android:id="@+id/userPhoneNumberHeader"
             style="@style/ratingDetailHeaderColumn"
             android:text="@string/rating_user_phone_number_header"
-            android:layout_weight="1"
+            android:layout_weight="5.5"
             android:gravity="center"
             android:layout_width="0dp"
             android:background="#B74E55"
@@ -54,7 +59,7 @@
             android:id="@+id/billNumberHeader"
             style="@style/ratingDetailHeaderColumn"
             android:text="@string/rating_bill_number_header"
-            android:layout_weight="1"
+            android:layout_weight="4.5"
             android:gravity="center"
             android:layout_width="0dp"
             android:background="#B74E55"
@@ -66,7 +71,7 @@
             android:id="@+id/billAmountHeader"
             style="@style/ratingDetailHeaderColumn"
             android:text="@string/rating_bill_amount_header"
-            android:layout_weight="1"
+            android:layout_weight="4.5"
             android:gravity="center"
             android:layout_width="0dp"
             android:background="#B74E55"
@@ -79,19 +84,6 @@
         android:id="@+id/ratingDetailsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <!--<com.admin.view.CustomFontButton-->
-        <!--android:id="@+id/ratingDetailsCloseButton"-->
-        <!--style="@style/formButton"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:textSize="15dp"-->
-        <!--android:text="Close"-->
-        <!--android:elevation="0dp"-->
-        <!--android:layout_gravity="right"-->
-        <!--android:layout_marginRight="20dp"-->
-        <!--android:layout_marginBottom="16dp"-->
-        <!--android:background="@color/transparent"-->
-        <!--android:textColor="#1486AC" />-->
 
     <TextView
         android:layout_width="wrap_content"
