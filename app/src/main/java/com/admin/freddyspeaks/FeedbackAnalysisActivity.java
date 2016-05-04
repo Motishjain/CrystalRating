@@ -20,6 +20,9 @@ public class FeedbackAnalysisActivity extends BaseActivity{
     private ImageView imageViewPieChart;
     private ImageView imageViewGraph;
 
+    private TextView textViewPieChart;
+    private TextView textViewPieGraph;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +58,13 @@ public class FeedbackAnalysisActivity extends BaseActivity{
             // Get images for changing.
             if (i == 0) {
                 imageViewPieChart = imageView;
+                textViewPieChart = tabTextView;
             } else {
                 imageViewGraph = imageView;
+                textViewPieGraph = tabTextView;
+
                 imageViewGraph.setImageAlpha(80);
+                textViewPieGraph.setAlpha(0.4f);
             }
 
             tab.setCustomView(relativeLayout);
@@ -76,10 +83,16 @@ public class FeedbackAnalysisActivity extends BaseActivity{
                 // Set image alpha
                 if (tab.getPosition() == 0){
                     imageViewGraph.setImageAlpha(80);
+                    textViewPieGraph.setAlpha(0.4f);
+
                     imageViewPieChart.setImageAlpha(0xFF);
+                    textViewPieChart.setAlpha(1.0f);
                 } else {
                     imageViewGraph.setImageAlpha(0xFF);
+                    textViewPieGraph.setAlpha(1.0f);
+
                     imageViewPieChart.setImageAlpha(80);
+                    textViewPieChart.setAlpha(0.4f);
                 }
             }
 
@@ -93,6 +106,7 @@ public class FeedbackAnalysisActivity extends BaseActivity{
 
             }
         });
+        tabLayout.getTabAt(0).getCustomView().setSelected(true);
     }
 
     public void closeActivity(View v) {
