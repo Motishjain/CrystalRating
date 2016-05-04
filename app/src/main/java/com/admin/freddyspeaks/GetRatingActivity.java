@@ -202,7 +202,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
                 }
             };
             Handler intervalHandler = new Handler();
-            intervalHandler.postDelayed(getNextRatingTask,200);
+            intervalHandler.postDelayed(getNextRatingTask,400);
 
         }
     }
