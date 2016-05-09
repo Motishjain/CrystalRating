@@ -111,7 +111,7 @@ public class OutletDetailsActivity extends BaseActivity {
         }
 
         if (!editMode) {
-            registerOutletHeader.setText("@Register your Outlet!");
+            registerOutletHeader.setText("Register your Outlet!");
             nextButton.setText("Register");
             activityBackButton.setVisibility(View.GONE);
         } else {
