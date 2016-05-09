@@ -15,8 +15,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
-        android:textColor="@color/black"
-        android:textSize="17dp" />
+        android:textColor="#145b71"
+        android:textSize="17sp" />
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/questionNameTextView"

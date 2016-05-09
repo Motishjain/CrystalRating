@@ -32,7 +32,8 @@
                     android:shadowColor="@color/dark_red"
                     android:shadowDx="0"
                     android:shadowDy="0"
-                    android:shadowRadius="3"
+                    android:shadowRadius="0.5"
+                    android:layout_gravity="center"
                     android:text="@string/configure_your_rewards" />
 
                 <LinearLayout
@@ -42,14 +43,14 @@
 
                     <ImageView
                         android:id="@+id/addBronzeRewardsButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="5dp"
                         android:background="#0000"
                         android:gravity="center"
                         android:onClick="addBronzeRewards"
                         android:scaleType="fitXY"
-                        android:src="@drawable/add"
+                        android:src="@drawable/ic_add_reward"
                         android:tint="@color/colorPrimary" />
 
                     <com.admin.view.CustomFontTextView
@@ -59,7 +60,7 @@
                         android:shadowColor="@color/colorPrimaryDark"
                         android:shadowDx="0"
                         android:shadowDy="0"
-                        android:shadowRadius="3"
+                        android:shadowRadius="0.5"
                         android:text="@string/bronze_box_header" />
 
                 </LinearLayout>
@@ -78,14 +79,14 @@
 
                     <ImageView
                         android:id="@+id/addSilverRewardsButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="5dp"
                         android:background="#0000"
                         android:gravity="center"
                         android:onClick="addSilverRewards"
                         android:scaleType="fitXY"
-                        android:src="@drawable/add"
+                        android:src="@drawable/ic_add_reward"
                         android:tint="@color/colorPrimary" />
 
                     <com.admin.view.CustomFontTextView
@@ -95,7 +96,7 @@
                         android:shadowColor="@color/colorPrimaryDark"
                         android:shadowDx="0"
                         android:shadowDy="0"
-                        android:shadowRadius="3"
+                        android:shadowRadius="0.5"
                         android:text="@string/silver_box_header" />
 
                 </LinearLayout>
@@ -115,14 +116,14 @@
 
                     <ImageView
                         android:id="@+id/addGoldRewardsButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="5dp"
                         android:background="#0000"
                         android:gravity="center"
                         android:onClick="addGoldRewards"
                         android:scaleType="fitXY"
-                        android:src="@drawable/add"
+                        android:src="@drawable/ic_add_reward"
                         android:tint="@color/colorPrimary" />
 
                     <com.admin.view.CustomFontTextView
@@ -132,7 +133,7 @@
                         android:shadowColor="@color/colorPrimaryDark"
                         android:shadowDx="0"
                         android:shadowDy="0"
-                        android:shadowRadius="3"
+                        android:shadowRadius="0.5"
                         android:text="@string/gold_box_header" />
                 </LinearLayout>
 
@@ -151,6 +152,8 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
                     android:elevation="3dp"
                     android:onClick="rewardConfigNext"
                     android:text="Next"

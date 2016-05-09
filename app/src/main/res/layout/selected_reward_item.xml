@@ -10,12 +10,11 @@
 
     <ImageView
         android:id="@+id/selectedRewardDeleteButton"
-        android:background="@drawable/delete"
+        android:src="@drawable/ic_delete_forever"
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:layout_marginLeft="5dp"
         android:layout_gravity="top|right"
-        android:backgroundTint="@color/dark_orange"
         />
 
     <ImageView

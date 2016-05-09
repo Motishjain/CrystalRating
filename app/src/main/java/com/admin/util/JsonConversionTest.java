@@ -8,7 +8,9 @@ import com.admin.webservice.response_objects.FeedbackResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +46,8 @@ public class JsonConversionTest {
         outletRequest.setPinCode("777777");
         outletRequest.setEmail("motish@gh.com");
         outletRequest.setCellNumber("6464646464");
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        outletRequest.setCreatedDate(date);
         System.out.println(gson.toJson(outletRequest));
 
         FeedbackRequest feedbackRequest = new FeedbackRequest();

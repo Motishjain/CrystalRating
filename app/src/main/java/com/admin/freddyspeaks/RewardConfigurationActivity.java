@@ -11,8 +11,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.admin.adapter.SelectedRewardsBoxAdapter;
 import com.admin.constants.AppConstants;
@@ -82,6 +84,10 @@ public class RewardConfigurationActivity extends AppCompatActivity
             rewardsConfigureNextButton.setVisibility(View.INVISIBLE);
             activityBackButton.setVisibility(View.VISIBLE);
         } else {
+            rewardsConfigureNextButton.setText("Configure Later");
+            ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
+            params.width = params.WRAP_CONTENT;
+            rewardsConfigureNextButton.setLayoutParams(params);
             rewardsConfigureNextButton.setVisibility(View.VISIBLE);
             activityBackButton.setVisibility(View.GONE);
         }
@@ -183,6 +189,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
                 bronzeRewardsRecyclerView.setAdapter(bronzeRewardsAdapter);
             } else {
                 bronzeRewardsAdapter.setSelectedRewardList(bronzeSelectedRewardList);
+                if (!editMode){setButton();}
                 bronzeRewardsAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
@@ -206,6 +213,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
                 silverRewardsRecyclerView.setAdapter(silverRewardsAdapter);
             } else {
                 silverRewardsAdapter.setSelectedRewardList(silverSelectedRewardList);
+                if (!editMode){setButton();}
                 silverRewardsAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
@@ -229,6 +237,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
                 goldRewardsRecyclerView.setAdapter(goldRewardsAdapter);
             } else {
                 goldRewardsAdapter.setSelectedRewardList(goldSelectedRewardList);
+                if (!editMode){setButton();}
                 goldRewardsAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
@@ -308,7 +317,9 @@ public class RewardConfigurationActivity extends AppCompatActivity
                 selectedRewardDeleteBuilder.where().eq("id", rewardToBeRemoved.getId());
                 selectedRewardDeleteBuilder.delete();
                 listFromDel.remove(positionFromDel);
+                if (!editMode){setButton();}
                 adapterFromDel.notifyDataSetChanged();
+
             } catch (SQLException e) {
                 Log.e("RewardConfiguration", "Unable to delete bronze reward");
             }
@@ -321,5 +332,23 @@ public class RewardConfigurationActivity extends AppCompatActivity
         adapterFromDel = null;
         listFromDel = null;
         dialogDelete.dismiss();
+    }
+
+    public void setButton() {
+        if((bronzeSelectedRewardList==null || bronzeSelectedRewardList.size()==0) && (silverSelectedRewardList==null ||silverSelectedRewardList.size()==0) && (goldSelectedRewardList==null || goldSelectedRewardList.size()==0)){
+            ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
+            rewardsConfigureNextButton.setText("Configure Later");
+            params.width = params.WRAP_CONTENT;
+            rewardsConfigureNextButton.setLayoutParams(params);
+            rewardsConfigureNextButton.setVisibility(View.VISIBLE);
+            activityBackButton.setVisibility(View.GONE);}
+        else{
+            ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
+            rewardsConfigureNextButton.setText("Get Started");
+            params.width = params.WRAP_CONTENT;
+            rewardsConfigureNextButton.setLayoutParams(params);
+            rewardsConfigureNextButton.setVisibility(View.VISIBLE);
+            activityBackButton.setVisibility(View.GONE);
+        }
     }
 }

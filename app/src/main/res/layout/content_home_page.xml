@@ -27,7 +27,7 @@
         android:gravity="center">
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="50dp"
             android:id="@+id/homeHeaderText1"
             style="@style/homeHeaderText"
             android:text="@string/homeHeaderText1"
@@ -42,16 +42,18 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="38dp">
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteInputUserPhoneNumberText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone Number"
+                android:hint="Enter Mobile Number"
+                android:textSize="20sp"
                 android:inputType="number"
                 android:maxLength="10"
-                android:textColor="@color/colorPrimary" />
+                android:theme="@style/homePageStyle"
+                 />
         </android.support.design.widget.TextInputLayout>
 
         <Button
@@ -59,7 +61,7 @@
             style="@style/formButton"
             android:layout_width="180dp"
             android:layout_height="50dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="70dp"
             android:elevation="3dp"
             android:text="Get Started!"
             android:textAllCaps="false"

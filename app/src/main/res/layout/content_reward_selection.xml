@@ -9,7 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="453dp">
+        android:layout_height="446dp">
 
         <LinearLayout
             android:id="@+id/rewardLevelBoxList"
@@ -27,8 +27,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/save"
-            android:textColor="#394263"
+            android:textColor="#237414"
             android:id="@+id/saveSelectedRewardsButton"
             android:onClick="saveSelectedRewards"
             android:layout_weight="1"
@@ -43,8 +44,9 @@
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/cancel"
-            android:textColor="#394263"
+            android:textColor="#237414"
             android:onClick="close"
             android:layout_weight="1"
             android:background="@drawable/button_with_top_background" />
