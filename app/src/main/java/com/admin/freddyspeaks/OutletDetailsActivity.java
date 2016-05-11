@@ -206,12 +206,12 @@ public class OutletDetailsActivity extends BaseActivity {
                                                                           PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                                                           PackageManager.DONT_KILL_APP);
                                                                   outletDao.create(currentOutlet);
-                                                                  UpdateSubscriptionStatusTask updateSubscriptionStatusTask = new UpdateSubscriptionStatusTask(OutletDetailsActivity.this);
-                                                                  updateSubscriptionStatusTask.execute();
                                                                   SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                                                   SharedPreferences.Editor editor = sharedPreferences.edit();
                                                                   editor.putString("outletCode", currentOutlet.getOutletCode());
                                                                   editor.commit();
+                                                                  UpdateSubscriptionStatusTask updateSubscriptionStatusTask = new UpdateSubscriptionStatusTask(OutletDetailsActivity.this);
+                                                                  updateSubscriptionStatusTask.execute();
                                                                   progressDialog.dismiss();
                                                                   Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
                                                                   configureRewards.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
