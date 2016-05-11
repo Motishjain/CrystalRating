@@ -82,18 +82,21 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
             @Override
             public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
                 SaveServiceReponse saveServiceReponse = response.body();
-                progressDialog.dismiss();
                 if (saveServiceReponse.isSuccess()) {
-                    onTaskCompleted.onTaskCompleted();
+                    Log.e("Reward Configuration","Rewards saved successfully");
+                }
+                else {
+                    Log.e("Reward Configuration","Unable to save rewards");
                 }
             }
 
             @Override
             public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
-                progressDialog.dismiss();
                 Log.e("Reward Configuration","Unable to save rewards");
             }
         });
+        progressDialog.dismiss();
+        onTaskCompleted.onTaskCompleted();
         return null;
     }
 
