@@ -214,7 +214,7 @@ public class OutletDetailsActivity extends BaseActivity {
                                                                   updateSubscriptionStatusTask.execute();
                                                                   progressDialog.dismiss();
                                                                   Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
-                                                                  configureRewards.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                                  configureRewards.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                   startActivity(configureRewards);
                                                               } catch (SQLException e) {
                                                                   e.printStackTrace();
