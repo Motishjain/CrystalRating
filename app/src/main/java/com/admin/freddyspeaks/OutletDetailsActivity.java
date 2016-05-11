@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
@@ -27,6 +28,7 @@ import com.admin.receiver.DeviceBootReceiver;
 import com.admin.receiver.SetQuestionsAlarmReceiver;
 import com.admin.services.RegistrationIntentService;
 import com.admin.tasks.UpdateSubscriptionStatusTask;
+import com.admin.util.NetworkUtil;
 import com.admin.util.ValidationUtil;
 import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
@@ -86,7 +88,7 @@ public class OutletDetailsActivity extends BaseActivity {
         email = (EditText) findViewById(R.id.inputEmailText);
         phoneNumber = (EditText) findViewById(R.id.inputPhoneNumberText);
         nextButton = (Button) findViewById(R.id.registerOutletNextButton);
-        resetButton =(Button) findViewById(R.id.reset_button);
+        resetButton = (Button) findViewById(R.id.reset_button);
         registerOutletHeader = (TextView) findViewById(R.id.registerOutletHeader);
         activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
         progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
@@ -121,131 +123,137 @@ public class OutletDetailsActivity extends BaseActivity {
         }
 
         nextButton.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
-                                              ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter the Outlet Name");
-                                              ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter the Address Line1");
-                                              ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter the Address Line2");
-                                              ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter the Pin Code");
-                                              ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter the Email Id");
-                                              ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter the Phone Number");
+            @Override
+            public void onClick(View v) {
+                ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter the Outlet Name");
+                ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter the Address Line1");
+                ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter the Address Line2");
+                ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter the Pin Code");
+                ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter the Email Id");
+                ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter the Phone Number");
 
-                                              if (!ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter the Outlet Name") &&
-                                                      !ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter the Address Line1") &&
-                                                      !ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter the Address Line2") &&
-                                                      !ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter the Pin Code") &&
-                                                      !ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter the Email Id") &&
-                                                      !ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter the Phone Number"))
-                                              {
-                                                    if (editMode) {
-                                                        progressDialog.setMessage("Updating Outlet Details...");
-                                                    }
-                                                    else {
-                                                        progressDialog.setMessage("Registering Outlet...");
-                                                    }
 
-                                              progressDialog.show();
-                                              final OutletRequest outletRequest = new OutletRequest();
-                                              outletRequest.setOutletName(outletName.getText().toString());
-                                              outletRequest.setAddrLine1(addrLine1.getText().toString());
-                                              outletRequest.setOutletType(AppConstants.OUTLET_TYPE);
-                                              outletRequest.setAddrLine2(addrLine2.getText().toString());
-                                              outletRequest.setPinCode(pinCode.getText().toString());
-                                              outletRequest.setEmail(email.getText().toString());
-                                              outletRequest.setCellNumber(phoneNumber.getText().toString());
-                                              outletRequest.setCreatedDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                //TODO why double validations?
 
-                                              RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-                                              Call<SaveServiceReponse> registerOutletCall = restEndpointInterface.registerOutlet(outletRequest);
-                                              registerOutletCall.enqueue(new Callback<SaveServiceReponse>() {
-                                                  @Override
-                                                  public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
-                                                      SaveServiceReponse saveServiceReponse = response.body();
-                                                      if (saveServiceReponse.isSuccess()) {
-                                                          if (currentOutlet == null) {
-                                                              currentOutlet = new Outlet();
-                                                          }
-                                                          currentOutlet.setOutletCode(saveServiceReponse.getData().toString());
-                                                          currentOutlet.setOutletName(outletRequest.getOutletName());
-                                                          currentOutlet.setAddrLine1(outletRequest.getAddrLine1());
-                                                          currentOutlet.setAddrLine2(outletRequest.getAddrLine2());
-                                                          currentOutlet.setPinCode(outletRequest.getPinCode());
-                                                          currentOutlet.setEmail(outletRequest.getEmail());
-                                                          currentOutlet.setCellNumber(outletRequest.getCellNumber());
+                if (!ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter the Outlet Name") &&
+                        !ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter the Address Line1") &&
+                        !ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter the Address Line2") &&
+                        !ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter the Pin Code") &&
+                        !ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter the Email Id") &&
+                        !ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter the Phone Number")) {
+                    if (editMode) {
+                        progressDialog.setMessage("Updating Outlet Details...");
+                    } else {
+                        progressDialog.setMessage("Registering Outlet...");
+                    }
 
-                                                          //Check if this is create mode (Register Outlet)
-                                                          if (!editMode) {
-                                                              try {
+                    progressDialog.show();
+                    if(!NetworkUtil.isNetworkAvailable(OutletDetailsActivity.this)){
+                        progressDialog.dismiss();
+                        Toast.makeText(OutletDetailsActivity.this,"Check your internet connection",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    final OutletRequest outletRequest = new OutletRequest();
+                    outletRequest.setOutletName(outletName.getText().toString());
+                    outletRequest.setAddrLine1(addrLine1.getText().toString());
+                    outletRequest.setOutletType(AppConstants.OUTLET_TYPE);
+                    outletRequest.setAddrLine2(addrLine2.getText().toString());
+                    outletRequest.setPinCode(pinCode.getText().toString());
+                    outletRequest.setEmail(email.getText().toString());
+                    outletRequest.setCellNumber(phoneNumber.getText().toString());
+                    outletRequest.setCreatedDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
-                                                                  //Register GCM token with app server
-                                                                  Intent gcmRegistrationIntent = new Intent(OutletDetailsActivity.this, RegistrationIntentService.class);
-                                                                  startService(gcmRegistrationIntent);
-                                                                  // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
+                    RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+                    Call<SaveServiceReponse> registerOutletCall = restEndpointInterface.registerOutlet(outletRequest);
+                    registerOutletCall.enqueue(new Callback<SaveServiceReponse>() {
+                        @Override
+                        public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
+                            SaveServiceReponse saveServiceReponse = response.body();
+                            if (saveServiceReponse.isSuccess()) {
+                                if (currentOutlet == null) {
+                                    currentOutlet = new Outlet();
+                                }
+                                currentOutlet.setOutletCode(saveServiceReponse.getData().toString());
+                                currentOutlet.setOutletName(outletRequest.getOutletName());
+                                currentOutlet.setAddrLine1(outletRequest.getAddrLine1());
+                                currentOutlet.setAddrLine2(outletRequest.getAddrLine2());
+                                currentOutlet.setPinCode(outletRequest.getPinCode());
+                                currentOutlet.setEmail(outletRequest.getEmail());
+                                currentOutlet.setCellNumber(outletRequest.getCellNumber());
 
-                                                                  alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                                                                  Intent setQuestionsIntent = new Intent(OutletDetailsActivity.this, SetQuestionsAlarmReceiver.class);
-                                                                  setQuestionsAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, setQuestionsIntent, 0);
+                                //Check if this is create mode (Register Outlet)
+                                if (!editMode) {
+                                    try {
 
-                                                                  Intent checkSubscriptionIntent = new Intent(OutletDetailsActivity.this, CheckSubscriptionAlarmReceiver.class);
-                                                                  checkSubscriptionAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, checkSubscriptionIntent, 0);
+                                        //Register GCM token with app server
+                                        Intent gcmRegistrationIntent = new Intent(OutletDetailsActivity.this, RegistrationIntentService.class);
+                                        startService(gcmRegistrationIntent);
+                                        // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
-                                                                  Calendar calendar = Calendar.getInstance();
-                                                                  calendar.setTimeInMillis(System.currentTimeMillis());
-                                                                  calendar.set(Calendar.HOUR_OF_DAY, 0);
-                                                                  alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                                                                          AlarmManager.INTERVAL_DAY, setQuestionsAlarmIntent);
+                                        alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                                        Intent setQuestionsIntent = new Intent(OutletDetailsActivity.this, SetQuestionsAlarmReceiver.class);
+                                        setQuestionsAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, setQuestionsIntent, 0);
 
-                                                                  calendar.set(Calendar.HOUR_OF_DAY, 14);
+                                        Intent checkSubscriptionIntent = new Intent(OutletDetailsActivity.this, CheckSubscriptionAlarmReceiver.class);
+                                        checkSubscriptionAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, checkSubscriptionIntent, 0);
 
-                                                                  alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                                                                          AlarmManager.INTERVAL_DAY, checkSubscriptionAlarmIntent);
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTimeInMillis(System.currentTimeMillis());
+                                        calendar.set(Calendar.HOUR_OF_DAY, 0);
+                                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                                AlarmManager.INTERVAL_DAY, setQuestionsAlarmIntent);
 
-                                                                  ComponentName receiver = new ComponentName(OutletDetailsActivity.this, DeviceBootReceiver.class);
-                                                                  PackageManager pm = getApplicationContext().getPackageManager();
-                                                                  pm.setComponentEnabledSetting(receiver,
-                                                                          PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                                                                          PackageManager.DONT_KILL_APP);
-                                                                  outletDao.create(currentOutlet);
-                                                                  SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                                                  SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                                  editor.putString("outletCode", currentOutlet.getOutletCode());
-                                                                  editor.commit();
-                                                                  UpdateSubscriptionStatusTask updateSubscriptionStatusTask = new UpdateSubscriptionStatusTask(OutletDetailsActivity.this);
-                                                                  updateSubscriptionStatusTask.execute();
-                                                                  progressDialog.dismiss();
-                                                                  Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
-                                                                  configureRewards.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                                  startActivity(configureRewards);
-                                                              } catch (SQLException e) {
-                                                                  e.printStackTrace();
-                                                              }
-                                                          } else {
-                                                              try {
-                                                                  UpdateBuilder<Outlet, Integer> outletUpdateBuilder = outletDao.updateBuilder();
-                                                                  outletUpdateBuilder.updateColumnValue("outletName", currentOutlet.getOutletName());
-                                                                  outletUpdateBuilder.updateColumnValue("addrLine1", currentOutlet.getAddrLine1());
-                                                                  outletUpdateBuilder.updateColumnValue("addrLine2", currentOutlet.getAddrLine2());
-                                                                  outletUpdateBuilder.updateColumnValue("pinCode", currentOutlet.getPinCode());
-                                                                  outletUpdateBuilder.updateColumnValue("email", currentOutlet.getEmail());
-                                                                  outletUpdateBuilder.updateColumnValue("cellNumber", currentOutlet.getCellNumber());
-                                                                  outletUpdateBuilder.where().eq("outletCode", currentOutlet.getOutletCode());
-                                                                  outletUpdateBuilder.update();
-                                                                  progressDialog.dismiss();
-                                                                  OutletDetailsActivity.this.finish();
-                                                              } catch (SQLException e) {
-                                                                  e.printStackTrace();
-                                                              }
-                                                          }
-                                                      }
-                                                  }
+                                        calendar.set(Calendar.HOUR_OF_DAY, 14);
 
-                                                  @Override
-                                                  public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
-                                                      Log.e("Outlet details", "Unable to save outlet");
-                                                  }
-                                              });
-                                          }
-                                          }
+                                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                                AlarmManager.INTERVAL_DAY, checkSubscriptionAlarmIntent);
+
+                                        ComponentName receiver = new ComponentName(OutletDetailsActivity.this, DeviceBootReceiver.class);
+                                        PackageManager pm = getApplicationContext().getPackageManager();
+                                        pm.setComponentEnabledSetting(receiver,
+                                                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                                                PackageManager.DONT_KILL_APP);
+                                        outletDao.create(currentOutlet);
+                                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("outletCode", currentOutlet.getOutletCode());
+                                        editor.commit();
+                                        UpdateSubscriptionStatusTask updateSubscriptionStatusTask = new UpdateSubscriptionStatusTask(OutletDetailsActivity.this);
+                                        updateSubscriptionStatusTask.execute();
+                                        progressDialog.dismiss();
+                                        Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
+                                        configureRewards.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(configureRewards);
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        UpdateBuilder<Outlet, Integer> outletUpdateBuilder = outletDao.updateBuilder();
+                                        outletUpdateBuilder.updateColumnValue("outletName", currentOutlet.getOutletName());
+                                        outletUpdateBuilder.updateColumnValue("addrLine1", currentOutlet.getAddrLine1());
+                                        outletUpdateBuilder.updateColumnValue("addrLine2", currentOutlet.getAddrLine2());
+                                        outletUpdateBuilder.updateColumnValue("pinCode", currentOutlet.getPinCode());
+                                        outletUpdateBuilder.updateColumnValue("email", currentOutlet.getEmail());
+                                        outletUpdateBuilder.updateColumnValue("cellNumber", currentOutlet.getCellNumber());
+                                        outletUpdateBuilder.where().eq("outletCode", currentOutlet.getOutletCode());
+                                        outletUpdateBuilder.update();
+                                        progressDialog.dismiss();
+                                        OutletDetailsActivity.this.finish();
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
+                            Log.e("Outlet details", "Unable to save outlet");
+                        }
+                    });
+                }
+            }
 
         });
         resetButton.setOnClickListener(new View.OnClickListener() {
@@ -261,25 +269,25 @@ public class OutletDetailsActivity extends BaseActivity {
         });
     }
 
-            void populateFields(Dao<Outlet, Integer> outletDao) {
+    void populateFields(Dao<Outlet, Integer> outletDao) {
 
-                QueryBuilder<Outlet, Integer> outletQueryBuilder = outletDao.queryBuilder();
-                try {
-                    currentOutlet = outletQueryBuilder.queryForFirst();
-                    outletName.setText(currentOutlet.getOutletName());
-                    addrLine1.setText(currentOutlet.getAddrLine1());
-                    addrLine2.setText(currentOutlet.getAddrLine2());
-                    pinCode.setText(currentOutlet.getPinCode());
-                    email.setText(currentOutlet.getEmail());
-                    phoneNumber.setText(currentOutlet.getCellNumber());
-                } catch (SQLException e) {
-                    Log.e("OutletDetailsActivity", "Outlet details fetch error");
-                }
-            }
-
-            public void closeActivity(View v) {
-                if (editMode) {
-                    this.finish();
-                }
-            }
+        QueryBuilder<Outlet, Integer> outletQueryBuilder = outletDao.queryBuilder();
+        try {
+            currentOutlet = outletQueryBuilder.queryForFirst();
+            outletName.setText(currentOutlet.getOutletName());
+            addrLine1.setText(currentOutlet.getAddrLine1());
+            addrLine2.setText(currentOutlet.getAddrLine2());
+            pinCode.setText(currentOutlet.getPinCode());
+            email.setText(currentOutlet.getEmail());
+            phoneNumber.setText(currentOutlet.getCellNumber());
+        } catch (SQLException e) {
+            Log.e("OutletDetailsActivity", "Outlet details fetch error");
         }
+    }
+
+    public void closeActivity(View v) {
+        if (editMode) {
+            this.finish();
+        }
+    }
+}

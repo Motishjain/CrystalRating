@@ -8,9 +8,7 @@ import android.view.View;
 
 import com.admin.database.Reward;
 import com.admin.tasks.BuildSelectRewardFragmentsTask;
-import com.admin.tasks.FetchSubscriptionTask;
 import com.admin.tasks.SaveRewardsTask;
-import com.admin.util.DialogBuilderUtil;
 import com.admin.view.CustomProgressDialog;
 
 import java.util.ArrayList;

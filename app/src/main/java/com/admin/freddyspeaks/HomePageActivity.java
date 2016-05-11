@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.admin.adapter.UserPhoneNumberInputAdapter;
 import com.admin.database.DBHelper;
@@ -55,6 +57,15 @@ public class HomePageActivity extends BaseActivity {
         inputUserPhoneNumberLayout = (TextInputLayout) findViewById(R.id.inputUserPhoneNumberLayout);
         autoCompleteInputUserPhoneNumberText =(AutoCompleteTextView)findViewById(R.id.autoCompleteInputUserPhoneNumberText);
 
+        autoCompleteInputUserPhoneNumberText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    saveAndNext();
+                }
+                return false;
+            }
+        });
+
         final UserPhoneNumberInputAdapter adapter = new UserPhoneNumberInputAdapter(this,
                 R.layout.userinfo_autosuggest, userList);
 
@@ -63,27 +74,31 @@ public class HomePageActivity extends BaseActivity {
         getStartedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (autoCompleteInputUserPhoneNumberText.getText().toString().equals("")) {
-                    inputUserPhoneNumberLayout.setError("Please enter phone number");
-                    autoCompleteInputUserPhoneNumberText.findFocus();
-                    return;
-                }
-                queryBuilder.reset();
-                try {
-                    queryBuilder.where().eq("phoneNumber", autoCompleteInputUserPhoneNumberText.getText().toString().trim());
-                    userList = queryBuilder.query();
-                    if (userList == null || userList.size() == 0) {
-                        User newUser = new User();
-                        newUser.setPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
-                        userDao.create(newUser);
-                    }
-                    Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
-                    startActivity(getRating);
-                }
-                catch(SQLException e) {
-                    Log.e("HomePageActivity","Failed to save user",e);
-                }
+                saveAndNext();
             }
         });
+    }
+
+    void saveAndNext() {
+        if (autoCompleteInputUserPhoneNumberText.getText().toString().equals("")) {
+            inputUserPhoneNumberLayout.setError("Please enter phone number");
+            autoCompleteInputUserPhoneNumberText.findFocus();
+            return;
+        }
+        queryBuilder.reset();
+        try {
+            queryBuilder.where().eq("phoneNumber", autoCompleteInputUserPhoneNumberText.getText().toString().trim());
+            userList = queryBuilder.query();
+            if (userList == null || userList.size() == 0) {
+                User newUser = new User();
+                newUser.setPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
+                userDao.create(newUser);
+            }
+            Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
+            startActivity(getRating);
+        }
+        catch(SQLException e) {
+            Log.e("HomePageActivity","Failed to save user",e);
+        }
     }
 }

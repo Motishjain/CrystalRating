@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.admin.adapter.SelectedRewardsBoxAdapter;
 import com.admin.constants.AppConstants;
@@ -23,6 +24,7 @@ import com.admin.database.Question;
 import com.admin.database.SelectedReward;
 import com.admin.dialogs.CustomDialogFragment;
 import com.admin.tasks.SetRandomQuestionsTask;
+import com.admin.util.NetworkUtil;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.QuestionResponse;
@@ -253,6 +255,10 @@ public class RewardConfigurationActivity extends AppCompatActivity
 
     void fetchQuestionsAndMove() {
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+        if(!NetworkUtil.isNetworkAvailable(this)){
+            Toast.makeText(this,"Check your internet connection",Toast.LENGTH_LONG).show();
+            return;
+        }
         Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
         fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
             @Override

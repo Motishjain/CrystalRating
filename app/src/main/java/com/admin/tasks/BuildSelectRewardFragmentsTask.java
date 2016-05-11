@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
@@ -15,6 +16,7 @@ import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.freddyspeaks.R;
 import com.admin.freddyspeaks.RewardSelectionActivity;
+import com.admin.util.NetworkUtil;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.RewardResponse;
@@ -89,6 +91,11 @@ public class BuildSelectRewardFragmentsTask extends AsyncTask<RewardSelectionAct
     }
 
     public void fetchRewards(final RewardSelectionActivity activity) {
+        if(!NetworkUtil.isNetworkAvailable(activity)){
+            progressDialog.dismiss();
+            Toast.makeText(activity,"Check your internet connection",Toast.LENGTH_LONG).show();
+            return;
+        }
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<List<RewardResponse>> fetchRewardsCall = restEndpointInterface.fetchRewards(AppConstants.OUTLET_TYPE);
         fetchRewardsCall.enqueue(new Callback<List<RewardResponse>>() {
