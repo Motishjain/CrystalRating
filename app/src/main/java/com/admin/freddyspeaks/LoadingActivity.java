@@ -44,6 +44,7 @@ public class LoadingActivity extends BaseActivity implements ApplicationStartupT
         if(outletCode!=null){
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             Boolean areQuestionsFetched = sharedPreferences.getBoolean("areQuestionsFetched", false) ;
+
             if(areQuestionsFetched) {
                 Intent homePage = new Intent(LoadingActivity.this,HomePageActivity.class);
                 homePage.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -53,6 +54,7 @@ public class LoadingActivity extends BaseActivity implements ApplicationStartupT
                 Intent configureRewards = new Intent(LoadingActivity.this,RewardConfigurationActivity.class);
                 configureRewards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(configureRewards);
+
             }
         }
         else {

@@ -21,6 +21,7 @@ import com.admin.animation.ViewPagerCustomDuration;
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Question;
+import com.admin.database.SelectedReward;
 import com.admin.dialogs.CustomDialogFragment;
 import com.admin.util.DialogBuilderUtil;
 import com.admin.util.ImageUtility;
@@ -41,9 +42,12 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
 
     Dao<Question, Integer> questionDao;
+    Dao<SelectedReward, Integer> selectedRewardDao;
     ImageView backgroundRatingImage, ratingBackArrow, ratingNextArrow;
     QueryBuilder<Question, Integer> questionQueryBuilder;
+    QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
     public List<Question> questionList;
+    public List<SelectedReward> rewardList;
     int totalQuestions;
     Set<Integer> answeredQuestionIndexSet = new HashSet<>();
     int currentQuestionIndex;
@@ -54,7 +58,6 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     Button ratingDoneButton;
     CustomDialogFragment dialogConfirmExit;
     FeedbackRequest feedback;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,16 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             setupRatingScreens();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        try {
+            selectedRewardDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("SelectedReward");
+            selectedRewardQueryBuilder = selectedRewardDao.queryBuilder();
+            rewardList = selectedRewardQueryBuilder.query();
+            //updateScreen();
+
+        } catch (Exception e) {
+            Log.e("RewardConfiguration", "Unable to fetch selected rewards");
         }
 
         ratingBarPager.setPageTransformer(true, new DepthPageTransformer());
@@ -146,9 +159,16 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             currentQuestionIndex++;
             displayQuestion(currentQuestionIndex);
         } else {
-            Intent getBillDetails = new Intent(GetRatingActivity.this, BillDetailsActivity.class);
-            getBillDetails.putExtra("feedback", feedback);
-            startActivity(getBillDetails);
+                if(rewardList.size()>0) {
+                    Intent getBillDetails = new Intent(GetRatingActivity.this, BillDetailsActivity.class);
+                    getBillDetails.putExtra("feedback", feedback);
+                    startActivity(getBillDetails);
+                }
+            else{
+                    Intent noRewardThankYou = new Intent(GetRatingActivity.this, ThankYouActivity.class);
+                    noRewardThankYou.putExtra("feedback", feedback);
+                    startActivity(noRewardThankYou);
+                }
         }
     }
 

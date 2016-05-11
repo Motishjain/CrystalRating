@@ -125,22 +125,12 @@ public class OutletDetailsActivity extends BaseActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter the Outlet Name");
-                ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter the Address Line1");
-                ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter the Address Line2");
-                ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter the Pin Code");
-                ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter the Email Id");
-                ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter the Phone Number");
-
-
-                //TODO why double validations?
-
-                if (!ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter the Outlet Name") &&
-                        !ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter the Address Line1") &&
-                        !ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter the Address Line2") &&
-                        !ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter the Pin Code") &&
-                        !ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter the Email Id") &&
-                        !ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter the Phone Number")) {
+                if (!ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter the Outlet Name") &
+                        !ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter the Address Line1") &
+                        !ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter the Address Line2") &
+                        !ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter the Pin Code") &
+                        !ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter the Email Id") &
+                        !ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter the Mobile Number")) {
                     if (editMode) {
                         progressDialog.setMessage("Updating Outlet Details...");
                     } else {
