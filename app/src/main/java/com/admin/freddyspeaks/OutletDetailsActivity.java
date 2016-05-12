@@ -125,12 +125,14 @@ public class OutletDetailsActivity extends BaseActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter the Outlet Name") &
-                        !ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter the Address Line1") &
-                        !ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter the Address Line2") &
-                        !ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter the Pin Code") &
-                        !ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter the Email Id") &
-                        !ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter the Mobile Number")) {
+                if (!ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter your Outlet Name") &
+                        !ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter Address Line 1") &
+                        !ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter Address Line 2") &
+                        !ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter Pin code") &
+                        !ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter your Email Id") &
+                        !ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter your mobile number") &
+                        ValidationUtil.isValidEmail(email,inputEmailLayout,"Please enter valid email id") &
+                        ValidationUtil.isValidCellNumber(phoneNumber,inputPhoneNumberLayout,"Please enter valid mobile number")) {
                     if (editMode) {
                         progressDialog.setMessage("Updating Outlet Details...");
                     } else {
