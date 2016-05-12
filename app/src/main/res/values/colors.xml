@@ -29,4 +29,5 @@
     <color name="floating_line">#FF6A4351</color>
     <color name="thanks_screen">#485791</color>
     <color name="thanks_screen_button">#ACBBAE</color>
+    <color name="transparent">#00000000</color>
 </resources>

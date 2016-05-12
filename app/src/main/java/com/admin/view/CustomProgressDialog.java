@@ -17,7 +17,7 @@ public class CustomProgressDialog extends ProgressDialog {
 
     public static ProgressDialog createCustomProgressDialog(Context context) {
 
-        CustomProgressDialog dialog = new CustomProgressDialog(context);
+        CustomProgressDialog dialog = new CustomProgressDialog(context,R.style.MyTheme);
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         return dialog;
