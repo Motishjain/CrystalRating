@@ -51,4 +51,17 @@ public class ValidationUtil {
             return false;
         }
     }
+    public static boolean isValidPincode(TextView textView, TextInputLayout textInputLayout, String errorMessage) {
+        String pinCode = textView.getText().toString();
+        if (pinCode.trim().equals("")) {
+            return false;
+        }
+        if (pinCode.trim().length()==6) {
+            return true;
+        } else {
+            textInputLayout.setError(errorMessage);
+            textView.findFocus();
+            return false;
+        }
+    }
 }
