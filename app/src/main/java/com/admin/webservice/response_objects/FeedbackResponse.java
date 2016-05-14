@@ -10,16 +10,6 @@ import java.util.Map;
  */
 public class FeedbackResponse {
 
-    public FeedbackResponse(List<Rating> ratings,String userName,String userPhoneNumber,Timestamp createdDate,String billNumber,String billAmount, String rewardId){
-        this.ratings = ratings;
-        this.userName = userName;
-        this.userPhoneNumber = userPhoneNumber;
-        this.createdDate = createdDate;
-        this.billNumber = billNumber;
-        this.billAmount = billAmount;
-        this.rewardId = rewardId;
-    }
-
     private List<Rating> ratings;
     private String userName;
     private String userPhoneNumber;

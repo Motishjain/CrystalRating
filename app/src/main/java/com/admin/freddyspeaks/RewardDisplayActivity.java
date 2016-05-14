@@ -1,5 +1,8 @@
 package com.admin.freddyspeaks;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,22 +12,31 @@ import android.widget.ImageView;
 
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
+import com.admin.database.FailedServiceCall;
 import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.database.User;
 import com.admin.dialogs.CustomDialogFragment;
+import com.admin.receiver.CheckSubscriptionAlarmReceiver;
+import com.admin.receiver.FailedServiceCallReceiver;
 import com.admin.tasks.FetchRewardImageTask;
 import com.admin.util.RewardAllocationUtility;
 import com.admin.view.CustomFontTextView;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
+import com.admin.webservice.WebServiceUtility;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.admin.webservice.response_objects.SaveServiceReponse;
+import com.google.gson.Gson;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -107,28 +119,7 @@ public class RewardDisplayActivity extends BaseActivity {
             feedback.setRewardCategory(allocatedReward.getRewardCategory());
             feedback.setRewardId(allocatedReward.getReward().getRewardId());
         }
-        submitFeedback();
-    }
-
-    void submitFeedback() {
-        feedback.setCreatedDate(new Date().toString());
-        RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        Call<SaveServiceReponse> submitFeedbackCall = restEndpointInterface.submitFeedback(feedback);
-        submitFeedbackCall.enqueue(new Callback<SaveServiceReponse>() {
-            @Override
-            public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
-                SaveServiceReponse saveServiceReponse = response.body();
-
-                if (saveServiceReponse.isSuccess()) {
-                    Log.i("Reward display","Feedback sent successfully");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
-                Log.e("Reward display","Failed to submit feedback");
-            }
-        });
+        WebServiceUtility.submitFeedback(this,feedback);
     }
 
     public void exit(View v) {

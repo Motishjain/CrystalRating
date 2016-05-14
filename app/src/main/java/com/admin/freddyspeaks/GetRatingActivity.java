@@ -77,10 +77,10 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         ratingMap = new HashMap<>();
 
 
-        feedback = new FeedbackRequest();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String outletCode = sharedPreferences.getString("outletCode", null);
-        feedback.setOutletCode(outletCode);
+        Bundle extras = getIntent().getExtras();
+        feedback = (FeedbackRequest)extras.get("feedback");
+
+
 
         if (feedback != null && feedback.getRatingsMap() == null) {
             feedback.setRatingsMap(ratingMap);

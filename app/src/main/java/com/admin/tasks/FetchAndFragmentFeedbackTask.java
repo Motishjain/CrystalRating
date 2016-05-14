@@ -87,6 +87,7 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragmen
         c.add(Calendar.DAY_OF_MONTH,1);
 
         Call<List<FeedbackResponse>> fetchRewardsCall = restEndpointInterface.fetchFeedback(outletCode, webServiceDateFormat.format(fromDate), webServiceDateFormat.format(c.getTime()));
+
         fetchRewardsCall.enqueue(new Callback<List<FeedbackResponse>>() {
             @Override
             public void onResponse(Call<List<FeedbackResponse>> call, Response<List<FeedbackResponse>> response) {

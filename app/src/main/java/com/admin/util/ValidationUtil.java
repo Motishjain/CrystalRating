@@ -3,6 +3,8 @@ package com.admin.util;
 import android.support.design.widget.TextInputLayout;
 import android.widget.TextView;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by Admin on 4/14/2016.
  */
@@ -43,7 +45,7 @@ public class ValidationUtil {
         if (cellNumber.trim().equals("")) {
             return false;
         }
-        if (android.util.Patterns.PHONE.matcher(cellNumber).matches()) {
+        if (cellNumber.trim().length()==10) {
             return true;
         } else {
             textInputLayout.setError(errorMessage);
