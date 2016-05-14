@@ -9,10 +9,12 @@ import android.widget.ImageView;
 
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
+import com.admin.database.FailedServiceCall;
 import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.database.User;
 import com.admin.dialogs.CustomDialogFragment;
+import com.admin.receiver.FailedServiceCallReceiver;
 import com.admin.tasks.FetchRewardImageTask;
 import com.admin.util.RewardAllocationUtility;
 import com.admin.view.CustomFontTextView;
@@ -20,11 +22,14 @@ import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.admin.webservice.response_objects.SaveServiceReponse;
+import com.google.gson.Gson;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -37,6 +42,7 @@ public class RewardDisplayActivity extends BaseActivity {
     Dao<SelectedReward, Integer> selectedRewardDao;
     SelectedReward allocatedReward;
     Dao<User, Integer> userDao;
+    Dao<FailedServiceCall, Integer> failedServiceCallDao;
     CustomFontTextView rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
     CustomFontTextView rewardNotFoundExclaimer,rewardNotFoundMessage,thankYouMessage1,thankYouMessage2;
     ImageView resultRewardImage;
@@ -127,6 +133,20 @@ public class RewardDisplayActivity extends BaseActivity {
             @Override
             public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
                 Log.e("Reward display","Failed to submit feedback");
+                try {
+                    failedServiceCallDao = OpenHelperManager.getHelper(RewardDisplayActivity.this, DBHelper.class).getCustomDao("FailedServiceCall");
+                    FailedServiceCall failedServiceCall = new FailedServiceCall();
+                    failedServiceCall.setServiceName("submitFeedback");
+                    List<Object> parameters = new ArrayList<>();
+                    parameters.add(feedback);
+                    Gson gson = new Gson();
+                    failedServiceCall.setParametersJsonString(gson.toJson(parameters));
+                    failedServiceCallDao.create(failedServiceCall);
+
+                    new FailedServiceCallReceiver().onReceive(RewardDisplayActivity.this,null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
