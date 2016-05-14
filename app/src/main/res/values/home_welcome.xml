@@ -6,6 +6,6 @@
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/dark_red</item>
         <item name="android:layout_marginTop">5dp</item>
-        <item name="fontFamilyFile">@string/applicationFont</item>
+        <item name="fontFamilyFile">@string/questionFont</item>
     </style>
 </resources>

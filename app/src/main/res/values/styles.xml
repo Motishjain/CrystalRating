@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
-        <item name="android:textColorHint">#237414</item>
+        <item name="android:textColorHint">#321f18</item>
         <item name="android:textColorPrimary">@color/dark_red</item>
         <item name="android:textColorSecondary">@color/white</item>
     </style>
@@ -62,5 +62,11 @@
         <item name="android:topDark">@color/transparent</item>
     </style>
 
+    <style name="homePageStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+            <item name="fontFamilyFile">@string/applicationFont</item>
+            <item name="android:textColorHint">@color/dark_orange</item>
+            <item name="colorControlNormal">#321f18</item>
+            <item name="colorControlActivated">@color/colorPrimaryDark</item>
+    </style>
 
 </resources>

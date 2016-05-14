@@ -128,11 +128,8 @@ public class OutletDetailsActivity extends BaseActivity {
                 if (!ValidationUtil.isTextViewEmpty(outletName, inputOutletNameLayout, "Please enter your Outlet Name") &
                         !ValidationUtil.isTextViewEmpty(addrLine1, inputaddressLine1Layout, "Please enter Address Line 1") &
                         !ValidationUtil.isTextViewEmpty(addrLine2, inputaddressLine2Layout, "Please enter Address Line 2") &
-                        !ValidationUtil.isTextViewEmpty(pinCode, inputPinCodeLayout, "Please enter Pin code") &
-                        !ValidationUtil.isTextViewEmpty(email, inputEmailLayout, "Please enter your Email Id") &
-                        !ValidationUtil.isTextViewEmpty(phoneNumber, inputPhoneNumberLayout, "Please enter your mobile number") &
-                        ValidationUtil.isValidEmail(email,inputEmailLayout,"Please enter valid email id") &
-                        ValidationUtil.isValidCellNumber(phoneNumber,inputPhoneNumberLayout,"Please enter valid mobile number") &
+                        ValidationUtil.isValidEmail(email,inputEmailLayout,"Please enter valid Email Id") &
+                        ValidationUtil.isValidCellNumber(phoneNumber,inputPhoneNumberLayout,"Please enter valid Mobile Number") &
                         ValidationUtil.isValidPincode(pinCode,inputPinCodeLayout,"Please enter valid pin code")) {
                     if (editMode) {
                         progressDialog.setMessage("Updating Outlet Details...");
