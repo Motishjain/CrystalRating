@@ -1,5 +1,8 @@
 package com.admin.freddyspeaks;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +17,7 @@ import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.database.User;
 import com.admin.dialogs.CustomDialogFragment;
+import com.admin.receiver.CheckSubscriptionAlarmReceiver;
 import com.admin.receiver.FailedServiceCallReceiver;
 import com.admin.tasks.FetchRewardImageTask;
 import com.admin.util.RewardAllocationUtility;
@@ -25,8 +29,10 @@ import com.admin.webservice.response_objects.SaveServiceReponse;
 import com.google.gson.Gson;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -135,13 +141,24 @@ public class RewardDisplayActivity extends BaseActivity {
                 Log.e("Reward display","Failed to submit feedback");
                 try {
                     failedServiceCallDao = OpenHelperManager.getHelper(RewardDisplayActivity.this, DBHelper.class).getCustomDao("FailedServiceCall");
+                    QueryBuilder<FailedServiceCall, Integer> failedServiceCallQueryBuilder = failedServiceCallDao.queryBuilder();
+                    List<FailedServiceCall> failedServiceCalls =  failedServiceCallQueryBuilder.query();
+                    if(failedServiceCalls.size()==0) {
+                        Intent failedServiceIntent = new Intent(RewardDisplayActivity.this, FailedServiceCallReceiver.class);
+                        PendingIntent failedServicePendingIntent = PendingIntent.getBroadcast(RewardDisplayActivity.this, 0, failedServiceIntent, 0);
+                        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                        Calendar calendar = Calendar.getInstance();
+                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                3*AlarmManager.INTERVAL_HOUR, failedServicePendingIntent);
+                    }
+
                     FailedServiceCall failedServiceCall = new FailedServiceCall();
                     failedServiceCall.setServiceId("1");
                     Gson gson = new Gson();
                     failedServiceCall.setParametersJsonString(gson.toJson(feedback));
                     failedServiceCallDao.create(failedServiceCall);
 
-                    new FailedServiceCallReceiver().onReceive(RewardDisplayActivity.this,null);
+                    //new FailedServiceCallReceiver().onReceive(RewardDisplayActivity.this,null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

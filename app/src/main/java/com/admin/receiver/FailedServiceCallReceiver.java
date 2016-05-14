@@ -1,5 +1,7 @@
 package com.admin.receiver;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +35,7 @@ public class FailedServiceCallReceiver extends BroadcastReceiver {
     Dao<FailedServiceCall, Integer> failedServiceCallDao;
     QueryBuilder<FailedServiceCall, Integer> failedServiceCallQueryBuilder;
     DeleteBuilder<FailedServiceCall, Integer> failedServiceCallDeleteBuilder;
+    int failedServiceCallCount;
     RestEndpointInterface restEndpointInterface;
     Gson gson = new Gson();
     Context context;
@@ -44,8 +47,9 @@ public class FailedServiceCallReceiver extends BroadcastReceiver {
             failedServiceCallDao = OpenHelperManager.getHelper(context, DBHelper.class).getCustomDao("FailedServiceCall");
             failedServiceCallQueryBuilder = failedServiceCallDao.queryBuilder();
             List<FailedServiceCall> failedServiceCalls = failedServiceCallQueryBuilder.query();
+            failedServiceCallCount = failedServiceCalls.size();
 
-            if(failedServiceCalls.size()>0) {
+            if(failedServiceCallCount>0) {
                 failedServiceCallDeleteBuilder = failedServiceCallDao.deleteBuilder();
                 restEndpointInterface = RetrofitSingleton.newInstance();
                 for(final FailedServiceCall failedServiceCall:failedServiceCalls) {
@@ -64,35 +68,44 @@ public class FailedServiceCallReceiver extends BroadcastReceiver {
     }
 
     void submitFeedback(final FailedServiceCall failedServiceCall) {
-        try {
-            final FeedbackRequest feedback = gson.fromJson(failedServiceCall.getParametersJsonString(), new TypeToken<List<Object>>() {
-            }.getType());
-            Call<SaveServiceReponse> submitFeedbackCall = restEndpointInterface.submitFeedback(feedback);
 
-            submitFeedbackCall.enqueue(new Callback<SaveServiceReponse>() {
-                @Override
-                public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
-                    SaveServiceReponse saveServiceReponse = response.body();
-                    if (saveServiceReponse.isSuccess()) {
-                        Log.i("FailedServiceCall", "Service call retried successfully");
-                        try {
-                            failedServiceCallDeleteBuilder.reset();
-                            failedServiceCallDeleteBuilder.where().eq("id", failedServiceCall.getId());
-                            failedServiceCallDeleteBuilder.delete();
-                        } catch (SQLException e) {
-                            Log.e("FailedServiceCall", "Service call delete failed", e);
-                        }
+        failedServiceCall.getParametersJsonString();
+        final FeedbackRequest feedback = gson.fromJson(failedServiceCall.getParametersJsonString(), new TypeToken<FeedbackRequest>() {
+        }.getType());
+        Call<SaveServiceReponse> submitFeedbackCall = restEndpointInterface.submitFeedback(feedback);
+
+        submitFeedbackCall.enqueue(new Callback<SaveServiceReponse>() {
+            @Override
+            public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
+                SaveServiceReponse saveServiceReponse = response.body();
+                if (saveServiceReponse.isSuccess()) {
+                    Log.i("FailedServiceCall", "Service call retried successfully");
+                    try {
+                        failedServiceCallDeleteBuilder.reset();
+                        failedServiceCallDeleteBuilder.where().eq("id", failedServiceCall.getId());
+                        failedServiceCallDeleteBuilder.delete();
+                        failedServiceCallCount--;
+                        stopAlarmIfDone();
+                    } catch (SQLException e) {
+                        Log.e("FailedServiceCall", "Service call delete failed", e);
                     }
                 }
+            }
 
-                @Override
-                public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
-                    Log.e("FailedServiceCall", "Service call retry failed", t);
-                }
-            });
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+            @Override
+            public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
+                Log.e("FailedServiceCall", "Service call retry failed", t);
+            }
+        });
+
+    }
+
+    void stopAlarmIfDone() {
+        if(failedServiceCallCount==0) {
+            Intent failedServiceIntent = new Intent(context, FailedServiceCallReceiver.class);
+            PendingIntent failedServicePendingIntent = PendingIntent.getBroadcast(context, 0, failedServiceIntent, 0);
+            AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarmMgr.cancel(failedServicePendingIntent);
         }
     }
 }
