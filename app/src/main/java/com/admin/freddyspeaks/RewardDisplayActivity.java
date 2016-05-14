@@ -136,11 +136,9 @@ public class RewardDisplayActivity extends BaseActivity {
                 try {
                     failedServiceCallDao = OpenHelperManager.getHelper(RewardDisplayActivity.this, DBHelper.class).getCustomDao("FailedServiceCall");
                     FailedServiceCall failedServiceCall = new FailedServiceCall();
-                    failedServiceCall.setServiceName("submitFeedback");
-                    List<Object> parameters = new ArrayList<>();
-                    parameters.add(feedback);
+                    failedServiceCall.setServiceId("1");
                     Gson gson = new Gson();
-                    failedServiceCall.setParametersJsonString(gson.toJson(parameters));
+                    failedServiceCall.setParametersJsonString(gson.toJson(feedback));
                     failedServiceCallDao.create(failedServiceCall);
 
                     new FailedServiceCallReceiver().onReceive(RewardDisplayActivity.this,null);

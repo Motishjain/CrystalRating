@@ -15,7 +15,7 @@ public class FailedServiceCall implements Serializable {
     private Integer id;
 
     @DatabaseField
-    private String serviceName;
+    private String serviceId;
 
     @DatabaseField
     private String parametersJsonString;
@@ -28,12 +28,12 @@ public class FailedServiceCall implements Serializable {
         this.id = id;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getServiceId() {
+        return serviceId;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getParametersJsonString() {
