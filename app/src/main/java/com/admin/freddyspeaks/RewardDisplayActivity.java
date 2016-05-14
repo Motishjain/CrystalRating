@@ -24,6 +24,7 @@ import com.admin.util.RewardAllocationUtility;
 import com.admin.view.CustomFontTextView;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
+import com.admin.webservice.WebServiceUtility;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.admin.webservice.response_objects.SaveServiceReponse;
 import com.google.gson.Gson;
@@ -48,7 +49,6 @@ public class RewardDisplayActivity extends BaseActivity {
     Dao<SelectedReward, Integer> selectedRewardDao;
     SelectedReward allocatedReward;
     Dao<User, Integer> userDao;
-    Dao<FailedServiceCall, Integer> failedServiceCallDao;
     CustomFontTextView rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
     CustomFontTextView rewardNotFoundExclaimer,rewardNotFoundMessage,thankYouMessage1,thankYouMessage2;
     ImageView resultRewardImage;
@@ -119,51 +119,7 @@ public class RewardDisplayActivity extends BaseActivity {
             feedback.setRewardCategory(allocatedReward.getRewardCategory());
             feedback.setRewardId(allocatedReward.getReward().getRewardId());
         }
-        submitFeedback();
-    }
-
-    void submitFeedback() {
-        feedback.setCreatedDate(new Date().toString());
-        RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        Call<SaveServiceReponse> submitFeedbackCall = restEndpointInterface.submitFeedback(feedback);
-        submitFeedbackCall.enqueue(new Callback<SaveServiceReponse>() {
-            @Override
-            public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
-                SaveServiceReponse saveServiceReponse = response.body();
-
-                if (saveServiceReponse.isSuccess()) {
-                    Log.i("Reward display","Feedback sent successfully");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
-                Log.e("Reward display","Failed to submit feedback");
-                try {
-                    failedServiceCallDao = OpenHelperManager.getHelper(RewardDisplayActivity.this, DBHelper.class).getCustomDao("FailedServiceCall");
-                    QueryBuilder<FailedServiceCall, Integer> failedServiceCallQueryBuilder = failedServiceCallDao.queryBuilder();
-                    List<FailedServiceCall> failedServiceCalls =  failedServiceCallQueryBuilder.query();
-                    if(failedServiceCalls.size()==0) {
-                        Intent failedServiceIntent = new Intent(RewardDisplayActivity.this, FailedServiceCallReceiver.class);
-                        PendingIntent failedServicePendingIntent = PendingIntent.getBroadcast(RewardDisplayActivity.this, 0, failedServiceIntent, 0);
-                        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                        Calendar calendar = Calendar.getInstance();
-                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                                3*AlarmManager.INTERVAL_HOUR, failedServicePendingIntent);
-                    }
-
-                    FailedServiceCall failedServiceCall = new FailedServiceCall();
-                    failedServiceCall.setServiceId("1");
-                    Gson gson = new Gson();
-                    failedServiceCall.setParametersJsonString(gson.toJson(feedback));
-                    failedServiceCallDao.create(failedServiceCall);
-
-                    //new FailedServiceCallReceiver().onReceive(RewardDisplayActivity.this,null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        WebServiceUtility.submitFeedback(this,feedback);
     }
 
     public void exit(View v) {
