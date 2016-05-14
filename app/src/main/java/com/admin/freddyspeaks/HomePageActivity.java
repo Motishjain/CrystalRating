@@ -19,6 +19,7 @@ import com.admin.adapter.UserPhoneNumberInputAdapter;
 import com.admin.database.DBHelper;
 import com.admin.database.User;
 import com.admin.util.ImageUtility;
+import com.admin.util.ValidationUtil;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -63,7 +64,10 @@ public class HomePageActivity extends BaseActivity {
         autoCompleteInputUserPhoneNumberText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                    saveAndNext();
+
+                    if(ValidationUtil.isValidCellNumber(autoCompleteInputUserPhoneNumberText,inputUserPhoneNumberLayout,"Please enter valid Mobile Number ")){
+                        saveAndNext();
+                    }
                 }
                 return false;
             }
@@ -83,31 +87,27 @@ public class HomePageActivity extends BaseActivity {
     }
 
     void saveAndNext() {
-        if (autoCompleteInputUserPhoneNumberText.getText().toString().equals("")) {
-            inputUserPhoneNumberLayout.setError("Please enter phone number");
-            autoCompleteInputUserPhoneNumberText.findFocus();
-            return;
-        }
-        try {
-            queryBuilder.reset();
-            queryBuilder.where().eq("phoneNumber", autoCompleteInputUserPhoneNumberText.getText().toString().trim());
-            userList = queryBuilder.query();
-            if (userList == null || userList.size() == 0) {
-                User newUser = new User();
-                newUser.setPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
-                userDao.create(newUser);
+        if(ValidationUtil.isValidCellNumber(autoCompleteInputUserPhoneNumberText,inputUserPhoneNumberLayout,"Please enter valid Mobile Number")) {
+            try {
+                queryBuilder.reset();
+                queryBuilder.where().eq("phoneNumber", autoCompleteInputUserPhoneNumberText.getText().toString().trim());
+                userList = queryBuilder.query();
+                if (userList == null || userList.size() == 0) {
+                    User newUser = new User();
+                    newUser.setPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
+                    userDao.create(newUser);
+                }
+                Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String outletCode = sharedPreferences.getString("outletCode", null);
+                FeedbackRequest feedback = new FeedbackRequest();
+                feedback.setOutletCode(outletCode);
+                feedback.setUserPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
+                getRating.putExtra("feedback", feedback);
+                startActivity(getRating);
+            } catch (SQLException e) {
+                Log.e("HomePageActivity", "Failed to save user", e);
             }
-            Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            String outletCode = sharedPreferences.getString("outletCode", null);
-            FeedbackRequest feedback = new FeedbackRequest();
-            feedback.setOutletCode(outletCode);
-            feedback.setUserPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
-            getRating.putExtra("feedback", feedback);
-            startActivity(getRating);
-        }
-        catch(SQLException e) {
-            Log.e("HomePageActivity","Failed to save user",e);
         }
     }
 }
