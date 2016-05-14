@@ -1,7 +1,9 @@
 package com.admin.freddyspeaks;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +19,7 @@ import com.admin.adapter.UserPhoneNumberInputAdapter;
 import com.admin.database.DBHelper;
 import com.admin.database.User;
 import com.admin.util.ImageUtility;
+import com.admin.webservice.request_objects.FeedbackRequest;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -85,8 +88,8 @@ public class HomePageActivity extends BaseActivity {
             autoCompleteInputUserPhoneNumberText.findFocus();
             return;
         }
-        queryBuilder.reset();
         try {
+            queryBuilder.reset();
             queryBuilder.where().eq("phoneNumber", autoCompleteInputUserPhoneNumberText.getText().toString().trim());
             userList = queryBuilder.query();
             if (userList == null || userList.size() == 0) {
@@ -95,6 +98,12 @@ public class HomePageActivity extends BaseActivity {
                 userDao.create(newUser);
             }
             Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String outletCode = sharedPreferences.getString("outletCode", null);
+            FeedbackRequest feedback = new FeedbackRequest();
+            feedback.setOutletCode(outletCode);
+            feedback.setUserPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
+            getRating.putExtra("feedback", feedback);
             startActivity(getRating);
         }
         catch(SQLException e) {
