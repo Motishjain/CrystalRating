@@ -31,7 +31,7 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    TextView questionNameTextView, questionNumberTextView;
+    TextView questionNameTextView, questionNumberTextView, selectedRatingTextView;
     Question question;
     RecyclerView ratingOptionsRecyclerView;
     RatingBar ratingBar;
@@ -71,6 +71,7 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
         View ratingCard = inflater.inflate(R.layout.fragment_rating_card, container, false);
         questionNameTextView = (TextView) ratingCard.findViewById(R.id.questionNameTextView);
         questionNumberTextView = (TextView) ratingCard.findViewById(R.id.questionNumberTextView);
+        selectedRatingTextView = (TextView) ratingCard.findViewById(R.id.selectedRatingTextView);
         ratingOptionsRecyclerView = (RecyclerView) ratingCard.findViewById(R.id.ratingOptionsRecyclerView);
         ratingBar = (RatingBar) ratingCard.findViewById(R.id.ratingBar);
         questionNameTextView.setText(question.getName());
@@ -79,17 +80,20 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
         if(question.getQuestionInputType()!=null && question.getQuestionInputType().equals(AppConstants.STAR_RATING)) {
             ratingOptionsRecyclerView.setVisibility(View.GONE);
             ratingBar.setVisibility(View.VISIBLE);
-            ratingBar.setNumStars(question.getRatingValues().split(",").length);
-            ratingBar.setMax(question.getRatingValues().split(",").length);
+            final String[] ratingValues = question.getRatingValues().split(",");
+            ratingBar.setNumStars(ratingValues.length);
+            ratingBar.setMax(ratingValues.length);
             ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float v, boolean fromUser) {
                     if(fromUser) {
                         question.setSelectedOption(((int)v)+"");
+                        selectedRatingTextView.setText(ratingValues[((int)v)-1]);
                         mListener.onQuestionAnswered();
                     }
                 }
             });
+            selectedRatingTextView.setVisibility(View.VISIBLE);
         }
 
         else {

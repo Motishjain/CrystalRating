@@ -46,4 +46,12 @@
         android:progressDrawable="@drawable/rating_stars"
         android:visibility="gone" />
 
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/selectedRatingTextView"
+        style="@style/selectedRatingValue"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
 </LinearLayout>
