@@ -26,6 +26,10 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
 
     Subscription subscription;
 
+    boolean noFooterFlag;
+
+    View header, footer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +46,10 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
     public void setupSubscriptionScreen() {
 
         LayoutInflater inflater = getLayoutInflater();
-        View header = inflater.inflate(R.layout.content_subscription_header, listViewPayment, false);
-        View footer = inflater.inflate(R.layout.content_subscription_footer, listViewPayment, false);
+        header = inflater.inflate(R.layout.content_subscription_header, listViewPayment, false);
+        footer = inflater.inflate(R.layout.content_subscription_footer, listViewPayment, false);
 
-        boolean noFooterFlag = false;
+        noFooterFlag = false;
 
         LinearLayout linearLayoutActiveOrTrial = (LinearLayout)
                 header.findViewById(R.id.linearLayoutActiveTrial);
@@ -109,16 +113,22 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
             footerMessage.setText("Your service has expired, kindly renew the same to get going again !");
         }
 
-        SubscriptionAdapter subscriptionAdapter = new SubscriptionAdapter(this,
+        final SubscriptionAdapter subscriptionAdapter = new SubscriptionAdapter(this,
                 R.layout.content_subscription_item, getSubscriptionData());
 
-        listViewPayment.setAdapter(subscriptionAdapter);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                listViewPayment.setAdapter(subscriptionAdapter);
 
-        listViewPayment.addHeaderView(header);
+                listViewPayment.addHeaderView(header);
 
-        if (!noFooterFlag){
-            listViewPayment.addFooterView(footer);
-        }
+                if (!noFooterFlag) {
+                    listViewPayment.addFooterView(footer);
+                }
+            }
+        });
     }
 
 

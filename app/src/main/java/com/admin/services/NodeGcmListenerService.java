@@ -1,16 +1,16 @@
 package com.admin.services;
 
 import android.app.NotificationManager;
-import android.app.Service;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.admin.freddyspeaks.R;
+import com.admin.freddyspeaks.SubscriptionInfoActivity;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**
@@ -25,21 +25,32 @@ public class NodeGcmListenerService extends GcmListenerService {
         String message = data.getString("message");
         Log.d("", "From: " + from);
         Log.d("", "Message: " + message);
+        String type  = data.getString("type");
 
-        if (from.startsWith("/topics/")) {
-            createNotification(from, message);
-        } else {
-            // normal downstream message.
+        Bundle notification  = data.getBundle("notification");
+
+        if(type.equals("Subscription")) {
+            Intent resultIntent = new Intent(this, SubscriptionInfoActivity.class);
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+            stackBuilder.addParentStack(SubscriptionInfoActivity.class);
+            // Adds the Intent that starts the Activity to the top of the stack
+            stackBuilder.addNextIntent(resultIntent);
+            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+            createNotification(notification.getString("title"), notification.getString("body"),resultPendingIntent);
         }
     }
 
-    private void createNotification(String title, String body) {
+    private void createNotification(String title, String body, PendingIntent resultPendingIntent) {
         Context context = getBaseContext();
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher).setContentTitle(title)
                 .setContentText(body);
         NotificationManager mNotificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mBuilder.setAutoCancel(true);
+        mBuilder.setContentIntent(resultPendingIntent);
+
         mNotificationManager.notify(MESSAGE_NOTIFICATION_ID, mBuilder.build());
     }
 }
