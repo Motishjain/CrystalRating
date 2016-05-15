@@ -44,7 +44,6 @@ public class SaveRewardImageTask extends AsyncTask<Reward,Void,Void>{
             }
             catch (SQLException e) {
                 e.printStackTrace();
-                //TODO handle failure
             }
         }
         return null;

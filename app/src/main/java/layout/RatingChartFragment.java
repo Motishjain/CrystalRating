@@ -162,7 +162,6 @@ public class RatingChartFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("Rating summary", "Item selected");
                 selectedQuestion = questionList.get(position);
-                //TODO remove stub
                 refreshPieChart();
             }
 

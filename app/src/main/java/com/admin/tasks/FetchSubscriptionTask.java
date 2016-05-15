@@ -71,7 +71,6 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                         }
                         catch (SQLException e) {
                             Log.e("FetchSubscriptionTask","Failed to save subscription",e);
-                            //TODO show error dialog
                             onTaskCompleted.onTaskCompleted(null);
                         }
                     }
