@@ -54,8 +54,8 @@
 
     <string name="bill_details_thanks_message">Thank you for rating us!</string>
     <string name="bill_details_desription">Enter your bill details below and you have a chance to win an instant reward.</string>
-    <string name="thankYouMessage1">Thank you for shopping with us.</string>
-    <string name="thankYouMessage2">We hope to see you again!</string>
+    <string name="thankYouMessage1">Thank you for your rating.</string>
+    <string name="thankYouMessage2">Hope to see you again!</string>
 
     <string name="homeHeaderText1">Share your shopping experience and win a reward !!!</string>
 

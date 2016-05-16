@@ -49,7 +49,7 @@ public class RewardDisplayActivity extends BaseActivity {
     Dao<SelectedReward, Integer> selectedRewardDao;
     SelectedReward allocatedReward;
     Dao<User, Integer> userDao;
-    CustomFontTextView rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
+    CustomFontTextView billAmtLabel,rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
     CustomFontTextView rewardNotFoundExclaimer,rewardNotFoundMessage,thankYouMessage1,thankYouMessage2;
     ImageView resultRewardImage;
     CustomDialogFragment dialogConfirmExit;
@@ -69,6 +69,8 @@ public class RewardDisplayActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        billAmtLabel=(CustomFontTextView)findViewById(R.id.billAmt);
         rewardDisplayExclaimer = (CustomFontTextView) findViewById(R.id.rewardDisplayExclaimer);
         rewardDisplayMessage = (CustomFontTextView) findViewById(R.id.rewardDisplayMessage);
         rewardNotFoundExclaimer = (CustomFontTextView) findViewById(R.id.rewardNotFoundExclaimer);
@@ -94,7 +96,8 @@ public class RewardDisplayActivity extends BaseActivity {
             Reward rewardResult = allocatedReward.getReward();
             FetchRewardImageTask fetchRewardImageTask = new FetchRewardImageTask(resultRewardImage);
             fetchRewardImageTask.execute(rewardResult.getImage());
-            resultRewardName.setText("It's "+rewardResult.getName().toUpperCase()+" from "+ categoryMapping.get(allocatedReward.getRewardCategory())+" category");
+            billAmtLabel.setText( "\u20B9"+feedback.getBillAmount());
+            resultRewardName.setText("It's "+rewardResult.getName().toUpperCase());
             rewardDisplayExclaimer.setText("Congratulations!!");
             rewardDisplayMessage.setText("We have a reward for you.");
             rewardDisplayExclaimer.setVisibility(View.VISIBLE);

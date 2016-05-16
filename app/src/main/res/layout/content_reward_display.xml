@@ -22,8 +22,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#F7E5CF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.admin.view.CustomFontTextView
+                    android:id="@+id/billLabelWithReward"
+                    style="@style/billLabelWithReward"
+                    android:text="Total Bill:"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    />
+
+                <com.admin.view.CustomFontTextView
+                    android:id="@+id/billAmt"
+                    style="@style/billLabelWithReward"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="7dp"
             android:id="@+id/rewardDisplayExclaimer"
             style="@style/rewardDisplayExclaimer"
             android:gravity="center"
@@ -90,7 +120,7 @@
         </FrameLayout>
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="25dp"
             android:id="@+id/thankYouMessage1"
             style="@style/thankYouMessage"
             android:gravity="center"
@@ -98,9 +128,9 @@
             android:layout_gravity="center"
             />
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:id="@+id/thankYouMessage2"
-            style="@style/thankYouMessage"
+            style="@style/thankYouMessageLine2"
             android:gravity="center"
             android:text="@string/thankYouMessage2"
             android:layout_gravity="center"
@@ -112,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="3dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="Exit"
             android:gravity="center"
             android:onClick="exit"
