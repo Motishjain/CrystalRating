@@ -1,47 +1,27 @@
 package com.admin.freddyspeaks;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
-import com.admin.database.FailedServiceCall;
 import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.database.User;
 import com.admin.dialogs.CustomDialogFragment;
-import com.admin.receiver.CheckSubscriptionAlarmReceiver;
-import com.admin.receiver.FailedServiceCallReceiver;
 import com.admin.tasks.FetchRewardImageTask;
 import com.admin.util.RewardAllocationUtility;
 import com.admin.view.CustomFontTextView;
-import com.admin.webservice.RestEndpointInterface;
-import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.WebServiceUtility;
 import com.admin.webservice.request_objects.FeedbackRequest;
-import com.admin.webservice.response_objects.SaveServiceReponse;
-import com.google.gson.Gson;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RewardDisplayActivity extends BaseActivity {
 

@@ -4,15 +4,21 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.admin.tasks.SetRandomQuestionsTask;
 import com.admin.tasks.UpdateSubscriptionStatusTask;
 
 /**
- * Created by Admin on 01-05-2016.
+ * Created by Admin on 4/6/2016.
  */
-public class CheckSubscriptionAlarmReceiver extends BroadcastReceiver{
+public class DailyAlarmReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(context,null);
+        setRandomQuestionsTask.execute();
         UpdateSubscriptionStatusTask updateSubscriptionStatusTask = new UpdateSubscriptionStatusTask(context);
         updateSubscriptionStatusTask.execute();
     }
+
+
 }

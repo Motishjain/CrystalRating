@@ -22,13 +22,13 @@ public class DeviceBootReceiver extends BroadcastReceiver {
             String outletCode = sharedPreferences.getString("outletCode", null) ;
             if(outletCode!=null) {
                 AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-                Intent schedulerIntent = new Intent(context, SetQuestionsAlarmReceiver.class);
+                Intent schedulerIntent = new Intent(context, DailyAlarmReceiver.class);
                 PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, schedulerIntent, 0);
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.set(Calendar.HOUR_OF_DAY, 14);
-                alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, 0,
                         AlarmManager.INTERVAL_DAY, alarmIntent);
             }
         }

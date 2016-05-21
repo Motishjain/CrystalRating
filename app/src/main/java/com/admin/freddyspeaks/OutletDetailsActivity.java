@@ -23,11 +23,9 @@ import android.widget.Toast;
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
-import com.admin.receiver.CheckSubscriptionAlarmReceiver;
+import com.admin.receiver.DailyAlarmReceiver;
 import com.admin.receiver.DeviceBootReceiver;
-import com.admin.receiver.SetQuestionsAlarmReceiver;
 import com.admin.services.RegistrationIntentService;
-import com.admin.tasks.UpdateSubscriptionStatusTask;
 import com.admin.util.NetworkUtil;
 import com.admin.util.ValidationUtil;
 import com.admin.view.CustomProgressDialog;
@@ -43,7 +41,6 @@ import com.j256.ormlite.stmt.UpdateBuilder;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -58,12 +55,12 @@ public class OutletDetailsActivity extends BaseActivity {
     TextView registerOutletHeader;
     Dao<Outlet, Integer> outletDao;
     Outlet currentOutlet;
-    boolean editMode, aValidationError;
+    boolean editMode;
     String outletCode;
     ImageView activityBackButton;
 
     private AlarmManager alarmMgr;
-    private PendingIntent setQuestionsAlarmIntent, checkSubscriptionAlarmIntent;
+    private PendingIntent dailyAlarmIntent;
     private ProgressDialog progressDialog;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -181,22 +178,11 @@ public class OutletDetailsActivity extends BaseActivity {
                                         // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
                                         alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                                        Intent setQuestionsIntent = new Intent(OutletDetailsActivity.this, SetQuestionsAlarmReceiver.class);
-                                        setQuestionsAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, setQuestionsIntent, 0);
+                                        Intent setQuestionsIntent = new Intent(OutletDetailsActivity.this, DailyAlarmReceiver.class);
+                                        dailyAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, setQuestionsIntent, 0);
 
-                                        Intent checkSubscriptionIntent = new Intent(OutletDetailsActivity.this, CheckSubscriptionAlarmReceiver.class);
-                                        checkSubscriptionAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, checkSubscriptionIntent, 0);
-
-                                        Calendar calendar = Calendar.getInstance();
-                                        calendar.setTimeInMillis(System.currentTimeMillis());
-                                        calendar.set(Calendar.HOUR_OF_DAY, 0);
-                                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                                                AlarmManager.INTERVAL_DAY, setQuestionsAlarmIntent);
-
-                                        calendar.set(Calendar.HOUR_OF_DAY, 14);
-
-                                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                                                AlarmManager.INTERVAL_DAY, checkSubscriptionAlarmIntent);
+                                        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, 0,
+                                                AlarmManager.INTERVAL_DAY, dailyAlarmIntent);
 
                                         ComponentName receiver = new ComponentName(OutletDetailsActivity.this, DeviceBootReceiver.class);
                                         PackageManager pm = getApplicationContext().getPackageManager();
@@ -208,8 +194,7 @@ public class OutletDetailsActivity extends BaseActivity {
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("outletCode", currentOutlet.getOutletCode());
                                         editor.commit();
-                                        UpdateSubscriptionStatusTask updateSubscriptionStatusTask = new UpdateSubscriptionStatusTask(OutletDetailsActivity.this);
-                                        updateSubscriptionStatusTask.execute();
+
                                         progressDialog.dismiss();
                                         Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
                                         configureRewards.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
