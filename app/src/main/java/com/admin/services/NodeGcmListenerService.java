@@ -18,39 +18,14 @@ import com.google.android.gms.gcm.GcmListenerService;
  */
 public class NodeGcmListenerService extends GcmListenerService {
 
-    public static final int MESSAGE_NOTIFICATION_ID = 435345;
+
 
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
         Log.d("", "From: " + from);
         Log.d("", "Message: " + message);
-        String type  = data.getString("type");
-
-        Bundle notification  = data.getBundle("notification");
-
-        if(type.equals("Subscription")) {
-            Intent resultIntent = new Intent(this, SubscriptionInfoActivity.class);
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-            stackBuilder.addParentStack(SubscriptionInfoActivity.class);
-            // Adds the Intent that starts the Activity to the top of the stack
-            stackBuilder.addNextIntent(resultIntent);
-            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-            createNotification(notification.getString("title"), notification.getString("body"),resultPendingIntent);
-        }
     }
 
-    private void createNotification(String title, String body, PendingIntent resultPendingIntent) {
-        Context context = getBaseContext();
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.mipmap.ic_launcher).setContentTitle(title)
-                .setContentText(body);
-        NotificationManager mNotificationManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
 
-        mBuilder.setAutoCancel(true);
-        mBuilder.setContentIntent(resultPendingIntent);
-
-        mNotificationManager.notify(MESSAGE_NOTIFICATION_ID, mBuilder.build());
-    }
 }
