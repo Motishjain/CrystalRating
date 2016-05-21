@@ -79,7 +79,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.admin.receiver.SetQuestionsAlarmReceiver"
+            android:name="com.admin.receiver.DailyAlarmReceiver"
             android:enabled="true"
             android:exported="true" />
         <receiver
@@ -118,10 +118,11 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ThankYouActivity"
+        <activity
+            android:name=".ThankYouActivity"
             android:label="@string/title_activity_goodie_display"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>
