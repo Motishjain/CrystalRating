@@ -31,6 +31,9 @@ public class Question implements Serializable {
     private String questionType;
 
     @DatabaseField
+    private String displayRank;
+
+    @DatabaseField
     private String questionInputType;
 
     private String selectedOption;
@@ -105,5 +108,13 @@ public class Question implements Serializable {
 
     public void setQuestionInputType(String questionInputType) {
         this.questionInputType = questionInputType;
+    }
+
+    public String getDisplayRank() {
+        return displayRank;
+    }
+
+    public void setDisplayRank(String displayRank) {
+        this.displayRank = displayRank;
     }
 }

@@ -31,11 +31,9 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
     Dao<Subscription, Integer> subscriptionDao;
     Context context;
     ProgressDialog progressDialog;
-    OnTaskCompleted onTaskCompleted;
 
-    public FetchSubscriptionTask (Context context, OnTaskCompleted onTaskCompleted) {
+    public FetchSubscriptionTask (Context context) {
         this.context = context;
-        this.onTaskCompleted = onTaskCompleted;
     }
 
     @Override
@@ -51,7 +49,6 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
             QueryBuilder<Subscription,Integer> subscriptionQueryBuilder = subscriptionDao.queryBuilder();
             List<Subscription> subscriptionList = subscriptionQueryBuilder.query();
             if(subscriptionList.size()>0) {
-                onTaskCompleted.onTaskCompleted(subscriptionList.get(0));
                 return null;
             }
             //Load Retrofit API
@@ -67,11 +64,9 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                         subscription.setActivationStatus(subscriptionResponse.getActivationStatus());
                         try {
                             subscriptionDao.create(subscription);
-                            onTaskCompleted.onTaskCompleted(subscription);
                         }
                         catch (SQLException e) {
                             Log.e("FetchSubscriptionTask","Failed to save subscription",e);
-                            onTaskCompleted.onTaskCompleted(null);
                         }
                     }
                 }

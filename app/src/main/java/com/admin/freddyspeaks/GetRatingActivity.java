@@ -90,6 +90,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
             questionQueryBuilder = questionDao.queryBuilder();
             questionQueryBuilder.where().eq("selected", "Y");
+            questionQueryBuilder.orderBy("displayRank",true);
             questionList = questionQueryBuilder.query();
             setupRatingScreens();
         } catch (Exception e) {

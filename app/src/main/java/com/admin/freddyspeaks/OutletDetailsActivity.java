@@ -59,8 +59,6 @@ public class OutletDetailsActivity extends BaseActivity {
     String outletCode;
     ImageView activityBackButton;
 
-    private AlarmManager alarmMgr;
-    private PendingIntent dailyAlarmIntent;
     private ProgressDialog progressDialog;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -176,13 +174,6 @@ public class OutletDetailsActivity extends BaseActivity {
                                         Intent gcmRegistrationIntent = new Intent(OutletDetailsActivity.this, RegistrationIntentService.class);
                                         startService(gcmRegistrationIntent);
                                         // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
-
-                                        alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                                        Intent setQuestionsIntent = new Intent(OutletDetailsActivity.this, DailyAlarmReceiver.class);
-                                        dailyAlarmIntent = PendingIntent.getBroadcast(OutletDetailsActivity.this, 0, setQuestionsIntent, 0);
-
-                                        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, 0,
-                                                AlarmManager.INTERVAL_DAY, dailyAlarmIntent);
 
                                         ComponentName receiver = new ComponentName(OutletDetailsActivity.this, DeviceBootReceiver.class);
                                         PackageManager pm = getApplicationContext().getPackageManager();

@@ -11,6 +11,7 @@ public class QuestionResponse {
     private String[] ratingValues;
     private String[] emoticonIds;
     private String questionType;
+    private String displayRank;
     private String questionInputType;
 
 
@@ -60,5 +61,13 @@ public class QuestionResponse {
 
     public void setQuestionInputType(String questionInputType) {
         this.questionInputType = questionInputType;
+    }
+
+    public String getDisplayRank() {
+        return displayRank;
+    }
+
+    public void setDisplayRank(String displayRank) {
+        this.displayRank = displayRank;
     }
 }

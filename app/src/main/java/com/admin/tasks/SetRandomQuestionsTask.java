@@ -1,6 +1,7 @@
 package com.admin.tasks;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
 import com.admin.constants.AppConstants;
@@ -88,6 +89,8 @@ public class SetRandomQuestionsTask extends AsyncTask<Void, Void, Void> {
             for (Question question : questionList) {
                 selectedQuestionIds[count++] = question.getQuestionId();
             }
+            SQLiteDatabase sqLiteDatabase = OpenHelperManager.getHelper(context, DBHelper.class).getWritableDatabase();
+            sqLiteDatabase.beginTransaction();
             questionUpdateBuilder.where().in("questionId", selectedQuestionIds);
             questionUpdateBuilder.updateColumnValue("selected", "Y");
             questionUpdateBuilder.update();
@@ -97,6 +100,8 @@ public class SetRandomQuestionsTask extends AsyncTask<Void, Void, Void> {
             questionUpdateBuilder.where().notIn("questionId", selectedQuestionIds);
             questionUpdateBuilder.updateColumnValue("selected", "N");
             questionUpdateBuilder.update();
+            sqLiteDatabase.setTransactionSuccessful();
+            sqLiteDatabase.endTransaction();
             if(callBackListener!=null) {
                 callBackListener.onTaskCompleted();
             }
