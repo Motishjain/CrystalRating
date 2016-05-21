@@ -2,6 +2,7 @@ package com.admin.freddyspeaks;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.admin.database.SelectedReward;
 import com.admin.dialogs.CustomDialogFragment;
 import com.admin.tasks.SetRandomQuestionsTask;
 import com.admin.util.NetworkUtil;
+import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.QuestionResponse;
@@ -254,6 +256,10 @@ public class RewardConfigurationActivity extends AppCompatActivity
     }
 
     void fetchQuestionsAndMove() {
+        final ProgressDialog progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
+        progressDialog.setMessage("Loading Rewards...");
+        progressDialog.show();
+
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         if(!NetworkUtil.isNetworkAvailable(this)){
             Toast.makeText(this,"Check your internet connection",Toast.LENGTH_LONG).show();
@@ -279,6 +285,10 @@ public class RewardConfigurationActivity extends AppCompatActivity
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("areQuestionsFetched", true);
                     editor.commit();
+                    progressDialog.dismiss();
+                    Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
+                    homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(homePage);
                 } catch (SQLException e) {
                     Log.e("RewardConfiguration", "Unable to fetch questions");
                 }
