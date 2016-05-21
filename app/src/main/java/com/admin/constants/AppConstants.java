@@ -21,6 +21,8 @@ public class AppConstants {
 
     public static final String FETCH_SUBSCRIPTION = "fetchSubscription/{outletCode}";
 
+    public static final String EXTEND_SUBSCRIPTION = "extendSubscription";
+
     public static final String SAVE_GCM_TOKEN = "saveGCMToken/{outletCode}/{token}";
 
     public static final String SAVE_REWARDS = "saveRewards";
@@ -64,5 +66,9 @@ public class AppConstants {
     public static final String SUBSCRIPTION_PENDING = "PEN";
 
     public static final String SUBSCRIPTION_EXPIRED = "EXP";
+
+    public static final String SUBMIT_FEEDBACK_FAILURE_SID = "1";
+
+    public static final String EXTEND_SUBSCRIPTION_FAILURE_SID = "2";
 
 }

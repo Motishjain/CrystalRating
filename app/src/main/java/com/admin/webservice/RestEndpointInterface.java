@@ -1,6 +1,7 @@
 package com.admin.webservice;
 
 import com.admin.constants.AppConstants;
+import com.admin.webservice.request_objects.ExtendSubscriptionRequest;
 import com.admin.webservice.request_objects.OutletRequest;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.admin.webservice.request_objects.RewardSubmitRequest;
@@ -46,6 +47,9 @@ public interface RestEndpointInterface {
 
     @GET(AppConstants.FETCH_SUBSCRIPTION)
     Call<SubscriptionResponse> fetchSubscription(@Path("outletCode") String outletCode);
+
+    @POST(AppConstants.EXTEND_SUBSCRIPTION)
+    Call<SaveServiceReponse> extendSubscription(@Body ExtendSubscriptionRequest extendSubscriptionRequest);
 
     @GET(AppConstants.SAVE_GCM_TOKEN)
     Call<SaveServiceReponse> saveGCMToken(@Path("outletCode") String outletCode, @Path("token") String token);

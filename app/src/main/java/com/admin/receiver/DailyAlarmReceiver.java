@@ -20,7 +20,7 @@ public class DailyAlarmReceiver extends BroadcastReceiver {
         String outletCode = sharedPreferences.getString("outletCode", null);
         SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(context,null);
         setRandomQuestionsTask.execute();
-        FetchSubscriptionTask fetchSubscriptionTask = new FetchSubscriptionTask(context);
+        FetchSubscriptionTask fetchSubscriptionTask = new FetchSubscriptionTask(context, null, false);
         fetchSubscriptionTask.execute(outletCode);
     }
 

@@ -1,166 +1,176 @@
 package com.admin.freddyspeaks;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.admin.adapter.SubscriptionAdapter;
 import com.admin.constants.AppConstants;
+import com.admin.database.DBHelper;
 import com.admin.database.Subscription;
 import com.admin.tasks.FetchSubscriptionTask;
+import com.admin.view.CustomProgressDialog;
+import com.admin.webservice.RestEndpointInterface;
+import com.admin.webservice.RetrofitSingleton;
+import com.admin.webservice.WebServiceUtility;
+import com.admin.webservice.request_objects.ExtendSubscriptionRequest;
+import com.admin.webservice.response_objects.SaveServiceReponse;
+import com.admin.webservice.response_objects.SubscriptionResponse;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.payUMoney.sdk.PayUmoneySdkInitilizer;
 import com.payUMoney.sdk.SdkConstants;
 
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
-public class SubscriptionInfoActivity extends BaseActivity implements FetchSubscriptionTask.OnTaskCompleted {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    ListView listViewPayment;
+public class SubscriptionInfoActivity extends BaseActivity implements FetchSubscriptionTask.FetchSubscriptionTaskListener, SubscriptionAdapter.SubscriptionSelectionListener {
+
+    RecyclerView paymentRecyclerView;
 
     Subscription subscription;
+    SubscriptionAdapter.SubscriptionInfo subscriptionInfo;
+    String outletCode;
+    ProgressDialog progressDialog;
 
     boolean noFooterFlag;
-
-    View header, footer;
+    ImageView subscriptionStatusIndicator;
+    TextView activationStatusTextView, activationStatusDescription, subscriptionInfoComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription_info);
-        listViewPayment = (ListView) findViewById(R.id.listViewPayment);
+        subscriptionStatusIndicator = (ImageView) findViewById(R.id.subscriptionStatusIndicator);
+        activationStatusTextView = (TextView) findViewById(R.id.activationStatusTextView);
+        activationStatusDescription = (TextView) findViewById(R.id.activationStatusDescription);
+        paymentRecyclerView = (RecyclerView) findViewById(R.id.paymentRecyclerView);
+        subscriptionInfoComment = (TextView) findViewById(R.id.subscriptionInfoComment);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        paymentRecyclerView.setLayoutManager(layoutManager);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String outletCode = sharedPreferences.getString("outletCode", null);
+        outletCode = sharedPreferences.getString("outletCode", null);
 
-        FetchSubscriptionTask fetchSubscriptionTask = new FetchSubscriptionTask(this);
+        progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
+        progressDialog.show();
+
+        FetchSubscriptionTask fetchSubscriptionTask = new FetchSubscriptionTask(this, this, true);
         fetchSubscriptionTask.execute(outletCode);
     }
 
     public void setupSubscriptionScreen() {
-
-        LayoutInflater inflater = getLayoutInflater();
-        header = inflater.inflate(R.layout.content_subscription_header, listViewPayment, false);
-        footer = inflater.inflate(R.layout.content_subscription_footer, listViewPayment, false);
-
-        noFooterFlag = false;
-
-        LinearLayout linearLayoutActiveOrTrial = (LinearLayout)
-                header.findViewById(R.id.linearLayoutActiveTrial);
-        LinearLayout linearLayoutPending = (LinearLayout)
-                header.findViewById(R.id.linearLayoutPendingReneval);
-        LinearLayout linearLayoutExpired = (LinearLayout)
-                header.findViewById(R.id.linearLayoutPaymentExpired);
-
         String activationStatus = subscription.getActivationStatus();
         String expiryDate = subscription.getExpiryDate();
 
-
-        if(activationStatus.equals(AppConstants.SUBSCRIPTION_TRIAL)) {
-            linearLayoutActiveOrTrial.setVisibility(View.VISIBLE);
-            linearLayoutPending.setVisibility(View.GONE);
-            linearLayoutExpired.setVisibility(View.GONE);
-
-            TextView head = (TextView) header.findViewById(R.id.textViewHead);
-            head.setText("Active (Trial)");
-            TextView subhead = (TextView) header.findViewById(R.id.textViewSubhead);
-            subhead.setText("Expires On:"+expiryDate);
-
+        if (activationStatus.equals(AppConstants.SUBSCRIPTION_TRIAL)) {
+            subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_black_48dp);
+            activationStatusTextView.setText("Active (Trial)");
+            activationStatusDescription.setText("Expires On:" + expiryDate);
+        } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_ACTIVE)) {
+            subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_black_48dp);
+            activationStatusTextView.setText("Active");
+            activationStatusDescription.setText("Expires On: " + expiryDate + " (30 days remaining)");
+        } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_PENDING)) {
+            subscriptionStatusIndicator.setImageResource(R.drawable.ic_warning_red_500_48dp);
+            activationStatusTextView.setText("Pending Renewal");
+            activationStatusDescription.setText("Expired On:" + expiryDate);
             noFooterFlag = true;
-        }
-        else if(activationStatus.equals(AppConstants.SUBSCRIPTION_ACTIVE)) {
-            linearLayoutActiveOrTrial.setVisibility(View.VISIBLE);
-            linearLayoutPending.setVisibility(View.GONE);
-            linearLayoutExpired.setVisibility(View.GONE);
-
-            TextView head = (TextView) header.findViewById(R.id.textViewHead);
-            head.setText("Active");
-            TextView subhead = (TextView) header.findViewById(R.id.textViewSubhead);
-            subhead.setText("Expires On:"+expiryDate+" (30 days remaining)");
-
+            subscriptionInfoComment.setText("The application will continue to work till 2 June 2016(7 days). Kindly renew your subscription");
+        } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_EXPIRED)) {
+            subscriptionStatusIndicator.setImageResource(R.drawable.ic_error_outline_black_48dp);
+            activationStatusTextView.setText("Expired");
+            activationStatusDescription.setText("Expired On:" + expiryDate);
             noFooterFlag = true;
-        }
-        else if(activationStatus.equals(AppConstants.SUBSCRIPTION_PENDING)) {
-            linearLayoutActiveOrTrial.setVisibility(View.GONE);
-            linearLayoutPending.setVisibility(View.VISIBLE);
-            linearLayoutExpired.setVisibility(View.GONE);
-
-            TextView head = (TextView) header.findViewById(R.id.textViewPendingRenewal);
-            head.setText("Pending Renewal");
-            TextView subhead = (TextView) header.findViewById(R.id.textViewSubheadPendingRenewal);
-            subhead.setText("Expired On:"+expiryDate);
-
-            TextView footerMessage = (TextView) footer.findViewById(R.id.textViewFooter);
-            footerMessage.setText("The application will continue to work till 2 June 2016(7 days). Kindly renew your subscription");
-        }
-        else if(activationStatus.equals(AppConstants.SUBSCRIPTION_EXPIRED)) {
-            linearLayoutActiveOrTrial.setVisibility(View.GONE);
-            linearLayoutPending.setVisibility(View.GONE);
-            linearLayoutExpired.setVisibility(View.VISIBLE);
-
-            TextView head = (TextView) header.findViewById(R.id.textViewExpired);
-            head.setText("Expired");
-            TextView subhead = (TextView) header.findViewById(R.id.textViewSubheadExpired);
-            subhead.setText("Expired On:"+expiryDate);
-
-            TextView footerMessage = (TextView) footer.findViewById(R.id.textViewFooter);
-            footerMessage.setText("Your service has expired, kindly renew the same to get going again !");
+            subscriptionInfoComment.setText("Your service has expired, kindly renew the same to get going again !");
         }
 
         final SubscriptionAdapter subscriptionAdapter = new SubscriptionAdapter(this,
-                R.layout.content_subscription_item, getSubscriptionData());
+                R.layout.content_subscription_item, getSubscriptionData(), this);
+        paymentRecyclerView.setAdapter(subscriptionAdapter);
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                listViewPayment.setAdapter(subscriptionAdapter);
-
-                listViewPayment.addHeaderView(header);
-
-                if (!noFooterFlag) {
-                    listViewPayment.addFooterView(footer);
-                }
-            }
-        });
     }
 
 
-    private ArrayList<SubscriptionAdapter.SubscriptionInfo> getSubscriptionData(){
-        ArrayList<SubscriptionAdapter.SubscriptionInfo> subscriptionInfos = new ArrayList<>();
+    private List<SubscriptionAdapter.SubscriptionInfo> getSubscriptionData() {
+        List<SubscriptionAdapter.SubscriptionInfo> subscriptionInfoList = new ArrayList<>();
 
-        subscriptionInfos.add(new SubscriptionAdapter.SubscriptionInfo(
+        subscriptionInfoList.add(new SubscriptionAdapter.SubscriptionInfo(
                 "1 year subscription",
+                "12",
                 2500
         ));
 
-        subscriptionInfos.add(new SubscriptionAdapter.SubscriptionInfo(
+        subscriptionInfoList.add(new SubscriptionAdapter.SubscriptionInfo(
                 "6 month subscription",
+                "6",
                 1500
         ));
 
-        subscriptionInfos.add(new SubscriptionAdapter.SubscriptionInfo(
+        subscriptionInfoList.add(new SubscriptionAdapter.SubscriptionInfo(
                 "3 month subscription",
+                "3",
                 800
         ));
 
-        return  subscriptionInfos;
+        return subscriptionInfoList;
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == PayUmoneySdkInitilizer.PAYU_SDK_PAYMENT_REQUEST_CODE) {
-
             if (resultCode == RESULT_OK) {
                 Log.i("SubscriptionInfo", "Success - Payment ID : " + data.getStringExtra(SdkConstants.PAYMENT_ID));
                 String paymentId = data.getStringExtra(SdkConstants.PAYMENT_ID);
+                subscription.setActivationStatus(AppConstants.SUBSCRIPTION_ACTIVE);
+                updateSubscription(subscription);
+                setupSubscriptionScreen();
+
+                final ExtendSubscriptionRequest extendSubscriptionRequest = new ExtendSubscriptionRequest();
+                extendSubscriptionRequest.setOutletCode(outletCode);
+                extendSubscriptionRequest.setPaymentId(paymentId);
+                extendSubscriptionRequest.setAmount(subscriptionInfo.getPrice() + "");
+                extendSubscriptionRequest.setSubscribedMonths(subscriptionInfo.getMonths());
+                extendSubscriptionRequest.setPaymentDate(new Date());
+                RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
+                Call<SaveServiceReponse> extendSubscriptionCall = restEndpointInterface.extendSubscription(extendSubscriptionRequest);
+                extendSubscriptionCall.enqueue(new Callback<SaveServiceReponse>() {
+                    @Override
+                    public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
+                        SaveServiceReponse saveServiceReponse = response.body();
+                        if (saveServiceReponse.isSuccess()) {
+                            Log.i("Subscription Info", "Subscription extended successfully");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
+                        Log.e("Subscription Info", "Subscription extension failed", t);
+                        WebServiceUtility.setRetryAlarm(SubscriptionInfoActivity.this, AppConstants.EXTEND_SUBSCRIPTION_FAILURE_SID, extendSubscriptionRequest);
+                    }
+                });
+
                 showMessage(true, "Payment Success Id : " + paymentId);
+
             } else if (resultCode == RESULT_CANCELED) {
                 Log.i("SubscriptionInfo", "failure");
                 showMessage(false, "Transaction was cancelled");
@@ -184,9 +194,8 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
     }
 
     void showMessage(boolean success, String message) {
-        if(success) {
-        }
-        else {
+        if (success) {
+        } else {
 
         }
     }
@@ -197,9 +206,34 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
 
     @Override
     public void onTaskCompleted(Subscription subscription) {
-        if(subscription != null) {
+        if (subscription != null) {
             this.subscription = subscription;
-            setupSubscriptionScreen();
+            progressDialog.dismiss();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setupSubscriptionScreen();
+                }
+            });
         }
+    }
+
+    @Override
+    public void onSubscriptionClicked(SubscriptionAdapter.SubscriptionInfo subscriptionInfo) {
+        this.subscriptionInfo = subscriptionInfo;
+    }
+
+    private void updateSubscription(Subscription subscription) {
+        try {
+            Dao<Subscription, Integer> subscriptionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Subscription");
+            UpdateBuilder<Subscription, Integer> subscriptionUpdateBuilder = subscriptionDao.updateBuilder();
+            subscriptionUpdateBuilder.where().eq("id", subscription.getId());
+            subscriptionUpdateBuilder.updateColumnExpression("activationStatus", subscription.getActivationStatus());
+            subscriptionUpdateBuilder.updateColumnExpression("expiryDate", subscription.getExpiryDate());
+            subscriptionUpdateBuilder.update();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

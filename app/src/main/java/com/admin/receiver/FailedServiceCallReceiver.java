@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.FailedServiceCall;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
+import com.admin.webservice.WebServiceUtility;
+import com.admin.webservice.request_objects.ExtendSubscriptionRequest;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.admin.webservice.response_objects.SaveServiceReponse;
 import com.google.gson.Gson;
@@ -49,13 +52,16 @@ public class FailedServiceCallReceiver extends BroadcastReceiver {
             List<FailedServiceCall> failedServiceCalls = failedServiceCallQueryBuilder.query();
             failedServiceCallCount = failedServiceCalls.size();
 
-            if(failedServiceCallCount>0) {
+            if (failedServiceCallCount > 0) {
                 failedServiceCallDeleteBuilder = failedServiceCallDao.deleteBuilder();
                 restEndpointInterface = RetrofitSingleton.newInstance();
-                for(final FailedServiceCall failedServiceCall:failedServiceCalls) {
-                    switch (failedServiceCall.getServiceId()){
-                        case "1":
+                for (final FailedServiceCall failedServiceCall : failedServiceCalls) {
+                    switch (failedServiceCall.getServiceId()) {
+                        case AppConstants.SUBMIT_FEEDBACK_FAILURE_SID:
                             submitFeedback(failedServiceCall);
+                            break;
+                        case AppConstants.EXTEND_SUBSCRIPTION_FAILURE_SID:
+                            extendSubscription(failedServiceCall);
                             break;
                     }
                 }
@@ -68,10 +74,8 @@ public class FailedServiceCallReceiver extends BroadcastReceiver {
     }
 
     void submitFeedback(final FailedServiceCall failedServiceCall) {
-
-        failedServiceCall.getParametersJsonString();
-        final FeedbackRequest feedback = gson.fromJson(failedServiceCall.getParametersJsonString(), new TypeToken<FeedbackRequest>() {
-        }.getType());
+        final FeedbackRequest feedback = gson.fromJson(failedServiceCall.getParametersJsonString(),
+                new TypeToken<FeedbackRequest>() {}.getType());
         Call<SaveServiceReponse> submitFeedbackCall = restEndpointInterface.submitFeedback(feedback);
 
         submitFeedbackCall.enqueue(new Callback<SaveServiceReponse>() {
@@ -80,15 +84,7 @@ public class FailedServiceCallReceiver extends BroadcastReceiver {
                 SaveServiceReponse saveServiceReponse = response.body();
                 if (saveServiceReponse.isSuccess()) {
                     Log.i("FailedServiceCall", "Service call retried successfully");
-                    try {
-                        failedServiceCallDeleteBuilder.reset();
-                        failedServiceCallDeleteBuilder.where().eq("id", failedServiceCall.getId());
-                        failedServiceCallDeleteBuilder.delete();
-                        failedServiceCallCount--;
-                        stopAlarmIfDone();
-                    } catch (SQLException e) {
-                        Log.e("FailedServiceCall", "Service call delete failed", e);
-                    }
+                    removeFailedCall(failedServiceCall.getId());
                 }
             }
 
@@ -97,11 +93,41 @@ public class FailedServiceCallReceiver extends BroadcastReceiver {
                 Log.e("FailedServiceCall", "Service call retry failed", t);
             }
         });
-
     }
 
-    void stopAlarmIfDone() {
-        if(failedServiceCallCount==0) {
+    void extendSubscription(final FailedServiceCall failedServiceCall) {
+        final ExtendSubscriptionRequest extendSubscriptionRequest = gson.fromJson(failedServiceCall.getParametersJsonString()
+                , new TypeToken<ExtendSubscriptionRequest>() {}.getType());
+
+        Call<SaveServiceReponse> extendSubscriptionCall = restEndpointInterface.extendSubscription(extendSubscriptionRequest);
+        extendSubscriptionCall.enqueue(new Callback<SaveServiceReponse>() {
+            @Override
+            public void onResponse(Call<SaveServiceReponse> call, Response<SaveServiceReponse> response) {
+                SaveServiceReponse saveServiceReponse = response.body();
+                if (saveServiceReponse.isSuccess()) {
+                    Log.i("FailedServiceCall", "Service call retried successfully");
+                    removeFailedCall(failedServiceCall.getId());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
+                Log.e("FailedServiceCall", "Service call retry failed", t);
+            }
+        });
+    }
+
+
+    void removeFailedCall(Integer failedServiceCallId) {
+        try {
+            failedServiceCallDeleteBuilder.reset();
+            failedServiceCallDeleteBuilder.where().eq("id", failedServiceCallId);
+            failedServiceCallDeleteBuilder.delete();
+            failedServiceCallCount--;
+        } catch (SQLException e) {
+            Log.e("FailedServiceCall", "Service call delete failed", e);
+        }
+        if (failedServiceCallCount == 0) {
             Intent failedServiceIntent = new Intent(context, FailedServiceCallReceiver.class);
             PendingIntent failedServicePendingIntent = PendingIntent.getBroadcast(context, 0, failedServiceIntent, 0);
             AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

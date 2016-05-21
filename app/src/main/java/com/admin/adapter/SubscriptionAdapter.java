@@ -2,12 +2,15 @@ package com.admin.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.admin.constants.AppConstants;
@@ -26,83 +29,51 @@ import java.util.List;
 /**
  * Created by verona1024.
  */
-public class SubscriptionAdapter extends ArrayAdapter<SubscriptionAdapter.SubscriptionInfo> {
+public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapter.SubscriptionViewHolder> {
 
     private Context context;
-    private int textViewResourceId;
-    private ArrayList<SubscriptionInfo> objects;
+    private int layoutResourceId;
+    private List<SubscriptionInfo> subscriptionInfoList;
     Dao<Outlet, Integer> outletDao;
+    SubscriptionSelectionListener subscriptionSelectionListener;
 
-    public static class SubscriptionInfo {
-        private String name;
-        private double price;
-
-        public SubscriptionInfo(String name, double price) {
-            this.name = name;
-            this.price = price;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public double getPrice() {
-            return price;
-        }
-    }
-
-    private static class ViewHolder{
-        public TextView name;
-        public TextView price;
-        public Button payButton;
-    }
-
-    public SubscriptionAdapter(Context context, int textViewResourceId, List<SubscriptionAdapter.SubscriptionInfo> objects) {
-        super(context, textViewResourceId, objects);
-
+    public SubscriptionAdapter(Context context, int layoutResourceId, List<SubscriptionAdapter.SubscriptionInfo> subscriptionInfoList, SubscriptionSelectionListener subscriptionSelectionListener) {
         this.context = context;
-        this.textViewResourceId = textViewResourceId;
-        this.objects = (ArrayList<SubscriptionInfo>) objects;
+        this.layoutResourceId = layoutResourceId;
+        this.subscriptionInfoList = subscriptionInfoList;
+        this.subscriptionSelectionListener = subscriptionSelectionListener;
 
         try {
-            outletDao = OpenHelperManager.getHelper(getContext(), DBHelper.class).getCustomDao("Outlet");
+            outletDao = OpenHelperManager.getHelper(context, DBHelper.class).getCustomDao("Outlet");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public SubscriptionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent,false);
+        SubscriptionViewHolder subscriptionViewHolder = new SubscriptionViewHolder(view);
+        return subscriptionViewHolder;
+    }
 
-        ViewHolder holder;
-        View rowView = convertView;
-
-        if (rowView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(textViewResourceId, parent, false);
-
-            holder = new ViewHolder();
-            holder.name = (TextView) rowView.findViewById(R.id.textViewSubscriptionName);
-            holder.price = (TextView) rowView.findViewById(R.id.textViewSubscriptionPrice);
-            holder.payButton = (Button) rowView.findViewById(R.id.payNowButton);
-            rowView.setTag(holder);
-        } else {
-            holder = (ViewHolder) rowView.getTag();
-        }
-
-        final SubscriptionInfo currentObject = objects.get(position);
-
-        holder.name.setText(currentObject.getName());
-        holder.price.setText(String.format("Rs. %.0f", currentObject.getPrice()));
-        holder.payButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onBindViewHolder(SubscriptionViewHolder holder, int position) {
+        final SubscriptionInfo currentSubscriptionInfo = subscriptionInfoList.get(position);
+        holder.subscriptionNameTextView.setText(currentSubscriptionInfo.getName());
+        holder.subscriptionPriceTextView.setText(String.format("Rs. %.0f", currentSubscriptionInfo.getPrice()));
+        holder.payNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                payNow(currentObject.price, currentObject.name);
+                payNow(currentSubscriptionInfo.price, currentSubscriptionInfo.name);
+                subscriptionSelectionListener.onSubscriptionClicked(currentSubscriptionInfo);
             }
         });
+    }
 
-        return rowView;
+    @Override
+    public int getItemCount() {
+        return subscriptionInfoList.size();
     }
 
     private void payNow(double price, String name) {
@@ -130,18 +101,14 @@ public class SubscriptionAdapter extends ArrayAdapter<SubscriptionAdapter.Subscr
 
         builder.setTnxId("0nf7");
 
-
         builder.setPhone(currentOutlet.getCellNumber());
-
         builder.setProductName("Subscription for" + name);
-
         builder.setFirstName(currentOutlet.getOutletName());
-
         builder.setEmail(currentOutlet.getEmail());
 
         builder.setsUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/success.php");
         builder.setfUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/failure.php");
-        builder.setUdf1("Outlet code - "+currentOutlet.getOutletCode());
+        builder.setUdf1("Outlet code - " + currentOutlet.getOutletCode());
         builder.setUdf2("");
         builder.setUdf3("");
         builder.setUdf4("");
@@ -150,5 +117,46 @@ public class SubscriptionAdapter extends ArrayAdapter<SubscriptionAdapter.Subscr
         PayUmoneySdkInitilizer.PaymentParam paymentParam = builder.build();
 
         PayUmoneySdkInitilizer.startPaymentActivityForResult((Activity) context, paymentParam);
+    }
+
+    public static class SubscriptionInfo {
+        private String name;
+        private String months;
+        private double price;
+
+        public SubscriptionInfo(String name,String months, double price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public String getMonths() {
+            return months;
+        }
+    }
+
+    static class SubscriptionViewHolder extends RecyclerView.ViewHolder{
+
+        public TextView subscriptionNameTextView;
+        public TextView subscriptionPriceTextView;
+        public Button payNowButton;
+
+        public SubscriptionViewHolder(View view){
+            super(view);
+            subscriptionNameTextView = (TextView) view.findViewById(R.id.subscriptionNameTextView);
+            subscriptionPriceTextView = (TextView) view.findViewById(R.id.subscriptionPriceTextView);
+            payNowButton = (Button) view.findViewById(R.id.payNowButton);
+        }
+    }
+
+    public interface SubscriptionSelectionListener {
+        void onSubscriptionClicked(SubscriptionInfo subscriptionInfo);
     }
 }

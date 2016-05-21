@@ -34,14 +34,16 @@ import retrofit2.Response;
  */
 public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
 
-    Integer[] resIdList = new Integer[]{R.drawable.bags};
     Dao<Subscription, Integer> subscriptionDao;
     Context context;
-    ProgressDialog progressDialog;
+    FetchSubscriptionTaskListener fetchSubscriptionTaskListener;
+    boolean useLocalCopy;
     public static final int MESSAGE_NOTIFICATION_ID = 435345;
 
-    public FetchSubscriptionTask (Context context) {
+    public FetchSubscriptionTask (Context context, FetchSubscriptionTaskListener fetchSubscriptionTaskListener, boolean useLocalCopy) {
         this.context = context;
+        this.fetchSubscriptionTaskListener = fetchSubscriptionTaskListener;
+        this.useLocalCopy = useLocalCopy;
     }
 
     @Override
@@ -54,6 +56,18 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
         String outletCode = input[0];
         try {
             subscriptionDao = OpenHelperManager.getHelper(context, DBHelper.class).getCustomDao("Subscription");
+            QueryBuilder<Subscription,Integer> subscriptionQueryBuilder = subscriptionDao.queryBuilder();
+            final List<Subscription> subscriptionList = subscriptionQueryBuilder.query();
+
+            if(useLocalCopy){
+                if(subscriptionList.size()>0) {
+                    if(fetchSubscriptionTaskListener!=null) {
+                        fetchSubscriptionTaskListener.onTaskCompleted(subscriptionList.get(0));
+                    }
+                    return null;
+                }
+            }
+
             RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
             Call<SubscriptionResponse> fetchSubscriptionCall = restEndpointInterface.fetchSubscription(outletCode);
             fetchSubscriptionCall.enqueue(new Callback<SubscriptionResponse>() {
@@ -61,20 +75,23 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                 public void onResponse(Call<SubscriptionResponse> call, Response<SubscriptionResponse> response) {
                     if (response.isSuccess()) {
                         SubscriptionResponse subscriptionResponse = response.body();
+                        Subscription subscription;
                         try {
-                            QueryBuilder<Subscription,Integer> subscriptionQueryBuilder = subscriptionDao.queryBuilder();
-                            List<Subscription> subscriptionList = subscriptionQueryBuilder.query();
                             if(subscriptionList.size()==0) {
-                                Subscription subscription = new Subscription();
+                                subscription = new Subscription();
                                 subscription.setExpiryDate(subscriptionResponse.getExpiryDate());
                                 subscription.setActivationStatus(subscriptionResponse.getActivationStatus());
                                 subscriptionDao.create(subscription);
                             }
                             else {
+                                subscription = subscriptionList.get(0);
                                 UpdateBuilder<Subscription,Integer> subscriptionUpdateBuilder = subscriptionDao.updateBuilder();
-                                subscriptionUpdateBuilder.where().eq("id",subscriptionList.get(0).getId());
+                                subscriptionUpdateBuilder.where().eq("id",subscription.getId());
                                 subscriptionUpdateBuilder.updateColumnExpression("activationStatus",subscriptionResponse.getActivationStatus());
                                 subscriptionUpdateBuilder.update();
+                            }
+                            if(fetchSubscriptionTaskListener!=null){
+                                fetchSubscriptionTaskListener.onTaskCompleted(subscription);
                             }
                         }
                         catch (SQLException e) {
@@ -86,7 +103,6 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                 @Override
                 public void onFailure(Call<SubscriptionResponse> call, Throwable t) {
                     Log.e("RatingSummary", "Unable to fetch feedback", t);
-                    progressDialog.dismiss();
                 }
             });
         } catch (Exception e) {
@@ -114,7 +130,7 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
         super.onPostExecute(result);
     }
 
-    public interface OnTaskCompleted {
+    public interface FetchSubscriptionTaskListener {
         void onTaskCompleted(Subscription subscription);
     }
 }
