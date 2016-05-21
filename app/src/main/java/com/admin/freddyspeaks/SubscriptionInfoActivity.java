@@ -39,7 +39,7 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String outletCode = sharedPreferences.getString("outletCode", null);
 
-        FetchSubscriptionTask fetchSubscriptionTask = new FetchSubscriptionTask(this,this);
+        FetchSubscriptionTask fetchSubscriptionTask = new FetchSubscriptionTask(this);
         fetchSubscriptionTask.execute(outletCode);
     }
 
