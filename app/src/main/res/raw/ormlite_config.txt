@@ -1,5 +1,5 @@
 #
-# generated on 2016/04/30 06:12:32
+# generated on 2016/05/21 03:36:07
 #
 # --table-start--
 dataClass=com.admin.database.Outlet
@@ -92,6 +92,9 @@ fieldName=selected
 fieldName=questionType
 # --field-end--
 # --field-start--
+fieldName=displayRank
+# --field-end--
+# --field-start--
 fieldName=questionInputType
 # --field-end--
 # --table-fields-end--
@@ -179,6 +182,23 @@ fieldName=expiryDate
 # --field-end--
 # --field-start--
 fieldName=activationStatus
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.admin.database.FailedServiceCall
+tableName=FAILED_SERVICE_CALL
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=serviceId
+# --field-end--
+# --field-start--
+fieldName=parametersJsonString
 # --field-end--
 # --table-fields-end--
 # --table-end--
