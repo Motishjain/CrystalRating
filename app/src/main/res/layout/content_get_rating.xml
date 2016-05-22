@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:alpha="0.2"
+        android:alpha="0.1"
         />
 
     <LinearLayout
@@ -34,7 +34,7 @@
                 android:layout_width="60dp"
                 android:layout_height="70dp"
                 android:gravity="center"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="100dp"
                 android:src="@drawable/previous"
                 android:tint="@color/formButtonBg"
@@ -44,7 +44,6 @@
 
             <com.admin.animation.ViewPagerCustomDuration
                 android:id="@+id/ratingBarPager"
-                android:layout_marginLeft="5dp"
                 android:layout_width="270dp"
                 android:layout_height="wrap_content" />
 

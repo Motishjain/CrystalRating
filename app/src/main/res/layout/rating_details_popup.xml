@@ -56,18 +56,6 @@
             android:paddingBottom="5dp"
             android:layout_marginRight="1dp" />
         <com.admin.view.CustomFontTextView
-            android:id="@+id/billNumberHeader"
-            style="@style/ratingDetailHeaderColumn"
-            android:text="@string/rating_bill_number_header"
-            android:layout_weight="4.5"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:background="#B74E55"
-            android:textColor="@color/white"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_marginRight="1dp" />
-        <com.admin.view.CustomFontTextView
             android:id="@+id/billAmountHeader"
             style="@style/ratingDetailHeaderColumn"
             android:text="@string/rating_bill_amount_header"

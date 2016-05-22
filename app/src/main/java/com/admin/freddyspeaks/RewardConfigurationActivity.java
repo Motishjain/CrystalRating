@@ -297,7 +297,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
                     PendingIntent dailyAlarmIntent = PendingIntent.getBroadcast(RewardConfigurationActivity.this, 0, setQuestionsIntent, 0);
 
                     alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, 0,
-                            AlarmManager.INTERVAL_DAY, dailyAlarmIntent);
+                            AlarmManager.INTERVAL_HOUR, dailyAlarmIntent);
                     progressDialog.dismiss();
                     Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
                     homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

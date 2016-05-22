@@ -47,7 +47,6 @@ public class RatingDetailsAdapter extends RecyclerView.Adapter<RatingDetailsAdap
         FeedbackResponse feedbackResponse = feedbackResponseList.get(position);
         ratingDetailHolder.billDateTextView.setText(simpleDateFormat.format(feedbackResponse.getCreatedDate()));
         ratingDetailHolder.userPhoneNumberCellTextView.setText(feedbackResponse.getUserPhoneNumber());
-        ratingDetailHolder.billNumberCellTextView.setText(feedbackResponse.getBillNumber());
         if(feedbackResponse.getBillAmount()!=null && feedbackResponse.getBillAmount().trim().length()>0) {
             ratingDetailHolder.billAmountCellTextView.setText("Rs." + feedbackResponse.getBillAmount());
         }
@@ -69,7 +68,7 @@ public class RatingDetailsAdapter extends RecyclerView.Adapter<RatingDetailsAdap
 
     static class RatingDetailHolder extends RecyclerView.ViewHolder{
 
-        TextView billDateTextView, userPhoneNumberCellTextView, billNumberCellTextView, billAmountCellTextView;
+        TextView billDateTextView, userPhoneNumberCellTextView, billAmountCellTextView;
         LinearLayout ratingDetailLayout;
 
         public RatingDetailHolder(View view){
@@ -77,7 +76,6 @@ public class RatingDetailsAdapter extends RecyclerView.Adapter<RatingDetailsAdap
             ratingDetailLayout = (LinearLayout) view.findViewById(R.id.ratingDetailLayout);
             billDateTextView = (TextView) view.findViewById(R.id.billDateTextView);
             userPhoneNumberCellTextView = (TextView) view.findViewById(R.id.userPhoneNumberCellTextView);
-            billNumberCellTextView = (TextView) view.findViewById(R.id.billNumberCellTextView);
             billAmountCellTextView = (TextView) view.findViewById(R.id.billAmountCellTextView);
 
         }
