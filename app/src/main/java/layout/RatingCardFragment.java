@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
     Question question;
     RecyclerView ratingOptionsRecyclerView;
     RatingBar ratingBar;
+    LinearLayout ratingOptionsLinearLayout, ratingBarLinearLayout;
     int questionNumber, totalQuestions;
 
     private OnFragmentInteractionListener mListener;
@@ -73,13 +75,15 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
         questionNumberTextView = (TextView) ratingCard.findViewById(R.id.questionNumberTextView);
         selectedRatingTextView = (TextView) ratingCard.findViewById(R.id.selectedRatingTextView);
         ratingOptionsRecyclerView = (RecyclerView) ratingCard.findViewById(R.id.ratingOptionsRecyclerView);
+        ratingOptionsLinearLayout = (LinearLayout) ratingCard.findViewById(R.id.ratingOptionsLinearLayout);
+        ratingBarLinearLayout = (LinearLayout) ratingCard.findViewById(R.id.ratingBarLinearLayout);
         ratingBar = (RatingBar) ratingCard.findViewById(R.id.ratingBar);
         questionNameTextView.setText(question.getName());
         questionNumberTextView.setText("#" + questionNumber + " of " + totalQuestions);
 
         if(question.getQuestionInputType()!=null && question.getQuestionInputType().equals(AppConstants.STAR_RATING)) {
-            ratingOptionsRecyclerView.setVisibility(View.GONE);
-            ratingBar.setVisibility(View.VISIBLE);
+            ratingOptionsLinearLayout.setVisibility(View.GONE);
+            ratingBarLinearLayout.setVisibility(View.VISIBLE);
             final String[] ratingValues = question.getRatingValues().split(",");
             ratingBar.setNumStars(ratingValues.length);
             ratingBar.setMax(ratingValues.length);
@@ -93,12 +97,11 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
                     }
                 }
             });
-            selectedRatingTextView.setVisibility(View.VISIBLE);
         }
 
         else {
-            ratingBar.setVisibility(View.GONE);
-            ratingOptionsRecyclerView.setVisibility(View.VISIBLE);
+            ratingBarLinearLayout.setVisibility(View.GONE);
+            ratingOptionsLinearLayout.setVisibility(View.VISIBLE);
             LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext(), LinearLayoutManager.VERTICAL, false);
             ratingOptionsRecyclerView.setLayoutManager(layoutManager);
 
