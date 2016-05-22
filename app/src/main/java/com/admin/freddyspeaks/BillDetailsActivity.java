@@ -36,7 +36,7 @@ public class BillDetailsActivity extends BaseActivity{
         billNumber = (TextView) findViewById(R.id.inputBillNumberText);
         billAmount = (TextView) findViewById(R.id.inputBillAmountText);
         backgroundBillDetailsImage = (ImageView) findViewById(R.id.backgroundBillDetailsImage);
-        backgroundBillDetailsImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.bags));
+        backgroundBillDetailsImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
 
     }
 

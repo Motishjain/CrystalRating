@@ -1,12 +1,9 @@
 package com.admin.freddyspeaks;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,7 +21,6 @@ import com.admin.database.DBHelper;
 import com.admin.database.Question;
 import com.admin.database.SelectedReward;
 import com.admin.dialogs.CustomDialogFragment;
-import com.admin.util.DialogBuilderUtil;
 import com.admin.util.ImageUtility;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -72,7 +68,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         ratingNextArrow = (ImageView) findViewById(R.id.ratingNextArrow);
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
 
-        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.bags));
+        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
 
         ratingNextArrow.setBackground(getResources().getDrawable(R.drawable.next));
 

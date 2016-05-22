@@ -55,7 +55,7 @@ public class HomePageActivity extends BaseActivity {
         }
 
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
-        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.bags));
+        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
 
         getStartedButton = (Button) findViewById(R.id.getStartedButton);
         inputUserPhoneNumberLayout = (TextInputLayout) findViewById(R.id.inputUserPhoneNumberLayout);

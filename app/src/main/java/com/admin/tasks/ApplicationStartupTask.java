@@ -1,6 +1,5 @@
 package com.admin.tasks;
 
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
@@ -22,7 +21,7 @@ import java.util.Map;
  */
 public class ApplicationStartupTask extends AsyncTask<LoadingActivity, Void, Void> {
 
-    Integer[] resIdList = new Integer[]{R.drawable.bags};
+    Integer[] resIdList = new Integer[]{R.drawable.shopping_bg};
     Dao<Outlet, Integer> outletDao;
     ApplicationStartupTask.OnTaskCompleted onTaskCompleted;
 
