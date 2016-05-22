@@ -39,7 +39,6 @@
         style="@style/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginRight="5dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/rating_option"
         android:indeterminateDrawable="@drawable/rating_stars"
