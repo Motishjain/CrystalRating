@@ -56,7 +56,6 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="100dp"
                 android:tint="@color/formButtonBg"
-                android:src="@drawable/next"
                 android:scaleType="fitXY"
                 android:onClick="getNextRating"
                 android:background="#0000"/>
