@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.admin.animation.DepthPageTransformer;
 import com.admin.animation.ViewPagerCustomDuration;
@@ -22,6 +23,7 @@ import com.admin.database.Question;
 import com.admin.database.SelectedReward;
 import com.admin.dialogs.CustomDialogFragment;
 import com.admin.util.ImageUtility;
+import com.admin.view.CustomFontButton;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -37,10 +39,12 @@ import layout.RatingCardFragment;
 
 public class GetRatingActivity extends BaseActivity implements RatingCardFragment.OnFragmentInteractionListener, CustomDialogFragment.CustomDialogListener {
 
-    private AnimationDrawable animation;
+    private AnimationDrawable nextButtonAnimation;
     Dao<Question, Integer> questionDao;
     Dao<SelectedReward, Integer> selectedRewardDao;
-    ImageView backgroundRatingImage, ratingBackArrow, ratingNextArrow;
+    ImageView backgroundRatingImage;
+    LinearLayout footerButtons;
+    CustomFontButton ratingPreviousButton,ratingNextButton;
     QueryBuilder<Question, Integer> questionQueryBuilder;
     QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
     public List<Question> questionList;
@@ -52,7 +56,6 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
     ViewPagerCustomDuration ratingBarPager;
     Map<Integer, RatingCardFragment> ratingFragmentMap;
-    Button ratingDoneButton;
     CustomDialogFragment dialogConfirmExit;
     FeedbackRequest feedback;
 
@@ -63,14 +66,12 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ratingBarPager = (ViewPagerCustomDuration) findViewById(R.id.ratingBarPager);
-        ratingDoneButton = (Button) findViewById(R.id.ratingDoneButton);
-        ratingBackArrow = (ImageView) findViewById(R.id.ratingBackArrow);
-        ratingNextArrow = (ImageView) findViewById(R.id.ratingNextArrow);
+        footerButtons = (LinearLayout) findViewById(R.id.footerButtons);
+        ratingPreviousButton = (CustomFontButton) findViewById(R.id.ratingPreviousButton);
+        ratingNextButton = (CustomFontButton) findViewById(R.id.ratingNextButton);
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
 
         backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
-
-        ratingNextArrow.setBackground(getResources().getDrawable(R.drawable.next));
 
         ratingFragmentMap = new HashMap<>();
         ratingMap = new HashMap<>();
@@ -144,9 +145,10 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
     public void startArrowAnimation()
     {
-        ratingNextArrow.setBackgroundResource(R.drawable.next_arrow_animation_list);
-        animation = (AnimationDrawable) ratingNextArrow.getBackground();
-        animation.start();
+        ratingNextButton.setEnabled(true);
+        //ratingNextButton.setBackgroundResource(R.drawable.next_arrow_animation_list);
+        //nextButtonAnimation = (AnimationDrawable) ratingNextButton.getBackground();
+        //nextButtonAnimation.start();
     }
 
     public void getPreviousRating(View v) {
@@ -160,8 +162,8 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     public void getNextRating(View v) {
 
         if(questionList.get(currentQuestionIndex).getQuestionInputType().equals("STR")){
-            animation.stop();
-            ratingNextArrow.setBackground(getResources().getDrawable(R.drawable.next));
+            //nextButtonAnimation.stop();
+            //ratingNextButton.setBackground(getResources().getDrawable(R.drawable.next));
         }
         String selectedOption = questionList.get(currentQuestionIndex).getSelectedOption();
         answeredQuestionIndexSet.add(currentQuestionIndex);
@@ -185,20 +187,17 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
     void displayQuestion(int questionIndex) {
         ratingBarPager.setCurrentItem(questionIndex);
+        footerButtons.setVisibility(View.VISIBLE);
         if (questionIndex > 0) {
-            ratingBackArrow.setVisibility(View.VISIBLE);
+            ratingPreviousButton.setEnabled(true);
         } else {
-            ratingBackArrow.setVisibility(View.INVISIBLE);
+            ratingPreviousButton.setEnabled(false);
         }
         if (questionIndex <= (answeredQuestionIndexSet.size() - 1)) {
-            //if(!questionList.get(currentQuestionIndex).getQuestionInputType().equals("STR"))
-            //{
-                ratingNextArrow.setBackgroundDrawable(getResources().getDrawable(R.drawable.next));
-
-            //}
-            ratingNextArrow.setVisibility(View.VISIBLE);
+            //ratingNextButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.next));
+            ratingNextButton.setEnabled(true);
         } else {
-            ratingNextArrow.setVisibility(View.INVISIBLE);
+            ratingNextButton.setEnabled(false);
         }
 
     }
@@ -229,11 +228,13 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     @Override
     public void onQuestionAnswered() {
         if (currentQuestionIndex == totalQuestions - 1) {
-            ratingDoneButton.setVisibility(View.VISIBLE);
+            ratingNextButton.setEnabled(true);
+            ratingNextButton.setText("Done");
         } else {
+            ratingNextButton.setText("Next");
             String questionInputType = questionList.get(currentQuestionIndex).getQuestionInputType();
             if(questionInputType.equals("STR")){
-                ratingNextArrow.setVisibility(View.VISIBLE);
+                footerButtons.setVisibility(View.VISIBLE);
                 startArrowAnimation();
             }
             else {
@@ -254,8 +255,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     void setupRatingScreens() {
         currentQuestionIndex = 0;
         totalQuestions = AppConstants.MAXIMUM_QUESTIONS;
-        ratingBackArrow.setVisibility(View.INVISIBLE);
-        ratingNextArrow.setVisibility(View.INVISIBLE);
+        footerButtons.setVisibility(View.INVISIBLE);
         RatingFragmentsAdapter ratingFragmentsAdapter = new RatingFragmentsAdapter(getSupportFragmentManager(), this);
         ratingBarPager.setAdapter(ratingFragmentsAdapter);
     }
