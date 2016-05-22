@@ -14,7 +14,7 @@
         style="@style/questionName"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:textColor="#145b71"
         android:textSize="17sp" />
 
@@ -22,35 +22,57 @@
         android:id="@+id/questionNameTextView"
         style="@style/questionName"
         android:layout_marginTop="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_gravity="center"
         android:layout_weight="6" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/ratingOptionsRecyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="top"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="30dp"
-        android:layout_weight="13"
-        android:visibility="gone" />
+        android:layout_height="wrap_content"
+        android:layout_weight="12"
+        android:gravity="center"
+        android:id="@+id/ratingOptionsLinearLayout"
+        android:visibility="gone"
+        android:weightSum="1">
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        style="@style/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/rating_option"
-        android:indeterminateDrawable="@drawable/rating_stars"
-        android:progressDrawable="@drawable/rating_stars"
-        android:visibility="gone" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ratingOptionsRecyclerView"
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="30dp" />
 
-    <com.admin.view.CustomFontTextView
-        android:id="@+id/selectedRatingTextView"
-        style="@style/selectedRatingValue"
-        android:layout_gravity="center"
-        android:layout_marginTop="35dp"
-        android:layout_weight="1"
-        android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="12"
+        android:gravity="center"
+        android:id="@+id/ratingBarLinearLayout"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/rating_stars_bg"
+            android:indeterminateDrawable="@drawable/rating_stars"
+            android:progressDrawable="@drawable/rating_stars"
+            />
+        <com.admin.view.CustomFontTextView
+            android:id="@+id/selectedRatingTextView"
+            style="@style/selectedRatingValue"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp"
+            />
+    </LinearLayout>
+
 
 </LinearLayout>

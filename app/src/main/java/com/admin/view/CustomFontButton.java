@@ -52,4 +52,15 @@ public class CustomFontButton extends Button {
     public void setFontFamilyFile(String fontFamilyFile) {
         this.fontFamilyFile = fontFamilyFile;
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        if(!enabled){
+            setAlpha(0.5f);
+        }
+        else {
+            setAlpha(1.0f);
+        }
+    }
 }
