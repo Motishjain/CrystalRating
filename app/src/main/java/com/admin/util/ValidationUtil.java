@@ -1,6 +1,8 @@
 package com.admin.util;
 
+import android.renderscript.Double2;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -75,4 +77,25 @@ public class ValidationUtil {
             return false;
         }
     }
+
+    public static boolean isZero(TextView textView, TextInputLayout textInputLayout, String errorMessage) {
+        String amt=textView.getText().toString();
+
+        if (amt.trim().equals("")) {
+            textInputLayout.setError("Please enter Bill Amount");
+            textView.findFocus();
+            return false;
+        }
+        Double amtValue=Double.parseDouble(amt);
+        if (amtValue<=0) {
+            textInputLayout.setError(null);
+            textInputLayout.setError(errorMessage);
+            textView.findFocus();
+            return true;
+        } else {
+            textInputLayout.setError(null);
+            return false;
+        }
+    }
+
 }

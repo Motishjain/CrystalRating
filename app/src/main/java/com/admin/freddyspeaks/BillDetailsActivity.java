@@ -48,15 +48,18 @@ public class BillDetailsActivity extends BaseActivity{
     }
 
     public void nextButtonClickHandler(View v) {
-        inputBillNumberLayout.setError(null);
-        inputBillAmountLayout.setError(null);
-        if (!ValidationUtil.isTextViewEmpty(billNumber,inputBillNumberLayout,"Please enter bill number") &&
-                !ValidationUtil.isTextViewEmpty(billAmount,inputBillAmountLayout,"Please enter bill amount")) {
-            feedback.setBillAmount(billAmount.getText().toString());
-            feedback.setBillNumber(billNumber.getText().toString());
-            Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
-            displayReward.putExtra("feedback",feedback);
-            startActivity(displayReward);
+        //inputBillNumberLayout.setError(null);
+        //inputBillAmountLayout.setError(null);
+        //ValidationUtil.isZero(billAmount,inputBillAmountLayout,"Bill Amount cannot be zero");
+        if (!ValidationUtil.isTextViewEmpty(billNumber,inputBillNumberLayout,"Please enter bill number") &
+                !ValidationUtil.isZero(billAmount, inputBillAmountLayout, "Bill amount cannot be zero"))
+        {
+                feedback.setBillAmount(billAmount.getText().toString());
+                feedback.setBillNumber(billNumber.getText().toString());
+                Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
+                displayReward.putExtra("feedback", feedback);
+                startActivity(displayReward);
+
         }
     }
 

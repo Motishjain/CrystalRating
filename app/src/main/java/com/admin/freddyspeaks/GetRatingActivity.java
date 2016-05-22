@@ -2,6 +2,7 @@ package com.admin.freddyspeaks;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,7 +41,7 @@ import layout.RatingCardFragment;
 
 public class GetRatingActivity extends BaseActivity implements RatingCardFragment.OnFragmentInteractionListener, CustomDialogFragment.CustomDialogListener {
 
-
+    private AnimationDrawable animation;
     Dao<Question, Integer> questionDao;
     Dao<SelectedReward, Integer> selectedRewardDao;
     ImageView backgroundRatingImage, ratingBackArrow, ratingNextArrow;
@@ -73,8 +74,11 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
         backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.bags));
 
+        ratingNextArrow.setBackground(getResources().getDrawable(R.drawable.next));
+
         ratingFragmentMap = new HashMap<>();
         ratingMap = new HashMap<>();
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -142,6 +146,13 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
     }
 
+    public void startArrowAnimation()
+    {
+        ratingNextArrow.setBackgroundResource(R.drawable.next_arrow_animation_list);
+        animation = (AnimationDrawable) ratingNextArrow.getBackground();
+        animation.start();
+    }
+
     public void getPreviousRating(View v) {
 
         if (currentQuestionIndex > 0) {
@@ -152,8 +163,11 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
     public void getNextRating(View v) {
 
+        if(questionList.get(currentQuestionIndex).getQuestionInputType().equals("STR")){
+            animation.stop();
+            ratingNextArrow.setBackground(getResources().getDrawable(R.drawable.next));
+        }
         String selectedOption = questionList.get(currentQuestionIndex).getSelectedOption();
-
         answeredQuestionIndexSet.add(currentQuestionIndex);
         ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), selectedOption);
         if (currentQuestionIndex < (totalQuestions - 1)) {
@@ -181,6 +195,11 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             ratingBackArrow.setVisibility(View.INVISIBLE);
         }
         if (questionIndex <= (answeredQuestionIndexSet.size() - 1)) {
+            //if(!questionList.get(currentQuestionIndex).getQuestionInputType().equals("STR"))
+            //{
+                ratingNextArrow.setBackgroundDrawable(getResources().getDrawable(R.drawable.next));
+
+            //}
             ratingNextArrow.setVisibility(View.VISIBLE);
         } else {
             ratingNextArrow.setVisibility(View.INVISIBLE);
@@ -216,17 +235,25 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         if (currentQuestionIndex == totalQuestions - 1) {
             ratingDoneButton.setVisibility(View.VISIBLE);
         } else {
-            Runnable getNextRatingTask = new Runnable() {
-                @Override
-                public void run() {
-                    getNextRating(null);
-                }
-            };
-            Handler intervalHandler = new Handler();
-            intervalHandler.postDelayed(getNextRatingTask,400);
+            String questionInputType = questionList.get(currentQuestionIndex).getQuestionInputType();
+            if(questionInputType.equals("STR")){
+                ratingNextArrow.setVisibility(View.VISIBLE);
+                startArrowAnimation();
+            }
+            else {
+                Runnable getNextRatingTask = new Runnable() {
+                    @Override
+                    public void run() {
+                        getNextRating(null);
+                    }
+                };
+                Handler intervalHandler = new Handler();
+                intervalHandler.postDelayed(getNextRatingTask, 400);
+            }
 
+            }
         }
-    }
+
 
     void setupRatingScreens() {
         currentQuestionIndex = 0;
