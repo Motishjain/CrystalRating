@@ -9,6 +9,8 @@ public class OutletRequest {
 
     private String outletName;
 
+    private String outletCode;
+
     private String outletType;
 
     private String aliasName;
@@ -33,6 +35,14 @@ public class OutletRequest {
 
     public void setOutletName(String outletName) {
         this.outletName = outletName;
+    }
+
+    public String getOutletCode() {
+        return outletCode;
+    }
+
+    public void setOutletCode(String outletCode) {
+        this.outletCode = outletCode;
     }
 
     public String getOutletType() {

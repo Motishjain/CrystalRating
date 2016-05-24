@@ -126,10 +126,9 @@ public class OutletDetailsActivity extends BaseActivity {
                         ValidationUtil.isValidEmail(email,inputEmailLayout,"Please enter valid Email Id") &
                         ValidationUtil.isValidCellNumber(phoneNumber,inputPhoneNumberLayout,"Please enter valid Mobile Number") &
                         ValidationUtil.isValidPincode(pinCode,inputPinCodeLayout,"Please enter valid pin code")) {
+                    final OutletRequest outletRequest = new OutletRequest();
                     if (editMode) {
-                        progressDialog.setMessage("Updating Outlet Details...");
-                    } else {
-                        progressDialog.setMessage("Registering Outlet...");
+                        outletRequest.setOutletCode(outletCode);
                     }
 
                     progressDialog.show();
@@ -138,7 +137,6 @@ public class OutletDetailsActivity extends BaseActivity {
                         Toast.makeText(OutletDetailsActivity.this,"Check your internet connection",Toast.LENGTH_LONG).show();
                         return;
                     }
-                    final OutletRequest outletRequest = new OutletRequest();
                     outletRequest.setOutletName(outletName.getText().toString());
                     outletRequest.setAddrLine1(addrLine1.getText().toString());
                     outletRequest.setOutletType(AppConstants.OUTLET_TYPE);
