@@ -22,7 +22,9 @@ public class SelectedReward implements Serializable {
     @DatabaseField
     private String rewardCategory;
 
-    private int carryForwardAmount;
+    //Field copied from Reward for quick fetch of rewards based on cost
+    @DatabaseField
+    private String rewardCost;
 
     public Integer getId() {
         return id;
@@ -48,11 +50,11 @@ public class SelectedReward implements Serializable {
         this.rewardCategory = rewardCategory;
     }
 
-    public int getCarryForwardAmount() {
-        return carryForwardAmount;
+    public String getRewardCost() {
+        return rewardCost;
     }
 
-    public void setCarryForwardAmount(int carryForwardAmount) {
-        this.carryForwardAmount = carryForwardAmount;
+    public void setRewardCost(String rewardCost) {
+        this.rewardCost = rewardCost;
     }
 }

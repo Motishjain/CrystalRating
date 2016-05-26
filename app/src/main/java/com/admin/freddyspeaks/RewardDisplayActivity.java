@@ -96,8 +96,7 @@ public class RewardDisplayActivity extends BaseActivity {
     }
 
     void allocateReward() {
-        allocatedReward = RewardAllocationUtility.allocateReward(feedback.getUserPhoneNumber(),
-                Integer.parseInt(feedback.getBillAmount()), selectedRewardDao, userDao);
+        allocatedReward = RewardAllocationUtility.allocateReward(Integer.parseInt(feedback.getBillAmount()), selectedRewardDao);
         if (allocatedReward != null) {
             feedback.setRewardCategory(allocatedReward.getRewardCategory());
             feedback.setRewardId(allocatedReward.getReward().getRewardId());

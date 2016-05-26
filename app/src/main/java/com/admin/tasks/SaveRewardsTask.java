@@ -61,6 +61,7 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
                     SelectedReward selectedReward = new SelectedReward();
                     selectedReward.setReward(reward);
                     selectedReward.setRewardCategory(activity.getRewardCategory());
+                    selectedReward.setRewardCost(reward.getCost());
                     selectedRewardDao.create(selectedReward);
                     rewardIdList.add(reward.getRewardId());
                 }
