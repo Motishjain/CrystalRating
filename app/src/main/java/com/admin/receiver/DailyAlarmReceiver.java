@@ -17,7 +17,7 @@ public class DailyAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.w("DailyAlarmReceiver ---", "called");
+        Log.i("DailyAlarmReceiver", "called");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String outletCode = sharedPreferences.getString("outletCode", null);
         SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(context,null);
