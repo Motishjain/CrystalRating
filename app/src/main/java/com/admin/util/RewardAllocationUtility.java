@@ -46,7 +46,7 @@ public class RewardAllocationUtility {
                     selectedRewardIndexList.add(i);
                 }
             }
-            if(selectedRewardIndexList.size()>=0) {
+            if(selectedRewardIndexList.size()>0) {
                 Random randomGenerator = new SecureRandom();
                 selectedRewardIndex = selectedRewardIndexList.get(randomGenerator.nextInt(selectedRewardIndexList.size()));
             }
