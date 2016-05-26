@@ -160,7 +160,7 @@ public class BuildSelectRewardFragmentsTask extends AsyncTask<RewardSelectionAct
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         for (Integer level : activity.getLevelRewardsMap().keySet()) {
-            SelectRewardsBoxFragment selectRewardsBoxFragment = SelectRewardsBoxFragment.newInstance(level, activity.getLevelRewardsMap().get(level), activity.getSelectedLevel());
+            SelectRewardsBoxFragment selectRewardsBoxFragment = SelectRewardsBoxFragment.newInstance(level, activity.getLevelRewardsMap().get(level));
             fragmentTransaction.add(R.id.rewardLevelBoxList, selectRewardsBoxFragment, "Level " + level + " rewards");
             activity.getFragmentList().add(selectRewardsBoxFragment);
         }

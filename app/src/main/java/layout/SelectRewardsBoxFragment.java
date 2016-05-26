@@ -36,8 +36,6 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
 
     private int level;
 
-    private int selectedLevel;
-
     private OnFragmentInteractionListener mListener;
 
     private TextView rewardsLevelHeader;
@@ -57,11 +55,10 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
      * @return A new instance of fragment SelectRewardsBoxFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SelectRewardsBoxFragment newInstance(int level,List<Reward> rewardList, Integer selectedLevel) {
+    public static SelectRewardsBoxFragment newInstance(int level,List<Reward> rewardList) {
         SelectRewardsBoxFragment fragment = new SelectRewardsBoxFragment();
         fragment.level = level;
         fragment.rewardList = rewardList;
-        fragment.selectedLevel = selectedLevel;
         return fragment;
     }
 
@@ -86,9 +83,8 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         LinearLayoutManager layoutManager = new LinearLayoutManager(selectRewardBoxFragment.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         fragmentRewardsList.setLayoutManager(layoutManager);
-        selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(R.layout.select_reward_item, rewardList,this,selectedLevel);
+        selectRewardsBoxAdapter = new SelectRewardsBoxAdapter(R.layout.select_reward_item, rewardList,this);
         fragmentRewardsList.setAdapter(selectRewardsBoxAdapter);
-        setSelectedLevel(selectedLevel);
         return selectRewardBoxFragment;
     }
 
@@ -130,16 +126,6 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         void rewardClicked(int level, int index, boolean checked);
 
         void fragmentCreated(int level);
-    }
-
-    public int getSelectedLevel() {
-        return selectedLevel;
-    }
-
-    public void setSelectedLevel(int selectedLevel) {
-        this.selectedLevel = selectedLevel;
-        selectRewardsBoxAdapter.setSelectedLevel(selectedLevel);
-        selectRewardsBoxAdapter.notifyDataSetChanged();
     }
 
     public int getLevel() {

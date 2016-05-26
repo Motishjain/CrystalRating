@@ -48,33 +48,6 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     public void rewardClicked(int level, int index, boolean checked) {
         List<Reward> levelRewards = levelRewardsMap.get(level);
         levelRewards.get(index).setSelected(checked);
-
-        //Check if this is the first checkbox_off_background being ticked, i.e. a level is being selected first time
-        if (checked && selectedLevel == 0) {
-            selectedLevel = level;
-            for (SelectRewardsBoxFragment fragment : fragmentList) {
-                if (fragment.getLevel() != selectedLevel) {
-                    fragment.setSelectedLevel(selectedLevel);
-                }
-            }
-        } else {
-            boolean isAnySelected = false;
-            for (Reward reward : levelRewards) {
-                if (reward.isSelected()) {
-                    isAnySelected = true;
-                    break;
-                }
-            }
-            //If all the checkboxes of current level are unchecked
-            if (!isAnySelected) {
-                selectedLevel = 0;
-                for (SelectRewardsBoxFragment fragment : fragmentList) {
-                    if (fragment.getLevel() != selectedLevel) {
-                        fragment.setSelectedLevel(selectedLevel);
-                    }
-                }
-            }
-        }
     }
 
     @Override
