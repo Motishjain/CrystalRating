@@ -1,11 +1,8 @@
 package com.admin.freddyspeaks;
 
-import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.admin.adapter.SelectedRewardsBoxAdapter;
@@ -27,7 +23,6 @@ import com.admin.database.DBHelper;
 import com.admin.database.Question;
 import com.admin.database.SelectedReward;
 import com.admin.dialogs.CustomDialogFragment;
-import com.admin.receiver.DailyAlarmReceiver;
 import com.admin.tasks.SetRandomQuestionsTask;
 import com.admin.util.NetworkUtil;
 import com.admin.view.CustomProgressDialog;
@@ -292,12 +287,12 @@ public class RewardConfigurationActivity extends AppCompatActivity
                     editor.commit();
                     SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(RewardConfigurationActivity.this,null);
                     setRandomQuestionsTask.execute();
-                    AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    Intent setQuestionsIntent = new Intent(RewardConfigurationActivity.this, DailyAlarmReceiver.class);
-                    PendingIntent dailyAlarmIntent = PendingIntent.getBroadcast(RewardConfigurationActivity.this, 0, setQuestionsIntent, 0);
+//                    AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//                    Intent setQuestionsIntent = new Intent(RewardConfigurationActivity.this, DailyAlarmReceiver.class);
+//                    PendingIntent dailyAlarmIntent = PendingIntent.getBroadcast(RewardConfigurationActivity.this, 0, setQuestionsIntent, 0);
 
-                    alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, 0,
-                            AlarmManager.INTERVAL_HOUR, dailyAlarmIntent);
+//                    alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, 0,
+//                            AlarmManager.INTERVAL_HOUR, dailyAlarmIntent);
                     progressDialog.dismiss();
                     Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
                     homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
