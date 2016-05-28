@@ -76,14 +76,8 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
         ratingFragmentMap = new HashMap<>();
         ratingMap = new HashMap<>();
-
-        SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(GetRatingActivity.this,null);
-        setRandomQuestionsTask.execute();
-
         Bundle extras = getIntent().getExtras();
         feedback = (FeedbackRequest)extras.get("feedback");
-
-
 
         if (feedback != null && feedback.getRatingsMap() == null) {
             feedback.setRatingsMap(ratingMap);
@@ -199,9 +193,21 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             showNextButton = true;
             ratingNextButton.setEnabled(false);
         }
-
-        ratingPreviousButton.setVisibility(showPreviousButton?View.VISIBLE:View.GONE);
-        ratingNextButton.setVisibility(showNextButton?View.VISIBLE:View.GONE);
+        else {
+            ratingNextButton.setEnabled(true);
+        }
+        if(showPreviousButton) {
+            ratingPreviousButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            ratingPreviousButton.setVisibility(View.GONE);
+        }
+        if(showNextButton) {
+            ratingNextButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            ratingNextButton.setVisibility(View.GONE);
+        }
 
         if(showPreviousButton && showNextButton) {
             previousButtonLayoutParams.weight=1f;
