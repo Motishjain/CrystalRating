@@ -208,7 +208,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             nextButtonLayoutParams.weight=2f;
         }
         else {
-            footerButtons.setVisibility(View.INVISIBLE);
+            footerButtons.setVisibility(View.GONE);
         }
 
         if(showPreviousButton) {
