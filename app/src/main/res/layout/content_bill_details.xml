@@ -65,40 +65,16 @@
                         android:textColor="@color/colorPrimary" />
                 </android.support.design.widget.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/billInfoContinueButton"
+                    style="@style/formButton"
+                    android:layout_marginTop="40dp"
+                    android:layout_width="125dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="30dp"
-                    android:layout_below="@id/inputBillAmountLayout"
-                    android:weightSum="2">
+                    android:text="Check out!"
+                    android:onClick="nextButtonClickHandler"
+                    android:textColor="#fff" />
 
-                    <Button
-                        android:id="@+id/billInfoResetButton"
-                        style="@style/formButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:layout_weight="1"
-                        android:elevation="3dp"
-                        android:text="Reset"
-                        android:textAllCaps="false"
-                        android:onClick="resetButtonClickHandler"
-                        android:textColor="#fff" />
-
-                    <Button
-                        android:id="@+id/billInfoContinueButton"
-                        style="@style/formButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:layout_weight="1"
-                        android:elevation="3dp"
-                        android:text="Check out!"
-                        android:textAllCaps="false"
-                        android:onClick="nextButtonClickHandler"
-                        android:textColor="#fff" />
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

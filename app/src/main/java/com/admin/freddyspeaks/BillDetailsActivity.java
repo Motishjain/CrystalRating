@@ -40,11 +40,6 @@ public class BillDetailsActivity extends BaseActivity{
         backgroundBillDetailsImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
     }
 
-    public void resetButtonClickHandler(View v) {
-        billAmount.setText("");
-        inputBillAmountLayout.setError(null);
-    }
-
     public void nextButtonClickHandler(View v) {
         if (!ValidationUtil.isZero(billAmount, inputBillAmountLayout, "Bill amount cannot be zero"))
         {

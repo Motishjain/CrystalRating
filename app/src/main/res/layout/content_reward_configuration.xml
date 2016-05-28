@@ -167,7 +167,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="120dp"
                 android:background="#0000"
                 android:scaleType="fitXY"
                 android:src="@drawable/bronze_box" />
@@ -177,7 +177,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="340dp"
+                android:layout_marginTop="360dp"
                 android:background="#0000"
                 android:scaleType="fitXY"
                 android:src="@drawable/silver_box" />
@@ -187,7 +187,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="580dp"
+                android:layout_marginTop="610dp"
                 android:background="#0000"
                 android:scaleType="fitXY"
                 android:src="@drawable/gold_box" />
