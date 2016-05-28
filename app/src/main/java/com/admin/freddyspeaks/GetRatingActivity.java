@@ -217,6 +217,9 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             previousButtonLayoutParams.weight=2f;
             nextButtonLayoutParams.weight=2f;
         }
+        else {
+            footerButtons.setVisibility(View.GONE);
+        }
 
         if (currentQuestionIndex == totalQuestions - 1) {
             ratingNextButton.setText("Done");
