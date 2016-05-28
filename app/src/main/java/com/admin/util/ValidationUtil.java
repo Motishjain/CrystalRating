@@ -78,7 +78,7 @@ public class ValidationUtil {
         }
     }
 
-    public static boolean isZero(TextView textView, TextInputLayout textInputLayout, String errorMessage) {
+    public static boolean isValidAmount(TextView textView, TextInputLayout textInputLayout, String errorMessage) {
         String amt=textView.getText().toString();
 
         if (amt.trim().equals("")) {
@@ -91,10 +91,10 @@ public class ValidationUtil {
             textInputLayout.setError(null);
             textInputLayout.setError(errorMessage);
             textView.findFocus();
-            return true;
+            return false;
         } else {
             textInputLayout.setError(null);
-            return false;
+            return true;
         }
     }
 

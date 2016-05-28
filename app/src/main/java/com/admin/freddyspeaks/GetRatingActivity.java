@@ -197,20 +197,6 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             ratingNextButton.setEnabled(true);
         }
 
-        if(showPreviousButton && showNextButton) {
-            footerButtons.setVisibility(View.VISIBLE);
-            previousButtonLayoutParams.weight=1f;
-            nextButtonLayoutParams.weight=1f;
-        }
-        else if(showPreviousButton || showNextButton) {
-            footerButtons.setVisibility(View.VISIBLE);
-            previousButtonLayoutParams.weight=2f;
-            nextButtonLayoutParams.weight=2f;
-        }
-        else {
-            footerButtons.setVisibility(View.GONE);
-        }
-
         if(showPreviousButton) {
             ratingPreviousButton.setVisibility(View.VISIBLE);
         }
@@ -222,6 +208,22 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         }
         else {
             ratingNextButton.setVisibility(View.GONE);
+        }
+
+        if(showPreviousButton && showNextButton) {
+            footerButtons.setVisibility(View.VISIBLE);
+            previousButtonLayoutParams.weight=1f;
+            nextButtonLayoutParams.weight=1f;
+        }
+        else if(showPreviousButton || showNextButton) {
+            footerButtons.setVisibility(View.VISIBLE);
+            previousButtonLayoutParams.weight=2f;
+            nextButtonLayoutParams.weight=2f;
+        }
+        else {
+            footerButtons.setVisibility(View.INVISIBLE);
+            ratingNextButton.setVisibility(View.INVISIBLE);
+            ratingPreviousButton.setVisibility(View.INVISIBLE);
         }
 
         if (currentQuestionIndex == totalQuestions - 1) {

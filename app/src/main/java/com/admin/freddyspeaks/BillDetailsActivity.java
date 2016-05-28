@@ -1,9 +1,7 @@
 package com.admin.freddyspeaks;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,7 +13,7 @@ import com.admin.util.ImageUtility;
 import com.admin.util.ValidationUtil;
 import com.admin.webservice.request_objects.FeedbackRequest;
 
-public class BillDetailsActivity extends BaseActivity{
+public class BillDetailsActivity extends BaseActivity {
 
     TextInputLayout inputBillAmountLayout;
     TextView billAmount;
@@ -31,22 +29,21 @@ public class BillDetailsActivity extends BaseActivity{
         setSupportActionBar(toolbar);
 
         Bundle extras = getIntent().getExtras();
-        feedback = (FeedbackRequest)extras.get("feedback");
+        feedback = (FeedbackRequest) extras.get("feedback");
 
         inputBillAmountLayout = (TextInputLayout) findViewById(R.id.inputBillAmountLayout);
         billAmount = (TextView) findViewById(R.id.inputBillAmountText);
-        billAmount.setHint("\u20B9"+" "+"Bill Amount");
+        billAmount.setHint("\u20B9" + " " + "Bill Amount");
         backgroundBillDetailsImage = (ImageView) findViewById(R.id.backgroundBillDetailsImage);
         backgroundBillDetailsImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
     }
 
     public void nextButtonClickHandler(View v) {
-        if (!ValidationUtil.isZero(billAmount, inputBillAmountLayout, "Bill amount cannot be zero"))
-        {
-                feedback.setBillAmount(billAmount.getText().toString());
-                Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
-                displayReward.putExtra("feedback", feedback);
-                startActivity(displayReward);
+        if (ValidationUtil.isValidAmount(billAmount, inputBillAmountLayout, "Enter valid bill amount")) {
+            feedback.setBillAmount(billAmount.getText().toString());
+            Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
+            displayReward.putExtra("feedback", feedback);
+            startActivity(displayReward);
 
         }
     }
