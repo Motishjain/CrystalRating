@@ -52,8 +52,8 @@
     <string name="rating_bill_amount_header">Amount</string>
     <string name="rating_reward_won_header">Reward Won</string>
 
-    <string name="bill_details_thanks_message">Thank you for rating us!</string>
-    <string name="bill_details_desription">Enter your bill details below and you have a chance to win an instant reward.</string>
+    <string name="bill_details_thanks_message">Thank you for your rating!</string>
+    <string name="bill_details_desription">Enter your bill details below and a gift might be waiting for you.</string>
     <string name="thankYouMessage1">Thank you for your rating.</string>
     <string name="thankYouMessage2">Hope to see you again!</string>
 

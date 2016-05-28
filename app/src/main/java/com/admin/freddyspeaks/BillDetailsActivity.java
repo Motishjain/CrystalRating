@@ -1,7 +1,9 @@
 package com.admin.freddyspeaks;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -33,9 +35,9 @@ public class BillDetailsActivity extends BaseActivity{
 
         inputBillAmountLayout = (TextInputLayout) findViewById(R.id.inputBillAmountLayout);
         billAmount = (TextView) findViewById(R.id.inputBillAmountText);
+        billAmount.setHint("\u20B9"+" "+"Bill Amount");
         backgroundBillDetailsImage = (ImageView) findViewById(R.id.backgroundBillDetailsImage);
         backgroundBillDetailsImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
-
     }
 
     public void resetButtonClickHandler(View v) {

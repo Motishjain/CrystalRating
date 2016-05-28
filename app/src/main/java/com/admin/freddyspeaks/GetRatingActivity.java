@@ -1,7 +1,9 @@
 package com.admin.freddyspeaks;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -10,10 +12,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.admin.animation.DepthPageTransformer;
 import com.admin.animation.ViewPagerCustomDuration;
@@ -36,6 +44,7 @@ import java.util.Map;
 import java.util.Set;
 
 import layout.RatingCardFragment;
+import com.admin.tasks.SetRandomQuestionsTask;
 
 public class GetRatingActivity extends BaseActivity implements RatingCardFragment.OnFragmentInteractionListener, CustomDialogFragment.CustomDialogListener {
 
@@ -76,7 +85,8 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         ratingFragmentMap = new HashMap<>();
         ratingMap = new HashMap<>();
 
-
+        SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(GetRatingActivity.this,null);
+        setRandomQuestionsTask.execute();
 
         Bundle extras = getIntent().getExtras();
         feedback = (FeedbackRequest)extras.get("feedback");
@@ -143,14 +153,6 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
     }
 
-    public void startArrowAnimation()
-    {
-        ratingNextButton.setEnabled(true);
-        //ratingNextButton.setBackgroundResource(R.drawable.next_arrow_animation_list);
-        //nextButtonAnimation = (AnimationDrawable) ratingNextButton.getBackground();
-        //nextButtonAnimation.start();
-    }
-
     public void getPreviousRating(View v) {
 
         if (currentQuestionIndex > 0) {
@@ -161,13 +163,6 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
     public void getNextRating(View v) {
 
-        if(questionList.get(currentQuestionIndex).getQuestionInputType().equals("STR")){
-            //nextButtonAnimation.stop();
-            //ratingNextButton.setBackground(getResources().getDrawable(R.drawable.next));
-        }
-        String selectedOption = questionList.get(currentQuestionIndex).getSelectedOption();
-        answeredQuestionIndexSet.add(currentQuestionIndex);
-        ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), selectedOption);
         if (currentQuestionIndex < (totalQuestions - 1)) {
             currentQuestionIndex++;
             displayQuestion(currentQuestionIndex);
@@ -186,20 +181,130 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     }
 
     void displayQuestion(int questionIndex) {
+        Boolean showPreviousButton=false;
+        Boolean showNextButton=false;
         ratingBarPager.setCurrentItem(questionIndex);
-        footerButtons.setVisibility(View.VISIBLE);
         if (questionIndex > 0) {
-            ratingPreviousButton.setEnabled(true);
+            showPreviousButton=true;
         } else {
-            ratingPreviousButton.setEnabled(false);
+            showPreviousButton=false;
         }
         if (questionIndex <= (answeredQuestionIndexSet.size() - 1)) {
-            //ratingNextButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.next));
-            ratingNextButton.setEnabled(true);
+            showNextButton=true;
         } else {
-            ratingNextButton.setEnabled(false);
+            showNextButton=false;
+        }
+        showButton(showPreviousButton,showNextButton);
+
+    }
+
+    void buttonNormalState()
+    {
+        LinearLayout.LayoutParams prevParams = (LinearLayout.LayoutParams) ratingPreviousButton.getLayoutParams();
+        prevParams.weight = 1f;
+        LinearLayout.LayoutParams nextParams = (LinearLayout.LayoutParams) ratingNextButton.getLayoutParams();
+        nextParams.weight = 1f;
+
+        ratingPreviousButton.setLayoutParams(prevParams);
+        ratingPreviousButton.setVisibility(View.VISIBLE);
+        ratingPreviousButton.setEnabled(true);
+
+        ratingNextButton.setLayoutParams(nextParams);
+        ratingNextButton.setVisibility(View.VISIBLE);
+        ratingNextButton.setEnabled(true);
+
+    }
+
+    void showButton(Boolean showPreviousButton, Boolean showNextButton)
+    {
+
+        footerButtons.setVisibility(View.VISIBLE);
+        if(showPreviousButton==true && showNextButton==true)
+        {
+            //divide equal weight and make both visible and both enabled
+            if(currentQuestionIndex!=0){
+
+                LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) ratingPreviousButton.getLayoutParams();
+                params1.weight=1f;
+                ratingPreviousButton.setLayoutParams(params1);
+                ratingPreviousButton.setVisibility(View.VISIBLE);
+                ratingPreviousButton.setEnabled(true);
+
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ratingNextButton.getLayoutParams();
+                params.weight=1f;
+                ratingNextButton.setLayoutParams(params);
+
+                if(currentQuestionIndex==totalQuestions-1){ratingNextButton.setText("DONE");}
+                else
+                {
+                    ratingNextButton.setText("Next");
+                }
+                ratingNextButton.setVisibility(View.VISIBLE);
+                ratingNextButton.setEnabled(true);
+            }
+            else
+            {
+                ratingNextButton.setText("Next");
+                ratingNextButton.setEnabled(true);
+            }
+
+
         }
 
+        if(showPreviousButton==false && showNextButton==true)
+        {
+            ratingPreviousButton.setEnabled(false);
+            ratingPreviousButton.setVisibility(View.GONE);
+
+            ratingNextButton.setText("Next");
+            ratingNextButton.setEnabled(true);
+        }
+
+
+        if(showPreviousButton==true && showNextButton==false)
+        {
+            if(questionList.get(currentQuestionIndex).getQuestionInputType().equals("STR")){
+                ratingPreviousButton.setVisibility(View.VISIBLE);
+                ratingPreviousButton.setEnabled(true);
+
+                ratingNextButton.setVisibility(View.VISIBLE);
+                ratingNextButton.setEnabled(false);
+            }
+            else
+            {
+                if(currentQuestionIndex==totalQuestions-1)
+                {
+                    LinearLayout.LayoutParams prevParams = (LinearLayout.LayoutParams) ratingPreviousButton.getLayoutParams();
+                    prevParams.weight = 1f;
+                    LinearLayout.LayoutParams nextParams = (LinearLayout.LayoutParams) ratingNextButton.getLayoutParams();
+                    nextParams.weight = 1f;
+
+                    ratingPreviousButton.setLayoutParams(prevParams);
+                    ratingPreviousButton.setVisibility(View.VISIBLE);
+                    ratingPreviousButton.setEnabled(true);
+
+                    ratingNextButton.setLayoutParams(nextParams);
+                    ratingNextButton.setVisibility(View.VISIBLE);
+                    ratingNextButton.setEnabled(false);
+
+                }
+                else
+                {
+
+                    LinearLayout.LayoutParams prevParams1 = (LinearLayout.LayoutParams) ratingPreviousButton.getLayoutParams();
+                    prevParams1.weight = 2f;
+
+                    ratingPreviousButton.setLayoutParams(prevParams1);
+                    ratingPreviousButton.setVisibility(View.VISIBLE);
+                    ratingPreviousButton.setEnabled(true);
+                    ratingNextButton.setVisibility(View.GONE);
+                    ratingNextButton.setEnabled(false);
+
+                }
+            }
+
+
+        }
     }
 
     public class RatingFragmentsAdapter extends FragmentPagerAdapter {
@@ -227,15 +332,24 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
     @Override
     public void onQuestionAnswered() {
+
+        String selectedOption = questionList.get(currentQuestionIndex).getSelectedOption();
+        answeredQuestionIndexSet.add(currentQuestionIndex);
+        ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), selectedOption);
+
         if (currentQuestionIndex == totalQuestions - 1) {
             ratingNextButton.setEnabled(true);
             ratingNextButton.setText("Done");
+
+
+
         } else {
             ratingNextButton.setText("Next");
             String questionInputType = questionList.get(currentQuestionIndex).getQuestionInputType();
             if(questionInputType.equals("STR")){
-                footerButtons.setVisibility(View.VISIBLE);
-                startArrowAnimation();
+
+                showButton(true,true);
+
             }
             else {
                 Runnable getNextRatingTask = new Runnable() {
@@ -258,6 +372,15 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         footerButtons.setVisibility(View.INVISIBLE);
         RatingFragmentsAdapter ratingFragmentsAdapter = new RatingFragmentsAdapter(getSupportFragmentManager(), this);
         ratingBarPager.setAdapter(ratingFragmentsAdapter);
+        if(questionList.get(currentQuestionIndex).getQuestionInputType().equals("STR"))
+            {
+                footerButtons.setVisibility(View.VISIBLE);
+                ratingPreviousButton.setVisibility(View.GONE);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ratingNextButton.getLayoutParams();
+                params.weight=1f;
+                ratingNextButton.setLayoutParams(params);
+                ratingNextButton.setEnabled(false);
+            }
     }
 
     @Override

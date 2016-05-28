@@ -61,7 +61,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="25dp"
-                        android:hint="Bill Amount (in Rs.)"
                         android:inputType="numberDecimal"
                         android:textColor="@color/colorPrimary" />
                 </android.support.design.widget.TextInputLayout>
