@@ -72,17 +72,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver
-            android:name="com.admin.receiver.DeviceBootReceiver"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <receiver
             android:name="com.admin.receiver.DailyAlarmReceiver"
             android:enabled="true"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="com.admin.freddyspeaks.executedailytasks" />
+            </intent-filter>
         </receiver>
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -90,7 +85,6 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
                 <category android:name="com.admin.freddyspeaks" />
             </intent-filter>
         </receiver>

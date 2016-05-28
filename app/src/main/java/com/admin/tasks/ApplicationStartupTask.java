@@ -1,7 +1,10 @@
 package com.admin.tasks;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
@@ -13,6 +16,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +27,8 @@ import java.util.Map;
 public class ApplicationStartupTask extends AsyncTask<LoadingActivity, Void, Void> {
 
     Integer[] resIdList = new Integer[]{R.drawable.shopping_bg};
-    Dao<Outlet, Integer> outletDao;
     ApplicationStartupTask.OnTaskCompleted onTaskCompleted;
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public ApplicationStartupTask(ApplicationStartupTask.OnTaskCompleted onTaskCompleted) {
         this.onTaskCompleted = onTaskCompleted;
@@ -36,20 +41,31 @@ public class ApplicationStartupTask extends AsyncTask<LoadingActivity, Void, Voi
 
     @Override
     protected Void doInBackground(LoadingActivity... input) {
-        LoadingActivity activity = input[0];
+        LoadingActivity loadingActivity = input[0];
         Map<Integer,Bitmap> imageBitmapCollection= ImageUtility.getImageBitmapCollection();
         for(Integer resId: resIdList) {
-            imageBitmapCollection.put(resId, (ImageUtility.decodeSampledBitmapFromResource(activity.getResources(), resId)));
+            imageBitmapCollection.put(resId, (ImageUtility.decodeSampledBitmapFromResource(loadingActivity.getResources(), resId)));
         }
         try {
-            outletDao = OpenHelperManager.getHelper(activity, DBHelper.class).getCustomDao("Outlet");
-            QueryBuilder<Outlet,Integer> outletQueryBuilder = outletDao.queryBuilder();
-            List<Outlet> outletList = outletQueryBuilder.query();
-            if(outletList.size()>0) {
-                activity.setOutletCode(outletList.get(0).getOutletCode());
-            }
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(loadingActivity);
+            String outletCode = sharedPreferences.getString("outletCode", null) ;
+            loadingActivity.setOutletCode(outletCode);
             //Load Retrofit API
             RetrofitSingleton.newInstance();
+
+            boolean areQuestionsFetched = sharedPreferences.getBoolean("areQuestionsFetched", false) ;
+            if(areQuestionsFetched) {
+                String dailyTaskExecutedDate = sharedPreferences.getString("dailyTaskExecutedDate", null);
+                String currentDate = simpleDateFormat.format(new Date());
+                if (dailyTaskExecutedDate == null || !dailyTaskExecutedDate.equals(currentDate)) {
+                    Intent intent = new Intent("com.admin.freddyspeaks.executedailytasks");
+                    loadingActivity.sendBroadcast(intent);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("dailyTaskExecutedDate", currentDate);
+                    editor.commit();
+                }
+            }
+
             if(onTaskCompleted!=null){
                 onTaskCompleted.onTaskCompleted();
             }
