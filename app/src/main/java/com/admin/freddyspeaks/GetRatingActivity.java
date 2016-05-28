@@ -189,7 +189,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         LinearLayout.LayoutParams previousButtonLayoutParams = (LinearLayout.LayoutParams) ratingPreviousButton.getLayoutParams();
         LinearLayout.LayoutParams nextButtonLayoutParams = (LinearLayout.LayoutParams) ratingNextButton.getLayoutParams();
         boolean isStarQuestion = questionList.get(currentQuestionIndex).getQuestionInputType().equals(AppConstants.STAR_RATING);
-        if(isStarQuestion && !showNextButton){
+        if((isStarQuestion || (currentQuestionIndex == totalQuestions - 1)) && !showNextButton){
             showNextButton = true;
             ratingNextButton.setEnabled(false);
         }
