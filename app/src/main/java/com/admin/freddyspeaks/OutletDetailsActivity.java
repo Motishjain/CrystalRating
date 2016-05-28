@@ -1,10 +1,7 @@
 package com.admin.freddyspeaks;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -23,8 +20,6 @@ import android.widget.Toast;
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
-import com.admin.receiver.DailyAlarmReceiver;
-import com.admin.receiver.DeviceBootReceiver;
 import com.admin.services.RegistrationIntentService;
 import com.admin.util.NetworkUtil;
 import com.admin.util.ValidationUtil;
@@ -173,11 +168,6 @@ public class OutletDetailsActivity extends BaseActivity {
                                         startService(gcmRegistrationIntent);
                                         // Set the alarm to start at approximately 12:00 a.m. to run scheduled job
 
-                                        ComponentName receiver = new ComponentName(OutletDetailsActivity.this, DeviceBootReceiver.class);
-                                        PackageManager pm = getApplicationContext().getPackageManager();
-                                        pm.setComponentEnabledSetting(receiver,
-                                                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                                                PackageManager.DONT_KILL_APP);
                                         outletDao.create(currentOutlet);
                                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
