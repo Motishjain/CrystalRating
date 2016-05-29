@@ -53,7 +53,8 @@ public class CustomFontButton extends Button {
         this.fontFamilyFile = fontFamilyFile;
     }
 
-    @Override
+//    @Override
+   /*
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         if(!enabled){
@@ -63,4 +64,5 @@ public class CustomFontButton extends Button {
             setAlpha(1.0f);
         }
     }
+    */
 }

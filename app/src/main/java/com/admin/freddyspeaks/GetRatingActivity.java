@@ -2,6 +2,7 @@ package com.admin.freddyspeaks;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -192,9 +193,16 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         if((isStarQuestion || (currentQuestionIndex == totalQuestions - 1)) && !showNextButton){
             showNextButton = true;
             ratingNextButton.setEnabled(false);
+            //color here
+            //setButtonState();
+            ImageUtility.setButtonLook(this,false,ratingNextButton);
+
         }
         else {
             ratingNextButton.setEnabled(true);
+            //color here
+            ImageUtility.setButtonLook(this,true,ratingNextButton);
+
         }
 
         if(showPreviousButton) {
@@ -267,6 +275,8 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
         if (currentQuestionIndex == totalQuestions - 1 || questionInputType.equals(AppConstants.STAR_RATING)) {
             ratingNextButton.setEnabled(true);
+            ImageUtility.setButtonLook(this,true,ratingNextButton);
+
         } else {
             Runnable getNextRatingTask = new Runnable() {
                     @Override

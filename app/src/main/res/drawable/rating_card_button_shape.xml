@@ -7,12 +7,12 @@
     </item>
     <item android:state_focused="true">
         <shape android:shape="rectangle">
-            <gradient android:startColor="#2B4F81" android:endColor="#2C5A92" android:angle="270" android:type="radial" android:gradientRadius="250"/>
+            <gradient android:startColor="#FF6A4351" android:endColor="#B06A4351" android:angle="270" android:type="radial" android:gradientRadius="250"/>
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <gradient android:startColor="#FF6A4351" android:endColor="#B06A4351" android:angle="270" android:type="radial" android:gradientRadius="250"/>
+            <solid android:color="@color/formButtonBg" />
         </shape>
     </item>
 </selector>

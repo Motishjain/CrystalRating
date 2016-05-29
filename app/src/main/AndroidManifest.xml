@@ -117,7 +117,7 @@
         <activity
             android:name=".ThankYouActivity"
             android:label="@string/title_activity_goodie_display"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

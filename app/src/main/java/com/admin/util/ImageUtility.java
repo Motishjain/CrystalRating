@@ -1,9 +1,16 @@
 package com.admin.util;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.widget.Button;
+
+import com.admin.freddyspeaks.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -79,6 +86,30 @@ public class ImageUtility {
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(res, resId, options);
+    }
+
+    public static void setButtonLook(Context context, boolean enabled, Button item) {
+        item.setEnabled(enabled);
+        Drawable originalIcon = context.getResources().getDrawable(R.drawable.rating_card_button_shape);
+        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon,item,context);
+        item.setBackgroundDrawable(icon);
+    }
+
+    /**
+     *
+     * Mutates and applies a filter that converts the given drawable to a Gray/corresponding shaded
+     * image.
+     * @return a mutated version of the given drawable with a color filter applied.
+     */
+
+    public static Drawable convertDrawableToGrayScale(Drawable drawable, Button button,Context c) {
+        if (drawable == null)
+            return null;
+
+        Drawable res = drawable.mutate();
+        res.setColorFilter(Color.parseColor("#ad9390"),PorterDuff.Mode.SRC_IN);
+        button.setTextColor(c.getResources().getColor(R.color.disabled_button_color));
+        return res;
     }
 
 }

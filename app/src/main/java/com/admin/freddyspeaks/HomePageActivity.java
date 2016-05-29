@@ -1,15 +1,21 @@
 package com.admin.freddyspeaks;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -56,15 +62,14 @@ public class HomePageActivity extends BaseActivity {
 
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
         backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
-
         getStartedButton = (Button) findViewById(R.id.getStartedButton);
         inputUserPhoneNumberLayout = (TextInputLayout) findViewById(R.id.inputUserPhoneNumberLayout);
         autoCompleteInputUserPhoneNumberText =(AutoCompleteTextView)findViewById(R.id.autoCompleteInputUserPhoneNumberText);
 
         autoCompleteInputUserPhoneNumberText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-
+                //if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                if ((event != null)){
                     if(ValidationUtil.isValidCellNumber(autoCompleteInputUserPhoneNumberText,inputUserPhoneNumberLayout,"Please enter valid Mobile Number ")){
                         saveAndNext();
                     }
@@ -77,6 +82,10 @@ public class HomePageActivity extends BaseActivity {
                 R.layout.userinfo_autosuggest, userList);
 
         autoCompleteInputUserPhoneNumberText.setAdapter(adapter);
+        autoCompleteInputUserPhoneNumberText.addTextChangedListener(mWatcher);
+        getStartedButton.setEnabled(false);
+        ImageUtility.setButtonLook(this,false,getStartedButton);
+        getStartedButton.setTextColor(this.getResources().getColor(R.color.disabled_button_color));
 
         getStartedButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +93,7 @@ public class HomePageActivity extends BaseActivity {
                 saveAndNext();
             }
         });
+        getStartedButton.addTextChangedListener(mWatcher);
     }
 
     void saveAndNext() {
@@ -110,4 +120,38 @@ public class HomePageActivity extends BaseActivity {
             }
         }
     }
+
+    TextWatcher mWatcher=new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            MobileNumberCompletion();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            MobileNumberCompletion();
+        }
+    };
+
+    private void MobileNumberCompletion()
+    {
+        if(autoCompleteInputUserPhoneNumberText.getText().length()==10)
+        {
+            ImageUtility.setButtonLook(this,true,getStartedButton);
+            getStartedButton.setEnabled(true);
+        }
+        else
+        {
+            ImageUtility.setButtonLook(this,false,getStartedButton);
+            getStartedButton.setEnabled(false);
+        }
+
+    }
+
+
+
 }

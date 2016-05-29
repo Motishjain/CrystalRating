@@ -15,7 +15,7 @@
     tools:showIn="@layout/activity_outlet_details"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="#fdd5b9">
+    android:background="@drawable/app_bg">
 
 
     <com.admin.view.CustomFontTextView
@@ -32,7 +32,6 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_gravity="center"
-        android:background="@drawable/register_container"
         android:layout_height="0dp"
         android:scrollbarSize="3dp"
         android:scrollbarThumbVertical="@color/floating_line">

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ThankYouActivity"
+    tools:showIn="@layout/activity_thank_you"
+    android:background="@drawable/app_bg"
+    >
+
+    <ImageView
+        android:id="@+id/backgroundRatingImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:alpha="0.1"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/rewardDisplayMessage"
+        style="@style/thankYouMessageNoRewardConfigured"
+        android:layout_marginTop="120dp"
+        android:layout_centerInParent = "true"
+        android:text="Thanks for shopping with us."
+        android:gravity="center_horizontal" />
+
+    <com.admin.view.CustomFontTextView
+        android:id="@+id/rewardDisplayMessage1"
+        style="@style/thankYouMessageNoRewardConfigured"
+        android:layout_centerInParent = "true"
+        android:text="Hope to see you again soon!"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/thankYouExitButton"
+        style="@style/thanksScreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:elevation="3dp"
+        android:text="Exit"
+        android:onClick="exit"
+        android:layout_gravity="center"
+        android:textAllCaps="false" />
+
+    </LinearLayout>
+</FrameLayout>

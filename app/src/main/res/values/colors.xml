@@ -30,4 +30,6 @@
     <color name="thanks_screen">#485791</color>
     <color name="thanks_screen_button">#ACBBAE</color>
     <color name="transparent">#00000000</color>
+    <color name="disabled_button_color">#D9D9D9</color>
+    <color name="disabled_button_background">#ad9390</color>
 </resources>
