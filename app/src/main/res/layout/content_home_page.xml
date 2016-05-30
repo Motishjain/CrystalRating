@@ -62,8 +62,6 @@
             style="@style/formButton"
             android:paddingLeft="12dp"
             android:paddingRight="7dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:elevation="3dp"
             android:text="Continue "
@@ -72,6 +70,7 @@
             android:textColor="#fff"
             android:gravity="center"
             android:enabled="false"
+            android:imeOptions="actionDone"
             android:layout_gravity="right" />
 
 

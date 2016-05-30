@@ -3,10 +3,6 @@ package com.admin.freddyspeaks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
@@ -14,12 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.admin.adapter.UserPhoneNumberInputAdapter;
 import com.admin.database.DBHelper;
@@ -85,6 +79,7 @@ public class HomePageActivity extends BaseActivity {
     void saveAndNext() {
         if(ValidationUtil.isValidCellNumber(autoCompleteInputUserPhoneNumberText,inputUserPhoneNumberLayout,"Please enter valid Mobile Number")) {
             try {
+                hideKeyboard();
                 queryBuilder.reset();
                 queryBuilder.where().eq("phoneNumber", autoCompleteInputUserPhoneNumberText.getText().toString().trim());
                 userList = queryBuilder.query();
@@ -133,5 +128,13 @@ public class HomePageActivity extends BaseActivity {
         {
             getStartedButton.setEnabled(false);
         }
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
