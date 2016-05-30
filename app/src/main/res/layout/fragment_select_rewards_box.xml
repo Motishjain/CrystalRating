@@ -8,15 +8,31 @@
     android:background="@drawable/level_reward_box"
     tools:context="layout.SelectRewardsBoxFragment">
 
-    <com.admin.view.CustomFontTextView
-        android:id="@+id/rewardsLevelHeader"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="left"
-        android:textSize="17dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/colorPrimaryDark"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/questionName" />
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp">
+
+        <com.admin.view.CustomFontTextView
+            android:id="@+id/rewardsLevelHeader"
+            android:textSize="17dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_height="wrap_content"
+            android:text="Level 1"
+            style="@style/questionName" />
+
+        <com.admin.view.CustomFontTextView
+            android:id="@+id/rewardsLevelSubHeader"
+            android:textSize="12dp"
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/black"
+            android:text="Rs.10 to Rs.20"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            style="@style/questionName" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

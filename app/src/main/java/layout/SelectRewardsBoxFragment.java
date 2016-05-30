@@ -38,7 +38,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
 
     private OnFragmentInteractionListener mListener;
 
-    private TextView rewardsLevelHeader;
+    private TextView rewardsLevelHeader, rewardsLevelSubHeader;
     private RecyclerView fragmentRewardsList;
 
     private SelectRewardsBoxAdapter selectRewardsBoxAdapter;
@@ -71,14 +71,12 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         View selectRewardBoxFragment =  inflater.inflate(R.layout.fragment_select_rewards_box, container, false);
-
         fragmentRewardsList = (RecyclerView) selectRewardBoxFragment.findViewById(R.id.fragmentRewardsList);
         rewardsLevelHeader = (TextView) selectRewardBoxFragment.findViewById(R.id.rewardsLevelHeader);
+        rewardsLevelSubHeader = (TextView) selectRewardBoxFragment.findViewById(R.id.rewardsLevelSubHeader);
 
-        rewardsLevelHeader.setText("Level "+this.level+" rewards");
+        setLevelHeader(level);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(selectRewardBoxFragment.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -128,8 +126,31 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         void fragmentCreated(int level);
     }
 
-    public int getLevel() {
-        return level;
+    private void setLevelHeader(int level) {
+        rewardsLevelHeader.setText("Level "+this.level+" rewards ");
+        int lowerRange = 0, upperRange = 0;
+        switch (level) {
+            case 0:
+                lowerRange = 10;
+                break;
+            case 1:
+                lowerRange = 20;
+                upperRange = 40;
+                break;
+            case 2:
+                lowerRange = 60;
+                upperRange = 80;
+                break;
+        }
+        String subHeader;
+        if(upperRange==0) {
+            subHeader = "(Rs."+lowerRange+")";
+        }
+        else {
+            subHeader = "(Rs."+lowerRange+" to Rs."+upperRange+")";
+        }
+        rewardsLevelHeader.setText("Level "+this.level+" rewards ");
+        rewardsLevelSubHeader.setText(subHeader);
     }
 
 }
