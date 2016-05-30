@@ -145,10 +145,10 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         }
         String subHeader;
         if(upperRange==0) {
-            subHeader = "(Rs."+lowerRange+")";
+            subHeader = "(Rs."+lowerRange+" )";
         }
         else {
-            subHeader = "(Rs."+lowerRange+" to Rs."+upperRange+")";
+            subHeader = "(Rs."+lowerRange+" to Rs."+upperRange+" )";
         }
         rewardsLevelHeader.setText("Level "+this.level+" rewards ");
         rewardsLevelSubHeader.setText(subHeader);
