@@ -24,7 +24,6 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     private ProgressDialog progressDialog;
     private String rewardCategory;
     private String outletCode;
-    private int selectedLevel;
 
     List<SelectRewardsBoxFragment> fragmentList = new ArrayList<>();
 
@@ -81,14 +80,6 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
         this.rewardCategory = rewardCategory;
     }
 
-    public int getSelectedLevel() {
-        return selectedLevel;
-    }
-
-    public void setSelectedLevel(int selectedLevel) {
-        this.selectedLevel = selectedLevel;
-    }
-
     public List<SelectRewardsBoxFragment> getFragmentList() {
         return fragmentList;
     }
@@ -113,7 +104,6 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     public void onTaskCompleted() {
         Intent rewardsSaved = new Intent();
         rewardsSaved.putExtra("rewardsSelected", true);
-        rewardsSaved.putExtra("selectedLevel", selectedLevel);
         setResult(200, rewardsSaved);
         finish();
     }

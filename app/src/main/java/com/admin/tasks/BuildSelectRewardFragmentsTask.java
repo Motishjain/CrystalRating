@@ -136,7 +136,6 @@ public class BuildSelectRewardFragmentsTask extends AsyncTask<RewardSelectionAct
                 for (Reward reward : activity.getRewardsList()) {
                     if (selectedReward.getReward().getRewardId().equals(reward.getRewardId())) {
                         reward.setSelected(true);
-                        activity.setSelectedLevel(reward.getLevel());
                         break;
                     }
                 }
@@ -148,13 +147,12 @@ public class BuildSelectRewardFragmentsTask extends AsyncTask<RewardSelectionAct
         activity.setLevelRewardsMap(new TreeMap<Integer, List<Reward>>());
 
         for (Reward reward : activity.getRewardsList()) {
-            if (activity.getLevelRewardsMap().get(reward.getLevel()) == null) {
-                List<Reward> rewardList = new ArrayList<>();
-                rewardList.add(reward);
-                activity.getLevelRewardsMap().put(reward.getLevel(), rewardList);
-            } else {
-                activity.getLevelRewardsMap().get(reward.getLevel()).add(reward);
+            List<Reward> levelWiseRewardList = activity.getLevelRewardsMap().get(reward.getLevel());
+            if (levelWiseRewardList == null) {
+                levelWiseRewardList = new ArrayList<>();
+                activity.getLevelRewardsMap().put(reward.getLevel(), levelWiseRewardList);
             }
+            insertRecordIfSelected(levelWiseRewardList,reward);
         }
         FragmentManager fragmentManager = activity.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -165,5 +163,14 @@ public class BuildSelectRewardFragmentsTask extends AsyncTask<RewardSelectionAct
             activity.getFragmentList().add(selectRewardsBoxFragment);
         }
         fragmentTransaction.commit();
+    }
+
+    private void insertRecordIfSelected(List<Reward> rewardList, Reward reward) {
+        if(reward.isSelected()) {
+            rewardList.add(0,reward);
+        }
+        else {
+            rewardList.add(reward);
+        }
     }
 }
