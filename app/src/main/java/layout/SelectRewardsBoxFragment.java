@@ -130,14 +130,14 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         rewardsLevelHeader.setText("Level "+this.level+" rewards ");
         int lowerRange = 0, upperRange = 0;
         switch (level) {
-            case 0:
+            case 1:
                 lowerRange = 10;
                 break;
-            case 1:
+            case 2:
                 lowerRange = 20;
                 upperRange = 40;
                 break;
-            case 2:
+            case 3:
                 lowerRange = 60;
                 upperRange = 80;
                 break;
