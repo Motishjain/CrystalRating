@@ -132,6 +132,7 @@ public class SelectRewardsBoxFragment extends Fragment implements SelectRewardsB
         switch (level) {
             case 1:
                 lowerRange = 10;
+                lowerRange = 15;
                 break;
             case 2:
                 lowerRange = 20;
