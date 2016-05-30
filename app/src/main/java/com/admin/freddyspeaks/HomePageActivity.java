@@ -26,6 +26,7 @@ import com.admin.database.DBHelper;
 import com.admin.database.User;
 import com.admin.util.ImageUtility;
 import com.admin.util.ValidationUtil;
+import com.admin.view.CustomFontButton;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -38,7 +39,7 @@ import java.util.List;
 public class HomePageActivity extends BaseActivity {
 
     ImageView backgroundRatingImage;
-    Button getStartedButton;
+    CustomFontButton getStartedButton;
     TextInputLayout inputUserPhoneNumberLayout;
     AutoCompleteTextView autoCompleteInputUserPhoneNumberText;
     Dao<User, Integer> userDao;
@@ -62,30 +63,16 @@ public class HomePageActivity extends BaseActivity {
 
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
         backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
-        getStartedButton = (Button) findViewById(R.id.getStartedButton);
+        getStartedButton = (CustomFontButton) findViewById(R.id.getStartedButton);
         inputUserPhoneNumberLayout = (TextInputLayout) findViewById(R.id.inputUserPhoneNumberLayout);
         autoCompleteInputUserPhoneNumberText =(AutoCompleteTextView)findViewById(R.id.autoCompleteInputUserPhoneNumberText);
 
-        autoCompleteInputUserPhoneNumberText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                //if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                if ((event != null)){
-                    if(ValidationUtil.isValidCellNumber(autoCompleteInputUserPhoneNumberText,inputUserPhoneNumberLayout,"Please enter valid Mobile Number ")){
-                        saveAndNext();
-                    }
-                }
-                return false;
-            }
-        });
+        autoCompleteInputUserPhoneNumberText.addTextChangedListener(userPhoneTextWatcher);
 
         final UserPhoneNumberInputAdapter adapter = new UserPhoneNumberInputAdapter(this,
                 R.layout.userinfo_autosuggest, userList);
 
         autoCompleteInputUserPhoneNumberText.setAdapter(adapter);
-        autoCompleteInputUserPhoneNumberText.addTextChangedListener(mWatcher);
-        getStartedButton.setEnabled(false);
-        ImageUtility.setButtonLook(this,false,getStartedButton);
-        getStartedButton.setTextColor(this.getResources().getColor(R.color.disabled_button_color));
 
         getStartedButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +80,6 @@ public class HomePageActivity extends BaseActivity {
                 saveAndNext();
             }
         });
-        getStartedButton.addTextChangedListener(mWatcher);
     }
 
     void saveAndNext() {
@@ -121,37 +107,31 @@ public class HomePageActivity extends BaseActivity {
         }
     }
 
-    TextWatcher mWatcher=new TextWatcher() {
+    TextWatcher userPhoneTextWatcher =new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            MobileNumberCompletion();
+            checkPhoneNumberCompletion();
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-            MobileNumberCompletion();
+            checkPhoneNumberCompletion();
         }
     };
 
-    private void MobileNumberCompletion()
+    private void checkPhoneNumberCompletion()
     {
         if(autoCompleteInputUserPhoneNumberText.getText().length()==10)
         {
-            ImageUtility.setButtonLook(this,true,getStartedButton);
             getStartedButton.setEnabled(true);
         }
         else
         {
-            ImageUtility.setButtonLook(this,false,getStartedButton);
             getStartedButton.setEnabled(false);
         }
-
     }
-
-
-
 }

@@ -2,7 +2,9 @@ package com.admin.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.Button;
 
@@ -15,6 +17,8 @@ public class CustomFontButton extends Button {
 
 
     private String fontFamilyFile;
+    Drawable originalBg;
+    Drawable disabledBg;
 
     public CustomFontButton(Context context) {
         super(context);
@@ -53,16 +57,41 @@ public class CustomFontButton extends Button {
         this.fontFamilyFile = fontFamilyFile;
     }
 
-//    @Override
-   /*
+    @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        if(!enabled){
-            setAlpha(0.5f);
+        if(originalBg==null || disabledBg==null)
+        {
+            setColors();
+        }
+        if(enabled) {
+            setBackgroundDrawable(originalBg);
         }
         else {
-            setAlpha(1.0f);
+            setBackgroundDrawable(disabledBg);
         }
+
     }
-    */
+
+    /**
+     *
+     * Mutates and applies a filter that converts the given drawable to a Gray/corresponding shaded
+     * image.
+     * @return a mutated version of the given drawable with a color filter applied.
+     */
+    public Drawable convertDrawableToGrayScale(Drawable drawable) {
+        if (drawable == null)
+            return null;
+
+        Drawable res = drawable.mutate();
+        res.setColorFilter(Color.parseColor("#ad9390"), PorterDuff.Mode.SRC_IN);
+        setTextColor(getResources().getColor(R.color.disabled_button_color));
+        return res;
+    }
+
+    private void setColors() {
+        originalBg = getBackground();
+        disabledBg = convertDrawableToGrayScale(getBackground().getConstantState().newDrawable());
+
+    }
 }

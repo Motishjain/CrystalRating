@@ -57,7 +57,7 @@
                  />
         </android.support.design.widget.TextInputLayout>
 
-        <Button
+        <com.admin.view.CustomFontButton
             android:id="@+id/getStartedButton"
             style="@style/formButton"
             android:paddingLeft="12dp"
@@ -71,6 +71,7 @@
             android:textAllCaps="false"
             android:textColor="#fff"
             android:gravity="center"
+            android:enabled="false"
             android:layout_gravity="right" />
 
 
