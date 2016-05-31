@@ -39,7 +39,7 @@
         <item name="android:background">@drawable/form_button_shape</item>
     </style>
 
-    <style name="MyTheme" parent="android:Theme.Holo.Dialog">
+    <style name="CustomDialogTheme" parent="android:Theme.Holo.Dialog">
         <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
