@@ -62,7 +62,7 @@
         <item name="android:topDark">@color/transparent</item>
     </style>
 
-    <style name="homePageStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="homePageStyle">
             <item name="fontFamilyFile">@string/applicationFont</item>
             <item name="colorControlNormal">#321f18</item>
             <item name="colorControlActivated">#282D43</item>
