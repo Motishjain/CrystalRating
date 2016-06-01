@@ -52,8 +52,7 @@
         <activity
             android:name=".BillDetailsActivity"
             android:label="@string/title_activity_bill_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".RewardSelectionActivity"
             android:label="@string/title_activity_reward_selection"
