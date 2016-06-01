@@ -97,11 +97,6 @@ public class OutletDetailsActivity extends BaseActivity {
             populateFields(outletDao);
         }
 
-        if (editMode) {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-        }
-
         if (!editMode) {
             registerOutletHeader.setText("Register your Outlet!");
             nextButton.setText("Register");
