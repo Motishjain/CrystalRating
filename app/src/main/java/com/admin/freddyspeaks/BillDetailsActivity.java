@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.admin.dialogs.CustomDialogFragment;
 import com.admin.util.ImageUtility;
+import com.admin.util.KeyboardUtil;
 import com.admin.util.ValidationUtil;
 import com.admin.webservice.request_objects.FeedbackRequest;
 
@@ -40,6 +41,7 @@ public class BillDetailsActivity extends BaseActivity {
 
     public void nextButtonClickHandler(View v) {
         if (ValidationUtil.isValidAmount(billAmount, inputBillAmountLayout, "Enter valid bill amount")) {
+            KeyboardUtil.hideKeyboard(this);
             feedback.setBillAmount(billAmount.getText().toString());
             Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
             displayReward.putExtra("feedback", feedback);

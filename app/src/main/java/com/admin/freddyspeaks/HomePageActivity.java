@@ -19,6 +19,7 @@ import com.admin.adapter.UserPhoneNumberInputAdapter;
 import com.admin.database.DBHelper;
 import com.admin.database.User;
 import com.admin.util.ImageUtility;
+import com.admin.util.KeyboardUtil;
 import com.admin.util.ValidationUtil;
 import com.admin.view.CustomFontButton;
 import com.admin.webservice.request_objects.FeedbackRequest;
@@ -79,7 +80,7 @@ public class HomePageActivity extends BaseActivity {
     void saveAndNext() {
         if(ValidationUtil.isValidCellNumber(autoCompleteInputUserPhoneNumberText,inputUserPhoneNumberLayout,"Please enter valid Mobile Number")) {
             try {
-                hideKeyboard();
+                KeyboardUtil.hideKeyboard(this);
                 queryBuilder.reset();
                 queryBuilder.where().eq("phoneNumber", autoCompleteInputUserPhoneNumberText.getText().toString().trim());
                 userList = queryBuilder.query();
@@ -128,13 +129,5 @@ public class HomePageActivity extends BaseActivity {
         {
             getStartedButton.setEnabled(false);
         }
-    }
-
-    private void hideKeyboard() {
-        InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
