@@ -39,7 +39,7 @@
 
             <com.admin.view.CustomFontButton
                 android:id="@+id/ratingPreviousButton"
-                style="@style/ratingCardButton"
+                style="@style/ratingCardPreviousButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -54,7 +54,7 @@
 
             <com.admin.view.CustomFontButton
                 android:id="@+id/ratingNextButton"
-                style="@style/ratingCardButton"
+                style="@style/ratingCardNextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

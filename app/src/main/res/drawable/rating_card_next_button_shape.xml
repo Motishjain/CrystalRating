@@ -10,9 +10,9 @@
             <gradient android:startColor="#FF6A4351" android:endColor="#B06A4351" android:angle="270" android:type="radial" android:gradientRadius="250"/>
         </shape>
     </item>
-    <item>
-        <shape android:shape="rectangle">
+    <item android:drawable="@drawable/next_button_layer_list">
+        <!--<shape android:shape="rectangle">
             <solid android:color="@color/formButtonBg" />
-        </shape>
+        </shape>-->
     </item>
 </selector>

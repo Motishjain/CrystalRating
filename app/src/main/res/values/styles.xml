@@ -67,14 +67,24 @@
             <item name="colorControlActivated">#282D43</item>
     </style>
 
-    <style name="ratingCardButton" parent="Base.TextAppearance.AppCompat.Button">
+    <style name="ratingCardNextButton" parent="Base.TextAppearance.AppCompat.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@drawable/form_button_color</item>
         <item name="android:textSize">@dimen/form_button_text_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="fontFamilyFile">@string/applicationFont</item>
-        <item name="android:background">@drawable/rating_card_button_shape</item>
+        <item name="android:background">@drawable/rating_card_next_button_shape</item>
+    </style>
+
+    <style name="ratingCardPreviousButton" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@drawable/form_button_color</item>
+        <item name="android:textSize">@dimen/form_button_text_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamilyFile">@string/applicationFont</item>
+        <item name="android:background">@drawable/rating_card_previous_button_shape</item>
     </style>
 
 </resources>
