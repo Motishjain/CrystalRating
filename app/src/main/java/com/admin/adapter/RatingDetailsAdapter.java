@@ -48,7 +48,7 @@ public class RatingDetailsAdapter extends RecyclerView.Adapter<RatingDetailsAdap
         ratingDetailHolder.billDateTextView.setText(simpleDateFormat.format(feedbackResponse.getCreatedDate()));
         ratingDetailHolder.userPhoneNumberCellTextView.setText(feedbackResponse.getUserPhoneNumber());
         if(feedbackResponse.getBillAmount()!=null && feedbackResponse.getBillAmount().trim().length()>0) {
-            ratingDetailHolder.billAmountCellTextView.setText("Rs." + feedbackResponse.getBillAmount());
+            ratingDetailHolder.billAmountCellTextView.setText("₹ " + feedbackResponse.getBillAmount());
         }
         if(position%2==0) {
             ratingDetailHolder.ratingDetailLayout.setBackgroundResource(R.drawable.rating_details_item_cream_bg);

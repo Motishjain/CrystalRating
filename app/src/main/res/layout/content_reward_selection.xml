@@ -24,12 +24,13 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:weightSum="2"
+        android:gravity="center"
         android:layout_weight="50">
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@string/save"
             android:textColor="#237414"
             android:id="@+id/saveSelectedRewardsButton"
@@ -44,9 +45,8 @@
 
         <Button
             android:id="@+id/cancelButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@string/cancel"
             android:textColor="#237414"
             android:onClick="close"

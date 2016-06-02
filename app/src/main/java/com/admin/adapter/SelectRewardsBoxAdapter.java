@@ -56,7 +56,7 @@ public class SelectRewardsBoxAdapter extends RecyclerView.Adapter<SelectRewardsB
         }
 
         holder.selectRewardName.setText(reward.getName());
-        holder.selectRewardCost.setText("Rs."+reward.getCost());
+        holder.selectRewardCost.setText("₹"+reward.getCost());
         holder.selectRewardCheckbox.setChecked(reward.isSelected());
 
         holder.selectRewardCheckbox.setOnClickListener(new View.OnClickListener() {

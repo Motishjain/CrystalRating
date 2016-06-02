@@ -20,18 +20,14 @@
             android:layout_marginLeft="10dp"
             android:textColor="@color/colorPrimaryDark"
             android:layout_height="wrap_content"
-            android:text="Level 1"
             style="@style/questionName" />
 
         <com.admin.view.CustomFontTextView
             android:id="@+id/rewardsLevelSubHeader"
-            android:textSize="12dp"
             android:layout_marginLeft="2dp"
-            android:textColor="@color/black"
-            android:text="Rs.10 to Rs.20"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
-            android:textStyle="normal"
-            style="@style/questionName" />
+            style="@style/subHeader" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
