@@ -5,8 +5,8 @@
             <solid android:color="@color/formButtonBg" />
         </shape>
     </item>
-    <item android:left="0dp" android:top="0dp" android:right="125dp">
-        <bitmap android:src="@drawable/ic_arrow_back_white_24dp" android:gravity="center_vertical"
+    <item android:left="5dp" android:top="0dp">
+        <bitmap android:src="@drawable/ic_arrow_back_white_24dp" android:gravity="left"
             />
     </item>
 </layer-list>
