@@ -69,7 +69,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
     public void onBindViewHolder(final RatingOptionHolder holder, final int position) {
 
         //TODO emoticon
-        int emoticonIdResource = context.getResources().getIdentifier("emoticon_1"/*+emoticonIds[position]*/,
+        int emoticonIdResource = context.getResources().getIdentifier(emoticonIds[position],
                 "drawable", context.getPackageName());
 
         holder.ratingOptionEmoticon.setImageResource(emoticonIdResource);
