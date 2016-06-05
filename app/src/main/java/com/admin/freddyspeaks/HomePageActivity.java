@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.admin.adapter.UserPhoneNumberInputAdapter;
 import com.admin.database.DBHelper;
 import com.admin.database.User;
+import com.admin.tasks.SetRandomQuestionsTask;
 import com.admin.util.ImageUtility;
 import com.admin.util.KeyboardUtil;
 import com.admin.util.ValidationUtil;
@@ -63,6 +64,9 @@ public class HomePageActivity extends BaseActivity {
         autoCompleteInputUserPhoneNumberText =(AutoCompleteTextView)findViewById(R.id.autoCompleteInputUserPhoneNumberText);
 
         autoCompleteInputUserPhoneNumberText.addTextChangedListener(userPhoneTextWatcher);
+
+        SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(HomePageActivity.this,null);
+        setRandomQuestionsTask.execute();
 
         final UserPhoneNumberInputAdapter adapter = new UserPhoneNumberInputAdapter(this,
                 R.layout.userinfo_autosuggest, userList);

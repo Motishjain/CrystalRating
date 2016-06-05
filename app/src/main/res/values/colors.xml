@@ -32,4 +32,5 @@
     <color name="transparent">#00000000</color>
     <color name="disabled_button_color">#D9D9D9</color>
     <color name="disabled_button_background">#ad9390</color>
+    <color name="question_number">#145b71</color>
 </resources>

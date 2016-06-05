@@ -10,13 +10,14 @@
     
     <ImageView
         android:id="@+id/ratingOptionEmoticon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="15dp"
         android:gravity="center"
         android:layout_gravity="center"
+        android:tint="#edcf3d"
         android:background="#0000"/>
 
     <com.admin.view.CustomFontTextView

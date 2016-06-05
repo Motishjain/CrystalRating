@@ -11,25 +11,20 @@
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/questionNumberTextView"
-        style="@style/questionName"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:layout_weight="2"
-        android:textColor="#145b71"
-        android:textSize="17sp" />
+        style="@style/questionNumber"
+        android:gravity="center"
+        android:layout_weight="2" />
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/questionNameTextView"
         style="@style/questionName"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="15dp"
-        android:layout_gravity="center"
-        android:layout_weight="6" />
+        android:gravity="center"
+        android:layout_weight="8" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="12"
+        android:layout_weight="10"
         android:gravity="center"
         android:id="@+id/ratingOptionsLinearLayout"
         android:visibility="gone"
