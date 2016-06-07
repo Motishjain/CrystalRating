@@ -93,9 +93,9 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
 
 
         builder.setIsDebug(true);
-        builder.setDebugKey("F4Vvyz");// Debug Key
-        builder.setDebugMerchantId("4828127");// Debug Merchant ID
-        builder.setDebugSalt("Z6cEj6SP");// Debug Salt
+        builder.setDebugKey("2fpmrgvH");// Debug Key
+        builder.setDebugMerchantId("4937958");// Debug Merchant ID
+        builder.setDebugSalt("97Bf1j7yGO");// Debug Salt
 
         builder.setAmount(price);
 
