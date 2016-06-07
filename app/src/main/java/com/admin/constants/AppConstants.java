@@ -51,7 +51,7 @@ public class AppConstants {
 
     public static final String MERCHANT_ID = "5474224";
 
-    public static final String PAYU_KEY = "5474224";
+    public static final String PAYU_KEY = "58FbMCBm";
 
     public static final String PAYU_SALT = "AUR87LDlIS";
 
