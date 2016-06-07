@@ -20,6 +20,10 @@ import android.widget.TextView;
 
 import com.admin.database.Question;
 import com.admin.freddyspeaks.R;
+import com.rockerhieu.emojicon.EmojiconTextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Admin on 3/26/2016.
@@ -37,6 +41,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
     Context context;
     int selectedOptionBgColor, unSelectedOptionBgColor;
     RatingOptionsAdapter.OnItemSelectedListener onItemSelectedListener;
+    Map<String, String> emotionsMap;
 
 
     public RatingOptionsAdapter(int layoutResourceId, Question question, RatingOptionsAdapter.OnItemSelectedListener onItemSelectedListener) {
@@ -46,6 +51,14 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
         optionValues = question.getRatingValues().split(",");
         emoticonIds = question.getEmoticonIds().split(",");
         selected = new boolean[optionValues.length];
+        emotionsMap=new HashMap<>();
+
+        emotionsMap.put("very_satisfied","\uE106");
+        emotionsMap.put("satisfied","\uE056");
+        emotionsMap.put("neutral","\uD83D\uDE10");
+        emotionsMap.put("dissatisfied","\uE40E");
+        emotionsMap.put("very_dissatisfied","\uE058");
+
         if(question.getSelectedOption()!=null && !question.getSelectedOption().equals("")) {
             selectedOption = Integer.parseInt(question.getSelectedOption())-1;
             selected[selectedOption] = true;
@@ -68,11 +81,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
     @Override
     public void onBindViewHolder(final RatingOptionHolder holder, final int position) {
 
-        //TODO emoticon
-        int emoticonIdResource = context.getResources().getIdentifier(emoticonIds[position],
-                "drawable", context.getPackageName());
-
-        holder.ratingOptionEmoticon.setImageResource(emoticonIdResource);
+        holder.ratingOptionEmoticon.setText(emotionsMap.get(emoticonIds[position]));
         holder.selectedOptionTextView.setText(optionValues[position]);
 
         if(selected[position]) {
@@ -111,13 +120,13 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
 
     static class RatingOptionHolder extends RecyclerView.ViewHolder{
 
-        ImageView ratingOptionEmoticon;
+        EmojiconTextView ratingOptionEmoticon;
         TextView selectedOptionTextView;
         LinearLayout ratingOptionsLayout;
 
         public RatingOptionHolder(View view){
             super(view);
-            ratingOptionEmoticon = (ImageView) view.findViewById(R.id.ratingOptionEmoticon);
+            ratingOptionEmoticon= (EmojiconTextView) view.findViewById(R.id.txtEmojicon);
             selectedOptionTextView = (TextView) view.findViewById(R.id.selectedOptionTextView);
             ratingOptionsLayout = (LinearLayout) view.findViewById(R.id.ratingOptionsLayout);
         }

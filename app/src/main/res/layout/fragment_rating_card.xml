@@ -44,19 +44,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="12"
-        android:gravity="center"
+        android:layout_weight="10"
+        android:layout_gravity="center"
         android:id="@+id/ratingBarLinearLayout"
         android:visibility="gone"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="2">
 
         <RatingBar
             android:id="@+id/ratingBar"
             style="@style/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/rating_stars_bg"
             android:indeterminateDrawable="@drawable/rating_stars"
             android:progressDrawable="@drawable/rating_stars"
@@ -64,8 +64,8 @@
         <com.admin.view.CustomFontTextView
             android:id="@+id/selectedRatingTextView"
             style="@style/selectedRatingValue"
-            android:layout_gravity="center"
-            android:layout_marginTop="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             />
     </LinearLayout>
 
