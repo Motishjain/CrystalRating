@@ -67,12 +67,10 @@ public class CustomFontButton extends Button {
         if(enabled) {
             setBackgroundDrawable(originalBg);
             setTextColor((getResources().getColor(R.color.white)));
-
         }
         else {
             setBackgroundDrawable(disabledBg);
         }
-
     }
 
     /**
@@ -94,6 +92,12 @@ public class CustomFontButton extends Button {
     private void setColors() {
         originalBg = getBackground();
         disabledBg = convertDrawableToGrayScale(getBackground().getConstantState().newDrawable());
+    }
 
+    @Override
+    public void setBackgroundDrawable(Drawable drawable) {
+        super.setBackgroundDrawable(drawable);
+        setColors();
+        setEnabled(isEnabled());
     }
 }
