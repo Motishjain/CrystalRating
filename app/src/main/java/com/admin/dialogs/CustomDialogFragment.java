@@ -1,9 +1,8 @@
 package com.admin.dialogs;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,12 +55,14 @@ public class CustomDialogFragment extends DialogFragment {
         });
 
         Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                customDialogListener.onDialogNegativeClick();
-            }
-        });
+        if(buttonCancel!=null) {
+            buttonCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    customDialogListener.onDialogNegativeClick();
+                }
+            });
+        }
 
         if(customMessages!=null) {
             for(int i = 0;i < customMessages.length; i++) {

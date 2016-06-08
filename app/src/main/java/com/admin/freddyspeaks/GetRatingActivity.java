@@ -226,11 +226,11 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
         if (currentQuestionIndex == totalQuestions - 1) {
             ratingNextButton.setText("Done");
-            ratingNextButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.rating_card_done_button_shape));
+            ratingNextButton.changeOriginalBg(getResources().getDrawable(R.drawable.rating_card_done_button_shape));
         }
         else {
             ratingNextButton.setText("Next");
-            ratingNextButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.rating_card_next_button_shape));
+            ratingNextButton.changeOriginalBg(getResources().getDrawable(R.drawable.rating_card_next_button_shape));
         }
     }
 
@@ -291,7 +291,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
     @Override
     public void onBackPressed() {
         dialogConfirmExit = CustomDialogFragment.newInstance(R.layout.dialog_confirm_exit, this);
-        dialogConfirmExit.show(getFragmentManager(), "");
+        dialogConfirmExit.show(getSupportFragmentManager(), "");
     }
 
 

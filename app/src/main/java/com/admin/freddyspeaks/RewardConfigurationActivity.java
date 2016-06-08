@@ -1,15 +1,12 @@
 package com.admin.freddyspeaks;
 
-import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +23,6 @@ import com.admin.database.DBHelper;
 import com.admin.database.Question;
 import com.admin.database.SelectedReward;
 import com.admin.dialogs.CustomDialogFragment;
-import com.admin.receiver.DailyAlarmReceiver;
 import com.admin.tasks.SetRandomQuestionsTask;
 import com.admin.util.NetworkUtil;
 import com.admin.view.CustomProgressDialog;
@@ -315,7 +311,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
     }
 
     private void prepareforDeleting(SelectedRewardsBoxAdapter adapter, List<SelectedReward> list, int position){
-        dialogDelete.show(getFragmentManager(), "");
+        dialogDelete.show(getSupportFragmentManager(), "");
 
         adapterFromDel = adapter;
         listFromDel = list;

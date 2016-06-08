@@ -94,10 +94,10 @@ public class CustomFontButton extends Button {
         disabledBg = convertDrawableToGrayScale(getBackground().getConstantState().newDrawable());
     }
 
-    @Override
-    public void setBackgroundDrawable(Drawable drawable) {
-        super.setBackgroundDrawable(drawable);
-        setColors();
+
+    public void changeOriginalBg(Drawable drawable) {
+        originalBg = drawable;
+        disabledBg = convertDrawableToGrayScale(drawable.getConstantState().newDrawable());
         setEnabled(isEnabled());
     }
 }

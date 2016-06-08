@@ -228,8 +228,8 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
             Dao<Subscription, Integer> subscriptionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Subscription");
             UpdateBuilder<Subscription, Integer> subscriptionUpdateBuilder = subscriptionDao.updateBuilder();
             subscriptionUpdateBuilder.where().eq("id", subscription.getId());
-            subscriptionUpdateBuilder.updateColumnExpression("activationStatus", subscription.getActivationStatus());
-            subscriptionUpdateBuilder.updateColumnExpression("expiryDate", subscription.getExpiryDate());
+            subscriptionUpdateBuilder.updateColumnValue("activationStatus", subscription.getActivationStatus());
+            subscriptionUpdateBuilder.updateColumnValue("expiryDate", subscription.getExpiryDate());
             subscriptionUpdateBuilder.update();
         } catch (SQLException e) {
             e.printStackTrace();

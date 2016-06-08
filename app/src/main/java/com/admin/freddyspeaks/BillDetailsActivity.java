@@ -66,6 +66,6 @@ public class BillDetailsActivity extends BaseActivity {
                 dialogConfirmExit.dismiss();
             }
         });
-        dialogConfirmExit.show(getFragmentManager(), "");
+        dialogConfirmExit.show(getSupportFragmentManager(), "");
     }
 }

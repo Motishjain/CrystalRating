@@ -126,6 +126,7 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
         public SubscriptionInfo(String name,String months, double price) {
             this.name = name;
             this.price = price;
+            this.months = months;
         }
 
         public String getName() {

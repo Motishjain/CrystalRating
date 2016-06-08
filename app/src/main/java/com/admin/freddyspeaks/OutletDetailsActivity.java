@@ -134,7 +134,7 @@ public class OutletDetailsActivity extends BaseActivity {
                     outletRequest.setPinCode(pinCode.getText().toString());
                     outletRequest.setEmail(email.getText().toString());
                     outletRequest.setCellNumber(phoneNumber.getText().toString());
-                    outletRequest.setCreatedDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                    outletRequest.setCreatedDate(new SimpleDateFormat("MMMM dd, yyyy").format(new Date()));
 
                     RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
                     Call<SaveServiceReponse> registerOutletCall = restEndpointInterface.registerOutlet(outletRequest);
@@ -153,7 +153,6 @@ public class OutletDetailsActivity extends BaseActivity {
                                 currentOutlet.setPinCode(outletRequest.getPinCode());
                                 currentOutlet.setEmail(outletRequest.getEmail());
                                 currentOutlet.setCellNumber(outletRequest.getCellNumber());
-
                                 //Check if this is create mode (Register Outlet)
                                 if (!editMode) {
                                     try {
@@ -167,6 +166,7 @@ public class OutletDetailsActivity extends BaseActivity {
                                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("outletCode", currentOutlet.getOutletCode());
+                                        editor.putString("createdDate", new SimpleDateFormat("MMMM dd, yyyy").format(new Date()));
                                         editor.commit();
 
                                         progressDialog.dismiss();
