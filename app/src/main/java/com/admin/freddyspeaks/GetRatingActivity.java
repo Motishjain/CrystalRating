@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.admin.animation.DepthPageTransformer;
 import com.admin.animation.ViewPagerCustomDuration;
 import com.admin.constants.AppConstants;
@@ -227,9 +226,11 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
         if (currentQuestionIndex == totalQuestions - 1) {
             ratingNextButton.setText("Done");
+            ratingNextButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.rating_card_done_button_shape));
         }
         else {
             ratingNextButton.setText("Next");
+            ratingNextButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.rating_card_next_button_shape));
         }
     }
 
