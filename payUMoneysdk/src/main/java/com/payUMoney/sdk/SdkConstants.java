@@ -90,7 +90,7 @@ public class SdkConstants {
 
     //URL FOR TEST ENVIRONMENT
 
-    private static final String BASE_URL_DEBUG = "https://mobiletest.payumoney.com";
+    private static final String BASE_URL_DEBUG = "https://test.payumoney.com";
     private static final String BASE_URL_IMAGE_DEBUG = "https://testfile.payumoney.com";
 
 

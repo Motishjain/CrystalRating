@@ -216,7 +216,7 @@ public class SdkWebViewActivityNew extends FragmentActivity implements MagicRetr
             magicRetryFragment.initMRSettingsFromSharedPreference(this);
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.getSettings().setDomStorageEnabled(true);
-            String url = "https://" + (PayUmoneySdkInitilizer.IsDebugMode() ? "mobiletest" : "secure") + ".payu.in/_seamless_payment";
+            String url = "https://" + (PayUmoneySdkInitilizer.IsDebugMode() ? "test" : "secure") + ".payu.in/_seamless_payment";
 
             mWebView.postUrl(url,getParameters1(p).getBytes());
 
