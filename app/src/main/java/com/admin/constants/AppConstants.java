@@ -55,6 +55,12 @@ public class AppConstants {
 
     public static final String PAYU_SALT = "AUR87LDlIS";
 
+    public static final String TEST_MERCHANT_ID = "4937958";
+
+    public static final String TEST_PAYU_KEY = "2fpmrgvH";
+
+    public static final String TEST_PAYU_SALT = "97Bf1j7yGO";
+
     public static final String OPTION_RATING = "OPT";
 
     public static final String STAR_RATING = "STR";

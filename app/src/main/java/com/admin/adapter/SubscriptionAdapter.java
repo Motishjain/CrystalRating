@@ -65,8 +65,8 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
         holder.payNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                payNow(currentSubscriptionInfo.price, currentSubscriptionInfo.name);
                 subscriptionSelectionListener.onSubscriptionClicked(currentSubscriptionInfo);
+                payNow(currentSubscriptionInfo.price, currentSubscriptionInfo.name);
             }
         });
     }
@@ -91,11 +91,10 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
         builder.setKey(AppConstants.PAYU_KEY); //Put your live KEY here
         builder.setSalt(AppConstants.PAYU_SALT); //Put your live SALT here
 
-
         builder.setIsDebug(true);
-        builder.setDebugMerchantId("4937958");// Debug Merchant ID
-        builder.setDebugKey("2fpmrgvH");// Debug Key
-        builder.setDebugSalt("97Bf1j7yGO");// Debug Salt
+        builder.setDebugMerchantId(AppConstants.TEST_MERCHANT_ID);// Debug Merchant ID
+        builder.setDebugKey(AppConstants.TEST_PAYU_KEY);// Debug Key
+        builder.setDebugSalt(AppConstants.TEST_PAYU_SALT);// Debug Salt
 
         builder.setAmount(price);
 
