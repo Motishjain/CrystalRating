@@ -50,6 +50,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
     Calendar calendar;
     ImageView fromDateImage,toDateImage;
     CustomDialogFragment dialogDateSelectionPrompt;
+    DatePickerDialog fromDatePickerDialog;
 
     public RatingSummaryFragment() {
         // Required empty public constructor
@@ -131,7 +132,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
     public void changeFromDate(View v) {
         calendar = Calendar.getInstance();
         calendar.setTime(fromDate);
-        DatePickerDialog fromDatePickerDialog = new DatePickerDialog(this.getActivity(),
+        fromDatePickerDialog = new DatePickerDialog(this.getActivity(),
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
@@ -140,8 +141,11 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
                         calendar.set(Calendar.MONTH, monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         if (calendar.getTime().after(toDate)) {
-                            dialogDateSelectionPrompt = CustomDialogFragment.newInstance(R.layout.dialog_date_mismatch, RatingSummaryFragment.this,"From date cannot be greater than To date");
-                            dialogDateSelectionPrompt.show(getFragmentManager(),"");
+                            fromDatePickerDialog.dismiss();
+                            if(dialogDateSelectionPrompt==null) {
+                                dialogDateSelectionPrompt = CustomDialogFragment.newInstance(R.layout.dialog_date_mismatch, RatingSummaryFragment.this, "From date cannot be greater than To date");
+                                dialogDateSelectionPrompt.show(getFragmentManager(), "");
+                            }
                             return;
                         }
                         if (!fromDate.equals(calendar.getTime())) {
@@ -198,6 +202,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
     @Override
     public void onDialogPositiveClick() {
         dialogDateSelectionPrompt.dismiss();
+        dialogDateSelectionPrompt = null;
     }
 
     @Override
