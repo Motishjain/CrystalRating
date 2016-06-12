@@ -2,6 +2,8 @@ package com.admin.webservice.request_objects;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import java.util.Date;
+
 /**
  * Created by Admin on 3/24/2016.
  */
@@ -27,7 +29,7 @@ public class OutletRequest {
 
     private String workPhoneNumber;
 
-    private String createdDate;
+    private Date createdDate;
 
     public String getOutletName() {
         return outletName;
@@ -109,11 +111,11 @@ public class OutletRequest {
         this.workPhoneNumber = workPhoneNumber;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 }
