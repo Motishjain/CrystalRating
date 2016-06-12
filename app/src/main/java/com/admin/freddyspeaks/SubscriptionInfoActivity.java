@@ -34,6 +34,7 @@ import com.payUMoney.sdk.SdkConstants;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -50,6 +51,7 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
     SubscriptionAdapter.SubscriptionInfo subscriptionInfo;
     String outletCode;
     ProgressDialog progressDialog;
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
 
     boolean noFooterFlag;
     ImageView subscriptionStatusIndicator;
@@ -142,6 +144,16 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
                 Log.i("SubscriptionInfo", "Success - Payment ID : " + data.getStringExtra(SdkConstants.PAYMENT_ID));
                 String paymentId = data.getStringExtra(SdkConstants.PAYMENT_ID);
                 subscription.setActivationStatus(AppConstants.SUBSCRIPTION_ACTIVE);
+                try {
+                    Date date = simpleDateFormat.parse(subscription.getExpiryDate());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    calendar.add(Calendar.MONTH,Integer.parseInt(subscriptionInfo.getMonths()));
+                    subscription.setExpiryDate(simpleDateFormat.format(calendar.getTime()));
+                }
+                catch(Exception e) {
+                    Log.e("Subscription","Failed to parse expiry date",e);
+                }
                 updateSubscription(subscription);
                 setupSubscriptionScreen();
 
