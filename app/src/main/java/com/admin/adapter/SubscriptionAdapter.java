@@ -105,8 +105,8 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
         builder.setFirstName(currentOutlet.getOutletName());
         builder.setEmail(currentOutlet.getEmail());
 
-        builder.setsUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/success.php");
-        builder.setfUrl("https://mobiletest.payumoney.com/mobileapp/payumoney/failure.php");
+        builder.setsUrl("https://test.payumoney.com/mobileapp/payumoney/success.php");
+        builder.setfUrl("https://test.payumoney.com/mobileapp/payumoney/failure.php");
         builder.setUdf1("Outlet code - " + currentOutlet.getOutletCode());
         builder.setUdf2("");
         builder.setUdf3("");
