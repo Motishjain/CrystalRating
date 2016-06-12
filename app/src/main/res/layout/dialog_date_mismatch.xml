@@ -8,26 +8,27 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="32dp">
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp">
 
         <ImageView
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:id="@+id/imageView6"
-            android:src="@drawable/ic_warning_red_500_48dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="8dp" />
+            android:src="@drawable/ic_error_outline_black_48dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="top" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/customTextView1"
-            android:layout_gravity="bottom"
             android:textColor="#394263"
-            android:textSize="23dp" />
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp" />
 
     </LinearLayout>
 
@@ -42,6 +43,7 @@
             android:textColor="#394263"
             android:id="@+id/buttonOk"
             android:layout_weight="1"
+            android:textSize="20sp"
             android:background="@drawable/button_with_top_background" />
     </LinearLayout>
 </LinearLayout>
