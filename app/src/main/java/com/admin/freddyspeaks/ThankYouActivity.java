@@ -28,7 +28,7 @@ public class ThankYouActivity extends AppCompatActivity {
         setContentView(R.layout.activity_thank_you);
 
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
-        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
+        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(this,R.drawable.shopping_bg));
 
         thankYouMessage1=(CustomFontTextView) findViewById(R.id.rewardDisplayMessage);
         thankYouMessage2=(CustomFontTextView) findViewById(R.id.rewardDisplayMessage1);

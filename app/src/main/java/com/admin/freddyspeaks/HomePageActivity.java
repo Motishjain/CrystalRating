@@ -1,6 +1,5 @@
 package com.admin.freddyspeaks;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 
@@ -29,7 +27,9 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HomePageActivity extends BaseActivity {
@@ -41,6 +41,8 @@ public class HomePageActivity extends BaseActivity {
     Dao<User, Integer> userDao;
     QueryBuilder<User, Integer> queryBuilder;
     List<User> userList = new ArrayList<>();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class HomePageActivity extends BaseActivity {
         setContentView(R.layout.activity_home_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        executeDailyTask();
 
         try {
             userDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("User");
@@ -58,7 +62,7 @@ public class HomePageActivity extends BaseActivity {
         }
 
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
-        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
+        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(this,R.drawable.shopping_bg));
         getStartedButton = (CustomFontButton) findViewById(R.id.getStartedButton);
         inputUserPhoneNumberLayout = (TextInputLayout) findViewById(R.id.inputUserPhoneNumberLayout);
         autoCompleteInputUserPhoneNumberText =(AutoCompleteTextView)findViewById(R.id.autoCompleteInputUserPhoneNumberText);
@@ -94,7 +98,6 @@ public class HomePageActivity extends BaseActivity {
                     userDao.create(newUser);
                 }
                 Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 String outletCode = sharedPreferences.getString("outletCode", null);
                 FeedbackRequest feedback = new FeedbackRequest();
                 feedback.setOutletCode(outletCode);
@@ -132,6 +135,18 @@ public class HomePageActivity extends BaseActivity {
         else
         {
             getStartedButton.setEnabled(false);
+        }
+    }
+
+    private void executeDailyTask() {
+        String dailyTaskExecutedDate = sharedPreferences.getString("dailyTaskExecutedDate", null);
+        String currentDate = simpleDateFormat.format(new Date());
+        if (dailyTaskExecutedDate == null || !dailyTaskExecutedDate.equals(currentDate)) {
+            Intent intent = new Intent("com.admin.freddyspeaks.executedailytasks");
+            sendBroadcast(intent);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("dailyTaskExecutedDate", currentDate);
+            editor.commit();
         }
     }
 }

@@ -70,7 +70,7 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
         ratingNextButton = (CustomFontButton) findViewById(R.id.ratingNextButton);
         backgroundRatingImage = (ImageView) findViewById(R.id.backgroundRatingImage);
 
-        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
+        backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(this,R.drawable.shopping_bg));
 
         ratingFragmentMap = new HashMap<>();
         ratingMap = new HashMap<>();

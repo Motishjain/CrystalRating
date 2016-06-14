@@ -42,9 +42,8 @@ public class ApplicationStartupTask extends AsyncTask<LoadingActivity, Void, Voi
     @Override
     protected Void doInBackground(LoadingActivity... input) {
         LoadingActivity loadingActivity = input[0];
-        Map<Integer,Bitmap> imageBitmapCollection= ImageUtility.getImageBitmapCollection();
         for(Integer resId: resIdList) {
-            imageBitmapCollection.put(resId, (ImageUtility.decodeSampledBitmapFromResource(loadingActivity.getResources(), resId)));
+            ImageUtility.loadBitmap(loadingActivity,resId);
         }
         try {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(loadingActivity);
@@ -52,19 +51,6 @@ public class ApplicationStartupTask extends AsyncTask<LoadingActivity, Void, Voi
             loadingActivity.setOutletCode(outletCode);
             //Load Retrofit API
             RetrofitSingleton.newInstance();
-
-            boolean areQuestionsFetched = sharedPreferences.getBoolean("areQuestionsFetched", false) ;
-            if(areQuestionsFetched) {
-                String dailyTaskExecutedDate = sharedPreferences.getString("dailyTaskExecutedDate", null);
-                String currentDate = simpleDateFormat.format(new Date());
-                if (dailyTaskExecutedDate == null || !dailyTaskExecutedDate.equals(currentDate)) {
-                    Intent intent = new Intent("com.admin.freddyspeaks.executedailytasks");
-                    loadingActivity.sendBroadcast(intent);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("dailyTaskExecutedDate", currentDate);
-                    editor.commit();
-                }
-            }
 
             if(onTaskCompleted!=null){
                 onTaskCompleted.onTaskCompleted();

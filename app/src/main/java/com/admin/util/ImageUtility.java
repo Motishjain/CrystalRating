@@ -1,5 +1,6 @@
 package com.admin.util;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Admin on 3/13/2016.
@@ -35,7 +37,11 @@ public class ImageUtility {
         return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
     }
 
-    public static Bitmap getImageBitmap(int resId) {
+    public static Bitmap getImageBitmap(Context context, int resId) {
+        if(imageBitmapCollection.get(resId)==null)
+        {
+            loadBitmap(context, resId);
+        }
         return imageBitmapCollection.get(resId);
     }
 
@@ -79,6 +85,10 @@ public class ImageUtility {
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(res, resId, options);
+    }
+
+    public static void loadBitmap(Context context, Integer resId) {
+        imageBitmapCollection.put(resId, (ImageUtility.decodeSampledBitmapFromResource(context.getResources(), resId)));
     }
 
 }

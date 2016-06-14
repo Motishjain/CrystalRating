@@ -36,7 +36,7 @@ public class BillDetailsActivity extends BaseActivity {
         billAmount = (TextView) findViewById(R.id.inputBillAmountText);
         billAmount.setHint("\u20B9" + " " + "Bill Amount");
         backgroundBillDetailsImage = (ImageView) findViewById(R.id.backgroundBillDetailsImage);
-        backgroundBillDetailsImage.setImageBitmap(ImageUtility.getImageBitmap(R.drawable.shopping_bg));
+        backgroundBillDetailsImage.setImageBitmap(ImageUtility.getImageBitmap(this,R.drawable.shopping_bg));
     }
 
     public void nextButtonClickHandler(View v) {
