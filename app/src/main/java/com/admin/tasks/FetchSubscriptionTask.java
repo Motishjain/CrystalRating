@@ -10,6 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
+import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Subscription;
 import com.admin.freddyspeaks.R;
@@ -23,6 +24,10 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,9 +43,10 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
     Context context;
     FetchSubscriptionTaskListener fetchSubscriptionTaskListener;
     boolean useLocalCopy;
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
     public static final int MESSAGE_NOTIFICATION_ID = 435345;
 
-    public FetchSubscriptionTask (Context context, FetchSubscriptionTaskListener fetchSubscriptionTaskListener, boolean useLocalCopy) {
+    public FetchSubscriptionTask (Context context, FetchSubscriptionTaskListener fetchSubscriptionTaskListener, boolean useLocalCopy, boolean showNotification) {
         this.context = context;
         this.fetchSubscriptionTaskListener = fetchSubscriptionTaskListener;
         this.useLocalCopy = useLocalCopy;
@@ -77,20 +83,41 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                         SubscriptionResponse subscriptionResponse = response.body();
                         Subscription subscription;
                         try {
+                            Date expiryDate = simpleDateFormat.parse(subscriptionResponse.getExpiryDate());
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(new Date());
+                            Integer daysRemaining = -1;
+                            if(subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_ACTIVE) || subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_TRIAL)) {
+                                daysRemaining = (int) ((expiryDate.getTime() - calendar.getTimeInMillis())/(1000*60*60*24));
+                                if(daysRemaining<=3) {
+                                    Intent resultIntent = new Intent(context, SubscriptionInfoActivity.class);
+                                    PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                    createNotification(context,"Renew Subscription","Your subscription expires in "+daysRemaining+" days",resultPendingIntent);
+                                }
+                            }
+                            else if (subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_PENDING)) {
+                                daysRemaining = (int) ((expiryDate.getTime() - calendar.getTimeInMillis())/(1000*60*60*24)) + 7;
+                                Intent resultIntent = new Intent(context, SubscriptionInfoActivity.class);
+                                PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                createNotification(context,"Subscription Expired","Kindly renew your subscription",resultPendingIntent);
+                            }
                             if(subscriptionList.size()==0) {
                                 subscription = new Subscription();
                                 subscription.setExpiryDate(subscriptionResponse.getExpiryDate());
                                 subscription.setActivationStatus(subscriptionResponse.getActivationStatus());
+                                subscription.setDaysRemaining(daysRemaining);
                                 subscriptionDao.create(subscription);
                             }
                             else {
                                 subscription = subscriptionList.get(0);
                                 subscription.setExpiryDate(subscriptionResponse.getExpiryDate());
                                 subscription.setActivationStatus(subscriptionResponse.getActivationStatus());
+                                subscription.setDaysRemaining(daysRemaining);
                                 UpdateBuilder<Subscription,Integer> subscriptionUpdateBuilder = subscriptionDao.updateBuilder();
                                 subscriptionUpdateBuilder.where().eq("id",subscription.getId());
                                 subscriptionUpdateBuilder.updateColumnExpression("activationStatus",subscription.getActivationStatus());
                                 subscriptionUpdateBuilder.updateColumnExpression("expiryDate",subscription.getExpiryDate());
+                                subscriptionUpdateBuilder.updateColumnExpression("daysRemaining",subscription.getDaysRemaining()+"");
                                 subscriptionUpdateBuilder.update();
                             }
                             if(fetchSubscriptionTaskListener!=null){
@@ -99,6 +126,9 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                         }
                         catch (SQLException e) {
                             Log.e("FetchSubscriptionTask","Failed to save subscription",e);
+                        }
+                        catch (ParseException e) {
+                            Log.e("FetchSubscriptionTask","Failed to parse date",e);
                         }
                     }
                 }

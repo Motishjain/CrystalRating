@@ -16,6 +16,9 @@ public class Subscription {
     @DatabaseField
     private String activationStatus;
 
+    @DatabaseField
+    private Integer daysRemaining;
+
     public Integer getId() {
         return id;
     }
@@ -38,5 +41,13 @@ public class Subscription {
 
     public void setActivationStatus(String activationStatus) {
         this.activationStatus = activationStatus;
+    }
+
+    public Integer getDaysRemaining() {
+        return daysRemaining;
+    }
+
+    public void setDaysRemaining(Integer daysRemaining) {
+        this.daysRemaining = daysRemaining;
     }
 }

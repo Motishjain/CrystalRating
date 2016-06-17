@@ -32,6 +32,7 @@ import com.payUMoney.sdk.PayUmoneySdkInitilizer;
 import com.payUMoney.sdk.SdkConstants;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -76,28 +77,29 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
         progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
         progressDialog.show();
 
-        FetchSubscriptionTask fetchSubscriptionTask = new FetchSubscriptionTask(this, this, true);
+        FetchSubscriptionTask fetchSubscriptionTask = new FetchSubscriptionTask(this, this, true, false);
         fetchSubscriptionTask.execute(outletCode);
     }
 
     public void setupSubscriptionScreen() {
         String activationStatus = subscription.getActivationStatus();
         String expiryDate = subscription.getExpiryDate();
+        int daysRemaining = subscription.getDaysRemaining();
 
         if (activationStatus.equals(AppConstants.SUBSCRIPTION_TRIAL)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_black_48dp);
             activationStatusTextView.setText("Active (Trial)");
-            activationStatusDescription.setText("Expires On:" + expiryDate);
+            activationStatusDescription.setText("Expires On:" + expiryDate+ ((daysRemaining<=7)?"("+daysRemaining+" days left)":""));
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_ACTIVE)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_black_48dp);
             activationStatusTextView.setText("Active");
-            activationStatusDescription.setText("Expires On: " + expiryDate);
+            activationStatusDescription.setText("Expires On:" + expiryDate+ ((daysRemaining<=7)?"("+daysRemaining+" days left)":""));
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_PENDING)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_warning_red_500_48dp);
             activationStatusTextView.setText("Pending Renewal");
             activationStatusDescription.setText("Expired On:" + expiryDate);
             noFooterFlag = true;
-            subscriptionInfoComment.setText("The application will continue to work till 2 June 2016(7 days). Kindly renew your subscription");
+            subscriptionInfoComment.setText("The application will continue to work till "+expiryDate+ ((daysRemaining<=7)?"("+daysRemaining+" days)":"")+". Kindly renew your subscription");
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_EXPIRED)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_error_outline_black_48dp);
             activationStatusTextView.setText("Expired");
