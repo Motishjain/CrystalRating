@@ -91,7 +91,7 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_ACTIVE)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_black_48dp);
             activationStatusTextView.setText("Active");
-            activationStatusDescription.setText("Expires On: " + expiryDate + " (30 days remaining)");
+            activationStatusDescription.setText("Expires On: " + expiryDate);
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_PENDING)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_warning_red_500_48dp);
             activationStatusTextView.setText("Pending Renewal");
