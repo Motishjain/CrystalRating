@@ -1,5 +1,5 @@
 #
-# generated on 2016/05/26 11:58:32
+# generated on 2016/06/17 11:03:21
 #
 # --table-start--
 dataClass=com.admin.database.Outlet
@@ -185,6 +185,9 @@ fieldName=expiryDate
 # --field-end--
 # --field-start--
 fieldName=activationStatus
+# --field-end--
+# --field-start--
+fieldName=daysRemaining
 # --field-end--
 # --table-fields-end--
 # --table-end--
