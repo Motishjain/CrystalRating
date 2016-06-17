@@ -146,17 +146,27 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragmen
                 fragmentTransaction.remove(miscRatingFragment);
             }
 
+            fragmentTransaction.commit();
+
             RatingChartFragment productRatingChartFragment = RatingChartFragment.newInstance("Product ratings",productAverageRating,
                     productQuestionList,feedbackResponseList, questionWiseRatingFeedbackIndexList);
-            fragmentTransaction.add(R.id.ratingCategoryFragments, productRatingChartFragment, "Product chart fragment");
             RatingChartFragment serviceRatingChartFragment = RatingChartFragment.newInstance("Service ratings", serviceAverageRating,
                     serviceQuestionList,feedbackResponseList, questionWiseRatingFeedbackIndexList);
-            fragmentTransaction.add(R.id.ratingCategoryFragments, serviceRatingChartFragment, "Service chart fragment");
             RatingChartFragment miscRatingChartFragment = RatingChartFragment.newInstance("Misc. ratings", miscAverageRating,
                     miscQuestionList,feedbackResponseList, questionWiseRatingFeedbackIndexList);
-            fragmentTransaction.add(R.id.ratingCategoryFragments, miscRatingChartFragment, "Misc. chart fragment");
 
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.ratingCategoryFragments, productRatingChartFragment, "Product chart fragment");
             fragmentTransaction.commit();
+            fragmentManager.executePendingTransactions();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.ratingCategoryFragments, serviceRatingChartFragment, "Service chart fragment");
+            fragmentTransaction.commit();
+            fragmentManager.executePendingTransactions();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.ratingCategoryFragments, miscRatingChartFragment, "Misc. chart fragment");
+            fragmentTransaction.commit();
+            fragmentManager.executePendingTransactions();
             progressDialog.dismiss();
         }
         catch (SQLException e) {
