@@ -14,9 +14,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 
 import com.admin.adapter.UserPhoneNumberInputAdapter;
+import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.User;
-import com.admin.tasks.SetRandomQuestionsTask;
 import com.admin.util.ImageUtility;
 import com.admin.util.KeyboardUtil;
 import com.admin.util.ValidationUtil;
@@ -51,7 +51,13 @@ public class HomePageActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        executeDailyTask();
+        executeDailyTasks();
+        String activationStatus = sharedPreferences.getString("activationStatus", null);
+
+        if(activationStatus!=null && (activationStatus.equals(AppConstants.SUBSCRIPTION_PENDING) || activationStatus.equals(AppConstants.SUBSCRIPTION_EXPIRED))){
+            Intent subscriptionInfo = new Intent(HomePageActivity.this, SubscriptionInfoActivity.class);
+            startActivity(subscriptionInfo);
+        }
 
         try {
             userDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("User");
@@ -68,9 +74,6 @@ public class HomePageActivity extends BaseActivity {
         autoCompleteInputUserPhoneNumberText =(AutoCompleteTextView)findViewById(R.id.autoCompleteInputUserPhoneNumberText);
 
         autoCompleteInputUserPhoneNumberText.addTextChangedListener(userPhoneTextWatcher);
-
-        SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(HomePageActivity.this,null);
-        setRandomQuestionsTask.execute();
 
         final UserPhoneNumberInputAdapter adapter = new UserPhoneNumberInputAdapter(this,
                 R.layout.userinfo_autosuggest, userList);
@@ -97,11 +100,12 @@ public class HomePageActivity extends BaseActivity {
                     newUser.setPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
                     userDao.create(newUser);
                 }
-                Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
                 String outletCode = sharedPreferences.getString("outletCode", null);
                 FeedbackRequest feedback = new FeedbackRequest();
                 feedback.setOutletCode(outletCode);
                 feedback.setUserPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
+
+                Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
                 getRating.putExtra("feedback", feedback);
                 startActivity(getRating);
             } catch (SQLException e) {
@@ -138,15 +142,12 @@ public class HomePageActivity extends BaseActivity {
         }
     }
 
-    private void executeDailyTask() {
+    private void executeDailyTasks() {
         String dailyTaskExecutedDate = sharedPreferences.getString("dailyTaskExecutedDate", null);
         String currentDate = simpleDateFormat.format(new Date());
         if (dailyTaskExecutedDate == null || !dailyTaskExecutedDate.equals(currentDate)) {
             Intent intent = new Intent("com.admin.freddyspeaks.executedailytasks");
             sendBroadcast(intent);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("dailyTaskExecutedDate", currentDate);
-            editor.commit();
         }
     }
 }

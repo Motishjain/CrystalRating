@@ -85,9 +85,12 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                             }
                             else {
                                 subscription = subscriptionList.get(0);
+                                subscription.setExpiryDate(subscriptionResponse.getExpiryDate());
+                                subscription.setActivationStatus(subscriptionResponse.getActivationStatus());
                                 UpdateBuilder<Subscription,Integer> subscriptionUpdateBuilder = subscriptionDao.updateBuilder();
                                 subscriptionUpdateBuilder.where().eq("id",subscription.getId());
-                                subscriptionUpdateBuilder.updateColumnExpression("activationStatus",subscriptionResponse.getActivationStatus());
+                                subscriptionUpdateBuilder.updateColumnExpression("activationStatus",subscription.getActivationStatus());
+                                subscriptionUpdateBuilder.updateColumnExpression("expiryDate",subscription.getExpiryDate());
                                 subscriptionUpdateBuilder.update();
                             }
                             if(fetchSubscriptionTaskListener!=null){

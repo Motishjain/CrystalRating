@@ -213,7 +213,9 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
     }
 
     public void closeActivity(View v) {
-        this.finish();
+        Intent homePage = new Intent(SubscriptionInfoActivity.this, HomePageActivity.class);
+        homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homePage);
     }
 
     @Override
