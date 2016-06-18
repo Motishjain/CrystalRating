@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
@@ -42,7 +44,6 @@ import retrofit2.Response;
  */
 public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragment, Void, Void> {
 
-    private ProgressDialog progressDialog;
     Dao<Question, Integer> questionDao;
     QueryBuilder<Question, Integer> questionQueryBuilder;
 
@@ -59,19 +60,11 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragmen
     double productAverageRating, serviceAverageRating, miscAverageRating;
 
     SimpleDateFormat webServiceDateFormat;
-    Date fromDate, toDate;
-
-    public FetchAndFragmentFeedbackTask(Date fromDate, Date toDate, ProgressDialog progressDialog) {
-        this.fromDate = fromDate;
-        this.toDate = toDate;
-        this.progressDialog = progressDialog;
-    }
-
     @Override
     protected Void doInBackground(RatingSummaryFragment... input) {
         RatingSummaryFragment ratingSummaryFragment = input[0];
         webServiceDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        fetchFeedback(ratingSummaryFragment,fromDate,toDate);
+        fetchFeedback(ratingSummaryFragment,ratingSummaryFragment.getFromDate(),ratingSummaryFragment.getToDate());
         return null;
     }
 
@@ -92,6 +85,8 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragmen
             @Override
             public void onResponse(Call<List<FeedbackResponse>> call, Response<List<FeedbackResponse>> response) {
                 if (response.isSuccess()) {
+                    ratingSummaryFragment.getServerNotReachableView().setVisibility(View.GONE);
+                    ratingSummaryFragment.getRatingCategoryFragments().setVisibility(View.VISIBLE);
                     feedbackResponseList = response.body();
                     divideRatingsByQuestion();
                     createFragments(ratingSummaryFragment);
@@ -101,7 +96,9 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragmen
             @Override
             public void onFailure(Call<List<FeedbackResponse>> call, Throwable t) {
                 Log.e("RatingSummary", "Unable to fetch feedback", t);
-                progressDialog.dismiss();
+                ratingSummaryFragment.getProgressDialog().dismiss();
+                ratingSummaryFragment.getServerNotReachableView().setVisibility(View.VISIBLE);
+                ratingSummaryFragment.getRatingCategoryFragments().setVisibility(View.GONE);
             }
         });
     }
@@ -167,7 +164,7 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragmen
             fragmentTransaction.add(R.id.ratingCategoryFragments, miscRatingChartFragment, "Misc. chart fragment");
             fragmentTransaction.commit();
             fragmentManager.executePendingTransactions();
-            progressDialog.dismiss();
+            fragment.getProgressDialog().dismiss();
         }
         catch (SQLException e) {
 

@@ -72,6 +72,32 @@
                 android:layout_height="20dp"
                 android:background="@drawable/date_picker"
                 android:layout_marginRight="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/serverNotReachableView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="18dp" >
+
+            <com.admin.view.CustomFontTextView
+                style="@style/dateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Not able to connect to server."
+                android:gravity="center" />
+
+            <com.admin.view.CustomFontButton
+                android:id="@+id/tryAgainButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Try Again!"
+                android:textAllCaps="false"
+                android:textColor="#fff" />
 
         </LinearLayout>
 

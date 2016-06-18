@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.admin.database.DBHelper;
@@ -51,6 +53,8 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
     ImageView fromDateImage,toDateImage;
     CustomDialogFragment dialogDateSelectionPrompt;
     DatePickerDialog fromDatePickerDialog;
+    LinearLayout serverNotReachableView, ratingCategoryFragments;
+    Button tryAgainButton;
 
     public RatingSummaryFragment() {
         // Required empty public constructor
@@ -81,6 +85,15 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
         toDateTextView = (TextView) ratingSummaryFragment.findViewById(R.id.toDate);
         fromDateImage = (ImageView) ratingSummaryFragment.findViewById(R.id.fromDateImage);
         toDateImage = (ImageView) ratingSummaryFragment.findViewById(R.id.toDateImage);
+        serverNotReachableView = (LinearLayout) ratingSummaryFragment.findViewById(R.id.serverNotReachableView);
+        ratingCategoryFragments = (LinearLayout) ratingSummaryFragment.findViewById(R.id.ratingCategoryFragments);
+        tryAgainButton = (Button) ratingSummaryFragment.findViewById(R.id.tryAgainButton);
+        tryAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchRatings();
+            }
+        });
 
         Date createdDate = null;
         simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
@@ -123,9 +136,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
         setDateTextView(fromDateTextView, fromDate);
 
         progressDialog = CustomProgressDialog.createCustomProgressDialog(this.getActivity());
-        progressDialog.show();
-        FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate, toDate, progressDialog);
-        fetchAndFragmentFeedbackTask.execute(this);
+        fetchRatings();
         return ratingSummaryFragment;
     }
 
@@ -150,9 +161,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
                         }
                         if (!fromDate.equals(calendar.getTime())) {
                             fromDate = calendar.getTime();
-                            progressDialog.show();
-                            FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate, progressDialog);
-                            fetchAndFragmentFeedbackTask.execute(RatingSummaryFragment.this);
+                            fetchRatings();
                         }
                         setDateTextView(fromDateTextView, fromDate);
                     }
@@ -179,9 +188,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
                         }
                         if (!toDate.equals(calendar.getTime())) {
                             toDate = calendar.getTime();
-                            progressDialog.show();
-                            FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask(fromDate,toDate, progressDialog);
-                            fetchAndFragmentFeedbackTask.execute(RatingSummaryFragment.this);
+                            fetchRatings();
                         }
                         setDateTextView(toDateTextView, toDate);
                     }
@@ -208,5 +215,35 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
     @Override
     public void onDialogNegativeClick() {
 
+    }
+
+    public void fetchRatings() {
+        progressDialog.show();
+        FetchAndFragmentFeedbackTask fetchAndFragmentFeedbackTask = new FetchAndFragmentFeedbackTask();
+        fetchAndFragmentFeedbackTask.execute(RatingSummaryFragment.this);
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public ProgressDialog getProgressDialog() {
+        return progressDialog;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public LinearLayout getServerNotReachableView() {
+        return serverNotReachableView;
+    }
+
+    public LinearLayout getRatingCategoryFragments() {
+        return ratingCategoryFragments;
     }
 }
