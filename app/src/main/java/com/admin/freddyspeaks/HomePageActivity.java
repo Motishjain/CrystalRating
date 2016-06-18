@@ -17,6 +17,7 @@ import com.admin.adapter.UserPhoneNumberInputAdapter;
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.User;
+import com.admin.util.DateTimeUtility;
 import com.admin.util.ImageUtility;
 import com.admin.util.KeyboardUtil;
 import com.admin.util.ValidationUtil;
@@ -29,6 +30,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class HomePageActivity extends BaseActivity {
         executeDailyTasks();
         String activationStatus = sharedPreferences.getString("activationStatus", null);
 
-        if(activationStatus!=null && (activationStatus.equals(AppConstants.SUBSCRIPTION_PENDING) || activationStatus.equals(AppConstants.SUBSCRIPTION_EXPIRED))){
+        if(activationStatus!=null && activationStatus.equals(AppConstants.SUBSCRIPTION_EXPIRED)){
             Intent subscriptionInfo = new Intent(HomePageActivity.this, SubscriptionInfoActivity.class);
             startActivity(subscriptionInfo);
         }
@@ -144,7 +146,7 @@ public class HomePageActivity extends BaseActivity {
 
     private void executeDailyTasks() {
         String dailyTaskExecutedDate = sharedPreferences.getString("dailyTaskExecutedDate", null);
-        String currentDate = simpleDateFormat.format(new Date());
+        String currentDate = simpleDateFormat.format(DateTimeUtility.getLocalDate());
         if (dailyTaskExecutedDate == null || !dailyTaskExecutedDate.equals(currentDate)) {
             Intent intent = new Intent("com.admin.freddyspeaks.executedailytasks");
             sendBroadcast(intent);

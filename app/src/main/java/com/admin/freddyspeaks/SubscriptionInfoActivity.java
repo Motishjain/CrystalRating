@@ -17,6 +17,7 @@ import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Subscription;
 import com.admin.tasks.FetchSubscriptionTask;
+import com.admin.util.DateTimeUtility;
 import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
@@ -164,7 +165,7 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
                 extendSubscriptionRequest.setPaymentId(paymentId);
                 extendSubscriptionRequest.setAmount(subscriptionInfo.getPrice() + "");
                 extendSubscriptionRequest.setSubscribedMonths(subscriptionInfo.getMonths());
-                extendSubscriptionRequest.setPaymentDate(new Date());
+                extendSubscriptionRequest.setPaymentDate(DateTimeUtility.getLocalDate());
                 RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
                 Call<SaveServiceReponse> extendSubscriptionCall = restEndpointInterface.extendSubscription(extendSubscriptionRequest);
                 extendSubscriptionCall.enqueue(new Callback<SaveServiceReponse>() {

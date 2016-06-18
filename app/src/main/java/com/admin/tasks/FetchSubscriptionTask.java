@@ -15,6 +15,7 @@ import com.admin.database.DBHelper;
 import com.admin.database.Subscription;
 import com.admin.freddyspeaks.R;
 import com.admin.freddyspeaks.SubscriptionInfoActivity;
+import com.admin.util.DateTimeUtility;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.SubscriptionResponse;
@@ -45,11 +46,13 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
     boolean useLocalCopy;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
     public static final int MESSAGE_NOTIFICATION_ID = 435345;
+    boolean showNotification;
 
     public FetchSubscriptionTask (Context context, FetchSubscriptionTaskListener fetchSubscriptionTaskListener, boolean useLocalCopy, boolean showNotification) {
         this.context = context;
         this.fetchSubscriptionTaskListener = fetchSubscriptionTaskListener;
         this.useLocalCopy = useLocalCopy;
+        this.showNotification = showNotification;
     }
 
     @Override
@@ -85,11 +88,11 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                         try {
                             Date expiryDate = simpleDateFormat.parse(subscriptionResponse.getExpiryDate());
                             Calendar calendar = Calendar.getInstance();
-                            calendar.setTime(new Date());
+                            calendar.setTime(DateTimeUtility.getLocalDate());
                             Integer daysRemaining = -1;
                             if(subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_ACTIVE) || subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_TRIAL)) {
                                 daysRemaining = (int) ((expiryDate.getTime() - calendar.getTimeInMillis())/(1000*60*60*24));
-                                if(daysRemaining<=3) {
+                                if(daysRemaining<=3 && showNotification) {
                                     Intent resultIntent = new Intent(context, SubscriptionInfoActivity.class);
                                     PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                                     createNotification(context,"Renew Subscription","Your subscription expires in "+daysRemaining+" days",resultPendingIntent);
@@ -99,7 +102,10 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                                 daysRemaining = (int) ((expiryDate.getTime() - calendar.getTimeInMillis())/(1000*60*60*24)) + 7;
                                 Intent resultIntent = new Intent(context, SubscriptionInfoActivity.class);
                                 PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                createNotification(context,"Subscription Expired","Kindly renew your subscription",resultPendingIntent);
+                                if(showNotification)
+                                {
+                                    createNotification(context,"Subscription Expired","Kindly renew your subscription",resultPendingIntent);
+                                }
                             }
                             if(subscriptionList.size()==0) {
                                 subscription = new Subscription();
@@ -115,9 +121,9 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                                 subscription.setDaysRemaining(daysRemaining);
                                 UpdateBuilder<Subscription,Integer> subscriptionUpdateBuilder = subscriptionDao.updateBuilder();
                                 subscriptionUpdateBuilder.where().eq("id",subscription.getId());
-                                subscriptionUpdateBuilder.updateColumnExpression("activationStatus",subscription.getActivationStatus());
-                                subscriptionUpdateBuilder.updateColumnExpression("expiryDate",subscription.getExpiryDate());
-                                subscriptionUpdateBuilder.updateColumnExpression("daysRemaining",subscription.getDaysRemaining()+"");
+                                subscriptionUpdateBuilder.updateColumnValue("activationStatus",subscription.getActivationStatus());
+                                subscriptionUpdateBuilder.updateColumnValue("expiryDate",subscription.getExpiryDate());
+                                subscriptionUpdateBuilder.updateColumnValue("daysRemaining",subscription.getDaysRemaining());
                                 subscriptionUpdateBuilder.update();
                             }
                             if(fetchSubscriptionTaskListener!=null){

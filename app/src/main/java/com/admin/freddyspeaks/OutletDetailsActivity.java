@@ -21,6 +21,7 @@ import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
 import com.admin.services.RegistrationIntentService;
+import com.admin.util.DateTimeUtility;
 import com.admin.util.NetworkUtil;
 import com.admin.util.ValidationUtil;
 import com.admin.view.CustomProgressDialog;
@@ -134,7 +135,7 @@ public class OutletDetailsActivity extends BaseActivity {
                     outletRequest.setPinCode(pinCode.getText().toString());
                     outletRequest.setEmail(email.getText().toString());
                     outletRequest.setCellNumber(phoneNumber.getText().toString());
-                    outletRequest.setCreatedDate(new Date());
+                    outletRequest.setCreatedDate(DateTimeUtility.getLocalDate());
 
                     RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
                     Call<SaveServiceReponse> registerOutletCall = restEndpointInterface.registerOutlet(outletRequest);
@@ -166,7 +167,7 @@ public class OutletDetailsActivity extends BaseActivity {
                                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("outletCode", currentOutlet.getOutletCode());
-                                        editor.putString("createdDate", new SimpleDateFormat("MMMM dd, yyyy").format(new Date()));
+                                        editor.putString("createdDate", new SimpleDateFormat("MMMM dd, yyyy").format(outletRequest.getCreatedDate()));
                                         editor.commit();
 
                                         progressDialog.dismiss();

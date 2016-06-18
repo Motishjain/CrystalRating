@@ -10,6 +10,7 @@ import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.database.Subscription;
 import com.admin.freddyspeaks.RewardSelectionActivity;
+import com.admin.util.DateTimeUtility;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.request_objects.RewardSubmitRequest;
@@ -75,7 +76,7 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
         rewardSubmitRequest.setOutletCode(activity.getOutletCode());
         rewardSubmitRequest.setRewardCategory(activity.getRewardCategory());
         rewardSubmitRequest.setRewardIdList(rewardIdList);
-        rewardSubmitRequest.setCreatedDate(new Date().toString());
+        rewardSubmitRequest.setCreatedDate(DateTimeUtility.getLocalDate().toString());
 
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<SaveServiceReponse> saveRewardsCall = restEndpointInterface.saveRewards(rewardSubmitRequest);

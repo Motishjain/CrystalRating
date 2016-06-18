@@ -47,7 +47,7 @@ public class JsonConversionTest {
         outletRequest.setEmail("motish@gh.com");
         outletRequest.setCellNumber("6464646464");
         //String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        Date date=new Date();
+        Date date=DateTimeUtility.getLocalDate();
         outletRequest.setCreatedDate(date);
         System.out.println(gson.toJson(outletRequest));
 

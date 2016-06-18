@@ -10,6 +10,7 @@ import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.FailedServiceCall;
 import com.admin.receiver.FailedServiceCallReceiver;
+import com.admin.util.DateTimeUtility;
 import com.admin.webservice.request_objects.FeedbackRequest;
 import com.admin.webservice.response_objects.SaveServiceReponse;
 import com.google.gson.Gson;
@@ -33,7 +34,7 @@ public class WebServiceUtility {
     static Dao<FailedServiceCall, Integer> failedServiceCallDao;
 
     public static void submitFeedback(final Context context, final FeedbackRequest feedback) {
-        feedback.setCreatedDate(new Date().toString());
+        feedback.setCreatedDate(DateTimeUtility.getLocalDate().toString());
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<SaveServiceReponse> submitFeedbackCall = restEndpointInterface.submitFeedback(feedback);
         submitFeedbackCall.enqueue(new Callback<SaveServiceReponse>() {
