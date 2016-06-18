@@ -2,12 +2,10 @@ package com.admin.tasks;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.admin.constants.AppConstants;
@@ -15,7 +13,6 @@ import com.admin.database.DBHelper;
 import com.admin.database.Subscription;
 import com.admin.freddyspeaks.R;
 import com.admin.freddyspeaks.SubscriptionInfoActivity;
-import com.admin.util.DateTimeUtility;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.SubscriptionResponse;
@@ -88,7 +85,7 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                         try {
                             Date expiryDate = simpleDateFormat.parse(subscriptionResponse.getExpiryDate());
                             Calendar calendar = Calendar.getInstance();
-                            calendar.setTime(DateTimeUtility.getLocalDate());
+                            calendar.setTime(new Date());
                             Integer daysRemaining = -1;
                             if(subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_ACTIVE) || subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_TRIAL)) {
                                 daysRemaining = (int) ((expiryDate.getTime() - calendar.getTimeInMillis())/(1000*60*60*24));

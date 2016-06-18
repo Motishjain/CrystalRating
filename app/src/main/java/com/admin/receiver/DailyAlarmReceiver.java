@@ -10,7 +10,6 @@ import android.util.Log;
 import com.admin.database.Subscription;
 import com.admin.tasks.FetchSubscriptionTask;
 import com.admin.tasks.SetRandomQuestionsTask;
-import com.admin.util.DateTimeUtility;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,7 +37,7 @@ public class DailyAlarmReceiver extends BroadcastReceiver implements FetchSubscr
     @Override
     public void onTaskCompleted(Subscription subscription) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String currentDate = simpleDateFormat.format(DateTimeUtility.getLocalDate());
+        String currentDate = simpleDateFormat.format(new Date());
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("dailyTaskExecutedDate", currentDate);

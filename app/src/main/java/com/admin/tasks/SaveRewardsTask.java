@@ -1,16 +1,13 @@
 package com.admin.tasks;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.admin.database.DBHelper;
 import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
-import com.admin.database.Subscription;
 import com.admin.freddyspeaks.RewardSelectionActivity;
-import com.admin.util.DateTimeUtility;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.request_objects.RewardSubmitRequest;
@@ -76,7 +73,7 @@ public class SaveRewardsTask extends AsyncTask<RewardSelectionActivity, Void, Vo
         rewardSubmitRequest.setOutletCode(activity.getOutletCode());
         rewardSubmitRequest.setRewardCategory(activity.getRewardCategory());
         rewardSubmitRequest.setRewardIdList(rewardIdList);
-        rewardSubmitRequest.setCreatedDate(DateTimeUtility.getLocalDate().toString());
+        rewardSubmitRequest.setCreatedDate(new Date());
 
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<SaveServiceReponse> saveRewardsCall = restEndpointInterface.saveRewards(rewardSubmitRequest);

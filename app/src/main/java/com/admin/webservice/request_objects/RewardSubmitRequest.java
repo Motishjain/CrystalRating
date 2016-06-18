@@ -1,5 +1,6 @@
 package com.admin.webservice.request_objects;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public class RewardSubmitRequest {
 
     private List<String> rewardIdList;
 
-    private String createdDate;
+    private Date createdDate;
 
     public String getOutletCode() {
         return outletCode;
@@ -24,27 +25,15 @@ public class RewardSubmitRequest {
         this.outletCode = outletCode;
     }
 
-    public String getRewardCategory() {
-        return rewardCategory;
-    }
-
     public void setRewardCategory(String rewardCategory) {
         this.rewardCategory = rewardCategory;
-    }
-
-    public List<String> getRewardIdList() {
-        return rewardIdList;
     }
 
     public void setRewardIdList(List<String> rewardIdList) {
         this.rewardIdList = rewardIdList;
     }
 
-    public String getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 }

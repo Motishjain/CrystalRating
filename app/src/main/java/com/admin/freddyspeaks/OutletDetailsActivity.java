@@ -1,14 +1,11 @@
 package com.admin.freddyspeaks;
 
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +18,6 @@ import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
 import com.admin.services.RegistrationIntentService;
-import com.admin.util.DateTimeUtility;
 import com.admin.util.NetworkUtil;
 import com.admin.util.ValidationUtil;
 import com.admin.view.CustomProgressDialog;
@@ -135,7 +131,7 @@ public class OutletDetailsActivity extends BaseActivity {
                     outletRequest.setPinCode(pinCode.getText().toString());
                     outletRequest.setEmail(email.getText().toString());
                     outletRequest.setCellNumber(phoneNumber.getText().toString());
-                    outletRequest.setCreatedDate(DateTimeUtility.getLocalDate());
+                    outletRequest.setCreatedDate(new Date());
 
                     RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
                     Call<SaveServiceReponse> registerOutletCall = restEndpointInterface.registerOutlet(outletRequest);

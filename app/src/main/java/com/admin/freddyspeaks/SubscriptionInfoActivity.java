@@ -17,29 +17,24 @@ import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Subscription;
 import com.admin.tasks.FetchSubscriptionTask;
-import com.admin.util.DateTimeUtility;
 import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.WebServiceUtility;
 import com.admin.webservice.request_objects.ExtendSubscriptionRequest;
 import com.admin.webservice.response_objects.SaveServiceReponse;
-import com.admin.webservice.response_objects.SubscriptionResponse;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.payUMoney.sdk.PayUmoneySdkInitilizer;
 import com.payUMoney.sdk.SdkConstants;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -165,7 +160,7 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
                 extendSubscriptionRequest.setPaymentId(paymentId);
                 extendSubscriptionRequest.setAmount(subscriptionInfo.getPrice() + "");
                 extendSubscriptionRequest.setSubscribedMonths(subscriptionInfo.getMonths());
-                extendSubscriptionRequest.setPaymentDate(DateTimeUtility.getLocalDate());
+                extendSubscriptionRequest.setPaymentDate(new Date());
                 RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
                 Call<SaveServiceReponse> extendSubscriptionCall = restEndpointInterface.extendSubscription(extendSubscriptionRequest);
                 extendSubscriptionCall.enqueue(new Callback<SaveServiceReponse>() {

@@ -1,6 +1,7 @@
 package com.admin.webservice.request_objects;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -25,7 +26,7 @@ public class FeedbackRequest implements Serializable {
 
     private String rewardCategory;
 
-    private String createdDate;
+    private Date createdDate;
 
     public String getOutletCode() {
         return outletCode;
@@ -43,24 +44,12 @@ public class FeedbackRequest implements Serializable {
         this.ratingsMap = ratingsMap;
     }
 
-    public String getRewardId() {
-        return rewardId;
-    }
-
     public void setRewardId(String rewardId) {
         this.rewardId = rewardId;
     }
 
-    public String getRewardCategory() {
-        return rewardCategory;
-    }
-
     public void setRewardCategory(String rewardCategory) {
         this.rewardCategory = rewardCategory;
-    }
-
-    public String getBillNumber() {
-        return billNumber;
     }
 
     public void setBillNumber(String billNumber) {
@@ -75,23 +64,15 @@ public class FeedbackRequest implements Serializable {
         this.billAmount = billAmount;
     }
 
-    public String getUserPhoneNumber() {
-        return userPhoneNumber;
-    }
-
     public void setUserPhoneNumber(String userPhoneNumber) {
         this.userPhoneNumber = userPhoneNumber;
-    }
-
-    public String getUserName() {
-        return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 }
