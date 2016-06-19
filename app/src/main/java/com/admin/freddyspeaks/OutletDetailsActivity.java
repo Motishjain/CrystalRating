@@ -1,11 +1,14 @@
 package com.admin.freddyspeaks;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,7 +42,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OutletDetailsActivity extends BaseActivity {
+public class OutletDetailsActivity extends AppCompatActivity {
 
     TextInputLayout inputOutletNameLayout, inputaddressLine1Layout, inputaddressLine2Layout, inputPinCodeLayout, inputEmailLayout, inputPhoneNumberLayout;
     EditText outletName, addrLine1, addrLine2, pinCode, email, phoneNumber;
@@ -49,7 +52,6 @@ public class OutletDetailsActivity extends BaseActivity {
     Outlet currentOutlet;
     boolean editMode;
     String outletCode;
-    ImageView activityBackButton;
 
     private ProgressDialog progressDialog;
     /**
@@ -62,6 +64,11 @@ public class OutletDetailsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outlet_details);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){public void onClick(View v){closeActivity(v);}});
         inputOutletNameLayout = (TextInputLayout) findViewById(R.id.inputOutletNameLayout);
         inputaddressLine1Layout = (TextInputLayout) findViewById(R.id.inputaddressLine1Layout);
         inputaddressLine2Layout = (TextInputLayout) findViewById(R.id.inputaddressLine2Layout);
@@ -77,7 +84,6 @@ public class OutletDetailsActivity extends BaseActivity {
         nextButton = (Button) findViewById(R.id.registerOutletNextButton);
         resetButton = (Button) findViewById(R.id.reset_button);
         registerOutletHeader = (TextView) findViewById(R.id.registerOutletHeader);
-        activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
         progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
 
         try {
@@ -97,11 +103,11 @@ public class OutletDetailsActivity extends BaseActivity {
         if (!editMode) {
             registerOutletHeader.setText("Register your Outlet!");
             nextButton.setText("Register");
-            activityBackButton.setVisibility(View.GONE);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         } else {
             registerOutletHeader.setText("Edit Outlet Details");
             nextButton.setText("Update");
-            activityBackButton.setVisibility(View.VISIBLE);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         nextButton.setOnClickListener(new View.OnClickListener() {

@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,7 +42,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SubscriptionInfoActivity extends BaseActivity implements FetchSubscriptionTask.FetchSubscriptionTaskListener, SubscriptionAdapter.SubscriptionSelectionListener {
+public class SubscriptionInfoActivity extends AppCompatActivity implements FetchSubscriptionTask.FetchSubscriptionTaskListener, SubscriptionAdapter.SubscriptionSelectionListener {
 
     RecyclerView paymentRecyclerView;
 
@@ -58,6 +60,11 @@ public class SubscriptionInfoActivity extends BaseActivity implements FetchSubsc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription_info);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){public void onClick(View v){closeActivity(v);}});
         subscriptionStatusIndicator = (ImageView) findViewById(R.id.subscriptionStatusIndicator);
         activationStatusTextView = (TextView) findViewById(R.id.activationStatusTextView);
         activationStatusDescription = (TextView) findViewById(R.id.activationStatusDescription);

@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,7 +17,7 @@ import android.widget.TextView;
 import layout.RatingSummaryFragment;
 import layout.SalesReportFragment;
 
-public class FeedbackAnalysisActivity extends BaseActivity{
+public class FeedbackAnalysisActivity extends AppCompatActivity{
 
     private ImageView imageViewPieChart;
     private ImageView imageViewGraph;
@@ -28,7 +30,11 @@ public class FeedbackAnalysisActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback_analysis);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){public void onClick(View v){closeActivity(v);}});
         TabLayout tabLayout = (TabLayout) findViewById(R.id.feedbackTabs);
         tabLayout.addTab(tabLayout.newTab().setText("Ratings").setIcon(R.drawable.tab_logo_pie_chart));
         tabLayout.addTab(tabLayout.newTab().setText("Sales").setIcon(R.drawable.tab_logo_graph));

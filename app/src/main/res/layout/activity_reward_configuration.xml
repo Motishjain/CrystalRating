@@ -15,19 +15,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/headerBg"
         android:onClick="closeActivity"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        <ImageView
-            android:id="@+id/activityBackButton"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:background="#0000"
-            android:gravity="center"
-            android:scaleType="fitXY"
-            android:src="@drawable/back_button"
-            android:tint="@color/white" />
 
         <com.admin.view.CustomFontTextView style="@style/appHeader" android:layout_marginLeft="15dp"/>
     </android.support.v7.widget.Toolbar>

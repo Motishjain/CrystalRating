@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,6 @@ public class RewardConfigurationActivity extends AppCompatActivity
     boolean editMode;
     List<SelectedReward> bronzeSelectedRewardList, silverSelectedRewardList, goldSelectedRewardList;
     Button rewardsConfigureNextButton;
-    ImageView activityBackButton;
     private DialogFragment dialogDelete;
     private int bronzeRewardsLevel,silverRewardsLevel,goldRewardsLevel;
 
@@ -66,12 +66,17 @@ public class RewardConfigurationActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_configuration);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){public void onClick(View v){closeActivity(v);}});
 
         bronzeRewardsRecyclerView = (RecyclerView) findViewById(R.id.bronzeRewardsRecyclerView);
         silverRewardsRecyclerView = (RecyclerView) findViewById(R.id.silverRewardsRecyclerView);
         goldRewardsRecyclerView = (RecyclerView) findViewById(R.id.goldRewardsRecyclerView);
         rewardsConfigureNextButton = (Button) findViewById(R.id.rewardsConfigureNextButton);
-        activityBackButton = (ImageView) findViewById(R.id.activityBackButton);
+
 
         dialogDelete = CustomDialogFragment.newInstance(R.layout.dialog_rewards_delete,this);
 
@@ -85,14 +90,14 @@ public class RewardConfigurationActivity extends AppCompatActivity
 
         if (editMode) {
             rewardsConfigureNextButton.setVisibility(View.INVISIBLE);
-            activityBackButton.setVisibility(View.VISIBLE);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         } else {
             rewardsConfigureNextButton.setText("Configure Later");
             ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
             params.width = params.WRAP_CONTENT;
             rewardsConfigureNextButton.setLayoutParams(params);
             rewardsConfigureNextButton.setVisibility(View.VISIBLE);
-            activityBackButton.setVisibility(View.GONE);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -287,7 +292,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
                     editor.commit();
                     SetRandomQuestionsTask setRandomQuestionsTask = new SetRandomQuestionsTask(RewardConfigurationActivity.this,null);
                     setRandomQuestionsTask.execute();
-                    
+
                     progressDialog.dismiss();
                     Intent homePage = new Intent(RewardConfigurationActivity.this, HomePageActivity.class);
                     homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -345,20 +350,19 @@ public class RewardConfigurationActivity extends AppCompatActivity
     }
 
     public void setButton() {
-        if((bronzeSelectedRewardList==null || bronzeSelectedRewardList.size()==0) && (silverSelectedRewardList==null ||silverSelectedRewardList.size()==0) && (goldSelectedRewardList==null || goldSelectedRewardList.size()==0)){
+        if((bronzeSelectedRewardList==null || bronzeSelectedRewardList.size()==0) && (silverSelectedRewardList==null ||silverSelectedRewardList.size()==0) && (goldSelectedRewardList==null || goldSelectedRewardList.size()==0)) {
             ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
             rewardsConfigureNextButton.setText("Configure Later");
             params.width = params.WRAP_CONTENT;
             rewardsConfigureNextButton.setLayoutParams(params);
             rewardsConfigureNextButton.setVisibility(View.VISIBLE);
-            activityBackButton.setVisibility(View.GONE);}
+        }
         else{
             ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
             rewardsConfigureNextButton.setText("Get Started");
             params.width = params.WRAP_CONTENT;
             rewardsConfigureNextButton.setLayoutParams(params);
             rewardsConfigureNextButton.setVisibility(View.VISIBLE);
-            activityBackButton.setVisibility(View.GONE);
         }
     }
 }
