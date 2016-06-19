@@ -207,7 +207,7 @@ public class RatingChartFragment extends Fragment {
     public void refreshPieChart() {
         List<Entry> entries = new ArrayList<>();
         List<String> labels = new ArrayList<>();
-        String[] options = selectedQuestion.getRatingValues().split(",");
+        String[] options = selectedQuestion.getRatingValues().split(";");
         Map<Integer, List<Integer>> ratingWiseFeedbackList = questionWiseRatingFeedbackIndexList.get(selectedQuestion.getQuestionId());
 
         for (String option : options) {

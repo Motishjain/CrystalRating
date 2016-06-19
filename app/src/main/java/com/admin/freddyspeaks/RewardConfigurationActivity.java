@@ -281,8 +281,8 @@ public class RewardConfigurationActivity extends AppCompatActivity
                         dbQuestion.setName(questionResponse.getQuestionName());
                         dbQuestion.setQuestionType(questionResponse.getQuestionType());
                         dbQuestion.setDisplayRank(questionResponse.getDisplayRank());
-                        dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getRatingValues()));
-                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
+                        dbQuestion.setRatingValues(android.text.TextUtils.join(";", questionResponse.getRatingValues()));
+                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(";", questionResponse.getEmoticonIds()));
                         dbQuestion.setQuestionInputType(questionResponse.getQuestionInputType());
                         questionDao.create(dbQuestion);
                     }

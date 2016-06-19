@@ -84,7 +84,7 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
         if(question.getQuestionInputType()!=null && question.getQuestionInputType().equals(AppConstants.STAR_RATING)) {
             ratingOptionsLinearLayout.setVisibility(View.GONE);
             ratingBarLinearLayout.setVisibility(View.VISIBLE);
-            final String[] ratingValues = question.getRatingValues().split(",");
+            final String[] ratingValues = question.getRatingValues().split(";");
             ratingBar.setNumStars(ratingValues.length);
             ratingBar.setMax(ratingValues.length);
             ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {

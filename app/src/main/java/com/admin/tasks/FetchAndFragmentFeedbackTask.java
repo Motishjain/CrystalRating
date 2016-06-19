@@ -197,7 +197,7 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragmen
         List<Question> answeredQuestionList = new ArrayList<>();
         for(Question question:questionList) {
             Map<Integer, List<Integer>> ratingWiseFeedbackList = questionWiseRatingFeedbackIndexList.get(question.getQuestionId());
-            int options = question.getRatingValues().split(",").length;
+            int options = question.getRatingValues().split(";").length;
             double sumQuestionRatingValue = 0;
             int sumQuestionRatings = 0;
             if(ratingWiseFeedbackList!=null) {
