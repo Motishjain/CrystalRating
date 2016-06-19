@@ -42,7 +42,7 @@ public class BillDetailsActivity extends BaseActivity {
     public void nextButtonClickHandler(View v) {
         if (ValidationUtil.isValidAmount(billAmount, inputBillAmountLayout, "Enter valid bill amount")) {
             KeyboardUtil.hideKeyboard(this);
-            feedback.setBillAmount(billAmount.getText().toString());
+            feedback.setBillAmount(Double.parseDouble(billAmount.getText().toString())+"");
             Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
             displayReward.putExtra("feedback", feedback);
             startActivity(displayReward);

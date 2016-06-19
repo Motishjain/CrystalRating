@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class RewardAllocationUtility {
 
-    public static SelectedReward allocateReward(int billAmount, Dao<SelectedReward, Integer> selectedRewardDao) {
+    public static SelectedReward allocateReward(double billAmount, Dao<SelectedReward, Integer> selectedRewardDao) {
         double rewardAmountMean = (1.5 * billAmount) / 100;
         double rewardAmountLowerBound = (1 * billAmount) / 100;
         double rewardAmountUpperBound = (2 * billAmount) / 100;
@@ -37,7 +37,7 @@ public class RewardAllocationUtility {
             List<SelectedReward> possibleRewards = selectedRewardQueryBuilder.query();
             for(int i = 0;i < possibleRewards.size();i++) {
                 SelectedReward possibleReward = possibleRewards.get(i);
-                int cost = Integer.parseInt(possibleReward.getRewardCost());
+                double cost = Double.parseDouble(possibleReward.getRewardCost());
                 if(Math.abs(cost-rewardAmountMean)<minDiff) {
                     selectedRewardIndex = i;
                     minDiff = Math.abs(cost-rewardAmountMean);
