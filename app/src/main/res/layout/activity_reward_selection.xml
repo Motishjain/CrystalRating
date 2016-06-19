@@ -10,5 +10,16 @@
 
     <include layout="@layout/content_reward_selection" />
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/headerBg"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <com.admin.view.CustomFontTextView style="@style/appHeader" android:text="Select Rewards" android:layout_marginLeft="15dp"/>
+
+    </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.CoordinatorLayout>

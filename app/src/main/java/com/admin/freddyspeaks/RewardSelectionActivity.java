@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 
 import com.admin.database.Reward;
 import com.admin.tasks.BuildSelectRewardFragmentsTask;
@@ -31,8 +32,8 @@ public class RewardSelectionActivity extends AppCompatActivity implements Select
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward_selection);
+        setTitle("");
         progressDialog = CustomProgressDialog.createCustomProgressDialog(this);
-        progressDialog.setMessage("Loading Rewards...");
         progressDialog.show();
         try {
             BuildSelectRewardFragmentsTask buildSelectRewardFragmentsTask = new BuildSelectRewardFragmentsTask(progressDialog);

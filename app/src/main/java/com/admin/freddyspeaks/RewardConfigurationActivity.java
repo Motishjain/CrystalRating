@@ -138,21 +138,21 @@ public class RewardConfigurationActivity extends AppCompatActivity
     }
 
     public void addBronzeRewards(View v) {
-        Intent selectRewardsPopup = new Intent(RewardConfigurationActivity.this, RewardSelectionActivity.class);
+        Intent selectRewardsPopup = new Intent(this, RewardSelectionActivity.class);
         String rewardCategory = AppConstants.BRONZE_CD;
         selectRewardsPopup.putExtra("rewardCategory", rewardCategory);
         startActivityForResult(selectRewardsPopup, 1);
     }
 
     public void addSilverRewards(View v) {
-        Intent selectRewardsPopup = new Intent(RewardConfigurationActivity.this, RewardSelectionActivity.class);
+        Intent selectRewardsPopup = new Intent(this, RewardSelectionActivity.class);
         String rewardCategory = AppConstants.SILVER_CD;
         selectRewardsPopup.putExtra("rewardCategory", rewardCategory);
         startActivityForResult(selectRewardsPopup, 2);
     }
 
     public void addGoldRewards(View v) {
-        Intent selectRewardsPopup = new Intent(RewardConfigurationActivity.this, RewardSelectionActivity.class);
+        Intent selectRewardsPopup = new Intent(this, RewardSelectionActivity.class);
         String rewardCategory = AppConstants.GOLD_CD;
         selectRewardsPopup.putExtra("rewardCategory", rewardCategory);
         startActivityForResult(selectRewardsPopup, 3);
@@ -281,8 +281,8 @@ public class RewardConfigurationActivity extends AppCompatActivity
                         dbQuestion.setName(questionResponse.getQuestionName());
                         dbQuestion.setQuestionType(questionResponse.getQuestionType());
                         dbQuestion.setDisplayRank(questionResponse.getDisplayRank());
-                        dbQuestion.setRatingValues(android.text.TextUtils.join(";", questionResponse.getRatingValues()));
-                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(";", questionResponse.getEmoticonIds()));
+                        dbQuestion.setRatingValues(android.text.TextUtils.join(",", questionResponse.getRatingValues()));
+                        dbQuestion.setEmoticonIds(android.text.TextUtils.join(",", questionResponse.getEmoticonIds()));
                         dbQuestion.setQuestionInputType(questionResponse.getQuestionInputType());
                         questionDao.create(dbQuestion);
                     }
@@ -356,6 +356,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
             params.width = params.WRAP_CONTENT;
             rewardsConfigureNextButton.setLayoutParams(params);
             rewardsConfigureNextButton.setVisibility(View.VISIBLE);
+
         }
         else{
             ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
@@ -363,6 +364,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
             params.width = params.WRAP_CONTENT;
             rewardsConfigureNextButton.setLayoutParams(params);
             rewardsConfigureNextButton.setVisibility(View.VISIBLE);
+
         }
     }
 }
