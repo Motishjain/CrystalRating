@@ -103,6 +103,9 @@ public class RatingCardFragment extends Fragment implements RatingOptionsAdapter
             ratingBarLinearLayout.setVisibility(View.GONE);
             ratingOptionsLinearLayout.setVisibility(View.VISIBLE);
             LinearLayoutManager layoutManager = new LinearLayoutManager(ratingCard.getContext(), LinearLayoutManager.VERTICAL, false);
+            if(question.getQuestionInputType().equals(AppConstants.OPTION_RATING)) {
+                layoutManager.setReverseLayout(true);
+            }
             ratingOptionsRecyclerView.setLayoutManager(layoutManager);
 
             if (ratingOptionsRecyclerView.getAdapter() == null) {

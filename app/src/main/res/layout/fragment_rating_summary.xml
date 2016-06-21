@@ -77,16 +77,16 @@
         <LinearLayout
             android:id="@+id/serverNotReachableView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone"
-            android:layout_marginTop="18dp" >
+            android:layout_marginTop="100dp" >
 
             <com.admin.view.CustomFontTextView
-                style="@style/dateText"
+                style="@style/connectionError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Not able to connect to server."
+                android:text="Not able to connect to server!"
                 android:gravity="center" />
 
             <com.admin.view.CustomFontButton

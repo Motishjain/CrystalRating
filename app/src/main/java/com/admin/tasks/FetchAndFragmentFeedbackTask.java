@@ -202,13 +202,7 @@ public class FetchAndFragmentFeedbackTask extends AsyncTask<RatingSummaryFragmen
             int sumQuestionRatings = 0;
             if(ratingWiseFeedbackList!=null) {
                 for (Integer optionValue : ratingWiseFeedbackList.keySet()) {
-                    //If question input type is star, rating is same as selected star position
                     int rating = optionValue;
-                    //In case of options, higher the position, lower is the rating
-                    if(question.getQuestionInputType().equals(AppConstants.OPTION_RATING)) {
-                        rating = options - optionValue + 1;
-                    }
-
                     sumQuestionRatingValue += ratingWiseFeedbackList.get(optionValue).size() * rating;
                     sumQuestionRatings += ratingWiseFeedbackList.get(optionValue).size();
                 }
