@@ -14,11 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/headerBg"
-        android:onClick="closeActivity"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <com.admin.view.CustomFontTextView style="@style/appHeader" android:layout_marginLeft="15dp"/>
+        <com.admin.view.CustomFontTextView style="@style/appHeader" />
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.CoordinatorLayout>
