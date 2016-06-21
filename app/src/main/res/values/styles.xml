@@ -38,6 +38,11 @@
         <item name="android:background">@drawable/form_button_shape</item>
     </style>
 
+    <style name="RewardSelectDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="CustomDialogTheme" parent="android:Theme.Holo.Dialog">
         <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
         <item name="android:windowBackground">@color/transparent</item>
