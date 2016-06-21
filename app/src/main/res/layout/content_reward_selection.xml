@@ -12,7 +12,7 @@
         android:layout_marginTop="35dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="450">
+        android:layout_weight="456">
 
         <LinearLayout
             android:id="@+id/rewardLevelBoxList"
@@ -27,7 +27,7 @@
         android:layout_height="0dp"
         android:weightSum="2"
         android:gravity="center"
-        android:layout_weight="50">
+        android:layout_weight="44">
 
         <Button
             android:layout_width="wrap_content"
