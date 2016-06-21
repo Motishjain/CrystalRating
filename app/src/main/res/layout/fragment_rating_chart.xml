@@ -41,10 +41,10 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:id="@+id/imageViewDropdown"
-            android:src="@drawable/arrow_down"
+            android:src="@drawable/ic_expand_more_white"
             android:layout_gravity="center"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp" />

@@ -33,4 +33,5 @@
     <color name="disabled_button_color">#D9D9D9</color>
     <color name="disabled_button_background">#ad9390</color>
     <color name="question_number">#145b71</color>
+    <color name="try_again_default">#c83535</color>
 </resources>

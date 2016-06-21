@@ -307,13 +307,13 @@ public class RatingChartFragment extends Fragment {
             collapse(v);
             isExpanded = false;
 
-            arrow.setImageDrawable(getResources().getDrawable(R.drawable.arrow_down));
+            arrow.setImageDrawable(getResources().getDrawable(R.drawable.ic_expand_more_white));
         }
         else {
             expand(v);
             isExpanded = true;
 
-            arrow.setImageDrawable(getResources().getDrawable(R.drawable.arrow_up));
+            arrow.setImageDrawable(getResources().getDrawable(R.drawable.ic_expand_less_white));
         }
     }
 

@@ -90,11 +90,11 @@ public class SubscriptionInfoActivity extends AppCompatActivity implements Fetch
         int daysRemaining = subscription.getDaysRemaining();
 
         if (activationStatus.equals(AppConstants.SUBSCRIPTION_TRIAL)) {
-            subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_black_48dp);
+            subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_green_48dp);
             activationStatusTextView.setText("Active (Trial)");
             activationStatusDescription.setText("Expires On:" + expiryDate+ ((daysRemaining<=7)?"("+daysRemaining+" days left)":""));
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_ACTIVE)) {
-            subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_black_48dp);
+            subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_green_48dp);
             activationStatusTextView.setText("Active");
             activationStatusDescription.setText("Expires On:" + expiryDate+ ((daysRemaining<=7)?"("+daysRemaining+" days left)":""));
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_PENDING)) {
