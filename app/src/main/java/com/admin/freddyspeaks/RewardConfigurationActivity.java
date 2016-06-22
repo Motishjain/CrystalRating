@@ -265,10 +265,6 @@ public class RewardConfigurationActivity extends AppCompatActivity
         progressDialog.show();
 
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
-        if(!NetworkUtil.isNetworkAvailable(this)){
-            Toast.makeText(this,"Check your internet connection",Toast.LENGTH_LONG).show();
-            return;
-        }
         Call<List<QuestionResponse>> fetchQuestionsCall = restEndpointInterface.fetchQuestions(AppConstants.OUTLET_TYPE);
         fetchQuestionsCall.enqueue(new Callback<List<QuestionResponse>>() {
             @Override
@@ -306,6 +302,8 @@ public class RewardConfigurationActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<QuestionResponse>> call, Throwable t) {
                 Log.e("Reward Configuration", "Unable to fetch questions");
+                progressDialog.dismiss();
+                Toast.makeText(RewardConfigurationActivity.this,"Not able to connect to server! Please try again later.",Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -125,11 +125,6 @@ public class OutletDetailsActivity extends AppCompatActivity {
                     }
 
                     progressDialog.show();
-                    if(!NetworkUtil.isNetworkAvailable(OutletDetailsActivity.this)){
-                        progressDialog.dismiss();
-                        Toast.makeText(OutletDetailsActivity.this,"Check your internet connection",Toast.LENGTH_LONG).show();
-                        return;
-                    }
                     outletRequest.setOutletName(outletName.getText().toString());
                     outletRequest.setAddrLine1(addrLine1.getText().toString());
                     outletRequest.setOutletType(AppConstants.OUTLET_TYPE);
@@ -202,6 +197,9 @@ public class OutletDetailsActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call<SaveServiceReponse> call, Throwable t) {
                             Log.e("Outlet details", "Unable to save outlet");
+                            progressDialog.dismiss();
+                            Toast.makeText(OutletDetailsActivity.this,"Not able to connect to server! Please try again later.",Toast.LENGTH_LONG).show();
+                            return;
                         }
                     });
                 }

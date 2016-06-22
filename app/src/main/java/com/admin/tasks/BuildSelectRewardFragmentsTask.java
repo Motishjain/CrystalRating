@@ -91,11 +91,6 @@ public class BuildSelectRewardFragmentsTask extends AsyncTask<RewardSelectionAct
     }
 
     public void fetchRewards(final RewardSelectionActivity activity) {
-        if(!NetworkUtil.isNetworkAvailable(activity)){
-            progressDialog.dismiss();
-            Toast.makeText(activity,"Check your internet connection",Toast.LENGTH_LONG).show();
-            return;
-        }
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         Call<List<RewardResponse>> fetchRewardsCall = restEndpointInterface.fetchRewards(AppConstants.OUTLET_TYPE);
         fetchRewardsCall.enqueue(new Callback<List<RewardResponse>>() {
@@ -122,6 +117,8 @@ public class BuildSelectRewardFragmentsTask extends AsyncTask<RewardSelectionAct
             @Override
             public void onFailure(Call<List<RewardResponse>> call, Throwable t) {
                 Log.e("Reward Selection", "Not able to fetch rewards");
+                progressDialog.dismiss();
+                Toast.makeText(activity,"Not able to connect to server! Please try again later.",Toast.LENGTH_LONG).show();
             }
         });
     }
