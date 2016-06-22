@@ -267,6 +267,9 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
             if(!selectedOption.equals("1")){
                 ratingMap.put(currentQuestion.getQuestionId(), (Integer.parseInt(selectedOption)-1)+"");
             }
+            else {
+                ratingMap.remove(currentQuestion.getQuestionId());
+            }
         }
         else {
             ratingMap.put(currentQuestion.getQuestionId(), selectedOption);
