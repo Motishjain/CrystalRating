@@ -94,10 +94,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Try Again!"
+                android:layout_marginTop="20dp"
+                android:text="Try again"
                 android:textAllCaps="false"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:paddingRight="7dp"
+                android:paddingLeft="7dp"
+                android:drawableLeft="@drawable/ic_refresh_white"
+                style="@style/tryAgainButton"/>
 
         </LinearLayout>
 
