@@ -16,7 +16,6 @@ import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
 import com.admin.freddyspeaks.R;
 import com.admin.freddyspeaks.RewardSelectionActivity;
-import com.admin.util.NetworkUtil;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.RewardResponse;

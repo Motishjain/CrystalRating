@@ -1,6 +1,5 @@
 package com.admin.freddyspeaks;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +19,6 @@ import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
 import com.admin.services.RegistrationIntentService;
-import com.admin.util.NetworkUtil;
 import com.admin.util.ValidationUtil;
 import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;

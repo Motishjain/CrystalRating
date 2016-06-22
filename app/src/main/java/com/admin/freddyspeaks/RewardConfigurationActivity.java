@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.admin.adapter.SelectedRewardsBoxAdapter;
@@ -25,7 +24,6 @@ import com.admin.database.Question;
 import com.admin.database.SelectedReward;
 import com.admin.dialogs.CustomDialogFragment;
 import com.admin.tasks.SetRandomQuestionsTask;
-import com.admin.util.NetworkUtil;
 import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
