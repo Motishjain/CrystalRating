@@ -20,11 +20,11 @@
     <color name="gold">#d4af37</color>
     <!--<color name="screenHeader">#430541</color>-->
     <color name="screenHeader">#3c2109</color>
-    <color name="rating1">#6ACA25</color>
-    <color name="rating2">#1486AC</color>
+    <color name="rating1">#FF0000</color>
+    <color name="rating2">#FFFF00</color>
     <color name="rating3">#FF9900</color>
-    <color name="rating4">#FFFF00</color>
-    <color name="rating5">#FF0000</color>
+    <color name="rating4">#1486AC</color>
+    <color name="rating5">#6ACA25</color>
     <color name="popupButtonBg">#FFFFFF</color>
     <color name="floating_line">#FF6A4351</color>
     <color name="thanks_screen">#485791</color>

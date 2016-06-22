@@ -180,11 +180,11 @@ public class RatingChartFragment extends Fragment {
      * @return
      */
     public int getAverageStringColor(double average){
-        if (4 < average && average <= 5){
+        if (0 <= average && average <= 1){
             return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating1);
         }
 
-        if (3 < average && average <= 4){
+        if (1 < average && average <= 2){
             return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating2);
         }
 
@@ -192,11 +192,11 @@ public class RatingChartFragment extends Fragment {
             return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating3);
         }
 
-        if (1 < average && average <= 2){
+        if (3 < average && average <= 4){
             return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating4);
         }
 
-        if (0 <= average && average <= 1){
+        if (4 < average && average <= 5){
             return ContextCompat.getColor(getActivity().getApplicationContext(),R.color.rating5);
         }
 
