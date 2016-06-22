@@ -26,6 +26,9 @@ public class Question implements Serializable {
 
     @DatabaseField
     private String selected;
+    
+    @DatabaseField
+    private String showNA;
 
     @DatabaseField
     private String questionType;
@@ -68,6 +71,14 @@ public class Question implements Serializable {
 
     public void setSelected(String selected) {
         this.selected = selected;
+    }
+    
+    public String getShowNA() {
+        return showNA;
+    }
+
+    public void setShowNA(String showNA) {
+        this.showNA = showNA;
     }
 
     public String getQuestionType() {
