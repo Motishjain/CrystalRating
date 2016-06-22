@@ -262,8 +262,16 @@ public class GetRatingActivity extends BaseActivity implements RatingCardFragmen
 
         String selectedOption = questionList.get(currentQuestionIndex).getSelectedOption();
         answeredQuestionIndexSet.add(currentQuestionIndex);
-        ratingMap.put(questionList.get(currentQuestionIndex).getQuestionId(), selectedOption);
-        String questionInputType = questionList.get(currentQuestionIndex).getQuestionInputType();
+        Question currentQuestion = questionList.get(currentQuestionIndex);
+        if(currentQuestion.getShowNA()!=null && currentQuestion.getShowNA().equals("Y")) {
+            if(!selectedOption.equals("1")){
+                ratingMap.put(currentQuestion.getQuestionId(), (Integer.parseInt(selectedOption)-1)+"");
+            }
+        }
+        else {
+            ratingMap.put(currentQuestion.getQuestionId(), selectedOption);
+        }
+        String questionInputType = currentQuestion.getQuestionInputType();
 
         if (currentQuestionIndex == totalQuestions - 1 || questionInputType.equals(AppConstants.STAR_RATING)) {
             ratingNextButton.setEnabled(true);
