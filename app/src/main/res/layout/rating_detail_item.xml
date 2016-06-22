@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:weightSum="20">
+    android:weightSum="3">
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/billDateTextView"
         style="@style/ratingDetailCell"
         android:layout_width="0dp"
-        android:layout_weight="5.5"
+        android:layout_weight="1"
         android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingTop="5dp" />
@@ -18,7 +18,7 @@
         android:id="@+id/userPhoneNumberCellTextView"
         style="@style/ratingDetailCell"
         android:layout_width="0dp"
-        android:layout_weight="5.5"
+        android:layout_weight="1"
         android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingTop="5dp" />
@@ -27,7 +27,7 @@
         android:id="@+id/billAmountCellTextView"
         style="@style/ratingDetailCell"
         android:layout_width="0dp"
-        android:layout_weight="4.5"
+        android:layout_weight="1"
         android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingTop="5dp" />
