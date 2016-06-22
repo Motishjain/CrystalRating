@@ -12,6 +12,7 @@ public class QuestionResponse {
     private String[] emoticonIds;
     private String questionType;
     private String displayRank;
+    private String showNA;
     private String questionInputType;
 
 
@@ -33,6 +34,14 @@ public class QuestionResponse {
 
     public String getQuestionType() {
         return questionType;
+    }
+    
+    public void setShowNA(String showNA) {
+        this.showNA = showNA;
+    }
+
+    public String getShowNA() {
+        return showNA;
     }
 
     public void setQuestionType(String questionType) {
