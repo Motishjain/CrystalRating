@@ -3,6 +3,7 @@ package com.admin.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.support.design.widget.TextInputEditText;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
@@ -11,7 +12,7 @@ import com.admin.freddyspeaks.R;
 /**
  * Created by Admin on 3/19/2016.
  */
-public class CustomFontEditText extends EditText {
+public class CustomFontEditText extends TextInputEditText {
 
     private AttributeSet attrs;
 
