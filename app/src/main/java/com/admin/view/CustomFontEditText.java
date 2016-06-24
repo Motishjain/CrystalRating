@@ -1,5 +1,7 @@
 package com.admin.view;
-
+/*
+<a href="http://www.onlinewebfonts.com">oNline Web Fonts</a> for calibri regular font.
+ */
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
@@ -29,8 +31,8 @@ public class CustomFontEditText extends TextInputEditText {
         TypedArray a = context.obtainStyledAttributes(this.attrs, R.styleable.custom_font);
         CharSequence s = a.getString(R.styleable.custom_font_fontFamilyFile);
         if (s != null) {
-            this.setFontFamilyFile("fonts/"+s.toString()+".ttf");
-            init();
+                this.setFontFamilyFile("fonts/" + s.toString());
+                init();
         }
     }
 

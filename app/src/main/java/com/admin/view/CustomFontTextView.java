@@ -26,7 +26,7 @@ public class CustomFontTextView extends TextView {
         TypedArray a = context.obtainStyledAttributes(this.attrs, R.styleable.custom_font);
         CharSequence s = a.getString(R.styleable.custom_font_fontFamilyFile);
         if (s != null) {
-            this.setFontFamilyFile("fonts/"+s.toString()+".ttf");
+            this.setFontFamilyFile("fonts/"+s.toString());
             init();
         }
     }
