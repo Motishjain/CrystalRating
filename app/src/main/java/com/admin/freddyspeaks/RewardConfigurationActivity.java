@@ -53,7 +53,6 @@ public class RewardConfigurationActivity extends AppCompatActivity
     List<SelectedReward> bronzeSelectedRewardList, silverSelectedRewardList, goldSelectedRewardList;
     Button rewardsConfigureNextButton;
     private DialogFragment dialogDelete;
-    private int bronzeRewardsLevel,silverRewardsLevel,goldRewardsLevel;
 
     //Delete element:
     private SelectedRewardsBoxAdapter adapterFromDel;
@@ -165,13 +164,10 @@ public class RewardConfigurationActivity extends AppCompatActivity
 
             if (rewardsSelected) {
                 if (requestCode == 1) {
-                    bronzeRewardsLevel = data.getIntExtra("selectedLevel",0);
                     updateBronzeRewardList();
                 } else if (requestCode == 2) {
-                    silverRewardsLevel = data.getIntExtra("selectedLevel",0);
                     updateSilverRewardList();
                 } else if (requestCode == 3) {
-                    goldRewardsLevel = data.getIntExtra("selectedLevel",0);
                     updateGoldRewardList();
                 }
             }
@@ -195,8 +191,10 @@ public class RewardConfigurationActivity extends AppCompatActivity
                 bronzeRewardsRecyclerView.setAdapter(bronzeRewardsAdapter);
             } else {
                 bronzeRewardsAdapter.setSelectedRewardList(bronzeSelectedRewardList);
-                if (!editMode){setButton();}
                 bronzeRewardsAdapter.notifyDataSetChanged();
+            }
+            if (!editMode){
+                updateNextButtonName();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -219,8 +217,10 @@ public class RewardConfigurationActivity extends AppCompatActivity
                 silverRewardsRecyclerView.setAdapter(silverRewardsAdapter);
             } else {
                 silverRewardsAdapter.setSelectedRewardList(silverSelectedRewardList);
-                if (!editMode){setButton();}
                 silverRewardsAdapter.notifyDataSetChanged();
+            }
+            if (!editMode){
+                updateNextButtonName();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -243,8 +243,10 @@ public class RewardConfigurationActivity extends AppCompatActivity
                 goldRewardsRecyclerView.setAdapter(goldRewardsAdapter);
             } else {
                 goldRewardsAdapter.setSelectedRewardList(goldSelectedRewardList);
-                if (!editMode){setButton();}
                 goldRewardsAdapter.notifyDataSetChanged();
+            }
+            if (!editMode){
+                updateNextButtonName();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -329,7 +331,8 @@ public class RewardConfigurationActivity extends AppCompatActivity
                 selectedRewardDeleteBuilder.where().eq("id", rewardToBeRemoved.getId());
                 selectedRewardDeleteBuilder.delete();
                 listFromDel.remove(positionFromDel);
-                if (!editMode){setButton();}
+                if (!editMode){
+                    updateNextButtonName();}
                 adapterFromDel.notifyDataSetChanged();
 
             } catch (SQLException e) {
@@ -346,22 +349,18 @@ public class RewardConfigurationActivity extends AppCompatActivity
         dialogDelete.dismiss();
     }
 
-    public void setButton() {
+    public void updateNextButtonName() {
+        ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
+        params.width = params.WRAP_CONTENT;
+        rewardsConfigureNextButton.setLayoutParams(params);
+        rewardsConfigureNextButton.setVisibility(View.VISIBLE);
+
         if((bronzeSelectedRewardList==null || bronzeSelectedRewardList.size()==0) && (silverSelectedRewardList==null ||silverSelectedRewardList.size()==0) && (goldSelectedRewardList==null || goldSelectedRewardList.size()==0)) {
-            ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
             rewardsConfigureNextButton.setText("Configure Later");
-            params.width = params.WRAP_CONTENT;
-            rewardsConfigureNextButton.setLayoutParams(params);
-            rewardsConfigureNextButton.setVisibility(View.VISIBLE);
 
         }
         else{
-            ViewGroup.LayoutParams params = rewardsConfigureNextButton.getLayoutParams();
             rewardsConfigureNextButton.setText("Get Started");
-            params.width = params.WRAP_CONTENT;
-            rewardsConfigureNextButton.setLayoutParams(params);
-            rewardsConfigureNextButton.setVisibility(View.VISIBLE);
-
         }
     }
 }
