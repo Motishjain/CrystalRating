@@ -154,7 +154,7 @@ public class RatingChartFragment extends Fragment {
         }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_item, questionNames);
+                R.layout.spinner_textview, questionNames);
         questionsSpinner.setAdapter(dataAdapter);
 
         questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
