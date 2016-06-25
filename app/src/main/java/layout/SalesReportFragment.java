@@ -135,12 +135,12 @@ public class SalesReportFragment extends Fragment {
         });
         yearSpinner.setSelection(gc.get(Calendar.YEAR) - 2000);
 
-        progressDialog.show();
         fetchSalesData();
         return salesReportFragment;
     }
 
     public void fetchSalesData() {
+        progressDialog.show();
         RestEndpointInterface restEndpointInterface = RetrofitSingleton.newInstance();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         String outletCode = sharedPreferences.getString("outletCode", null);
