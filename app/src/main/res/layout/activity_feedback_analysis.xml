@@ -13,7 +13,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/headerBg"
         android:id="@+id/toolbar"
-        android:onClick="closeActivity"
         android:elevation="7dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/AppTheme.PopupOverlay" >

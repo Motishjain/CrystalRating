@@ -49,7 +49,7 @@ public class SelectedRewardsBoxAdapter extends RecyclerView.Adapter<SelectedRewa
 
         holder.selectedRewardName.setText(reward.getName());
         holder.selectedRewardCost.setText("₹" + reward.getCost());
-        holder.selectedRewardBox.setOnClickListener(new View.OnClickListener() {
+        holder.selectedRewardDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onAdapterInteractionListener.removeSelectedReward(position);
