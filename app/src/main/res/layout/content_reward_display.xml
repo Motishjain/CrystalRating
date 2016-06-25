@@ -55,15 +55,7 @@
             android:id="@+id/rewardDisplayExclaimer"
             style="@style/rewardDisplayExclaimer"
             android:gravity="center"
-            android:text="Congratulations!!!"
-            android:layout_gravity="center"
-            />
-        <com.admin.view.CustomFontTextView
-            android:layout_marginTop="30dp"
-            android:id="@+id/rewardNotFoundExclaimer"
-            style="@style/rewardDisplayExclaimer"
-            android:gravity="center"
-            android:visibility="gone"
+            android:text="Congratulations!!"
             android:layout_gravity="center"
             />
         <com.admin.view.CustomFontTextView
@@ -71,16 +63,7 @@
             android:id="@+id/rewardDisplayMessage"
             style="@style/rewardDisplayMessage"
             android:gravity="center"
-            android:text="We have a reward for you."
-            android:layout_gravity="center"
-            />
-        <com.admin.view.CustomFontTextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/rewardNotFoundMessage"
-            style="@style/rewardDisplayMessage"
-            android:gravity="center"
-            android:layout_width="300dp"
-            android:visibility="gone"
+            android:text="This outlet has a goodie for you!"
             android:layout_gravity="center"
             />
 

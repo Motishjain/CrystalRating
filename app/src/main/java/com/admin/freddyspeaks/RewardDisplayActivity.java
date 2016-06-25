@@ -30,7 +30,7 @@ public class RewardDisplayActivity extends BaseActivity {
     SelectedReward allocatedReward;
     Dao<User, Integer> userDao;
     CustomFontTextView billAmtLabel,rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
-    CustomFontTextView rewardNotFoundExclaimer,rewardNotFoundMessage,thankYouMessage1,thankYouMessage2;
+    CustomFontTextView thankYouMessage1,thankYouMessage2;
     ImageView resultRewardImage;
     CustomDialogFragment dialogConfirmExit;
     public static Map<String,String> categoryMapping = new HashMap<>();
@@ -53,8 +53,6 @@ public class RewardDisplayActivity extends BaseActivity {
         billAmtLabel=(CustomFontTextView)findViewById(R.id.billAmt);
         rewardDisplayExclaimer = (CustomFontTextView) findViewById(R.id.rewardDisplayExclaimer);
         rewardDisplayMessage = (CustomFontTextView) findViewById(R.id.rewardDisplayMessage);
-        rewardNotFoundExclaimer = (CustomFontTextView) findViewById(R.id.rewardNotFoundExclaimer);
-        rewardNotFoundMessage = (CustomFontTextView) findViewById(R.id.rewardNotFoundMessage);
         thankYouMessage1 = (CustomFontTextView) findViewById(R.id.thankYouMessage1);
         thankYouMessage2 = (CustomFontTextView) findViewById(R.id.thankYouMessage2);
         resultRewardName = (CustomFontTextView) findViewById(R.id.resultRewardName);
@@ -62,6 +60,10 @@ public class RewardDisplayActivity extends BaseActivity {
 
         Bundle extras = getIntent().getExtras();
         feedback = (FeedbackRequest)extras.get("feedback");
+
+        if(feedback==null) {
+            exit(null);
+        }
 
         try {
             userDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("User");
@@ -78,20 +80,6 @@ public class RewardDisplayActivity extends BaseActivity {
             fetchRewardImageTask.execute(rewardResult.getImage());
             billAmtLabel.setText( "\u20B9"+feedback.getBillAmount());
             resultRewardName.setText("It's "+rewardResult.getName().toUpperCase());
-            rewardDisplayExclaimer.setText("Congratulations!!");
-            rewardDisplayMessage.setText("We have a reward for you.");
-            rewardDisplayExclaimer.setVisibility(View.VISIBLE);
-            rewardDisplayMessage.setVisibility(View.VISIBLE);
-            rewardNotFoundExclaimer.setVisibility(View.GONE);
-            rewardNotFoundMessage.setVisibility(View.GONE);
-        }
-        else {
-            rewardNotFoundExclaimer.setText("Ahh! We couldn't find a reward for you.");
-            rewardNotFoundMessage.setText("Duly noted, you will be taken better care of next time :)");
-            rewardNotFoundExclaimer.setVisibility(View.VISIBLE);
-            rewardNotFoundMessage.setVisibility(View.VISIBLE);
-            rewardDisplayExclaimer.setVisibility(View.GONE);
-            rewardDisplayMessage.setVisibility(View.GONE);
         }
     }
 
