@@ -6,21 +6,16 @@
     <string name="action_check_reports">Check Reports</string>
     <string name="action_subscription_info">Subscription Info</string>
     <string name="title_activity_home_page">FreddySpeaks</string>
-    <string name="title_activity_user_info">FreddySpeaks</string>
-    <string name="title_activity_rate_outlet">FreddySpeaks</string>
     <string name="title_activity_loading">FreddySpeaks</string>
     <string name="title_activity_goodie_display">FreddySpeaks</string>
-    <string name="title_activity_goodie_configuration">FreddySpeaks</string>
     <string name="title_activity_get_rating">FreddySpeaks</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_reward_configuration">FreddySpeaks</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
-    <string name="done">Done!</string>
     <string name="outlet_name">Outlet Name</string>
     <string name="address_line1">Address Line 1</string>
     <string name="address_line2">Address Line 2</string>
@@ -29,28 +24,21 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="title_activity_bill_details">FreddySpeaks</string>
     <string name="title_activity_reward_selection">Select rewards</string>
-    <string name="title_activity_thanks">ThanksActivity</string>
-    <string name="register_outlet">Register your Outlet !</string>
-    <string name="get_rating_header">Please rate us!</string>
     <string name="newApplicationFont">comicsansms.ttf</string>
     <string name="applicationFont">comicsansms.ttf</string>
     <string name="questionFont">Volkhov-Bold.ttf</string>
     <string name="inputFields">AlexandriaFLF-Bold.ttf</string>
     <string name="screenHeaderFont">RobotoMedium.ttf</string>
-    <string name="appHeaderFont">LCALLIG.ttf</string>
     <string name="configure_your_rewards">Set your rewards!</string>
     <string name="bronze_box_header">Bronze - Frequent ones!</string>
     <string name="silver_box_header">Silver - Special gifts!</string>
     <string name="gold_box_header">Gold - Dream rewards!</string>
     <string name="title_activity_subscription_info">SubscriptionInfoActivity</string>
     <string name="title_activity_rating_summary">RatingSummaryActivity</string>
-    <string name="no_reward_thank_you">NoRewardThankYouActivity</string>
 
     <string name="rating_date_header">Date</string>
     <string name="rating_user_phone_number_header">Cell no</string>
-    <string name="rating_bill_number_header">Bill No</string>
     <string name="rating_bill_amount_header">Amount</string>
-    <string name="rating_reward_won_header">Reward Won</string>
 
     <string name="bill_details_thanks_message">Thank you for your rating!</string>
     <string name="bill_details_desription">Enter your bill details below and a gift might be waiting for you.</string>

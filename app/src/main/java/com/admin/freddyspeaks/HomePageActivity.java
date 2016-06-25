@@ -145,9 +145,9 @@ public class HomePageActivity extends BaseActivity {
     private void executeDailyTasks() {
         String dailyTaskExecutedDate = sharedPreferences.getString("dailyTaskExecutedDate", null);
         String currentDate = simpleDateFormat.format(new Date());
-        if (dailyTaskExecutedDate == null || !dailyTaskExecutedDate.equals(currentDate)) {
+        //if (dailyTaskExecutedDate == null || !dailyTaskExecutedDate.equals(currentDate)) {
             Intent intent = new Intent("com.admin.freddyspeaks.executedailytasks");
             sendBroadcast(intent);
-        }
+        //}
     }
 }
