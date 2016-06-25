@@ -49,7 +49,7 @@ public class RatingOptionsAdapter extends RecyclerView.Adapter<RatingOptionsAdap
         this.question = question;
         this.onItemSelectedListener = onItemSelectedListener;
 
-        if(question.getShowNA()!=null && question.getShowNA().equals("Y")) {
+        if(question.getShowNA()!=null && question.getShowNA().equals("Y") && !question.getRatingValues().startsWith("N/A;")) {
             question.setRatingValues("N/A;"+question.getRatingValues());
             question.setEmoticonIds(";"+question.getEmoticonIds());
         }
