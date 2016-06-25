@@ -35,7 +35,7 @@
     <string name="newApplicationFont">comicsansms.ttf</string>
     <string name="applicationFont">comicsansms.ttf</string>
     <string name="questionFont">Volkhov-Bold.ttf</string>
-    <string name="inputFields">CalibriRegular.otf</string>
+    <string name="inputFields">AlexandriaFLF-Bold.ttf</string>
     <string name="screenHeaderFont">RobotoMedium.ttf</string>
     <string name="appHeaderFont">LCALLIG.ttf</string>
     <string name="configure_your_rewards">Set your rewards!</string>

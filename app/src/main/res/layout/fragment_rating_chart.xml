@@ -88,7 +88,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/imageView2"
-                android:src="@drawable/drop_arrow"
+                android:src="@drawable/ic_arrow_drop_down_black"
                 android:layout_centerVertical="true"
                 android:layout_alignEnd="@id/questionsSpinner" />
         </RelativeLayout>

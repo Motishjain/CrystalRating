@@ -1,7 +1,4 @@
 package com.admin.view;
-/*
-<a href="http://www.onlinewebfonts.com">oNline Web Fonts</a> for calibri regular font.
- */
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
