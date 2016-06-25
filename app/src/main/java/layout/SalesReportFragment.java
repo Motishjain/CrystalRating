@@ -26,6 +26,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -213,6 +215,17 @@ public class SalesReportFragment extends Fragment {
         LineData data = new LineData(labels, dataset);
 
         data.setHighlightEnabled(false);
+        data.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                if(value>0) {
+                    return value+"";
+                }
+                else {
+                    return "";
+                }
+            }
+        });
         salesReportChart.setData(data);
         salesReportChart.invalidate();
     }
