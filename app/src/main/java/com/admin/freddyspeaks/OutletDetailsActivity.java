@@ -165,9 +165,9 @@ public class OutletDetailsActivity extends AppCompatActivity {
                                         editor.commit();
 
                                         progressDialog.dismiss();
-                                        Intent configureRewards = new Intent(OutletDetailsActivity.this, RewardConfigurationActivity.class);
-                                        configureRewards.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(configureRewards);
+                                        Intent setPin = new Intent(OutletDetailsActivity.this, SetPasswordActivity.class);
+                                        setPin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(setPin);
                                     } catch (SQLException e) {
                                         e.printStackTrace();
                                     }

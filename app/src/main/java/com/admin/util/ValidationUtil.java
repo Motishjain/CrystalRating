@@ -98,4 +98,18 @@ public class ValidationUtil {
         }
     }
 
+    public static boolean isValidPin(TextView pin, TextView pin2, TextInputLayout pinInputLayout, TextInputLayout pin2InputLayout) {
+        String pinText = pin.getText().toString();
+        String pin2Text = pin2.getText().toString();
+        if(pinText.length()!=4) {
+            pinInputLayout.setError("Please enter 4-digit pin");
+            return false;
+        }
+        else if(!pinText.equals(pin2Text)) {
+            pin2InputLayout.setError("Re-entered pin not matching");
+            return false;
+        }
+        return true;
+    }
+
 }
