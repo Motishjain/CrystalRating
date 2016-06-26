@@ -1,5 +1,6 @@
 package layout;
 
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.admin.database.Question;
 import com.admin.dialogs.CustomPieChartDialog;
 import com.admin.freddyspeaks.R;
 import com.admin.webservice.response_objects.FeedbackResponse;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -119,6 +121,10 @@ public class RatingChartFragment extends Fragment {
 
         ratingChartHeader.setText(header);
         ratingValue.setText(round(averageRating,2)+"");
+
+        Paint p = ratingSummaryChart.getPaint(Chart.PAINT_INFO);
+        p.setColor(ContextCompat.getColor(getActivity().getApplicationContext(),R.color.unselected_option_bg));
+        p.setTextSize(p.getTextSize()+1);
 
         // After all preparings set color according pie
         ratingValue.setTextColor(getAverageStringColor(round(averageRating,2)));
