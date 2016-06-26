@@ -52,7 +52,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
     Calendar calendar;
     ImageView fromDateImage,toDateImage;
     CustomDialogFragment dialogDateSelectionPrompt;
-    DatePickerDialog fromDatePickerDialog;
+    DatePickerDialog fromDatePickerDialog, toDatePickerDialog;
     LinearLayout serverNotReachableView, ratingCategoryFragments;
     Button tryAgainButton;
 
@@ -173,7 +173,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
     public void changeToDate(View v) {
         calendar = Calendar.getInstance();
         calendar.setTime(toDate);
-        DatePickerDialog toDatePickerDialog = new DatePickerDialog(this.getActivity(),
+        toDatePickerDialog = new DatePickerDialog(this.getActivity(),
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
@@ -182,6 +182,7 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
                         calendar.set(Calendar.MONTH, monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         if (calendar.getTime().before(fromDate)) {
+                            toDatePickerDialog.dismiss();
                             dialogDateSelectionPrompt = CustomDialogFragment.newInstance(R.layout.dialog_date_mismatch, RatingSummaryFragment.this,"To Date cannot be less than From Date");
                             dialogDateSelectionPrompt.show(getFragmentManager(),"");
                             return;
