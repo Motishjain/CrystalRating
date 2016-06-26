@@ -52,7 +52,7 @@
         <activity
             android:name=".BillDetailsActivity"
             android:label="@string/title_activity_bill_details"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RewardSelectionActivity"
             android:label="@string/title_activity_reward_selection"
@@ -69,7 +69,7 @@
         <receiver
             android:name="com.admin.receiver.DailyAlarmReceiver"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.admin.freddyspeaks.executedailytasks" />
             </intent-filter>
@@ -80,6 +80,7 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.admin.freddyspeaks" />
             </intent-filter>
         </receiver>
@@ -112,8 +113,11 @@
         <activity
             android:name=".ThankYouActivity"
             android:label="@string/title_activity_goodie_display"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SetPasswordActivity"
+            android:label="@string/title_activity_set_password"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
