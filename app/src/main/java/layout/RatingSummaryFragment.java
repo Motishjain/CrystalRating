@@ -183,8 +183,10 @@ public class RatingSummaryFragment extends Fragment implements RatingChartFragme
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         if (calendar.getTime().before(fromDate)) {
                             toDatePickerDialog.dismiss();
-                            dialogDateSelectionPrompt = CustomDialogFragment.newInstance(R.layout.dialog_date_mismatch, RatingSummaryFragment.this,"To Date cannot be less than From Date");
-                            dialogDateSelectionPrompt.show(getFragmentManager(),"");
+                            if(dialogDateSelectionPrompt==null) {
+                                dialogDateSelectionPrompt = CustomDialogFragment.newInstance(R.layout.dialog_date_mismatch, RatingSummaryFragment.this, "To Date cannot be less than From Date");
+                                dialogDateSelectionPrompt.show(getFragmentManager(), "");
+                            }
                             return;
                         }
                         if (!toDate.equals(calendar.getTime())) {
