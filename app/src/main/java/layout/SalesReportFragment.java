@@ -135,7 +135,6 @@ public class SalesReportFragment extends Fragment {
         });
         yearSpinner.setSelection(gc.get(Calendar.YEAR) - 2000);
 
-        fetchSalesData();
         return salesReportFragment;
     }
 

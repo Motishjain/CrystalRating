@@ -25,6 +25,8 @@ public class FeedbackAnalysisActivity extends AppCompatActivity{
     private TextView textViewPieChart;
     private TextView textViewPieGraph;
 
+    RatingSummaryFragment ratingSummaryFragment;
+    SalesReportFragment salesReportFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,7 @@ public class FeedbackAnalysisActivity extends AppCompatActivity{
 
                     imageViewPieChart.setImageAlpha(80);
                     textViewPieChart.setAlpha(0.4f);
+                    salesReportFragment.fetchSalesData();
                 }
             }
 
@@ -137,10 +140,10 @@ public class FeedbackAnalysisActivity extends AppCompatActivity{
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    RatingSummaryFragment ratingSummaryFragment = new RatingSummaryFragment();
+                    ratingSummaryFragment = new RatingSummaryFragment();
                     return ratingSummaryFragment;
                 case 1:
-                    SalesReportFragment salesReportFragment = new SalesReportFragment();
+                    salesReportFragment = new SalesReportFragment();
                     return salesReportFragment;
             }
             return null;
