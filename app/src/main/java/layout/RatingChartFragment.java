@@ -44,7 +44,6 @@ import java.util.Map;
  */
 public class RatingChartFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
     String header;
     double averageRating;
     List<Question> questionList;
