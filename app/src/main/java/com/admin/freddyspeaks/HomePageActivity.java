@@ -91,7 +91,7 @@ public class HomePageActivity extends BaseActivity {
     void saveAndNext() {
         if(ValidationUtil.isValidCellNumber(autoCompleteInputUserPhoneNumberText,inputUserPhoneNumberLayout,"Please enter valid Mobile Number")) {
             try {
-                KeyboardUtil.hideKeyboard(this);
+                KeyboardUtil.hideKeyboard(this, this.getCurrentFocus());
                 queryBuilder.reset();
                 queryBuilder.where().eq("phoneNumber", autoCompleteInputUserPhoneNumberText.getText().toString().trim());
                 userList = queryBuilder.query();

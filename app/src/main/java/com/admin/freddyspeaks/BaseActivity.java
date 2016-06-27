@@ -34,7 +34,7 @@ public class BaseActivity  extends AppCompatActivity {
 
             case R.id.actionEditProfile:
 
-                enterPinDialogFragment = EnterPinDialogFragment.newInstance("", new EnterPinDialogFragment.EnterPinDialogListener() {
+                enterPinDialogFragment = EnterPinDialogFragment.newInstance("Edit outlet details", new EnterPinDialogFragment.EnterPinDialogListener() {
                     @Override
                     public void onDialogPositiveClick() {
                         enterPinDialogFragment.dismiss();
@@ -48,11 +48,11 @@ public class BaseActivity  extends AppCompatActivity {
                         enterPinDialogFragment.dismiss();
                     }
                 });
-                enterPinDialogFragment.show(getSupportFragmentManager(), "");
+                enterPinDialogFragment.show(getSupportFragmentManager(), "Edit outlet details");
                 return true;
 
             case R.id.actionRewards:
-                enterPinDialogFragment = EnterPinDialogFragment.newInstance("", new EnterPinDialogFragment.EnterPinDialogListener() {
+                enterPinDialogFragment = EnterPinDialogFragment.newInstance("Configure rewards", new EnterPinDialogFragment.EnterPinDialogListener() {
                     @Override
                     public void onDialogPositiveClick() {
                         enterPinDialogFragment.dismiss();
@@ -66,11 +66,11 @@ public class BaseActivity  extends AppCompatActivity {
                         enterPinDialogFragment.dismiss();
                     }
                 });
-                enterPinDialogFragment.show(getSupportFragmentManager(), "");
+                enterPinDialogFragment.show(getSupportFragmentManager(), "Configure rewards");
                 return true;
 
             case R.id.actionSubscriptionInfo:
-                enterPinDialogFragment = EnterPinDialogFragment.newInstance("", new EnterPinDialogFragment.EnterPinDialogListener() {
+                enterPinDialogFragment = EnterPinDialogFragment.newInstance("Subscription Info", new EnterPinDialogFragment.EnterPinDialogListener() {
                     @Override
                     public void onDialogPositiveClick() {
                         enterPinDialogFragment.dismiss();
@@ -83,11 +83,11 @@ public class BaseActivity  extends AppCompatActivity {
                         enterPinDialogFragment.dismiss();
                     }
                 });
-                enterPinDialogFragment.show(getSupportFragmentManager(), "");
+                enterPinDialogFragment.show(getSupportFragmentManager(), "Subscription Info");
                 return true;
 
             case R.id.actionFeedbackSummary:
-                enterPinDialogFragment = EnterPinDialogFragment.newInstance("", new EnterPinDialogFragment.EnterPinDialogListener() {
+                enterPinDialogFragment = EnterPinDialogFragment.newInstance("Check reports", new EnterPinDialogFragment.EnterPinDialogListener() {
                     @Override
                     public void onDialogPositiveClick() {
                         enterPinDialogFragment.dismiss();
@@ -100,7 +100,7 @@ public class BaseActivity  extends AppCompatActivity {
                         enterPinDialogFragment.dismiss();
                     }
                 });
-                enterPinDialogFragment.show(getSupportFragmentManager(), "");
+                enterPinDialogFragment.show(getSupportFragmentManager(), "Check reports");
                 return true;
 
 

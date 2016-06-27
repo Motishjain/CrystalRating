@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.admin.freddyspeaks.R;
+import com.admin.util.KeyboardUtil;
 
 /**
  * Created by Admin on 26-06-2016.
@@ -23,6 +25,7 @@ public class EnterPinDialogFragment extends DialogFragment  {
     String title;
     TextInputLayout inputPinLayout;
     EditText inputPinText;
+    TextView titleTextView;
 
     public static EnterPinDialogFragment newInstance(String title, EnterPinDialogFragment.EnterPinDialogListener enterPinDialogListener) {
         EnterPinDialogFragment fragment = new EnterPinDialogFragment();
@@ -41,11 +44,15 @@ public class EnterPinDialogFragment extends DialogFragment  {
 
         inputPinLayout = (TextInputLayout) dialog.findViewById(R.id.inputPinLayout);
         inputPinText = (EditText) dialog.findViewById(R.id.inputPinText);
+        titleTextView = (TextView) dialog.findViewById(R.id.titleTextView);
+
+        KeyboardUtil.showKeyboard(getActivity(),inputPinText);
         Button buttonOk = (Button) dialog.findViewById(R.id.buttonOk);
         Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                KeyboardUtil.hideKeyboard(getActivity(), inputPinText);
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
                 String outletPin = sharedPreferences.getString("outletPin", null);
                 if(inputPinText.getText().toString().equals(outletPin)) {
@@ -65,8 +72,7 @@ public class EnterPinDialogFragment extends DialogFragment  {
             }
         });
 
-        inputPinLayout = (TextInputLayout) dialog.findViewById(R.id.inputPinLayout);
-        inputPinText = (EditText) dialog.findViewById(R.id.inputPinText);
+        titleTextView.setText(title);
 
         // Inflate and set the layout for the dialog
         builder.setView(dialog);
