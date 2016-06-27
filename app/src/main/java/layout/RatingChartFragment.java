@@ -19,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.admin.database.Question;
-import com.admin.dialogs.CustomPieChartDialog;
 import com.admin.freddyspeaks.R;
 import com.admin.webservice.response_objects.FeedbackResponse;
 import com.github.mikephil.charting.charts.Chart;
@@ -29,8 +28,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
@@ -64,7 +61,6 @@ public class RatingChartFragment extends Fragment {
     List<FeedbackResponse> feedbackResponseList;
     View colorStrip;
     ImageView arrow;
-    private CustomPieChartDialog dialogInfo;
 
     public RatingChartFragment() {
         // Required empty public constructor
@@ -134,24 +130,6 @@ public class RatingChartFragment extends Fragment {
         legend.setTextSize(15);
         legend.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
         legend.setWordWrapEnabled(true);
-
-        ratingSummaryChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                int optionIndex = e.getXIndex();
-                List<Integer> feedbackIndexList = questionWiseRatingFeedbackIndexList.get(selectedQuestion.getQuestionId()).get(optionIndex + 1);
-                List<FeedbackResponse> feedbackResponseSubList = new ArrayList<>();
-                for (Integer feedbackIndex : feedbackIndexList) {
-                    feedbackResponseSubList.add(feedbackResponseList.get(feedbackIndex));
-                }
-                openRatingDetailsDialog(feedbackResponseSubList);
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
 
         List<String> questionNames = new ArrayList<>();
 
@@ -226,7 +204,15 @@ public class RatingChartFragment extends Fragment {
         }
 
         PieDataSet dataset = new PieDataSet(entries, "");
-        dataset.setColors(new int[]{R.color.rating1, R.color.rating2, R.color.rating3, R.color.rating4, R.color.rating5}, getActivity().getApplicationContext());
+        if(options.length==5) {
+            dataset.setColors(new int[]{R.color.rating1, R.color.rating2, R.color.rating3, R.color.rating4, R.color.rating5}, getActivity().getApplicationContext());
+        }
+        else if(options.length==4) {
+            dataset.setColors(new int[]{R.color.rating1, R.color.rating2, R.color.rating4, R.color.rating5}, getActivity().getApplicationContext());
+        }
+        else if(options.length==3) {
+            dataset.setColors(new int[]{R.color.rating1, R.color.rating3, R.color.rating5}, getActivity().getApplicationContext());
+        }
         dataset.setValueTextSize(12);
         dataset.setSliceSpace(1.0f);
         PieData data = new PieData(labels, dataset);
@@ -246,12 +232,6 @@ public class RatingChartFragment extends Fragment {
         });
         ratingSummaryChart.setData(data);
         ratingSummaryChart.invalidate();
-    }
-
-
-    void openRatingDetailsDialog(List<FeedbackResponse> feedbackResponseSubList) {
-        dialogInfo = CustomPieChartDialog.newInstance(R.layout.rating_details_popup, feedbackResponseSubList);
-        dialogInfo.show(getActivity().getSupportFragmentManager(), "");
     }
 
     public static void expand(final View v) {
