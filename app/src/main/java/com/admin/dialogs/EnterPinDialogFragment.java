@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.admin.constants.AppConstants;
 import com.admin.freddyspeaks.R;
 import com.admin.util.KeyboardUtil;
 
@@ -53,9 +54,7 @@ public class EnterPinDialogFragment extends DialogFragment  {
             @Override
             public void onClick(View v) {
                 KeyboardUtil.hideKeyboard(getActivity(), inputPinText);
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-                String outletPin = sharedPreferences.getString("outletPin", null);
-                if(inputPinText.getText().toString().equals(outletPin)) {
+                if(inputPinText.getText().toString().equals(AppConstants.OUTLET_PIN)) {
                     enterPinDialogListener.onDialogPositiveClick();
                 }
                 else {

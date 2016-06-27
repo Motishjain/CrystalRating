@@ -43,25 +43,18 @@ public class LoadingActivity extends BaseActivity implements ApplicationStartupT
 
         if(outletCode!=null){
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            String outletPin = sharedPreferences.getString("outletPin", null) ;
+            Boolean areQuestionsFetched = sharedPreferences.getBoolean("areQuestionsFetched", false) ;
 
-            if(outletPin!=null) {
-                Boolean areQuestionsFetched = sharedPreferences.getBoolean("areQuestionsFetched", false) ;
-                if(areQuestionsFetched) {
-                    Intent homePage = new Intent(LoadingActivity.this,HomePageActivity.class);
-                    homePage.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(homePage);
-                }
-                else {
-                    Intent configureRewards = new Intent(LoadingActivity.this,RewardConfigurationActivity.class);
-                    configureRewards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(configureRewards);
-                }
+            if(areQuestionsFetched) {
+                Intent homePage = new Intent(LoadingActivity.this,HomePageActivity.class);
+                homePage.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(homePage);
             }
             else {
-                Intent setPassword = new Intent(LoadingActivity.this,SetPasswordActivity.class);
-                setPassword.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(setPassword);
+                Intent configureRewards = new Intent(LoadingActivity.this,RewardConfigurationActivity.class);
+                configureRewards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(configureRewards);
+
             }
         }
         else {

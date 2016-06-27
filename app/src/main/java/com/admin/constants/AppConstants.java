@@ -77,4 +77,6 @@ public class AppConstants {
 
     public static final String EXTEND_SUBSCRIPTION_FAILURE_SID = "2";
 
+    public static final String OUTLET_PIN = "1000";
+
 }
