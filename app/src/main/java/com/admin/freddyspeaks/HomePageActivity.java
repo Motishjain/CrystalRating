@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.admin.adapter.UserPhoneNumberInputAdapter;
@@ -37,7 +38,7 @@ public class HomePageActivity extends BaseActivity {
     ImageView backgroundRatingImage;
     CustomFontButton getStartedButton;
     TextInputLayout inputUserPhoneNumberLayout;
-    AutoCompleteTextView autoCompleteInputUserPhoneNumberText;
+    EditText inputUserPhoneNumberText;
     Dao<User, Integer> userDao;
     QueryBuilder<User, Integer> queryBuilder;
     List<User> userList = new ArrayList<>();
@@ -71,14 +72,9 @@ public class HomePageActivity extends BaseActivity {
         backgroundRatingImage.setImageBitmap(ImageUtility.getImageBitmap(this,R.drawable.shopping_bg));
         getStartedButton = (CustomFontButton) findViewById(R.id.getStartedButton);
         inputUserPhoneNumberLayout = (TextInputLayout) findViewById(R.id.inputUserPhoneNumberLayout);
-        autoCompleteInputUserPhoneNumberText =(AutoCompleteTextView)findViewById(R.id.autoCompleteInputUserPhoneNumberText);
+        inputUserPhoneNumberText =(EditText)findViewById(R.id.inputUserPhoneNumberText);
 
-        autoCompleteInputUserPhoneNumberText.addTextChangedListener(userPhoneTextWatcher);
-
-        final UserPhoneNumberInputAdapter adapter = new UserPhoneNumberInputAdapter(this,
-                R.layout.userinfo_autosuggest, userList);
-
-        autoCompleteInputUserPhoneNumberText.setAdapter(adapter);
+        inputUserPhoneNumberText.addTextChangedListener(userPhoneTextWatcher);
 
         getStartedButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,21 +85,21 @@ public class HomePageActivity extends BaseActivity {
     }
 
     void saveAndNext() {
-        if(ValidationUtil.isValidCellNumber(autoCompleteInputUserPhoneNumberText,inputUserPhoneNumberLayout,"Please enter valid Mobile Number")) {
+        if(ValidationUtil.isValidCellNumber(inputUserPhoneNumberText,inputUserPhoneNumberLayout,"Please enter valid Mobile Number")) {
             try {
                 KeyboardUtil.hideKeyboard(this, this.getCurrentFocus());
                 queryBuilder.reset();
-                queryBuilder.where().eq("phoneNumber", autoCompleteInputUserPhoneNumberText.getText().toString().trim());
+                queryBuilder.where().eq("phoneNumber", inputUserPhoneNumberText.getText().toString().trim());
                 userList = queryBuilder.query();
                 if (userList == null || userList.size() == 0) {
                     User newUser = new User();
-                    newUser.setPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
+                    newUser.setPhoneNumber(inputUserPhoneNumberText.getText().toString());
                     userDao.create(newUser);
                 }
                 String outletCode = sharedPreferences.getString("outletCode", null);
                 FeedbackRequest feedback = new FeedbackRequest();
                 feedback.setOutletCode(outletCode);
-                feedback.setUserPhoneNumber(autoCompleteInputUserPhoneNumberText.getText().toString());
+                feedback.setUserPhoneNumber(inputUserPhoneNumberText.getText().toString());
 
                 Intent getRating = new Intent(HomePageActivity.this, GetRatingActivity.class);
                 getRating.putExtra("feedback", feedback);
@@ -132,7 +128,7 @@ public class HomePageActivity extends BaseActivity {
 
     private void checkPhoneNumberCompletion()
     {
-        if(autoCompleteInputUserPhoneNumberText.getText().length()==10)
+        if(inputUserPhoneNumberText.getText().length()==10)
         {
             getStartedButton.setEnabled(true);
         }
