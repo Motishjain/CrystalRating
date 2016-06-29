@@ -30,7 +30,7 @@
     <string name="inputFields">AlexandriaFLF-Bold.ttf</string>
     <string name="screenHeaderFont">RobotoMedium.ttf</string>
     <string name="configure_your_rewards">Set your rewards!</string>
-    <string name="bronze_box_header">Bronze - Frequent ones!</string>
+    <string name="rewards_box_header"></string>
     <string name="silver_box_header">Silver - Special gifts!</string>
     <string name="gold_box_header">Gold - Dream rewards!</string>
     <string name="title_activity_subscription_info">SubscriptionInfoActivity</string>

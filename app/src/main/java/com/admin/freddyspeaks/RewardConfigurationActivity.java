@@ -43,14 +43,14 @@ import retrofit2.Response;
 public class RewardConfigurationActivity extends AppCompatActivity
         implements CustomDialogFragment.CustomDialogListener {
 
-    RecyclerView bronzeRewardsRecyclerView, silverRewardsRecyclerView, goldRewardsRecyclerView;
+    RecyclerView bronzeRewardsRecyclerView;
     Dao<SelectedReward, Integer> selectedRewardDao;
     Dao<Question, Integer> questionDao;
     QueryBuilder<SelectedReward, Integer> selectedRewardQueryBuilder;
-    SelectedRewardsBoxAdapter bronzeRewardsAdapter, silverRewardsAdapter, goldRewardsAdapter;
+    SelectedRewardsBoxAdapter bronzeRewardsAdapter;
     String outletCode;
     boolean editMode;
-    List<SelectedReward> bronzeSelectedRewardList, silverSelectedRewardList, goldSelectedRewardList;
+    List<SelectedReward> bronzeSelectedRewardList;
     Button rewardsConfigureNextButton;
     private DialogFragment dialogDelete;
 
@@ -70,8 +70,6 @@ public class RewardConfigurationActivity extends AppCompatActivity
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){public void onClick(View v){closeActivity(v);}});
 
         bronzeRewardsRecyclerView = (RecyclerView) findViewById(R.id.bronzeRewardsRecyclerView);
-        silverRewardsRecyclerView = (RecyclerView) findViewById(R.id.silverRewardsRecyclerView);
-        goldRewardsRecyclerView = (RecyclerView) findViewById(R.id.goldRewardsRecyclerView);
         rewardsConfigureNextButton = (Button) findViewById(R.id.rewardsConfigureNextButton);
 
 
@@ -103,11 +101,9 @@ public class RewardConfigurationActivity extends AppCompatActivity
 
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        silverRewardsRecyclerView.setLayoutManager(layoutManager);
 
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        goldRewardsRecyclerView.setLayoutManager(layoutManager);
 
         try {
             questionDao = OpenHelperManager.getHelper(this, DBHelper.class).getCustomDao("Question");
@@ -141,20 +137,6 @@ public class RewardConfigurationActivity extends AppCompatActivity
         startActivityForResult(selectRewardsPopup, 1);
     }
 
-    public void addSilverRewards(View v) {
-        Intent selectRewardsPopup = new Intent(this, RewardSelectionActivity.class);
-        String rewardCategory = AppConstants.SILVER_CD;
-        selectRewardsPopup.putExtra("rewardCategory", rewardCategory);
-        startActivityForResult(selectRewardsPopup, 2);
-    }
-
-    public void addGoldRewards(View v) {
-        Intent selectRewardsPopup = new Intent(this, RewardSelectionActivity.class);
-        String rewardCategory = AppConstants.GOLD_CD;
-        selectRewardsPopup.putExtra("rewardCategory", rewardCategory);
-        startActivityForResult(selectRewardsPopup, 3);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -165,10 +147,6 @@ public class RewardConfigurationActivity extends AppCompatActivity
             if (rewardsSelected) {
                 if (requestCode == 1) {
                     updateBronzeRewardList();
-                } else if (requestCode == 2) {
-                    updateSilverRewardList();
-                } else if (requestCode == 3) {
-                    updateGoldRewardList();
                 }
             }
         }
@@ -201,62 +179,8 @@ public class RewardConfigurationActivity extends AppCompatActivity
         }
     }
 
-    public void updateSilverRewardList() {
-        try {
-            selectedRewardQueryBuilder.reset();
-            selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.SILVER_CD);
-
-            silverSelectedRewardList = selectedRewardQueryBuilder.query();
-            if (silverRewardsRecyclerView.getAdapter() == null) {
-                silverRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, silverSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
-                    @Override
-                    public void removeSelectedReward(int position) {
-                        prepareforDeleting(silverRewardsAdapter, silverSelectedRewardList, position);
-                    }
-                });
-                silverRewardsRecyclerView.setAdapter(silverRewardsAdapter);
-            } else {
-                silverRewardsAdapter.setSelectedRewardList(silverSelectedRewardList);
-                silverRewardsAdapter.notifyDataSetChanged();
-            }
-            if (!editMode){
-                updateNextButtonName();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateGoldRewardList() {
-        try {
-            selectedRewardQueryBuilder.reset();
-            selectedRewardQueryBuilder.where().eq("rewardCategory", AppConstants.GOLD_CD);
-
-            goldSelectedRewardList = selectedRewardQueryBuilder.query();
-            if (goldRewardsRecyclerView.getAdapter() == null) {
-                goldRewardsAdapter = new SelectedRewardsBoxAdapter(R.layout.selected_reward_item, goldSelectedRewardList, new SelectedRewardsBoxAdapter.OnAdapterInteractionListener() {
-                    @Override
-                    public void removeSelectedReward(int position) {
-                        prepareforDeleting(goldRewardsAdapter, goldSelectedRewardList, position);
-                    }
-                });
-                goldRewardsRecyclerView.setAdapter(goldRewardsAdapter);
-            } else {
-                goldRewardsAdapter.setSelectedRewardList(goldSelectedRewardList);
-                goldRewardsAdapter.notifyDataSetChanged();
-            }
-            if (!editMode){
-                updateNextButtonName();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void updateScreen() {
         updateBronzeRewardList();
-        updateSilverRewardList();
-        updateGoldRewardList();
     }
 
     void fetchQuestionsAndMove() {
@@ -355,7 +279,7 @@ public class RewardConfigurationActivity extends AppCompatActivity
         rewardsConfigureNextButton.setLayoutParams(params);
         rewardsConfigureNextButton.setVisibility(View.VISIBLE);
 
-        if((bronzeSelectedRewardList==null || bronzeSelectedRewardList.size()==0) && (silverSelectedRewardList==null ||silverSelectedRewardList.size()==0) && (goldSelectedRewardList==null || goldSelectedRewardList.size()==0)) {
+        if((bronzeSelectedRewardList==null || bronzeSelectedRewardList.size()==0)) {
             rewardsConfigureNextButton.setText("Configure Later");
 
         }
