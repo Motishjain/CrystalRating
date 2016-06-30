@@ -55,7 +55,7 @@
                 style="@style/homePageStyle"
                 android:imeOptions="actionDone"
                 android:drawableLeft="@drawable/ic_phone_icon"
-                 />
+                />
         </android.support.design.widget.TextInputLayout>
 
         <com.admin.view.CustomFontButton
@@ -76,7 +76,7 @@
         <com.admin.view.CustomFontTextView
             android:layout_marginTop="110dp"
             style="@style/homeFooterText"
-            android:text="Your review will be anonymous."
+            android:text="Your review is anonymous."
             android:gravity="center"
             android:textSize="17sp"
             android:layout_gravity="center"
@@ -87,6 +87,8 @@
             style="@style/homeFooterText"
             android:text="Mobile number is for identification purpose only."
             android:gravity="center" />
+
+
         <com.admin.view.CustomFontTextView
             android:layout_marginTop="7dp"
             style="@style/homeFooterText"
