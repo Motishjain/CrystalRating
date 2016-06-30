@@ -74,14 +74,21 @@
             android:layout_gravity="right" />
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="110dp"
             style="@style/homeFooterText"
-            android:text="Mobile number is for identification purpose only."
+            android:text="Your review will be anonymous."
             android:gravity="center"
+            android:textSize="17sp"
             android:layout_gravity="center"
             />
+
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
+            style="@style/homeFooterText"
+            android:text="Mobile number is for identification purpose only."
+            android:gravity="center" />
+        <com.admin.view.CustomFontTextView
+            android:layout_marginTop="7dp"
             style="@style/homeFooterText"
             android:text="(Not shared with retailer)"
             android:gravity="center"
