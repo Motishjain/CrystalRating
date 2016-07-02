@@ -52,5 +52,6 @@
     <string name="title_activity_set_password">SetPasswordActivity</string>
 
     <string name="set_pin_header">Set your pin</string>
+    <string name="default_rating_question">Select A Question</string>
 
 </resources>

@@ -135,11 +135,10 @@ public class RatingChartFragment extends Fragment {
             questionNames.add(question.getName());
         }
 
-        /*ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(),
-                R.layout.spinner_textview, questionNames);*/
 
-       //default state
-       questionsTextview.setText("Select A Question");
+
+
+       questionsTextview.setText(R.string.default_rating_question);
 
         questionsTextview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,30 +147,14 @@ public class RatingChartFragment extends Fragment {
 
             }
         });
-       /* questionsTextview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Rating summary", "Item selected");
-                selectedQuestion = questionList.get(position);
-                refreshPieChart();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.i("Rating summary", "Nothing selected");
-            }
-        });
-        questionsTextview.setSelected(false);*/
 
         return ratingChartFragment;
     }
 
     private void showQuestionDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(),R.style.DialogTheme).setItems(questionNames.toArray(new String[questionNames.size()]), new DialogInterface.OnClickListener() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.DialogTheme).setItems(questionNames.toArray(new String[questionNames.size()]), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-System.out.println(questionNames.get(which));
                 selectedQuestion = questionList.get(which);
                 questionsTextview.setText(questionNames.get(which));
                 refreshPieChart();
