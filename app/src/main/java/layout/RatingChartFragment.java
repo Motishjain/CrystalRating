@@ -152,8 +152,7 @@ public class RatingChartFragment extends Fragment {
     }
 
     private void showQuestionDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(),
-                R.style.QuestionSpinnerDialogTheme).setItems(questionNames.toArray(new String[questionNames.size()]),
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).setItems(questionNames.toArray(new String[questionNames.size()]),
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -163,11 +162,9 @@ public class RatingChartFragment extends Fragment {
             }
         }).create();
 
-        //dialog without title
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //setting list view divider and height below
         alertDialog.getListView().setDivider(getActivity().getResources().getDrawable(R.drawable.list_divider));
-        alertDialog.getListView().setDividerHeight(2);
+        alertDialog.getListView().setDividerHeight(40);
         alertDialog.show();
     }
 
