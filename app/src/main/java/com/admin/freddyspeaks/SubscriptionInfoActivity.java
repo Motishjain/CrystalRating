@@ -124,19 +124,19 @@ public class SubscriptionInfoActivity extends AppCompatActivity implements Fetch
         subscriptionInfoList.add(new SubscriptionAdapter.SubscriptionInfo(
                 "1 year subscription",
                 "12",
-                800
+                1000
         ));
 
         subscriptionInfoList.add(new SubscriptionAdapter.SubscriptionInfo(
                 "6 month subscription",
                 "6",
-                500
+                800
         ));
 
         subscriptionInfoList.add(new SubscriptionAdapter.SubscriptionInfo(
                 "3 month subscription",
                 "3",
-                300
+                500
         ));
 
         return subscriptionInfoList;
