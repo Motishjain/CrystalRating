@@ -1,17 +1,15 @@
 package com.admin.dialogs;
 
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.admin.constants.AppConstants;
 import com.admin.freddyspeaks.R;
@@ -45,7 +43,6 @@ public class EnterPinDialogFragment extends DialogFragment  {
         inputPinLayout = (TextInputLayout) dialog.findViewById(R.id.inputPinLayout);
         inputPinText = (EditText) dialog.findViewById(R.id.inputPinText);
 
-        KeyboardUtil.showKeyboard(getActivity(),inputPinText);
         Button buttonOk = (Button) dialog.findViewById(R.id.buttonOk);
         Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
         buttonOk.setOnClickListener(new View.OnClickListener() {
@@ -78,5 +75,11 @@ public class EnterPinDialogFragment extends DialogFragment  {
     public interface EnterPinDialogListener {
         void onDialogPositiveClick();
         void onDialogNegativeClick();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 }
