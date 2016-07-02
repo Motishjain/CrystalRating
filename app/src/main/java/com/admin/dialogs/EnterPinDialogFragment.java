@@ -26,7 +26,6 @@ public class EnterPinDialogFragment extends DialogFragment  {
     String title;
     TextInputLayout inputPinLayout;
     EditText inputPinText;
-    TextView titleTextView;
 
     public static EnterPinDialogFragment newInstance(String title, EnterPinDialogFragment.EnterPinDialogListener enterPinDialogListener) {
         EnterPinDialogFragment fragment = new EnterPinDialogFragment();
@@ -45,7 +44,6 @@ public class EnterPinDialogFragment extends DialogFragment  {
 
         inputPinLayout = (TextInputLayout) dialog.findViewById(R.id.inputPinLayout);
         inputPinText = (EditText) dialog.findViewById(R.id.inputPinText);
-        titleTextView = (TextView) dialog.findViewById(R.id.titleTextView);
 
         KeyboardUtil.showKeyboard(getActivity(),inputPinText);
         Button buttonOk = (Button) dialog.findViewById(R.id.buttonOk);
@@ -70,8 +68,6 @@ public class EnterPinDialogFragment extends DialogFragment  {
                 enterPinDialogListener.onDialogNegativeClick();
             }
         });
-
-        titleTextView.setText(title);
 
         // Inflate and set the layout for the dialog
         builder.setView(dialog);
