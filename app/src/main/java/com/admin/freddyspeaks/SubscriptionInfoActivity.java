@@ -92,17 +92,17 @@ public class SubscriptionInfoActivity extends AppCompatActivity implements Fetch
         if (activationStatus.equals(AppConstants.SUBSCRIPTION_TRIAL)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_green_48dp);
             activationStatusTextView.setText("Active (Trial)");
-            activationStatusDescription.setText("Expires On:" + expiryDate+ ((daysRemaining<=7)?"("+daysRemaining+" days left)":""));
+            activationStatusDescription.setText("Expires On:" + expiryDate+ ((daysRemaining<=3)?"("+daysRemaining+" "+((daysRemaining>1)?"days":"day")+" left)":""));
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_ACTIVE)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_done_green_48dp);
             activationStatusTextView.setText("Active");
-            activationStatusDescription.setText("Expires On:" + expiryDate+ ((daysRemaining<=7)?"("+daysRemaining+" days left)":""));
+            activationStatusDescription.setText("Expires On:" + expiryDate+ ((daysRemaining<=3)?"("+daysRemaining+" "+((daysRemaining>1)?"days":"day")+" left)":""));
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_PENDING)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_warning_red_500_48dp);
             activationStatusTextView.setText("Pending Renewal");
             activationStatusDescription.setText("Expired On:" + expiryDate);
             noFooterFlag = true;
-            subscriptionInfoComment.setText("The application will continue to work till "+expiryDate+ ((daysRemaining<=7)?"("+daysRemaining+" days)":"")+". Kindly renew your subscription");
+            subscriptionInfoComment.setText("The application will continue to work till "+expiryDate+ ((daysRemaining<=7)?"("+daysRemaining+" "+((daysRemaining>1)?"days":"day")+")":"")+". Kindly renew your subscription");
         } else if (activationStatus.equals(AppConstants.SUBSCRIPTION_EXPIRED)) {
             subscriptionStatusIndicator.setImageResource(R.drawable.ic_error_outline_black_48dp);
             activationStatusTextView.setText("Expired");

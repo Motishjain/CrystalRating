@@ -88,11 +88,11 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
                             calendar.setTime(new Date());
                             Integer daysRemaining = -1;
                             if(subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_ACTIVE) || subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_TRIAL)) {
-                                daysRemaining = (int) ((expiryDate.getTime() - calendar.getTimeInMillis())/(1000*60*60*24));
+                                daysRemaining = (int) Math.ceil((expiryDate.getTime() - calendar.getTimeInMillis())/(1000*60*60*24));
                                 if(daysRemaining<=3 && showNotification) {
                                     Intent resultIntent = new Intent(context, SubscriptionInfoActivity.class);
                                     PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                    createNotification(context,"Renew Subscription","Your subscription expires in "+daysRemaining+" days",resultPendingIntent);
+                                    createNotification(context,"Renew Subscription","Your subscription expires in "+daysRemaining+" "+((daysRemaining>1)?"days":"day"),resultPendingIntent);
                                 }
                             }
                             else if (subscriptionResponse.getActivationStatus().equals(AppConstants.SUBSCRIPTION_PENDING)) {
