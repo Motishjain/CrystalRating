@@ -138,6 +138,8 @@ public class RatingChartFragment extends Fragment {
 
         if (questionNames.size() > 0) {
             questionsTextview.setText(questionNames.get(0));
+            selectedQuestion = questionList.get(0);
+            refreshPieChart();
         } else {
             questionsTextview.setText("");
         }
