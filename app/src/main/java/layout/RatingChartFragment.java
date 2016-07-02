@@ -165,6 +165,7 @@ public class RatingChartFragment extends Fragment {
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         alertDialog.getListView().setDivider(getActivity().getResources().getDrawable(R.drawable.list_divider));
         alertDialog.getListView().setDividerHeight(40);
+        alertDialog.getListView().setPadding(0,20,0,20);
         alertDialog.show();
     }
 
