@@ -101,5 +101,9 @@
         <item name="fontFamilyFile">@string/applicationFont</item>
         <item name="android:background">@drawable/try_again_button_shape</item>
     </style>
-    <style name="QuestionSpinnerDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert"/>
+    <style name="QuestionSpinnerDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
 </resources>
