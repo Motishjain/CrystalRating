@@ -150,7 +150,7 @@ public class FetchSubscriptionTask extends AsyncTask<String, Void, Void> {
 
     private void createNotification(Context context, String title, String body, PendingIntent resultPendingIntent) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.mipmap.ic_launcher).setContentTitle(title)
+                .setSmallIcon(R.drawable.application_icon).setContentTitle(title)
                 .setContentText(body);
         NotificationManager mNotificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
