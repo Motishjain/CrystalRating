@@ -129,15 +129,14 @@ public class RatingChartFragment extends Fragment {
         legend.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
         legend.setWordWrapEnabled(true);
 
-
-
         for (Question question : questionList) {
             questionNames.add(question.getName());
         }
 
-
         if (questionNames.size() > 0) {
             questionsTextview.setText(questionNames.get(0));
+            selectedQuestion = questionList.get(0);
+            refreshPieChart();
         } else {
             questionsTextview.setText("");
         }

@@ -91,7 +91,7 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
         builder.setKey(AppConstants.PAYU_KEY); //Put your live KEY here
         builder.setSalt(AppConstants.PAYU_SALT); //Put your live SALT here
 
-        builder.setIsDebug(true);
+        builder.setIsDebug(false);
         builder.setDebugMerchantId(AppConstants.TEST_MERCHANT_ID);// Debug Merchant ID
         builder.setDebugKey(AppConstants.TEST_PAYU_KEY);// Debug Key
         builder.setDebugSalt(AppConstants.TEST_PAYU_SALT);// Debug Salt
