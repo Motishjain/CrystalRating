@@ -1,21 +1,20 @@
 package layout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.admin.database.Question;
@@ -49,11 +48,11 @@ public class RatingChartFragment extends Fragment {
     List<Question> questionList;
     boolean isExpanded;
     LinearLayout chartContainer,chartHeaderContainer;
-
+    final List<String> questionNames = new ArrayList<>();
     /*Map to save ratings for each question id (String). In turn, for every question id there is a map
      storing list of feedbackId indexes for each ratingOption*/
     Map<String, Map<Integer, List<Integer>>> questionWiseRatingFeedbackIndexList;
-    Spinner questionsSpinner;
+    TextView questionsTextview;
     PieChart ratingSummaryChart;
     TextView ratingChartHeader, ratingValue;
     Question selectedQuestion;
@@ -97,7 +96,7 @@ public class RatingChartFragment extends Fragment {
         chartHeaderContainer = (LinearLayout) ratingChartFragment.findViewById(R.id.chartHeaderContainer);
         chartContainer = (LinearLayout) ratingChartFragment.findViewById(R.id.chartContainer);
         ratingValue = (TextView) ratingChartFragment.findViewById(R.id.ratingValue);
-        questionsSpinner = (Spinner) ratingChartFragment.findViewById(R.id.questionsSpinner);
+        questionsTextview = (TextView) ratingChartFragment.findViewById(R.id.questionsSpinner);
         colorStrip = ratingChartFragment.findViewById(R.id.ratingLeftLine);
         arrow = (ImageView) ratingChartFragment.findViewById(R.id.imageViewDropdown);
 
@@ -130,32 +129,47 @@ public class RatingChartFragment extends Fragment {
         legend.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
         legend.setWordWrapEnabled(true);
 
-        List<String> questionNames = new ArrayList<>();
+
 
         for (Question question : questionList) {
             questionNames.add(question.getName());
         }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(),
-                R.layout.spinner_textview, questionNames);
-        questionsSpinner.setAdapter(dataAdapter);
 
-        questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Rating summary", "Item selected");
-                selectedQuestion = questionList.get(position);
-                refreshPieChart();
-            }
+        if (questionNames.size() > 0) {
+            questionsTextview.setText(questionNames.get(0));
+        } else {
+            questionsTextview.setText("");
+        }
 
+        questionsTextview.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.i("Rating summary", "Nothing selected");
+            public void onClick(View v) {
+                showQuestionDialog();
             }
         });
-        questionsSpinner.setSelected(false);
 
         return ratingChartFragment;
+    }
+
+    private void showQuestionDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(),
+                R.style.QuestionSpinnerDialogTheme).setItems(questionNames.toArray(new String[questionNames.size()]),
+                new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedQuestion = questionList.get(which);
+                questionsTextview.setText(questionNames.get(which));
+                refreshPieChart();
+            }
+        }).create();
+
+        //dialog without title
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //setting list view divider and height below
+        alertDialog.getListView().setDivider(getActivity().getResources().getDrawable(R.drawable.list_divider));
+        alertDialog.getListView().setDividerHeight(2);
+        alertDialog.show();
     }
 
     /**
@@ -322,4 +336,7 @@ public class RatingChartFragment extends Fragment {
         int scale = (int) Math.pow(10, precision);
         return (double) Math.round(value * scale) / scale;
     }
+
+
+
 }
