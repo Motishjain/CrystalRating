@@ -136,15 +136,16 @@ public class RatingChartFragment extends Fragment {
         }
 
 
-
-
-       questionsTextview.setText(R.string.default_rating_question);
+        if (questionNames.size() > 0) {
+            questionsTextview.setText(questionNames.get(0));
+        } else {
+            questionsTextview.setText("");
+        }
 
         questionsTextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showQuestionDialog();
-
             }
         });
 
