@@ -153,7 +153,9 @@ public class RatingChartFragment extends Fragment {
     }
 
     private void showQuestionDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.DialogTheme).setItems(questionNames.toArray(new String[questionNames.size()]), new DialogInterface.OnClickListener() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(),
+                R.style.QuestionSpinnerDialogTheme).setItems(questionNames.toArray(new String[questionNames.size()]),
+                new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 selectedQuestion = questionList.get(which);
