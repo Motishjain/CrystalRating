@@ -1,7 +1,6 @@
 package layout;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -140,14 +138,16 @@ public class RatingChartFragment extends Fragment {
         /*ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(),
                 R.layout.spinner_textview, questionNames);*/
 
+       //default state
        questionsTextview.setText("Select A Question");
-questionsTextview.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        showDialog();
 
-    }
-});
+        questionsTextview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showQuestionDialog();
+
+            }
+        });
        /* questionsTextview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -166,7 +166,7 @@ questionsTextview.setOnClickListener(new View.OnClickListener() {
         return ratingChartFragment;
     }
 
-    private void showDialog() {
+    private void showQuestionDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity(),R.style.DialogTheme).setItems(questionNames.toArray(new String[questionNames.size()]), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -177,7 +177,10 @@ System.out.println(questionNames.get(which));
                 refreshPieChart();
             }
         }).create();
+
+        //dialog without title
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //setting list view divider and height below
         alertDialog.getListView().setDivider(getActivity().getResources().getDrawable(R.drawable.list_divider));
         alertDialog.getListView().setDividerHeight(2);
         alertDialog.show();
