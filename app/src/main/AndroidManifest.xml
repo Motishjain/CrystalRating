@@ -21,15 +21,21 @@
         <activity
             android:name=".OutletDetailsActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomePageActivity"
             android:label="@string/title_activity_home_page"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoadingActivity"
             android:label="@string/title_activity_loading"
             android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,30 +46,44 @@
         <activity
             android:name=".RewardDisplayActivity"
             android:label="@string/title_activity_goodie_display"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GetRatingActivity"
             android:label="@string/title_activity_get_rating"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RewardConfigurationActivity"
             android:label="@string/title_activity_reward_configuration"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BillDetailsActivity"
             android:label="@string/title_activity_bill_details"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RewardSelectionActivity"
             android:label="@string/title_activity_reward_selection"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/RewardSelectDialogTheme" />
         <activity
             android:name=".SubscriptionInfoActivity"
             android:label="@string/title_activity_subscription_info"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FeedbackAnalysisActivity"
             android:label="@string/title_activity_rating_summary"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver
@@ -113,6 +133,8 @@
         <activity
             android:name=".ThankYouActivity"
             android:label="@string/title_activity_goodie_display"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
