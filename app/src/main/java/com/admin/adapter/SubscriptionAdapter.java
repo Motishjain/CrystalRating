@@ -61,7 +61,7 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
     public void onBindViewHolder(SubscriptionViewHolder holder, int position) {
         final SubscriptionInfo currentSubscriptionInfo = subscriptionInfoList.get(position);
         holder.subscriptionNameTextView.setText(currentSubscriptionInfo.getName());
-        holder.subscriptionPriceTextView.setText(String.format("Rs. %.0f", currentSubscriptionInfo.getPrice()));
+        holder.subscriptionPriceTextView.setText(String.format("\\u20B9 %.0f", currentSubscriptionInfo.getPrice()));
         holder.payNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
