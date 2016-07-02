@@ -36,68 +36,18 @@
             android:layout_gravity="center"
             />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputUserPhoneNumberLayout"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="45dp">
-
-            <EditText
-                android:id="@+id/inputUserPhoneNumberText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter Mobile Number"
-                android:textSize="20sp"
-                android:inputType="number"
-                android:maxLength="10"
-                style="@style/homePageStyle"
-                android:imeOptions="actionDone"
-                android:drawableLeft="@drawable/ic_phone_icon"
-                />
-        </android.support.design.widget.TextInputLayout>
-
         <com.admin.view.CustomFontButton
             android:id="@+id/getStartedButton"
             style="@style/formButton"
             android:paddingLeft="12dp"
-            android:paddingRight="7dp"
-            android:layout_marginRight="15dp"
+            android:paddingRight="12dp"
+            android:layout_marginTop="30dp"
             android:elevation="3dp"
-            android:text="Continue "
-            android:drawableRight="@drawable/ic_arrow_forward_white_18dp"
+            android:text="Continue"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:gravity="center"
-            android:enabled="false"
-            android:layout_gravity="right" />
-
-        <com.admin.view.CustomFontTextView
-            android:layout_marginTop="110dp"
-            style="@style/homeFooterText"
-            android:text="Your review is anonymous."
-            android:gravity="center"
-            android:textSize="17sp"
-            android:layout_gravity="center"
-            />
-
-        <com.admin.view.CustomFontTextView
-            android:layout_marginTop="25dp"
-            style="@style/homeFooterText"
-            android:text="Mobile number is for identification purpose only."
-            android:gravity="center" />
-
-
-        <com.admin.view.CustomFontTextView
-            android:layout_marginTop="7dp"
-            style="@style/homeFooterText"
-            android:text="(Not shared with retailer)"
-            android:gravity="center"
-            android:layout_gravity="center"
-            />
-
-
+            android:layout_gravity="center" />
     </LinearLayout>
 
 </FrameLayout>
