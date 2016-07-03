@@ -7,6 +7,6 @@
     <dimen name="register_box_top_margin">5dp</dimen>
     <dimen name="form_button_text_size">20dp</dimen>
     <dimen name="item_offset">10dp</dimen>
-    <dimen name="base300">300dp</dimen>
-    <dimen name="base5">5dp</dimen>
+    <dimen name="base300">400dp</dimen>
+    <dimen name="base5">3.33dp</dimen>
 </resources>
