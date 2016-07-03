@@ -138,4 +138,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
+    <supports-screens android:compatibleWidthLimitDp="320"/>
+
 </manifest>
