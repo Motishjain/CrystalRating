@@ -18,7 +18,7 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <com.admin.view.CustomFontTextView style="@style/appHeader" android:textSize="20dp" android:text="Select Rewards" android:layout_marginLeft="15dp"/>
+        <com.admin.view.CustomFontTextView style="@style/appHeader" android:textSize="@dimen/base20" android:text="Select Rewards" android:layout_marginLeft="@dimen/base15"/>
 
     </android.support.v7.widget.Toolbar>
 

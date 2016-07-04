@@ -27,14 +27,14 @@
 
         <com.admin.view.CustomFontTextView
             android:text="@string/bill_details_thanks_message"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="@dimen/base45"
             style="@style/billDetailsThanksMessage"
             />
 
         <com.admin.view.CustomFontTextView
             android:text="@string/bill_details_desription"
-            android:layout_marginTop="25dp"
-            android:layout_width="300dp"
+            android:layout_marginTop="@dimen/base25"
+            android:layout_width="@dimen/base300"
             style="@style/billDetailsDescription" />
 
         <LinearLayout
@@ -45,17 +45,17 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/inputBillAmountLayout"
-                android:layout_width="250dp"
+                android:layout_width="@dimen/base250"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginLeft="@dimen/base5"
+                android:layout_marginRight="@dimen/base5"
+                android:layout_marginTop="@dimen/base20">
 
                 <EditText
                     android:id="@+id/inputBillAmountText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
+                    android:textSize="@dimen/font25"
                     android:maxLength="9"
                     android:inputType="numberDecimal"
                     android:textColor="@color/colorPrimary" />
@@ -64,8 +64,8 @@
             <Button
                 android:id="@+id/billInfoContinueButton"
                 style="@style/formButton"
-                android:layout_marginTop="40dp"
-                android:layout_width="125dp"
+                android:layout_marginTop="@dimen/base40"
+                android:layout_width="@dimen/base125"
                 android:layout_height="wrap_content"
                 android:text="Check out!"
                 android:onClick="nextButtonClickHandler"

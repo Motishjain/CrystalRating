@@ -4,13 +4,13 @@
         <shape>
             <solid android:color="@android:color/transparent"/>
             <stroke
-                android:width="2dp"
+                android:width="@dimen/base2"
                 android:color="@color/black" />
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="@dimen/base2"
+                android:left="@dimen/base2"
+                android:right="@dimen/base2"
+                android:top="@dimen/base2" />
         </shape>
     </item>
 </layer-list>

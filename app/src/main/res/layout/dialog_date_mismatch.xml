@@ -8,7 +8,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/base20"
         android:layout_gravity="center"
         android:layout_marginTop="12dp">
 
@@ -17,7 +17,7 @@
             android:layout_height="36dp"
             android:id="@+id/imageView6"
             android:src="@drawable/ic_error_outline_black_48dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/base10"
             android:layout_gravity="top" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:textColor="#394263"
             android:textSize="20sp"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="@dimen/base10" />
 
     </LinearLayout>
 

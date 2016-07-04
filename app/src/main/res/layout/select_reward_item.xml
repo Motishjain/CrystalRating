@@ -3,18 +3,18 @@
     android:layout_width="100dp"
     android:id="@+id/selectRewardFrameLayout"
     android:layout_marginLeft="@dimen/item_offset"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginTop="@dimen/base5"
+    android:layout_marginBottom="@dimen/base5"
     android:orientation="vertical"
     android:layout_height="wrap_content">
 
     <CheckBox
         android:id="@+id/selectRewardCheckbox"
         android:button="@drawable/custom_checkbox"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/base20"
+        android:layout_height="@dimen/base20"
+        android:layout_marginRight="@dimen/base10"
+        android:layout_marginTop="@dimen/base10"
         android:layout_gravity="top|right"
         android:backgroundTint="@color/white"
         />
@@ -31,20 +31,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/base2"
         android:orientation="vertical">
 
         <com.admin.view.CustomFontTextView
             android:id="@+id/selectRewardName"
             style="@style/rewardName"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="@dimen/base5"
             />
 
         <com.admin.view.CustomFontTextView
             android:id="@+id/selectRewardCost"
             style="@style/rewardCost"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginTop="@dimen/base2"
+            android:layout_marginLeft="@dimen/base5"
             />
     </LinearLayout>
 

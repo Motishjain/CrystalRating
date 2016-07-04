@@ -27,22 +27,22 @@
         android:gravity="center">
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="@dimen/base50"
             android:id="@+id/homeHeaderText1"
             style="@style/homeHeaderText"
             android:text="@string/homeHeaderText1"
             android:gravity="center"
-            android:layout_width="300dp"
+            android:layout_width="@dimen/base300"
             android:layout_gravity="center"
             />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/inputUserPhoneNumberLayout"
-            android:layout_width="300dp"
+            android:layout_width="@dimen/base300"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="45dp">
+            android:layout_marginLeft="@dimen/base5"
+            android:layout_marginRight="@dimen/base5"
+            android:layout_marginTop="@dimen/base45">
 
             <EditText
                 android:id="@+id/inputUserPhoneNumberText"
@@ -61,10 +61,10 @@
         <com.admin.view.CustomFontButton
             android:id="@+id/getStartedButton"
             style="@style/formButton"
-            android:paddingLeft="12dp"
-            android:paddingRight="7dp"
-            android:layout_marginRight="15dp"
-            android:elevation="3dp"
+            android:paddingLeft="@dimen/base12"
+            android:paddingRight="@dimen/base7"
+            android:layout_marginRight="@dimen/base15"
+            android:elevation="@dimen/base3"
             android:text="Continue "
             android:drawableRight="@drawable/ic_arrow_forward_white_18dp"
             android:textAllCaps="false"
@@ -74,29 +74,28 @@
             android:layout_gravity="right" />
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="@dimen/base110"
             style="@style/homeFooterText"
             android:text="Your review is anonymous."
             android:gravity="center"
-            android:textSize="17sp"
+            android:textSize="@dimen/font17"
             android:layout_gravity="center"
             />
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/base25"
             style="@style/homeFooterText"
             android:text="Mobile number is for identification purpose only."
             android:gravity="center" />
 
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="@dimen/base7"
             style="@style/homeFooterText"
             android:text="(Not shared with retailer)"
             android:gravity="center"
             android:layout_gravity="center"
             />
-
 
     </LinearLayout>
 

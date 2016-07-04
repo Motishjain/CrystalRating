@@ -22,7 +22,7 @@
         android:textStyle="bold"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/imageViewLogo"
-        android:textSize="20dp"
+        android:textSize="@dimen/base20"
         android:layout_marginLeft="16dp"
         android:textColor="@drawable/tab_item_selector" />
 

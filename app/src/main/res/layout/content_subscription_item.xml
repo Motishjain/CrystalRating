@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:layout_height="75dp"
-    android:paddingBottom="11dp"
-    android:paddingLeft="11dp"
-    android:paddingRight="11dp"
-    android:paddingTop="11dp"
+    android:layout_height="@dimen/base75"
+    android:paddingBottom="@dimen/base11"
+    android:paddingLeft="@dimen/base11"
+    android:paddingRight="@dimen/base11"
+    android:paddingTop="@dimen/base11"
     tools:context="com.admin.freddyspeaks.SubscriptionInfoActivity"
     android:background="@drawable/subscribe_item_border">
 
@@ -39,13 +39,13 @@
     <com.admin.view.CustomFontButton
         android:id="@+id/payNowButton"
         style="@style/formButton"
-        android:layout_width="430dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="@string/button_renew"
         android:visibility="visible"
         android:background="@drawable/subscribe_button_corners"
         android:layout_weight="3"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp" />
+        android:layout_marginTop="@dimen/base2"
+        android:layout_marginBottom="@dimen/base2" />
 
 </LinearLayout>

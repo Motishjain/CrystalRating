@@ -15,23 +15,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="@dimen/base55"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/subscriptionStatusIndicator"
-                android:layout_width="35dp"
-                android:layout_height="35dp" />
+                android:layout_width="@dimen/base35"
+                android:layout_height="@dimen/base35" />
 
             <TextView
                 android:id="@+id/activationStatusTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="7dp"
+                android:layout_marginLeft="@dimen/base7"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#394263"
-                android:textSize="27dp"
+                android:textSize="@dimen/font27"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -40,11 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginBottom="@dimen/base10"
+            android:layout_marginTop="@dimen/base7"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000"
-            android:textSize="23dp" />
+            android:textSize="@dimen/font23" />
 
     </LinearLayout>
 
@@ -52,7 +52,7 @@
         android:id="@+id/paymentRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/base10"
         android:divider="@null" />
 
     <TextView
@@ -60,10 +60,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginBottom="@dimen/base15"
+        android:layout_marginTop="@dimen/base20"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#FC3768"
-        android:textSize="20dp" />
+        android:textSize="@dimen/font20" />
 
 </LinearLayout>

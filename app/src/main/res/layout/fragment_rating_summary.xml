@@ -33,9 +33,9 @@
                 android:gravity="center" />
 
             <ImageView
-                android:layout_width="20dp"
+                android:layout_width="@dimen/base20"
                 android:id="@+id/fromDateImage"
-                android:layout_height="20dp"
+                android:layout_height="@dimen/base20"
                 android:background="@drawable/date_picker"
                 android:layout_marginRight="16dp" />
 
@@ -68,8 +68,8 @@
 
             <ImageView
                 android:id="@+id/toDateImage"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/base20"
+                android:layout_height="@dimen/base20"
                 android:background="@drawable/date_picker"
                 android:layout_marginRight="16dp" />
         </LinearLayout>
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/base20"
                 android:text="Try again"
                 android:textAllCaps="false"
                 android:textColor="#fff"

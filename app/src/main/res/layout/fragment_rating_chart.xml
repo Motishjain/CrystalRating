@@ -11,7 +11,7 @@
         android:id="@+id/chartHeaderContainer"
         android:orientation="horizontal"
         android:background="#1E0F46"
-        android:layout_marginTop="2dp">
+        android:layout_marginTop="@dimen/base2">
 
         <View
             android:id="@+id/ratingLeftLine"
@@ -80,8 +80,8 @@
                 android:maxLines="1"
                 android:layout_height="27dp"
                 android:layout_marginLeft="32dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="20dp"
+                android:paddingLeft="@dimen/base10"
+                android:paddingRight="@dimen/base20"
                 android:background="@drawable/custom_spinner_container"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginRight="32dp"

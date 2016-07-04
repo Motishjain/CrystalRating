@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
+    android:layout_marginTop="@dimen/base15"
     android:background="@drawable/level_reward_box"
     tools:context="layout.SelectRewardsBoxFragment">
 
@@ -12,27 +12,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="@dimen/base5">
 
         <com.admin.view.CustomFontTextView
             android:id="@+id/rewardsLevelHeader"
             android:textSize="17dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/base10"
             android:textColor="@color/colorPrimaryDark"
             android:layout_height="wrap_content"
             style="@style/questionName" />
 
         <com.admin.view.CustomFontTextView
             android:id="@+id/rewardsLevelSubHeader"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginLeft="@dimen/base2"
+            android:layout_marginTop="@dimen/base1"
             android:layout_height="wrap_content"
             style="@style/subHeader" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/base5"
         android:id="@+id/fragmentRewardsList"
         android:layout_height="wrap_content"/>
 

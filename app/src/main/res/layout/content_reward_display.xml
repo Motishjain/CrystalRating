@@ -51,7 +51,7 @@
         </LinearLayout>
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="@dimen/base7"
             android:id="@+id/rewardDisplayExclaimer"
             style="@style/rewardDisplayExclaimer"
             android:gravity="center"
@@ -59,7 +59,7 @@
             android:layout_gravity="center"
             />
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/base10"
             android:id="@+id/rewardDisplayMessage"
             style="@style/rewardDisplayMessage"
             android:gravity="center"
@@ -70,9 +70,9 @@
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:id="@+id/rewardDisplayName"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/base20"
             android:background="@drawable/reward_display_name"
-            android:layout_height="40dp">
+            android:layout_height="@dimen/base40">
 
             <com.admin.view.CustomFontTextView
                 android:id="@+id/resultRewardName"
@@ -86,12 +86,12 @@
             android:layout_width="match_parent"
             android:id="@+id/rewardDisplayImage"
             android:background="@drawable/reward_display_image"
-            android:layout_height="200dp">
+            android:layout_height="@dimen/base200">
 
             <ImageView
                 android:id="@+id/resultRewardImage"
-                android:layout_width="300dp"
-                android:layout_height="180dp"
+                android:layout_width="@dimen/base300"
+                android:layout_height="@dimen/base180"
                 android:scaleType="fitCenter"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -101,7 +101,7 @@
         </FrameLayout>
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/base25"
             android:id="@+id/thankYouMessage1"
             style="@style/thankYouMessage"
             android:gravity="center"
@@ -109,7 +109,7 @@
             android:layout_gravity="center"
             />
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/base8"
             android:id="@+id/thankYouMessage2"
             style="@style/thankYouMessageLine2"
             android:gravity="center"
@@ -122,8 +122,8 @@
             style="@style/formButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="3dp"
-            android:layout_marginTop="20dp"
+            android:elevation="@dimen/base3"
+            android:layout_marginTop="@dimen/base20"
             android:text="Exit"
             android:gravity="center"
             android:onClick="exit"

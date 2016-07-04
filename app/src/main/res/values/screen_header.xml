@@ -4,10 +4,10 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:typeface">monospace</item>
-        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginTop">@dimen/base20</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/screenHeader</item>
-        <item name="android:textSize">23sp</item>
+        <item name="android:textSize">@dimen/font23</item>
         <item name="fontFamilyFile">@string/screenHeaderFont</item>
         <!--<item name="android:textStyle">bold</item>-->
     </style>

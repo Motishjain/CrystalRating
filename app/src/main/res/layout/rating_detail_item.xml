@@ -11,8 +11,8 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp" />
+        android:paddingBottom="@dimen/base5"
+        android:paddingTop="@dimen/base5" />
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/userPhoneNumberCellTextView"
@@ -20,8 +20,8 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp" />
+        android:paddingBottom="@dimen/base5"
+        android:paddingTop="@dimen/base5" />
 
     <com.admin.view.CustomFontTextView
         android:id="@+id/billAmountCellTextView"
@@ -29,6 +29,6 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp" />
+        android:paddingBottom="@dimen/base5"
+        android:paddingTop="@dimen/base5" />
 </LinearLayout>

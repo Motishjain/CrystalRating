@@ -24,7 +24,7 @@
     <com.admin.view.CustomFontTextView
         android:id="@+id/rewardDisplayMessage"
         style="@style/thankYouMessageNoRewardConfigured"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="@dimen/base120"
         android:layout_centerInParent = "true"
         android:text="Thanks for shopping with us."
         android:gravity="center_horizontal" />
@@ -35,15 +35,15 @@
         android:layout_centerInParent = "true"
         android:text="Hope to see you again soon!"
         android:gravity="center_horizontal"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="@dimen/base10" />
 
     <Button
         android:id="@+id/thankYouExitButton"
         style="@style/thanksScreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:elevation="3dp"
+        android:layout_marginTop="@dimen/base70"
+        android:elevation="@dimen/base3"
         android:text="Exit"
         android:onClick="exit"
         android:layout_gravity="center"

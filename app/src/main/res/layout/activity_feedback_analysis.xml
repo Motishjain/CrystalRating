@@ -19,7 +19,7 @@
 
         <com.admin.view.CustomFontTextView
             style="@style/appHeader"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="@dimen/base15"/>
 
     </android.support.v7.widget.Toolbar>
 

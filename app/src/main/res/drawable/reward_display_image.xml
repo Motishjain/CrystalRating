@@ -9,7 +9,7 @@
         </shape>
     </item>
 
-    <item android:top="1dp" android:bottom="1dp">
+    <item android:top="@dimen/base1" android:bottom="@dimen/base1">
         <shape
             android:shape="rectangle">
             <stroke android:width="4dp" android:color="@color/white" />

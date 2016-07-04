@@ -3,16 +3,16 @@
     <style name="billDetailsThanksMessage">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">25dp</item>
+        <item name="android:textSize">@dimen/base25</item>
         <item name="android:textColor">@color/dark_red</item>
-        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginTop">@dimen/base12</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="billDetailsDescription">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">@dimen/base18</item>
         <item name="android:textColor">@color/dark_red</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginTop">@dimen/base10</item>
     </style>
 </resources>
