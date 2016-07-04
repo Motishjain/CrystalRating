@@ -38,7 +38,7 @@
     <com.admin.view.CustomFontButton
         android:id="@+id/payNowButton"
         style="@style/formButton"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/base430"
         android:layout_height="match_parent"
         android:text="@string/button_renew"
         android:visibility="visible"
