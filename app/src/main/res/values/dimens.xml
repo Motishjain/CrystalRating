@@ -50,6 +50,7 @@
     <dimen name="base200">200dp</dimen>
     <dimen name="base250">250dp</dimen>
     <dimen name="base300">300dp</dimen>
+    <dimen name="base500">500dp</dimen>
 
     <dimen name="font16">16sp</dimen>
     <dimen name="font17">17sp</dimen>
