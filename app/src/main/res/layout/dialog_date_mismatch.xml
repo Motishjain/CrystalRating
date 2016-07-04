@@ -10,11 +10,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/base20"
         android:layout_gravity="center"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="@dimen/base12">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/base36"
+            android:layout_height="@dimen/base36"
             android:id="@+id/imageView6"
             android:src="@drawable/ic_error_outline_black_48dp"
             android:layout_marginLeft="@dimen/base10"

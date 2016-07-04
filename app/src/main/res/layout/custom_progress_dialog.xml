@@ -5,8 +5,8 @@
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/animation"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/base100"
+        android:layout_height="@dimen/base100"
         android:contentDescription="Processing"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"

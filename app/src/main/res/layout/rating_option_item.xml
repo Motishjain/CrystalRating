@@ -3,19 +3,19 @@
     xmlns:emojicon="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_marginTop="13dp"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp"
+    android:layout_marginTop="@dimen/base13"
+    android:paddingTop="@dimen/base4"
+    android:paddingBottom="@dimen/base4"
     android:id="@+id/ratingOptionsLayout"
     android:background="@drawable/rating_option"
     android:layout_height="wrap_content">
 
     <com.rockerhieu.emojicon.EmojiconTextView
         android:id="@+id/txtEmojicon"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="@dimen/base36"
+        android:layout_height="@dimen/base36"
         android:layout_gravity="center"
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="@dimen/base7"
         android:gravity="center"
         android:textSize="32sp"/>
 

@@ -16,7 +16,7 @@
 
         <com.admin.view.CustomFontTextView
             android:id="@+id/rewardsLevelHeader"
-            android:textSize="17dp"
+            android:textSize="@dimen/font17"
             android:layout_marginLeft="@dimen/base10"
             android:textColor="@color/colorPrimaryDark"
             android:layout_height="wrap_content"

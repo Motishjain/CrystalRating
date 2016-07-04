@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/headerBg"
         android:id="@+id/toolbar"
-        android:elevation="7dp"
+        android:elevation="@dimen/base7"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
 

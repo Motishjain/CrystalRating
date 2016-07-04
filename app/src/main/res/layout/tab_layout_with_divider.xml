@@ -14,17 +14,17 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/imageViewLogo"
         android:textSize="@dimen/base20"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="@dimen/base16"
         android:textColor="@drawable/tab_item_selector" />
 
     <!-- Tab Logo -->
     <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/base25"
+        android:layout_height="@dimen/base25"
         android:id="@+id/imageViewLogo"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="32dp"/>
+        android:layout_marginLeft="@dimen/base32"/>
 
     <!-- Tab divider -->
     <View

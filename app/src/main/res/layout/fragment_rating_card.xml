@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_marginRight="@dimen/base5"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="@dimen/base30" />
 
     </LinearLayout>
 
@@ -55,7 +55,7 @@
             android:id="@+id/ratingBar"
             style="@style/ratingBar"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/base50"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/rating_stars_bg"
             android:indeterminateDrawable="@drawable/rating_stars"
