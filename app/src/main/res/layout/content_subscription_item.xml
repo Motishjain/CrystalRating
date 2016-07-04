@@ -2,20 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
     android:layout_height="@dimen/base75"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/base11"
     android:paddingLeft="@dimen/base11"
     android:paddingRight="@dimen/base11"
     android:paddingTop="@dimen/base11"
+    android:weightSum="4"
     tools:context="com.admin.freddyspeaks.SubscriptionInfoActivity"
     android:background="@drawable/subscribe_item_border">
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="3">
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,12 +39,12 @@
     <com.admin.view.CustomFontButton
         android:id="@+id/payNowButton"
         style="@style/formButton"
-        android:layout_width="@dimen/base430"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="@string/button_renew"
         android:visibility="visible"
         android:background="@drawable/subscribe_button_corners"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:layout_marginTop="@dimen/base2"
         android:layout_marginBottom="@dimen/base2" />
 
