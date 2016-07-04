@@ -1,0 +1,16 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">24dp</dimen>
+    <dimen name="activity_vertical_margin">24dp</dimen>
+    <dimen name="header_top_margin">60dp</dimen>
+    <dimen name="header_left_margin">15dp</dimen>
+    <dimen name="register_box_top_margin">8dp</dimen>
+    <dimen name="form_button_text_size">30dp</dimen>
+    <dimen name="item_offset">15dp</dimen>
+    <dimen name="base2">3dp</dimen>
+    <dimen name="base5">8dp</dimen>
+    <dimen name="base10">15dp</dimen>
+    <dimen name="base15">23dp</dimen>
+    <dimen name="base30">45dp</dimen>
+    <dimen name="base60">90dp</dimen>
+</resources>
