@@ -3,7 +3,7 @@
     <style name="rewardDisplayExclaimer">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">@dimen/font25</item>
         <item name="android:textColor">@color/dark_red</item>
         <item name="android:layout_marginTop">@dimen/base5</item>
         <item name="fontFamilyFile">@string/questionFont</item>
@@ -11,7 +11,7 @@
     <style name="rewardDisplayMessage">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/font20</item>
         <item name="android:textColor">@color/dark_red</item>
         <item name="android:layout_marginTop">@dimen/base5</item>
         <item name="fontFamilyFile">@string/questionFont</item>
@@ -19,7 +19,7 @@
     <style name="thankYouMessage">
         <item name="android:layout_width">@dimen/base300</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/font20</item>
         <item name="android:textColor">@color/dark_red</item>
         <item name="fontFamilyFile">@string/questionFont</item>
         <item name="android:layout_marginTop">@dimen/base5</item>
@@ -27,7 +27,7 @@
     <style name="thankYouMessageLine2">
         <item name="android:layout_width">@dimen/base300</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/font18</item>
         <item name="android:textColor">@color/dark_red</item>
         <item name="fontFamilyFile">@string/questionFont</item>
         <item name="android:layout_marginTop">@dimen/base5</item>

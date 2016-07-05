@@ -8,6 +8,6 @@
         <item name="android:textColorHint">@color/textHint</item>
         <item name="android:textColorHighlight">@color/textHighlight</item>
         <item name="colorControlNormal">@color/floating_line</item>
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">@dimen/font17</item>
     </style>
 </resources>

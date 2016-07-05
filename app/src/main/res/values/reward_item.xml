@@ -3,7 +3,7 @@
     <style name="rewardName">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/font15</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="fontFamilyFile">@string/applicationFont</item>
@@ -11,14 +11,14 @@
     <style name="rewardWonName">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/font20</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="rewardCost">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/font12</item>
         <item name="android:textColor">@color/dark_red</item>
         <item name="android:layout_marginBottom">@dimen/base5</item>
         <item name="android:textStyle">bold</item>

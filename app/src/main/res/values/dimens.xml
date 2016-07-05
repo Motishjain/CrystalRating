@@ -52,11 +52,16 @@
     <dimen name="base300">300dp</dimen>
     <dimen name="base500">500dp</dimen>
 
+    <dimen name="font12">12sp</dimen>
+    <dimen name="font13">13sp</dimen>
     <dimen name="font15">15sp</dimen>
     <dimen name="font16">16sp</dimen>
     <dimen name="font17">17sp</dimen>
+    <dimen name="font18">18sp</dimen>
     <dimen name="font20">20sp</dimen>
     <dimen name="font23">23sp</dimen>
     <dimen name="font25">25sp</dimen>
     <dimen name="font27">27sp</dimen>
+    <dimen name="font30">30sp</dimen>
+    <dimen name="font32">32sp</dimen>
 </resources>

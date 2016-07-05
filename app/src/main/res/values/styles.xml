@@ -50,7 +50,7 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/font12</item>
     </style>
 
     <style name="CustomAlertDialogStyle">

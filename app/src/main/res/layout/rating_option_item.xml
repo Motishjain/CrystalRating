@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/base7"
         android:gravity="center"
-        android:textSize="32sp"/>
+        android:textSize="@dimen/font32"/>
 
     <com.admin.view.CustomFontTextView
         android:layout_marginLeft="@dimen/base10"
