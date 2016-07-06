@@ -41,7 +41,7 @@
         android:id="@+id/thankYouExitButton"
         style="@style/thanksScreenButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/base40"
         android:layout_marginTop="@dimen/base70"
         android:elevation="@dimen/base3"
         android:textSize="@dimen/font20"
