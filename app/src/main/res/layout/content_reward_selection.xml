@@ -31,7 +31,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/save"
             android:textColor="#237414"
             android:textSize="@dimen/font18"
@@ -48,7 +48,7 @@
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/cancel"
             android:textColor="#237414"
             android:textSize="@dimen/font18"

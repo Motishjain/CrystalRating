@@ -21,6 +21,7 @@
         android:elevation="@dimen/base6"
         app:tabPaddingStart="0dp"
         app:tabGravity="fill"
+        app:tabMaxWidth="0dp"
         app:tabPaddingEnd="0dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
