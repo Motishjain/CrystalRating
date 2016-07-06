@@ -5,7 +5,7 @@
     <dimen name="header_top_margin">40dp</dimen>
     <dimen name="header_left_margin">10dp</dimen>
     <dimen name="register_box_top_margin">5dp</dimen>
-    <dimen name="form_button_text_size">20dp</dimen>
+    <dimen name="form_button_text_size">20sp</dimen>
     <dimen name="item_offset">10dp</dimen>
     <dimen name="base0.5">0.5dp</dimen>
     <dimen name="base1">1dp</dimen>
@@ -54,11 +54,13 @@
 
     <dimen name="font12">12sp</dimen>
     <dimen name="font13">13sp</dimen>
+    <dimen name="font14">14sp</dimen>
     <dimen name="font15">15sp</dimen>
     <dimen name="font16">16sp</dimen>
     <dimen name="font17">17sp</dimen>
     <dimen name="font18">18sp</dimen>
     <dimen name="font20">20sp</dimen>
+    <dimen name="font22">22sp</dimen>
     <dimen name="font23">23sp</dimen>
     <dimen name="font25">25sp</dimen>
     <dimen name="font27">27sp</dimen>

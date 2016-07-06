@@ -78,6 +78,7 @@
                 android:textColor="@android:color/black"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:textSize="@dimen/font16"
                 android:layout_height="@dimen/base27"
                 android:layout_marginLeft="@dimen/base32"
                 android:paddingLeft="@dimen/base10"

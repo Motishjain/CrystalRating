@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base70"
         android:elevation="@dimen/base3"
+        android:textSize="@dimen/font20"
         android:text="Exit"
         android:onClick="exit"
         android:layout_gravity="center"

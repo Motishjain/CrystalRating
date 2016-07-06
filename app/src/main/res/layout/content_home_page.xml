@@ -64,6 +64,7 @@
             android:paddingLeft="@dimen/base12"
             android:paddingRight="@dimen/base7"
             android:layout_marginRight="@dimen/base15"
+            android:layout_height="@dimen/base45"
             android:elevation="@dimen/base3"
             android:text="Continue "
             android:drawableRight="@drawable/ic_arrow_forward_white_18dp"

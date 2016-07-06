@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:hint="Please enter pin"
             android:inputType="numberPassword"
+            android:textSize="@dimen/font14"
             android:maxLength="4"
             android:theme="@style/inputText"/>
 

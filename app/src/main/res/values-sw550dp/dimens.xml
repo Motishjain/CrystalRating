@@ -1,11 +1,11 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="header_top_margin">40dp</dimen>
-    <dimen name="header_left_margin">10dp</dimen>
-    <dimen name="register_box_top_margin">5dp</dimen>
-    <dimen name="form_button_text_size">20dp</dimen>
+    <dimen name="activity_horizontal_margin">24dp</dimen>
+    <dimen name="activity_vertical_margin">24dp</dimen>
+    <dimen name="header_top_margin">60dp</dimen>
+    <dimen name="header_left_margin">15dp</dimen>
+    <dimen name="register_box_top_margin">7.5dp</dimen>
+    <dimen name="form_button_text_size">30sp</dimen>
     <dimen name="item_offset">10dp</dimen>
     <dimen name="base0.5">0.75dp</dimen>
     <dimen name="base1">1.5dp</dimen>
@@ -54,11 +54,13 @@
 
     <dimen name="font12">18sp</dimen>
     <dimen name="font13">19.5sp</dimen>
+    <dimen name="font14">21sp</dimen>
     <dimen name="font15">22.5sp</dimen>
     <dimen name="font16">24sp</dimen>
     <dimen name="font17">25.5sp</dimen>
     <dimen name="font18">27sp</dimen>
     <dimen name="font20">30sp</dimen>
+    <dimen name="font22">33sp</dimen>
     <dimen name="font23">34.5sp</dimen>
     <dimen name="font25">37.5sp</dimen>
     <dimen name="font27">40.5sp</dimen>
