@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="OK"
+            android:textSize="@dimen/font12"
             android:textColor="#394263"
             android:id="@+id/buttonOk"
             android:layout_weight="1"
@@ -53,6 +54,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/font12"
             android:text="CANCEL"
             android:textColor="#394263"
             android:id="@+id/buttonCancel"
