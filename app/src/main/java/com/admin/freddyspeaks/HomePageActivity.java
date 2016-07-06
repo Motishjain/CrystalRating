@@ -61,6 +61,7 @@ public class HomePageActivity extends BaseActivity {
 
         if(activationStatus!=null && activationStatus.equals(AppConstants.SUBSCRIPTION_EXPIRED)){
             Intent subscriptionInfo = new Intent(HomePageActivity.this, SubscriptionInfoActivity.class);
+            subscriptionInfo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(subscriptionInfo);
         }
 
