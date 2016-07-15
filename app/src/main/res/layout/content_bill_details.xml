@@ -71,6 +71,16 @@
                 android:onClick="nextButtonClickHandler"
                 android:textColor="#fff" />
 
+            <Button
+                android:id="@+id/didNotShopButton"
+                style="@style/didNotShopButton"
+                android:layout_marginTop="@dimen/base125"
+                android:layout_width="@dimen/base300"
+                android:layout_height="@dimen/base60"
+                android:text="I did not shop!"
+                android:onClick="didNotShopClickHandler"
+                android:textColor="#fff" />
+
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

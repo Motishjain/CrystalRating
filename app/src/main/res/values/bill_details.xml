@@ -15,4 +15,15 @@
         <item name="android:textColor">@color/dark_red</item>
         <item name="android:layout_marginTop">@dimen/base10</item>
     </style>
+
+    <style name="didNotShopButton" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/textHighlight</item>
+        <item name="android:textSize">@dimen/font30</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="fontFamilyFile">@string/applicationFont</item>
+        <item name="android:background">@drawable/did_not_shop_shape</item>
+    </style>
+
 </resources>

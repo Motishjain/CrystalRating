@@ -46,8 +46,13 @@ public class BillDetailsActivity extends BaseActivity {
             Intent displayReward = new Intent(BillDetailsActivity.this, RewardDisplayActivity.class);
             displayReward.putExtra("feedback", feedback);
             startActivity(displayReward);
-
         }
+    }
+
+    public void didNotShopClickHandler(View v) {
+        Intent thankYouScreen = new Intent(BillDetailsActivity.this, ThankYouActivity.class);
+        thankYouScreen.putExtra("feedback", feedback);
+        startActivity(thankYouScreen);
     }
 
     @Override
