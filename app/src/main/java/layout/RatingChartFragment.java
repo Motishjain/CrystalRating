@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.admin.database.Question;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 import com.admin.webservice.response_objects.FeedbackResponse;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;

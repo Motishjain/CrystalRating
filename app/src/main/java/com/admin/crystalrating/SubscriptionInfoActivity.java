@@ -1,4 +1,4 @@
-package com.admin.freddyspeaks;
+package com.admin.crystalrating;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

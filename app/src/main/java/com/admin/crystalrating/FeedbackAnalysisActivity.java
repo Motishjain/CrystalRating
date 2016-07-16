@@ -1,4 +1,4 @@
-package com.admin.freddyspeaks;
+package com.admin.crystalrating;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

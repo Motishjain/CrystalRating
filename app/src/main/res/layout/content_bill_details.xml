@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.admin.freddyspeaks.BillDetailsActivity"
+    tools:context="com.admin.crystalrating.BillDetailsActivity"
     tools:showIn="@layout/activity_bill_details"
     android:focusable="true"
     android:background="@drawable/app_bg"

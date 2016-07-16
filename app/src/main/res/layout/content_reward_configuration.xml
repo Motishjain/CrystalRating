@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.admin.freddyspeaks.RewardConfigurationActivity"
+        tools:context="com.admin.crystalrating.RewardConfigurationActivity"
         tools:showIn="@layout/activity_reward_configuration">
 
         <FrameLayout

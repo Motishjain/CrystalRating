@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.admin.freddyspeaks.SubscriptionInfoActivity">
+    tools:context="com.admin.crystalrating.SubscriptionInfoActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

@@ -7,23 +7,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Outlet;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.payUMoney.sdk.PayUmoneySdkInitilizer;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

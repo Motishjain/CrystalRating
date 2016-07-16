@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.Button;
 
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 
 /**
  * Created by Admin on 3/21/2016.

@@ -1,17 +1,17 @@
 <resources>
-    <string name="app_name">FreddySpeaks</string>
-    <string name="app_header">FreddySpeaks</string>
+    <string name="app_name">CrystalRating</string>
+    <string name="app_header">CrystalRating</string>
     <string name="action_edit_profile">Edit Outlet Details</string>
     <string name="action_rewards">Rewards</string>
     <string name="action_check_reports">Check Reports</string>
     <string name="action_subscription_info">Subscription Info</string>
-    <string name="title_activity_home_page">FreddySpeaks</string>
-    <string name="title_activity_loading">FreddySpeaks</string>
-    <string name="title_activity_goodie_display">FreddySpeaks</string>
-    <string name="title_activity_get_rating">FreddySpeaks</string>
+    <string name="title_activity_home_page">CrystalRating</string>
+    <string name="title_activity_loading">CrystalRating</string>
+    <string name="title_activity_goodie_display">CrystalRating</string>
+    <string name="title_activity_get_rating">CrystalRating</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_activity_reward_configuration">FreddySpeaks</string>
+    <string name="title_activity_reward_configuration">CrystalRating</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="previous">Previous</string>
@@ -22,7 +22,7 @@
     <string name="pin_code">Pin Code</string>
     <string name="email_id">Email Id</string>
     <string name="mobile_number">Mobile Number</string>
-    <string name="title_activity_bill_details">FreddySpeaks</string>
+    <string name="title_activity_bill_details">CrystalRating</string>
     <string name="title_activity_reward_selection">Select rewards</string>
     <string name="newApplicationFont">comicsansms.ttf</string>
     <string name="applicationFont">comicsansms.ttf</string>

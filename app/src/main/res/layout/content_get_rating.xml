@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/ratingCardHolder"
-    tools:context="com.admin.freddyspeaks.GetRatingActivity"
+    tools:context="com.admin.crystalrating.GetRatingActivity"
     tools:showIn="@layout/activity_get_rating"
     android:background="@drawable/app_bg"
     >

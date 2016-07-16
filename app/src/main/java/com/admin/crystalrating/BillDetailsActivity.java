@@ -1,4 +1,4 @@
-package com.admin.freddyspeaks;
+package com.admin.crystalrating;
 
 import android.content.Intent;
 import android.os.Bundle;

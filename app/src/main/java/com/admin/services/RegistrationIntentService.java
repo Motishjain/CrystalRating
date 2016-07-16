@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.SaveServiceReponse;

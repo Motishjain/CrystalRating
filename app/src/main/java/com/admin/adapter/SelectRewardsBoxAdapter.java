@@ -5,13 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.admin.database.Reward;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 import com.admin.tasks.FetchRewardImageTask;
 import com.admin.tasks.SaveRewardImageTask;
 

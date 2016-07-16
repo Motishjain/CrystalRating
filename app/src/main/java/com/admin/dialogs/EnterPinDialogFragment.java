@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.admin.constants.AppConstants;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 import com.admin.util.KeyboardUtil;
 
 /**

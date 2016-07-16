@@ -7,7 +7,7 @@ import android.util.Log;
 import com.admin.database.DBHelper;
 import com.admin.database.Reward;
 import com.admin.database.SelectedReward;
-import com.admin.freddyspeaks.RewardSelectionActivity;
+import com.admin.crystalrating.RewardSelectionActivity;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.request_objects.RewardSubmitRequest;

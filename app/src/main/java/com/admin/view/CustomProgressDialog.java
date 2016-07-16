@@ -6,7 +6,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 
 /**
  * Created by admin on 17-04-2016.

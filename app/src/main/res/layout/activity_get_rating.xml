@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.admin.freddyspeaks.GetRatingActivity">
+    tools:context="com.admin.crystalrating.GetRatingActivity">
 
     <include layout="@layout/content_get_rating"
         android:layout_width="match_parent"

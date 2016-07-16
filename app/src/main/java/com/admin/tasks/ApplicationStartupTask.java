@@ -1,25 +1,15 @@
 package com.admin.tasks;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
-import com.admin.database.DBHelper;
-import com.admin.database.Outlet;
-import com.admin.freddyspeaks.LoadingActivity;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.LoadingActivity;
+import com.admin.crystalrating.R;
 import com.admin.util.ImageUtility;
 import com.admin.webservice.RetrofitSingleton;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Admin on 4/15/2016.

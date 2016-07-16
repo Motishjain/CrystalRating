@@ -1,14 +1,8 @@
 package com.admin.util;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.AnimationDrawable;
-import android.view.Window;
-import android.widget.ImageView;
-
-import com.admin.freddyspeaks.R;
 
 /**
  * Created by Admin on 4/12/2016.

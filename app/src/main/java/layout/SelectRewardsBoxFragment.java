@@ -2,22 +2,17 @@ package layout;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.admin.adapter.SelectRewardsBoxAdapter;
 import com.admin.database.Reward;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 
 import java.util.List;
 

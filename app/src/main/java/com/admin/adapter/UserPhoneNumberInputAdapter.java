@@ -9,7 +9,7 @@ import android.widget.Filter;
 import android.widget.TextView;
 
 import com.admin.database.User;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 
 import java.util.ArrayList;
 import java.util.List;

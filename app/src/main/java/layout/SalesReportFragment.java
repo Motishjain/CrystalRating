@@ -14,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 import com.admin.view.CustomProgressDialog;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;

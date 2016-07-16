@@ -1,6 +1,5 @@
 package com.admin.tasks;
 
-import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -9,12 +8,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.Question;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 import com.admin.webservice.RestEndpointInterface;
 import com.admin.webservice.RetrofitSingleton;
 import com.admin.webservice.response_objects.FeedbackResponse;

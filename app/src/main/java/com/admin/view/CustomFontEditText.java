@@ -4,9 +4,8 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.support.design.widget.TextInputEditText;
 import android.util.AttributeSet;
-import android.widget.EditText;
 
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 
 /**
  * Created by Admin on 3/19/2016.

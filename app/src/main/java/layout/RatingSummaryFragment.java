@@ -1,9 +1,7 @@
 package layout;
 
 import android.app.DatePickerDialog;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,15 +17,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.admin.database.DBHelper;
-import com.admin.database.Outlet;
 import com.admin.dialogs.CustomDialogFragment;
-import com.admin.freddyspeaks.HomePageActivity;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 import com.admin.tasks.FetchAndFragmentFeedbackTask;
 import com.admin.view.CustomProgressDialog;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

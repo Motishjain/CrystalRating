@@ -1,4 +1,4 @@
-package com.admin.freddyspeaks;
+package com.admin.crystalrating;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,14 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.admin.util.ImageUtility;
 import com.admin.view.CustomFontTextView;
 import com.admin.webservice.WebServiceUtility;
 import com.admin.webservice.request_objects.FeedbackRequest;
-
-import org.w3c.dom.Text;
 
 public class ThankYouActivity extends AppCompatActivity {
 

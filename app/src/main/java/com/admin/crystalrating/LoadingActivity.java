@@ -1,4 +1,4 @@
-package com.admin.freddyspeaks;
+package com.admin.crystalrating;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -6,10 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
-import android.view.Window;
 
 import com.admin.tasks.ApplicationStartupTask;
-import com.admin.util.DialogBuilderUtil;
 import com.admin.view.CustomProgressDialog;
 
 public class LoadingActivity extends BaseActivity implements ApplicationStartupTask.OnTaskCompleted{

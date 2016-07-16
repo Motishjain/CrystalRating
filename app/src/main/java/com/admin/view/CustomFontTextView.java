@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 
 /**
  * Created by Admin on 3/19/2016.

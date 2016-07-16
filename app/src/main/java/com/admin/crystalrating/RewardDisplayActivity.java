@@ -1,4 +1,4 @@
-package com.admin.freddyspeaks;
+package com.admin.crystalrating;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +30,7 @@ public class RewardDisplayActivity extends BaseActivity {
     SelectedReward allocatedReward;
     Dao<User, Integer> userDao;
     CustomFontTextView billAmtLabel,rewardDisplayExclaimer, rewardDisplayMessage, resultRewardName;
-    CustomFontTextView thankYouMessage1,thankYouMessage2;
+    CustomFontTextView thankYouMessage2;
     ImageView resultRewardImage;
     CustomDialogFragment dialogConfirmExit;
     public static Map<String,String> categoryMapping = new HashMap<>();
@@ -53,7 +53,6 @@ public class RewardDisplayActivity extends BaseActivity {
         billAmtLabel=(CustomFontTextView)findViewById(R.id.billAmt);
         rewardDisplayExclaimer = (CustomFontTextView) findViewById(R.id.rewardDisplayExclaimer);
         rewardDisplayMessage = (CustomFontTextView) findViewById(R.id.rewardDisplayMessage);
-        thankYouMessage1 = (CustomFontTextView) findViewById(R.id.thankYouMessage1);
         thankYouMessage2 = (CustomFontTextView) findViewById(R.id.thankYouMessage2);
         resultRewardName = (CustomFontTextView) findViewById(R.id.resultRewardName);
         resultRewardImage = (ImageView) findViewById(R.id.resultRewardImage);

@@ -1,11 +1,9 @@
-package com.admin.freddyspeaks;
+package com.admin.crystalrating;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
@@ -14,11 +12,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.admin.adapter.UserPhoneNumberInputAdapter;
 import com.admin.constants.AppConstants;
 import com.admin.database.DBHelper;
 import com.admin.database.User;
@@ -144,12 +140,8 @@ public class HomePageActivity extends BaseActivity {
     }
 
     private void executeDailyTasks() {
-        String dailyTaskExecutedDate = sharedPreferences.getString("dailyTaskExecutedDate", null);
-        String currentDate = simpleDateFormat.format(new Date());
-        //if (dailyTaskExecutedDate == null || !dailyTaskExecutedDate.equals(currentDate)) {
-            Intent intent = new Intent("com.admin.freddyspeaks.executedailytasks");
-            sendBroadcast(intent);
-        //}
+        Intent intent = new Intent("com.admin.crystalrating.executedailytasks");
+        sendBroadcast(intent);
     }
 
     @Override

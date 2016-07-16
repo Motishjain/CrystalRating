@@ -5,7 +5,7 @@
     android:layout_height="@dimen/base500"
     android:weightSum="500"
     android:orientation="vertical"
-    tools:context="com.admin.freddyspeaks.RewardSelectionActivity"
+    tools:context="com.admin.crystalrating.RewardSelectionActivity"
     tools:showIn="@layout/activity_reward_selection">
 
     <ScrollView

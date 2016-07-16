@@ -9,8 +9,8 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import com.admin.freddyspeaks.R;
-import com.admin.freddyspeaks.SubscriptionInfoActivity;
+import com.admin.crystalrating.R;
+import com.admin.crystalrating.SubscriptionInfoActivity;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**

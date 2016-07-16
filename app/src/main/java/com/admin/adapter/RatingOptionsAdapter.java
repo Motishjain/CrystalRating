@@ -1,8 +1,6 @@
 package com.admin.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -11,15 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.admin.database.Question;
-import com.admin.freddyspeaks.R;
+import com.admin.crystalrating.R;
 import com.rockerhieu.emojicon.EmojiconTextView;
 
 import java.util.HashMap;
