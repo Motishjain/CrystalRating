@@ -22,62 +22,78 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:weightSum="50"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <com.admin.view.CustomFontTextView
-            android:text="@string/bill_details_thanks_message"
-            android:layout_marginTop="@dimen/base45"
-            style="@style/billDetailsThanksMessage"
-            />
-
-        <com.admin.view.CustomFontTextView
-            android:text="@string/bill_details_desription"
-            android:layout_marginTop="@dimen/base25"
-            android:layout_width="@dimen/base300"
-            style="@style/billDetailsDescription" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="47"
+            android:gravity="center_horizontal">
+
+            <com.admin.view.CustomFontTextView
+                android:text="@string/feedback_thanks_message"
+                android:layout_marginTop="@dimen/base45"
+                style="@style/billDetailsThanksMessage"
+                />
+
+            <com.admin.view.CustomFontTextView
+                android:text="@string/bill_details_desription"
+                android:layout_marginTop="@dimen/base25"
+                android:layout_width="@dimen/base300"
+                style="@style/billDetailsDescription" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputBillAmountLayout"
+                    android:layout_width="@dimen/base250"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/base5"
+                    android:layout_marginRight="@dimen/base5"
+                    android:layout_marginTop="@dimen/base20">
+
+                    <EditText
+                        android:id="@+id/inputBillAmountText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/font25"
+                        android:maxLength="9"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/colorPrimary" />
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/billInfoContinueButton"
+                    style="@style/checkoutButton"
+                    android:layout_marginTop="@dimen/base40"
+                    android:layout_width="@dimen/base125"
+                    android:layout_height="@dimen/base40"
+                    android:text="Check out!"
+                    android:onClick="nextButtonClickHandler"
+                    android:textColor="#fff" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputBillAmountLayout"
-                android:layout_width="@dimen/base250"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/base5"
-                android:layout_marginRight="@dimen/base5"
-                android:layout_marginTop="@dimen/base20">
-
-                <EditText
-                    android:id="@+id/inputBillAmountText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/font25"
-                    android:maxLength="9"
-                    android:inputType="numberDecimal"
-                    android:textColor="@color/colorPrimary" />
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/billInfoContinueButton"
-                style="@style/formButton"
-                android:layout_marginTop="@dimen/base40"
-                android:layout_width="@dimen/base125"
-                android:layout_height="@dimen/base40"
-                android:text="Check out!"
-                android:onClick="nextButtonClickHandler"
-                android:textColor="#fff" />
-
             <Button
                 android:id="@+id/didNotShopButton"
-                style="@style/didNotShopButton"
-                android:layout_marginTop="@dimen/base125"
-                android:layout_width="@dimen/base300"
-                android:layout_height="@dimen/base60"
-                android:text="I did not shop! Exit"
+                style="@style/formButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_arrow_back_white_24dp"
+                android:text="Thank you! I did not shop."
                 android:onClick="didNotShopClickHandler"
                 android:textColor="#fff" />
 
