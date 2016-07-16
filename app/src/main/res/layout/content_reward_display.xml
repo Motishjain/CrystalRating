@@ -101,14 +101,6 @@
         </FrameLayout>
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="@dimen/base25"
-            android:id="@+id/thankYouMessage1"
-            style="@style/thankYouMessage"
-            android:gravity="center"
-            android:text="@string/feedback_thanks_message"
-            android:layout_gravity="center"
-            />
-        <com.admin.view.CustomFontTextView
             android:layout_marginTop="@dimen/base8"
             android:id="@+id/thankYouMessage2"
             style="@style/thankYouMessageLine2"
