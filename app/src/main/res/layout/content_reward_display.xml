@@ -111,13 +111,14 @@
 
         <Button
             android:id="@+id/rewardDisplayContinueButton"
-            style="@style/formButton"
-            android:layout_width="wrap_content"
+            style="@style/checkoutButton"
+            android:layout_width="@dimen/base180"
             android:layout_height="@dimen/base40"
             android:elevation="@dimen/base3"
             android:layout_marginTop="@dimen/base20"
             android:drawableLeft="@drawable/ic_home_white_24dp"
             android:text="Back to home"
+            android:paddingLeft="@dimen/base5"
             android:gravity="center"
             android:onClick="exit"
             android:layout_gravity="center"

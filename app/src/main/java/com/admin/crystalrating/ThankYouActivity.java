@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.admin.dialogs.CustomDialogFragment;
 import com.admin.util.ImageUtility;
 import com.admin.view.CustomFontTextView;
 import com.admin.webservice.WebServiceUtility;
@@ -17,7 +18,7 @@ public class ThankYouActivity extends AppCompatActivity {
     ImageView backgroundRatingImage;
     CustomFontTextView thankYouMessage1,thankYouMessage2;
     Button exitButton;
-
+    CustomDialogFragment dialogConfirmExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,25 @@ public class ThankYouActivity extends AppCompatActivity {
         Intent homePage = new Intent(ThankYouActivity.this, HomePageActivity.class);
         homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(homePage);
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialogConfirmExit = CustomDialogFragment.newInstance(R.layout.dialog_confirm_exit, new CustomDialogFragment.CustomDialogListener() {
+            @Override
+            public void onDialogPositiveClick() {
+                dialogConfirmExit.dismiss();
+                Intent homePage = new Intent(ThankYouActivity.this, HomePageActivity.class);
+                homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homePage);
+            }
+
+            @Override
+            public void onDialogNegativeClick() {
+                dialogConfirmExit.dismiss();
+            }
+        });
+        dialogConfirmExit.show(getSupportFragmentManager(), "");
     }
 }
 

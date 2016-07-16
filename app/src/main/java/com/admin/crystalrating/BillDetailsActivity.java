@@ -12,6 +12,7 @@ import com.admin.dialogs.CustomDialogFragment;
 import com.admin.util.ImageUtility;
 import com.admin.util.KeyboardUtil;
 import com.admin.util.ValidationUtil;
+import com.admin.webservice.WebServiceUtility;
 import com.admin.webservice.request_objects.FeedbackRequest;
 
 public class BillDetailsActivity extends BaseActivity {
@@ -50,9 +51,10 @@ public class BillDetailsActivity extends BaseActivity {
     }
 
     public void didNotShopClickHandler(View v) {
-        Intent thankYouScreen = new Intent(BillDetailsActivity.this, ThankYouActivity.class);
-        thankYouScreen.putExtra("feedback", feedback);
-        startActivity(thankYouScreen);
+        WebServiceUtility.submitFeedback(this,feedback);
+        Intent homePage = new Intent(BillDetailsActivity.this, HomePageActivity.class);
+        homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homePage);
     }
 
     @Override
