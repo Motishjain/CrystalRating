@@ -45,6 +45,7 @@
         android:layout_marginTop="@dimen/base70"
         android:elevation="@dimen/base3"
         android:textSize="@dimen/font20"
+        android:drawableLeft="@drawable/ic_home_white_24dp"
         android:text="Back to Home"
         android:onClick="exit"
         android:layout_gravity="center"
