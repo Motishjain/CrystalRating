@@ -77,7 +77,7 @@
                     android:layout_height="@dimen/base40"
                     android:text="Check out!"
                     android:onClick="nextButtonClickHandler"
-                    android:textColor="#fff" />
+                    />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout

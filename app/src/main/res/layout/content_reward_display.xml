@@ -101,7 +101,7 @@
         </FrameLayout>
 
         <com.admin.view.CustomFontTextView
-            android:layout_marginTop="@dimen/base8"
+            android:layout_marginTop="@dimen/base20"
             android:id="@+id/thankYouMessage2"
             style="@style/thankYouMessageLine2"
             android:gravity="center"
@@ -116,13 +116,13 @@
             android:layout_height="@dimen/base40"
             android:elevation="@dimen/base3"
             android:layout_marginTop="@dimen/base20"
+            android:textSize="@dimen/font20"
             android:drawableLeft="@drawable/ic_home_white_24dp"
-            android:text="Back to home"
-            android:paddingLeft="@dimen/base5"
+            android:text="Back to Home"
+            android:paddingLeft="@dimen/base10"
             android:gravity="center"
             android:onClick="exit"
             android:layout_gravity="center"
-            android:textAllCaps="false"
-            android:textColor="#fff" />
+            android:textAllCaps="false"/>
     </LinearLayout>
 </FrameLayout>
