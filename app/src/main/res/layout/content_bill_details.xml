@@ -77,7 +77,7 @@
                 android:layout_marginTop="@dimen/base125"
                 android:layout_width="@dimen/base300"
                 android:layout_height="@dimen/base60"
-                android:text="I did not shop!"
+                android:text="I did not shop! Exit"
                 android:onClick="didNotShopClickHandler"
                 android:textColor="#fff" />
 
