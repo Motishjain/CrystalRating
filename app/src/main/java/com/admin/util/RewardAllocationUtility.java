@@ -27,7 +27,7 @@ public class RewardAllocationUtility {
         double rewardAmountMean = (1.5 * billAmount) / 100;
         double rewardAmountLowerBound = (1 * billAmount) / 100;
         double rewardAmountUpperBound = (2 * billAmount) / 100;
-        double minDiff = 9999;
+        double minDiff = 999999999;
         int selectedRewardIndex = -1;
         List<Integer> selectedRewardIndexList = new ArrayList<>();
 

@@ -105,7 +105,7 @@
             android:id="@+id/thankYouMessage1"
             style="@style/thankYouMessage"
             android:gravity="center"
-            android:text="@string/thankYouMessage1"
+            android:text="@string/feedback_thanks_message"
             android:layout_gravity="center"
             />
         <com.admin.view.CustomFontTextView

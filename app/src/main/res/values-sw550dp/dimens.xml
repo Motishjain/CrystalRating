@@ -46,6 +46,7 @@
     <dimen name="base110">165dp</dimen>
     <dimen name="base120">180dp</dimen>
     <dimen name="base125">187.5dp</dimen>
+    <dimen name="base150">225dp</dimen>
     <dimen name="base180">270dp</dimen>
     <dimen name="base200">300dp</dimen>
     <dimen name="base250">375dp</dimen>

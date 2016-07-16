@@ -73,7 +73,7 @@
                     android:id="@+id/billInfoContinueButton"
                     style="@style/checkoutButton"
                     android:layout_marginTop="@dimen/base40"
-                    android:layout_width="@dimen/base125"
+                    android:layout_width="@dimen/base150"
                     android:layout_height="@dimen/base40"
                     android:text="Check out!"
                     android:onClick="nextButtonClickHandler"
