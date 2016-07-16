@@ -89,7 +89,7 @@
 
             <Button
                 android:id="@+id/didNotShopButton"
-                style="@style/formButton"
+                style="@style/didNotShopButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableLeft="@drawable/ic_arrow_back_white_24dp"
