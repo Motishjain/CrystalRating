@@ -2,8 +2,10 @@ package com.admin.crystalrating;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.admin.constants.AppConstants;
@@ -95,6 +97,22 @@ public class RewardDisplayActivity extends BaseActivity {
         Intent homePage = new Intent(RewardDisplayActivity.this, HomePageActivity.class);
         homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(homePage);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                Intent homePage = new Intent(RewardDisplayActivity.this, HomePageActivity.class);
+                homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homePage);
+            }
+        }, 3*60*1000);
     }
 
     @Override
