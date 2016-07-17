@@ -51,6 +51,7 @@
     <dimen name="base200">400dp</dimen>
     <dimen name="base250">500dp</dimen>
     <dimen name="base300">600dp</dimen>
+    <dimen name="base500">500dp</dimen>
 
     <dimen name="font12">24sp</dimen>
     <dimen name="font13">26sp</dimen>
